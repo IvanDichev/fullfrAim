@@ -9,6 +9,7 @@ namespace PhotoContest.Web
     {
         public static void Main(string[] args)
         {
+            // Configure Logging for application.
             Log.Logger = new LoggerConfiguration()
                 .WriteTo.Console()
                 .WriteTo.File(path: "Logs\\LoggedInformation.txt",
