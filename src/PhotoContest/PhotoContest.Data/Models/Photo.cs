@@ -1,4 +1,5 @@
 ﻿using PhotoContest.Data.Base;
+using System.Collections.Generic;
 
 namespace PhotoContest.Data.Models
 {
@@ -11,5 +12,7 @@ namespace PhotoContest.Data.Models
 
         public int ContestId { get; set; }
         public Contest Contest { get; set; }
+
+        public ICollection<PhotoReview> PhotoReviews { get; set; }
     }
 }

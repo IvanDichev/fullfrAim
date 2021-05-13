@@ -29,5 +29,7 @@ namespace PhotoContest.Data.Models
         public UserContest UserContest { get; set; }
 
         public ICollection<Photo> Photos { get; set; }
+
+        public ICollection<PhotoReview> PhotoReviews { get; set; }
     }
 }

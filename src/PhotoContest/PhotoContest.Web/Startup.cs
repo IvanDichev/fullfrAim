@@ -1,8 +1,10 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using PhotoContest.Data;
 
 namespace PhotoContest.Web
 {
@@ -17,6 +19,9 @@ namespace PhotoContest.Web
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDbContext<PCDbContext>(options =>
+            options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+                
             services.AddControllersWithViews();
             services.AddControllers();
         }
@@ -34,7 +39,7 @@ namespace PhotoContest.Web
             }
 
             app.UseHttpsRedirection();
-            app.UseStaticFiles();
+            app.UseStaticFiles(); 
 
             app.UseRouting();
 
