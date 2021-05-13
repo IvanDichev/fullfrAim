@@ -1,4 +1,5 @@
 ﻿using PhotoContest.Data.Base;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace PhotoContest.Data.Models
@@ -22,6 +23,9 @@ namespace PhotoContest.Data.Models
         public int ContestTypeId { get; set; }
         public ContestType ContestType { get; set; }
 
+        public int UserContestId { get; set; }
+        public UserContest UserContest { get; set; }
 
+        public ICollection<Photo> Photos { get; set; }
     }
 }

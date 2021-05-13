@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace PhotoContest.Data.Models
@@ -23,5 +24,10 @@ namespace PhotoContest.Data.Models
 
         public bool IsDeleted { get; set; }
         public DateTime? DeletedOn { get; set; }
+
+        public int UserContestId { get; set; }
+        public UserContest UserContest { get; set; }
+
+        public ICollection<Photo> Photos { get; set; }
     }
 }
