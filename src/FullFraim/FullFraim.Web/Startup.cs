@@ -73,7 +73,7 @@ namespace FullFraim.Web
 
             app.UseSwaggerUI(c =>
             {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "FullFraime");
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "FullFraim");
             });
 
             app.UseEndpoints(endpoints =>
