@@ -34,7 +34,7 @@ namespace FullFraim.Web
                 c.SwaggerDoc("v1", new OpenApiInfo
                 {
                     Version = "v1",
-                    Title = "FullFraime - API",
+                    Title = "FullFraim - API",
                     Description = "Public REST-API providing services for photo contest.",
                     TermsOfService = new Uri("https://example.com/terms"),
                     Contact = new OpenApiContact
