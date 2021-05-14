@@ -45,10 +45,6 @@ namespace PhotoContest.Data.Migrations
                     FirstName = table.Column<string>(maxLength: 20, nullable: false),
                     LastName = table.Column<string>(maxLength: 20, nullable: false),
                     Points = table.Column<long>(nullable: false),
-                    CreatedOn = table.Column<DateTime>(nullable: false),
-                    ModifiedOn = table.Column<DateTime>(nullable: true),
-                    IsDeleted = table.Column<bool>(nullable: false),
-                    DeletedOn = table.Column<DateTime>(nullable: true),
                     UserContestId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
@@ -83,7 +79,7 @@ namespace PhotoContest.Data.Migrations
                     ModifiedOn = table.Column<DateTime>(nullable: true),
                     IsDeleted = table.Column<bool>(nullable: false),
                     DeletedOn = table.Column<DateTime>(nullable: true),
-                    Name = table.Column<string>(nullable: true)
+                    Name = table.Column<string>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -224,7 +220,8 @@ namespace PhotoContest.Data.Migrations
                     IsDeleted = table.Column<bool>(nullable: false),
                     DeletedOn = table.Column<DateTime>(nullable: true),
                     Name = table.Column<string>(maxLength: 20, nullable: false),
-                    Description = table.Column<string>(nullable: true),
+                    Cover_Url = table.Column<string>(nullable: true),
+                    Description = table.Column<string>(nullable: false),
                     PhaseId = table.Column<int>(nullable: false),
                     ContestCategoryId = table.Column<int>(nullable: false),
                     ContestTypeId = table.Column<int>(nullable: false),
@@ -263,6 +260,8 @@ namespace PhotoContest.Data.Migrations
                     ModifiedOn = table.Column<DateTime>(nullable: true),
                     IsDeleted = table.Column<bool>(nullable: false),
                     DeletedOn = table.Column<DateTime>(nullable: true),
+                    Name = table.Column<string>(maxLength: 20, nullable: false),
+                    Url = table.Column<string>(nullable: false),
                     UserId = table.Column<int>(nullable: false),
                     ContestId = table.Column<int>(nullable: false)
                 },
@@ -294,7 +293,7 @@ namespace PhotoContest.Data.Migrations
                     ModifiedOn = table.Column<DateTime>(nullable: true),
                     IsDeleted = table.Column<bool>(nullable: false),
                     DeletedOn = table.Column<DateTime>(nullable: true),
-                    Score = table.Column<int>(nullable: false)
+                    Score = table.Column<long>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -323,8 +322,8 @@ namespace PhotoContest.Data.Migrations
                     ModifiedOn = table.Column<DateTime>(nullable: true),
                     IsDeleted = table.Column<bool>(nullable: false),
                     DeletedOn = table.Column<DateTime>(nullable: true),
-                    Score = table.Column<int>(nullable: false),
-                    Comment = table.Column<int>(nullable: false),
+                    Comment = table.Column<string>(nullable: false),
+                    Score = table.Column<long>(nullable: false),
                     Checkbox = table.Column<bool>(nullable: false),
                     PhotoId = table.Column<int>(nullable: false),
                     UserId = table.Column<int>(nullable: false)

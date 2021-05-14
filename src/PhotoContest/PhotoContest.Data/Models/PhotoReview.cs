@@ -1,11 +1,16 @@
 ﻿using PhotoContest.Data.Base;
+using System.ComponentModel.DataAnnotations;
 
 namespace PhotoContest.Data.Models
 {
     public class PhotoReview : DeletableEntity<int>
     {
-        public int Score { get; set; }
-        public int Comment { get; set; }
+        [Required]
+        public string Comment { get; set; }
+
+        [Range(0, 10)]
+        public uint Score { get; set; }
+
         public bool Checkbox { get; set; }
 
         public int PhotoId { get; set; }

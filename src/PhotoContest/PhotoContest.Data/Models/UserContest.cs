@@ -1,4 +1,5 @@
 ﻿using PhotoContest.Data.Base;
+using System.ComponentModel.DataAnnotations;
 
 namespace PhotoContest.Data.Models
 {
@@ -10,6 +11,7 @@ namespace PhotoContest.Data.Models
         public int ContestId { get; set; }
         public Contest Contest { get; set; }
 
-        public int Score { get; set; }
+        [Range(0, 10)]
+        public uint Score { get; set; }
     }
 }

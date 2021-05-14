@@ -162,6 +162,9 @@ namespace PhotoContest.Data.Migrations
                     b.Property<int>("ContestTypeId")
                         .HasColumnType("int");
 
+                    b.Property<string>("Cover_Url")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnType("datetime2");
 
@@ -169,6 +172,7 @@ namespace PhotoContest.Data.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Description")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("IsDeleted")
@@ -248,6 +252,7 @@ namespace PhotoContest.Data.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Name")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
@@ -306,6 +311,15 @@ namespace PhotoContest.Data.Migrations
                     b.Property<DateTime?>("ModifiedOn")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(20)")
+                        .HasMaxLength(20);
+
+                    b.Property<string>("Url")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("UserId")
                         .HasColumnType("int");
 
@@ -328,8 +342,9 @@ namespace PhotoContest.Data.Migrations
                     b.Property<bool>("Checkbox")
                         .HasColumnType("bit");
 
-                    b.Property<int>("Comment")
-                        .HasColumnType("int");
+                    b.Property<string>("Comment")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnType("datetime2");
@@ -346,8 +361,8 @@ namespace PhotoContest.Data.Migrations
                     b.Property<int>("PhotoId")
                         .HasColumnType("int");
 
-                    b.Property<int>("Score")
-                        .HasColumnType("int");
+                    b.Property<long>("Score")
+                        .HasColumnType("bigint");
 
                     b.Property<int>("UserId")
                         .HasColumnType("int");
@@ -375,12 +390,6 @@ namespace PhotoContest.Data.Migrations
                         .IsConcurrencyToken()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime>("CreatedOn")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime?>("DeletedOn")
-                        .HasColumnType("datetime2");
-
                     b.Property<string>("Email")
                         .HasColumnType("nvarchar(256)")
                         .HasMaxLength(256);
@@ -393,9 +402,6 @@ namespace PhotoContest.Data.Migrations
                         .HasColumnType("nvarchar(20)")
                         .HasMaxLength(20);
 
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
                     b.Property<string>("LastName")
                         .IsRequired()
                         .HasColumnType("nvarchar(20)")
@@ -406,9 +412,6 @@ namespace PhotoContest.Data.Migrations
 
                     b.Property<DateTimeOffset?>("LockoutEnd")
                         .HasColumnType("datetimeoffset");
-
-                    b.Property<DateTime?>("ModifiedOn")
-                        .HasColumnType("datetime2");
 
                     b.Property<string>("NormalizedEmail")
                         .HasColumnType("nvarchar(256)")
@@ -479,8 +482,8 @@ namespace PhotoContest.Data.Migrations
                     b.Property<DateTime?>("ModifiedOn")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("Score")
-                        .HasColumnType("int");
+                    b.Property<long>("Score")
+                        .HasColumnType("bigint");
 
                     b.HasKey("UserId", "ContestId");
 

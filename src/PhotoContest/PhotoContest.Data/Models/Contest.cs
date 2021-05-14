@@ -10,8 +10,9 @@ namespace PhotoContest.Data.Models
         [StringLength(maximumLength: 20)]
         public string Name { get; set; }
 
-        //TODO: Implement Image_URL
+        public string Cover_Url { get; set; }
 
+        [Required]
         public string Description { get; set; }
 
         public int PhaseId { get; set; }

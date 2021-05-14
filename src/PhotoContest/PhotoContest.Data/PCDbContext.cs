@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using PhotoContest.Data.Models;
+using System.Reflection;
 
 namespace PhotoContest.Data
 {
@@ -19,14 +20,8 @@ namespace PhotoContest.Data
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
-            builder.Entity<PhotoReview>()
-                .HasOne(r => r.User)
-                .WithMany(u => u.PhotoReviews)
-                .OnDelete(DeleteBehavior.NoAction);
-
             builder
-                .Entity<UserContest>()
-                .HasKey(k => new { k.UserId, k.ContestId });
+                .ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
 
             base.OnModelCreating(builder);
         }
