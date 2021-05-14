@@ -10,8 +10,5 @@ namespace PhotoContest.Data.Models
 
         public int ContestId { get; set; }
         public Contest Contest { get; set; }
-
-        [Range(0, 10)]
-        public uint Score { get; set; }
     }
 }

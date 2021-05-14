@@ -23,9 +23,8 @@ namespace PhotoContest.Data.Models
 
         public int ContestTypeId { get; set; }
         public ContestType ContestType { get; set; }
-
-        public int UserContestId { get; set; }
-        public UserContest UserContest { get; set; }
+        
+        public ICollection<UserContest> UserContests { get; set; }
 
         public ICollection<Photo> Photos { get; set; }
     }
