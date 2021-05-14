@@ -6,6 +6,9 @@ namespace FullFraim.Web.Controllers.ApiControllers
     [Route("api/[Controller]")]
     public class HomeController : ControllerBase
     {
+        /// <summary>
+        /// Testing API
+        /// </summary>
         [HttpGet]
         public IActionResult Get()
         {
