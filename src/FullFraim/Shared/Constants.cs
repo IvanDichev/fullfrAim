@@ -4,11 +4,6 @@
     {
         public static class UserSeed
         {
-            public const string FirstName = "I.B.V.";
-            public const string LastName = "Admins";
-            public const string UserName = "admin@fullfraim.com";
-            public const string Email = "admin@fullfraim.com";
-            public const string Password = "IAmTheAdmin";
         }
 
         public static class RolesSeed

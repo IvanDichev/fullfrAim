@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using Microsoft.Extensions.Configuration;
 using Shared;
 using System;
 
@@ -10,6 +11,13 @@ namespace FullFraim.Data.Seed
     public class UserSeed : IEntityTypeConfiguration<User>, 
         IEntityTypeConfiguration<IdentityUserRole<int>>
     {
+        private readonly IConfiguration configuration;
+
+        public UserSeed(IConfiguration configuration)
+        {
+            this.configuration = configuration;
+        }
+
         public void Configure(EntityTypeBuilder<User> builder)
         {
             var passHasher = new PasswordHasher<User>();
@@ -17,17 +25,17 @@ namespace FullFraim.Data.Seed
             var user = new User()
             {
                 Id = 1,
-                FirstName = Constants.UserSeed.FirstName,
-                LastName = Constants.UserSeed.LastName,
-                UserName = Constants.UserSeed.UserName,
-                NormalizedUserName = Constants.UserSeed.UserName.ToUpper(),
-                Email = Constants.UserSeed.Email,
-                NormalizedEmail = Constants.UserSeed.UserName.ToUpper(),
+                FirstName = this.configuration["AccountAdminInfo:UserName"],
+                LastName = this.configuration["AccountAdminInfo:LastName"],
+                UserName = this.configuration["AccountAdminInfo:UserName"],
+                NormalizedUserName = this.configuration["AccountAdminInfo:UserName"].ToUpper(),
+                Email = this.configuration["AccountAdminInfo:Email"],
+                NormalizedEmail = this.configuration["AccountAdminInfo:UserName"].ToUpper(),
                 SecurityStamp = Guid.NewGuid().ToString(),
             };
 
             user.PasswordHash = passHasher
-                .HashPassword(user, Constants.UserSeed.Password);
+                .HashPassword(user, this.configuration["AccountAdminInfo:Password"]);
 
             builder
                 .HasData(user);

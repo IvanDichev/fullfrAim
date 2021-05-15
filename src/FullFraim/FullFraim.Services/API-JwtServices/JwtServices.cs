@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Options;
+﻿using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using Shared;
 using System;
@@ -11,10 +12,12 @@ namespace FullFraim.Services.API_JwtServices
     public class JwtServices : IJwtServices
     {
         private readonly IOptions<JwtSettings> options;
+        private readonly IConfiguration configuration;
 
-        public JwtServices(IOptions<JwtSettings> options)
+        public JwtServices(IOptions<JwtSettings> options, IConfiguration configuration)
         {
             this.options = options;
+            this.configuration = configuration;
         }
 
         public string Login(string username, string password)
@@ -29,7 +32,7 @@ namespace FullFraim.Services.API_JwtServices
                 Subject = new ClaimsIdentity(new[]
                 {
                         new Claim(ClaimTypes.Role, Constants.RolesSeed.Admin),
-                        new Claim(ClaimTypes.Name, Constants.UserSeed.Email),
+                        new Claim(ClaimTypes.Name, this.configuration["AccountAdminInfo:Email"]),
                         new Claim(ClaimTypes.NameIdentifier, Guid.NewGuid().ToString())
                     }),
                 SigningCredentials = new SigningCredentials(
