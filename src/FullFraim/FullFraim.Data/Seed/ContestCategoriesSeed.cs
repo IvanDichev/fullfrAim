@@ -1,4 +1,5 @@
 ﻿using FullFraim.Data.Models;
+using Shared;
 using System.Collections.Generic;
 
 namespace FullFraim.Data.Seed
@@ -9,51 +10,63 @@ namespace FullFraim.Data.Seed
         {
            new ContestCategory()
            {
-              Name = "Abstract"
+              Id = 1,
+              Name = Constants.ConstestCategorySeed.Abstract
            },
            new ContestCategory()
            {
-              Name = "Architecture"
+               Id = 2,
+              Name = Constants.ConstestCategorySeed.Architecture
            },
            new ContestCategory()
            {
-              Name = "Conceptual"
+               Id = 3,
+              Name = Constants.ConstestCategorySeed.Conceptual
            },
            new ContestCategory()
            {
-              Name = "Fashion/Beauty"
-           },
-           new ContestCategory()
-           { 
-              Name = "Fine Art"
+               Id = 4,
+              Name = Constants.ConstestCategorySeed.Fashion_Beauty
            },
            new ContestCategory()
            {
-              Name = "Landscapes"
+               Id = 5,
+              Name = Constants.ConstestCategorySeed.Fine_Art
            },
            new ContestCategory()
            {
-              Name = "Nature"
+               Id = 6,
+              Name = Constants.ConstestCategorySeed.Landscapes
            },
            new ContestCategory()
            {
-              Name = "Nude"
+               Id = 7,
+              Name = Constants.ConstestCategorySeed.Nature
            },
            new ContestCategory()
            {
-              Name = "Photojournalism"
+               Id = 8,
+              Name = Constants.ConstestCategorySeed.Nude
            },
            new ContestCategory()
            {
-              Name = "Portrait"
+               Id = 9,
+              Name = Constants.ConstestCategorySeed.Photojournalism
            },
            new ContestCategory()
            {
-              Name = "Street"
+               Id = 10,
+              Name = Constants.ConstestCategorySeed.Portrait
            },
            new ContestCategory()
            {
-              Name = "Wildlife"
+               Id = 11,
+              Name = Constants.ConstestCategorySeed.Street
+           },
+           new ContestCategory()
+           {
+               Id = 12,
+              Name = Constants.ConstestCategorySeed.Wildlife
            }
         };
     }
