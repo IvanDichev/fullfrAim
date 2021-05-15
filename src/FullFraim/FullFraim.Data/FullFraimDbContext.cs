@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using FullFraim.Data.Models;
 using System.Reflection;
+using FullFraim.Data.Seed;
 
 namespace FullFraim.Data
 {

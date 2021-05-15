@@ -4,4 +4,13 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Folder Include="ContestService\" />
+    <Folder Include="ContestTypeService\" />
+    <Folder Include="UserContestService\" />
+    <Folder Include="UserService\" />
+    <Folder Include="PhotoService\" />
+    <Folder Include="PhaseService\" />
+  </ItemGroup>
+
 </Project>
