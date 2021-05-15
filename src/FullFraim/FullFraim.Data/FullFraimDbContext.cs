@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using FullFraim.Data.Models;
 using System.Reflection;
+using FullFraim.Data.Seed;
 
 namespace FullFraim.Data
 {
@@ -20,6 +21,8 @@ namespace FullFraim.Data
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
+            builder.Seed();
+
             builder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
 
             base.OnModelCreating(builder);
