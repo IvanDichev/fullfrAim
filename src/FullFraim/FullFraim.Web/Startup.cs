@@ -1,8 +1,10 @@
 using FullFraim.Data;
+using FullFraim.Data.Models;
 using FullFraim.Services.API_JwtServices;
 using FullFraim.Web.Configurations.StartupConfig;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -26,6 +28,9 @@ namespace FullFraim.Web
 
             services.AddControllersWithViews();
             services.AddControllers();
+
+            services.AddIdentity<User, IdentityRole<int>>()
+                .AddEntityFrameworkStores<FullFraimDbContext>();
 
             services.AddScoped<IJwtServices, JwtServices>();
 

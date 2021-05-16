@@ -1,7 +1,16 @@
-﻿using FullFraim.Services.API_JwtServices;
+﻿using FullFraim.Data.Models;
+using FullFraim.Services.API_JwtServices;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
+using Microsoft.IdentityModel.Tokens;
 using Shared;
+using System;
+using System.Collections.Generic;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace FullFraim.Web.Controllers.ApiControllers
 {
@@ -11,23 +20,38 @@ namespace FullFraim.Web.Controllers.ApiControllers
     {
         private readonly IJwtServices jwtServices;
         private readonly IConfiguration configuration;
+        private readonly SignInManager<User> signInManager;
+        private readonly UserManager<User> userManager;
 
-        public AccountController(IJwtServices jwtServices, IConfiguration configuration)
+        public AccountController(IJwtServices jwtServices, 
+            IConfiguration configuration, SignInManager<User> signInManager,
+            UserManager<User> userManager)
         {
             this.jwtServices = jwtServices;
             this.configuration = configuration;
+            this.signInManager = signInManager;
+            this.userManager = userManager;
         }
 
         [HttpGet("[action]")]
-        public ActionResult<string> Login(string username, string password)
+        public async Task<IActionResult> Login(string UserName, string Password)
         {
-            if (username == configuration["AccountAdminInfo:UserName"] 
-                && password == configuration["AccountAdminInfo:Password"])
+            User user = await userManager.FindByNameAsync(UserName);
+            if (user != null && await userManager.CheckPasswordAsync(user, Password))
             {
-                return this.jwtServices.Login(username, password);
-            }
+                var userRoles = await userManager.GetRolesAsync(user);
 
-            return this.Forbid();
+                var jwt = this.jwtServices.Login(user.UserName, userRoles);
+
+                return Ok(jwt);
+            }
+            return Unauthorized();
+        }
+
+        [HttpGet]
+        public ActionResult WhoAmI()
+        {
+            return Ok("UserName" + this.User.Identity.Name);
         }
     }
 }

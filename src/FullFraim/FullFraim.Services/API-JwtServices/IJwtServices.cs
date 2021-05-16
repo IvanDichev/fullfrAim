@@ -6,6 +6,6 @@ namespace FullFraim.Services.API_JwtServices
 {
     public interface IJwtServices
     {
-        string Login(string username, string password);
+        string Login(string username, ICollection<string> roles);
     }
 }
