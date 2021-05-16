@@ -1,5 +1,6 @@
 using FullFraim.Data;
 using FullFraim.Services.API_JwtServices;
+using FullFraim.Services.PhotoService;
 using FullFraim.Web.Configurations.StartupConfig;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -28,6 +29,7 @@ namespace FullFraim.Web
             services.AddControllers();
 
             services.AddScoped<IJwtServices, JwtServices>();
+            services.AddScoped<IPhotoService, PhotoService>();
 
             JwtConfig.Configure(services, Configuration);
 
