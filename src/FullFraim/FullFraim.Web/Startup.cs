@@ -1,14 +1,12 @@
+using FullFraim.Data;
+using FullFraim.Services.API_JwtServices;
+using FullFraim.Web.Configurations.StartupConfig;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using FullFraim.Data;
-using Microsoft.OpenApi.Models;
-using System;
-using System.IO;
-using System.Reflection;
 
 namespace FullFraim.Web
 {
@@ -25,29 +23,16 @@ namespace FullFraim.Web
         {
             services.AddDbContext<FullFraimDbContext>(options =>
             options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
-                
+
             services.AddControllersWithViews();
             services.AddControllers();
 
-            services.AddSwaggerGen(c =>
-            {
-                c.SwaggerDoc("v1", new OpenApiInfo
-                {
-                    Version = "v1",
-                    Title = "FullFraim - API",
-                    Description = "Public REST-API providing services for photo contest.",
-                    TermsOfService = new Uri("https://example.com/terms"),
-                    Contact = new OpenApiContact
-                    {
-                        Name = "Dream Team",
-                        Email = "DreamTeam@gmail.com",
-                    }, 
-                });
+            services.AddScoped<IJwtServices, JwtServices>();
 
-                var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
-                var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
-                c.IncludeXmlComments(xmlPath);
-            });
+            JwtConfig.Configure(services, Configuration);
+
+            SwaggerConfig.Configure(services);
+
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -63,10 +48,11 @@ namespace FullFraim.Web
             }
 
             app.UseHttpsRedirection();
-            app.UseStaticFiles(); 
+            app.UseStaticFiles();
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseSwagger();
