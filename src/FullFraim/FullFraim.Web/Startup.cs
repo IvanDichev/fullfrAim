@@ -36,7 +36,7 @@ namespace FullFraim.Web
             services.AddScoped<IJwtServices, JwtServices>();
             services.AddTransient<APIExceptionFilter>();
 
-            JwtConfig.Configure(services, Configuration);
+            AuthenticationConfig.ConfigureWith_Jwt(services, Configuration);
 
             SwaggerConfig.Configure(services);
 

@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.Extensions.Logging;
+using Shared;
 using System;
 
 namespace FullFraim.Web.Filters
@@ -25,9 +26,14 @@ namespace FullFraim.Web.Filters
             if(exception is ArgumentNullException)
             {
                 context.Result = new ContentResult() 
-                { Content = "BadRequest", StatusCode = 400 };
+                { Content = Constants.Exceptions.ArgumentNull_Content, StatusCode = 400 };
 
             }
+            /*else if(exception is Exception)
+            {
+                context.Result = new ContentResult()
+                { Content = Constants.Exceptions.Server500_Content, StatusCode = 500 };
+            }*/
 
             logger.LogError(exMessage, source);
         }

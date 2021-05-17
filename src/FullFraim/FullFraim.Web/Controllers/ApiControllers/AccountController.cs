@@ -18,9 +18,9 @@ namespace FullFraim.Web.Controllers.ApiControllers
         }
 
         [HttpGet()]
-        public async Task<IActionResult> Login(string userName, string password)
+        public async Task<IActionResult> Login([FromBody] InputLoginModel_API model)
         {
-            var result = await this.jwtServices.Login(userName, password);
+            var result = await this.jwtServices.Login(model);
 
             if (result != null)
             {
@@ -32,7 +32,7 @@ namespace FullFraim.Web.Controllers.ApiControllers
 
         [HttpPost("[action]")]
         [ServiceFilter(typeof(APIExceptionFilter))]
-        public async Task<IActionResult> Register([FromBody] RegisterInputModel model)
+        public async Task<IActionResult> Register([FromBody] RegisterInputModel_API model)
         {
             if (ModelState.IsValid)
             {

@@ -26,8 +26,12 @@ namespace FullFraim.Services.API_JwtServices
             this.userManager = userManager;
         }
 
-        public async Task<string> Login(string userName, string password)
+        public async Task<OutputLoginModel_API> Login(InputLoginModel_API model)
         {
+            var userName = model.UserName;
+            var password = model.Password;
+
+            //ToDO: Implement through another service
             User user = await userManager.FindByNameAsync(userName);
 
             if( user == null || 
@@ -35,7 +39,8 @@ namespace FullFraim.Services.API_JwtServices
             {
                 return null;
             }
-
+            ////
+            
             var secret = this.options.Value.Secret;
             var key = Encoding.UTF8.GetBytes(secret);
 
@@ -48,7 +53,6 @@ namespace FullFraim.Services.API_JwtServices
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
             };
             
-
             var tokenHandler = new JwtSecurityTokenHandler();
             var token = new JwtSecurityToken(
                     expires: DateTime.Now.AddMinutes(15),
@@ -59,16 +63,23 @@ namespace FullFraim.Services.API_JwtServices
                     );
 
             var jwt = tokenHandler.WriteToken(token);
-            return jwt;
+
+            return new OutputLoginModel_API() { UserName = userName, JwtToken = jwt };
         }
 
-        public async Task<bool> Register(RegisterInputModel model)
+        public async Task<bool> Register(RegisterInputModel_API model)
         {
-            var user = new User { UserName = model.Email, Email = model.Email };
-            var result = await userManager.CreateAsync(user, model.Password);
+            //TODO: Implement throught another service
+
+            var email = model.Email;
+            var password = model.Password;
+
+            var user = new User { UserName = email, Email = email };
+            var result = await userManager.CreateAsync(user, password);
 
             await this.userManager
                 .AddToRoleAsync(user, Constants.RolesSeed.Participant);
+            ///
 
             return result.Succeeded;
         }

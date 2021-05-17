@@ -2,17 +2,13 @@
 
 namespace FullFraim.Models.Dto_s.AccountAPI
 {
-    public class RegisterInputModel
+    public class InputLoginModel_API
     {
         [Required]
         [EmailAddress]
-        public string Email { get; set; }
+        public string Username { get; set; }
 
         [Required]
         public string Password { get; set; }
-
-        [Required]
-        [Compare(nameof(Password))]
-        public string ConfirmPassword { get; set; }
     }
 }
