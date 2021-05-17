@@ -5,7 +5,7 @@ namespace FullFraim.Data.Seed
 {
     public static class UserContestsSeed
     {
-        public static readonly List<UserContest> SeedData = new List<UserContest>()
+        public static readonly List<ParticipantContest> SeedData = new List<ParticipantContest>()
         { };
     }
 }
