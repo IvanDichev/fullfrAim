@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Utilities.CloudinaryUtils;
 
 namespace FullFraim.Web
 {
@@ -28,6 +29,7 @@ namespace FullFraim.Web
             services.AddControllers();
 
             services.AddScoped<IJwtServices, JwtServices>();
+            services.AddTransient<ICloudinaryService, CloudinaryService>();
 
             JwtConfig.Configure(services, Configuration);
 

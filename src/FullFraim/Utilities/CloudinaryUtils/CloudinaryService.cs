@@ -7,13 +7,13 @@ using System.Threading.Tasks;
 
 namespace Utilities.CloudinaryUtils
 {
-    public class GetCloudinary
+    public class CloudinaryService : ICloudinaryService
     {
         private readonly IConfiguration config;
         private readonly Account account;
         private readonly Cloudinary cloudinary;
 
-        public GetCloudinary(IConfiguration config)
+        public CloudinaryService(IConfiguration config)
         {
             this.config = config;
 
@@ -25,7 +25,7 @@ namespace Utilities.CloudinaryUtils
             this.cloudinary = new Cloudinary(account);
         }
 
-        public async Task<string> UploadFileAs(IFormFile file, string extention = ".png")
+        public string UploadImage(IFormFile file, string extention = ".png")
         {
             string filePath = Guid.NewGuid().ToString();
 
@@ -35,7 +35,12 @@ namespace Utilities.CloudinaryUtils
                 Overwrite = true,
             };
 
-            var uploadResult = await this.cloudinary.UploadAsync(uploadParams);
+            var uploadResult = this.cloudinary.Upload(uploadParams);
+
+            if (uploadResult.Error != null)
+            {
+                throw new ArgumentException(); // couldn't upload image
+            }
 
             return uploadResult.SecureUrl.AbsoluteUri;
         }
