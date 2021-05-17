@@ -1,5 +1,6 @@
 using FullFraim.Data;
 using FullFraim.Data.Models;
+using FullFraim.Models;
 using FullFraim.Services.API_JwtServices;
 using FullFraim.Web.Configurations.StartupConfig;
 using FullFraim.Web.Filters;
