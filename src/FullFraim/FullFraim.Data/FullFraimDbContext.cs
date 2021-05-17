@@ -18,6 +18,9 @@ namespace FullFraim.Data
         public DbSet<Phase> Phases { get; set; }
         public DbSet<Photo> Photos { get; set; }
         public DbSet<PhotoReview> PhotoReviews { get; set; }
+        public DbSet<ContestPhase> ContestPhases { get; set; }
+        public DbSet<JuryContest> JuryContests { get; set; }
+        public DbSet<ParticipantContest> ParticipantContests { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

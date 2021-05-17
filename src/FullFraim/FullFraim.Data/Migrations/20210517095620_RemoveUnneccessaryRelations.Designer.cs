@@ -4,14 +4,16 @@ using FullFraim.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace FullFraim.Data.Migrations
 {
     [DbContext(typeof(FullFraimDbContext))]
-    partial class FullFraimDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210517095620_RemoveUnneccessaryRelations")]
+    partial class RemoveUnneccessaryRelations
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -321,8 +323,7 @@ namespace FullFraim.Data.Migrations
 
                     b.HasIndex("ContestId");
 
-                    b.HasIndex("PhotoId")
-                        .IsUnique();
+                    b.HasIndex("PhotoId");
 
                     b.ToTable("ParticipantContests");
                 });
@@ -579,35 +580,35 @@ namespace FullFraim.Data.Migrations
                         new
                         {
                             Id = 1,
-                            ConcurrencyStamp = "ff3fb9e7-4c0f-482a-97db-e4ff922dede4",
+                            ConcurrencyStamp = "afdc9bc9-8a43-4b80-946d-1fd661979a79",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
                             Id = 2,
-                            ConcurrencyStamp = "8280e00f-461f-48f4-86c1-141d56806592",
+                            ConcurrencyStamp = "4f175d68-fccd-4b1b-b822-baf1f6c54bcc",
                             Name = "Organizer",
                             NormalizedName = "ORGANIZER"
                         },
                         new
                         {
                             Id = 3,
-                            ConcurrencyStamp = "18d7c3ee-5cc0-40a6-a850-e83bdf8288bf",
+                            ConcurrencyStamp = "2ffb8ef8-2a72-4b44-a733-182eafe9db2e",
                             Name = "Jury",
                             NormalizedName = "JURY"
                         },
                         new
                         {
                             Id = 4,
-                            ConcurrencyStamp = "6d7766f1-5d03-4320-96d3-4950233f0244",
+                            ConcurrencyStamp = "bfd22c87-58bc-4573-8698-76fa8c1aaeb6",
                             Name = "Participant",
                             NormalizedName = "PARTICIPANT"
                         },
                         new
                         {
                             Id = 5,
-                            ConcurrencyStamp = "9a503fa8-4eb5-449d-b0b1-cb683850fb97",
+                            ConcurrencyStamp = "e33c6129-9ae1-451a-89fe-c187a1a69d1f",
                             Name = "PhotoMaster",
                             NormalizedName = "PHOTOMASTER"
                         });
@@ -768,8 +769,8 @@ namespace FullFraim.Data.Migrations
                         .IsRequired();
 
                     b.HasOne("FullFraim.Data.Models.Photo", "Photo")
-                        .WithOne("Participant")
-                        .HasForeignKey("FullFraim.Data.Models.ParticipantContest", "PhotoId")
+                        .WithMany()
+                        .HasForeignKey("PhotoId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 

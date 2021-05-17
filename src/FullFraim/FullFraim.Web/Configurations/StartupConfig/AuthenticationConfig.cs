@@ -7,9 +7,9 @@ using System.Text;
 
 namespace FullFraim.Web.Configurations.StartupConfig
 {
-    public static class JwtConfig
+    public static class AuthenticationConfig
     {
-        public static void Configure(IServiceCollection services, 
+        public static void ConfigureWith_Jwt(IServiceCollection services, 
             IConfiguration configuration)
         {
             var jwtSettingsSection = configuration

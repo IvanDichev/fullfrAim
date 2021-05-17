@@ -12,13 +12,11 @@ namespace FullFraim.Web.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
-        private readonly IPhotoService photoService;
+        private readonly ILogger<HomeController> logger;
 
         public HomeController(ILogger<HomeController> logger, IPhotoService photoService)
         {
-            _logger = logger;
-            this.photoService = photoService;
+            this.logger = logger;
         }
 
         public async Task<IActionResult> Index()

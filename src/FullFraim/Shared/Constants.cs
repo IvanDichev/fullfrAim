@@ -43,5 +43,12 @@
             public const string Open = "Open";
             public const string Invitational = "Invitational";
         }
+
+        //Exception constants
+        public class Exceptions
+        {
+            public const string ArgumentNull_Content = "BadRequest";
+            public const string Server500_Content = "Something went wrong";
+        }
     }
 }

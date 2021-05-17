@@ -1,9 +1,13 @@
 using FullFraim.Data;
+using FullFraim.Data.Models;
+using FullFraim.Models;
 using FullFraim.Services.API_JwtServices;
 using FullFraim.Services.PhotoService;
 using FullFraim.Web.Configurations.StartupConfig;
+using FullFraim.Web.Filters;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -28,13 +32,16 @@ namespace FullFraim.Web
             services.AddControllersWithViews();
             services.AddControllers();
 
+            services.AddIdentity<User, IdentityRole<int>>()
+                .AddEntityFrameworkStores<FullFraimDbContext>();
+
             services.AddScoped<IJwtServices, JwtServices>();
             services.AddScoped<IPhotoService, PhotoService>();
+            services.AddTransient<APIExceptionFilter>();
 
-            JwtConfig.Configure(services, Configuration);
+            AuthenticationConfig.ConfigureWith_Jwt(services, Configuration);
 
             SwaggerConfig.Configure(services);
-
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
