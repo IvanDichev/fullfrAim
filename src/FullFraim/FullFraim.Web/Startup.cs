@@ -39,7 +39,6 @@ namespace FullFraim.Web
             AuthenticationConfig.ConfigureWith_Jwt(services, Configuration);
 
             SwaggerConfig.Configure(services);
-
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

@@ -28,7 +28,7 @@ namespace FullFraim.Services.API_JwtServices
 
         public async Task<OutputLoginModel_API> Login(InputLoginModel_API model)
         {
-            var userName = model.UserName;
+            var userName = model.Username;
             var password = model.Password;
 
             //ToDO: Implement through another service
@@ -64,7 +64,7 @@ namespace FullFraim.Services.API_JwtServices
 
             var jwt = tokenHandler.WriteToken(token);
 
-            return new OutputLoginModel_API() { UserName = userName, JwtToken = jwt };
+            return new OutputLoginModel_API() { Username = userName, JwtToken = jwt };
         }
 
         public async Task<bool> Register(RegisterInputModel_API model)
