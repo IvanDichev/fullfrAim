@@ -1,11 +1,12 @@
-﻿using System;
+﻿using FullFraim.Models.Dto_s.AccountAPI;
 using System.Collections.Generic;
-using System.Text;
+using System.Threading.Tasks;
 
 namespace FullFraim.Services.API_JwtServices
 {
     public interface IJwtServices
     {
-        string Login(string username, ICollection<string> roles);
+        Task<string> Login(string userName, string password);
+        Task<bool> Register(RegisterInputModel model);
     }
 }

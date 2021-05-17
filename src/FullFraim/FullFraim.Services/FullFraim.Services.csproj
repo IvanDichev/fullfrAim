@@ -10,6 +10,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\FullFraim.Data\FullFraim.Data.csproj" />
+    <ProjectReference Include="..\FullFraim.Models\FullFraim.Models.csproj" />
     <ProjectReference Include="..\Shared\Shared.csproj" />
   </ItemGroup>
 

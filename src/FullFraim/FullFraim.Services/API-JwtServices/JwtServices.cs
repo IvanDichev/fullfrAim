@@ -1,12 +1,13 @@
 ﻿using FullFraim.Data.Models;
-using Microsoft.Extensions.Configuration;
+using FullFraim.Models.Dto_s.AccountAPI;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using Shared;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
+using System.Linq;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,31 +17,41 @@ namespace FullFraim.Services.API_JwtServices
     public class JwtServices : IJwtServices
     {
         private readonly IOptions<JwtSettings> options;
+        private readonly UserManager<User> userManager;
 
-        public JwtServices(IOptions<JwtSettings> options)
+        public JwtServices(IOptions<JwtSettings> options,
+            UserManager<User> userManager)
         {
             this.options = options;
+            this.userManager = userManager;
         }
 
-        public string Login(string UserName, ICollection<string> roles)
+        public async Task<string> Login(string userName, string password)
         {
+            User user = await userManager.FindByNameAsync(userName);
+
+            if( user == null || 
+                !await userManager.CheckPasswordAsync(user, password))
+            {
+                return null;
+            }
+
             var secret = this.options.Value.Secret;
             var key = Encoding.UTF8.GetBytes(secret);
 
-            var authClaims = new List<Claim>
-                {
-                    new Claim(ClaimTypes.Name, UserName),
-                    new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
-                };
+            var userRoles = await userManager.GetRolesAsync(user);
 
-            foreach (var claims in roles)
+            var roleClaims = userRoles.Select(ur => new Claim(ClaimTypes.Role, ur));
+            var authClaims = new List<Claim>(roleClaims)
             {
-                authClaims.Add(new Claim(ClaimTypes.Role, claims));
-            }
+                new Claim(ClaimTypes.Name, userName),
+                new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
+            };
+            
 
             var tokenHandler = new JwtSecurityTokenHandler();
             var token = new JwtSecurityToken(
-                    expires: DateTime.Now.AddHours(3),
+                    expires: DateTime.Now.AddMinutes(15),
                     claims: authClaims,
                     signingCredentials: new SigningCredentials(
                     new SymmetricSecurityKey(key),
@@ -49,6 +60,17 @@ namespace FullFraim.Services.API_JwtServices
 
             var jwt = tokenHandler.WriteToken(token);
             return jwt;
+        }
+
+        public async Task<bool> Register(RegisterInputModel model)
+        {
+            var user = new User { UserName = model.Email, Email = model.Email };
+            var result = await userManager.CreateAsync(user, model.Password);
+
+            await this.userManager
+                .AddToRoleAsync(user, Constants.RolesSeed.Participant);
+
+            return result.Succeeded;
         }
     }
 }

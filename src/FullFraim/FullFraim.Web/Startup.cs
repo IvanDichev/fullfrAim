@@ -2,6 +2,7 @@ using FullFraim.Data;
 using FullFraim.Data.Models;
 using FullFraim.Services.API_JwtServices;
 using FullFraim.Web.Configurations.StartupConfig;
+using FullFraim.Web.Filters;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
@@ -33,6 +34,7 @@ namespace FullFraim.Web
                 .AddEntityFrameworkStores<FullFraimDbContext>();
 
             services.AddScoped<IJwtServices, JwtServices>();
+            services.AddTransient<APIExceptionFilter>();
 
             JwtConfig.Configure(services, Configuration);
 

@@ -1,15 +1,7 @@
-﻿using FullFraim.Data.Models;
+﻿using FullFraim.Models.Dto_s.AccountAPI;
 using FullFraim.Services.API_JwtServices;
-using Microsoft.AspNetCore.Identity;
+using FullFraim.Web.Filters;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
-using Microsoft.IdentityModel.Tokens;
-using Shared;
-using System;
-using System.Collections.Generic;
-using System.IdentityModel.Tokens.Jwt;
-using System.Security.Claims;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace FullFraim.Web.Controllers.ApiControllers
@@ -19,39 +11,40 @@ namespace FullFraim.Web.Controllers.ApiControllers
     public class AccountController : ControllerBase
     {
         private readonly IJwtServices jwtServices;
-        private readonly IConfiguration configuration;
-        private readonly SignInManager<User> signInManager;
-        private readonly UserManager<User> userManager;
 
-        public AccountController(IJwtServices jwtServices, 
-            IConfiguration configuration, SignInManager<User> signInManager,
-            UserManager<User> userManager)
+        public AccountController(IJwtServices jwtServices)
         {
             this.jwtServices = jwtServices;
-            this.configuration = configuration;
-            this.signInManager = signInManager;
-            this.userManager = userManager;
         }
 
-        [HttpGet("[action]")]
-        public async Task<IActionResult> Login(string UserName, string Password)
+        [HttpGet()]
+        public async Task<IActionResult> Login(string userName, string password)
         {
-            User user = await userManager.FindByNameAsync(UserName);
-            if (user != null && await userManager.CheckPasswordAsync(user, Password))
+            var result = await this.jwtServices.Login(userName, password);
+
+            if (result != null)
             {
-                var userRoles = await userManager.GetRolesAsync(user);
-
-                var jwt = this.jwtServices.Login(user.UserName, userRoles);
-
-                return Ok(jwt);
+                return Ok(result);
             }
+
             return Unauthorized();
         }
 
-        [HttpGet]
-        public ActionResult WhoAmI()
+        [HttpPost("[action]")]
+        [ServiceFilter(typeof(APIExceptionFilter))]
+        public async Task<IActionResult> Register([FromBody] RegisterInputModel model)
         {
-            return Ok("UserName" + this.User.Identity.Name);
+            if (ModelState.IsValid)
+            {
+                var result = await this.jwtServices.Register(model);
+
+                if (result == true)
+                {
+                    return Ok("Registered");
+                }
+            }
+
+            return BadRequest();
         }
     }
 }
