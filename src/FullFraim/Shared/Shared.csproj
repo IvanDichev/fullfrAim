@@ -5,8 +5,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="CustomExceptions\" />
-    <Folder Include="Constants\" />
+    <Compile Remove="Constants\**" />
+    <Compile Remove="CustomExceptions\**" />
+    <EmbeddedResource Remove="Constants\**" />
+    <EmbeddedResource Remove="CustomExceptions\**" />
+    <None Remove="Constants\**" />
+    <None Remove="CustomExceptions\**" />
   </ItemGroup>
 
 </Project>

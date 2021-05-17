@@ -8,10 +8,7 @@ namespace FullFraim.Data.Configurations
     {
         public void Configure(EntityTypeBuilder<PhotoReview> builder)
         {
-            builder
-                .HasOne(r => r.User)
-                .WithMany(u => u.PhotoReviews)
-                .OnDelete(DeleteBehavior.NoAction);
+
         }
     }
 }

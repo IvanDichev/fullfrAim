@@ -13,8 +13,7 @@ namespace FullFraim.Data.Seed
             modelBuilder.Entity<Phase>().HasData(PhasesSeed.SeedData);
             modelBuilder.Entity<PhotoReview>().HasData(PhotoReviewsSeed.SeedData);
             modelBuilder.Entity<Photo>().HasData(PhotosSeed.SeedData);
-            modelBuilder.Entity<UserContest>().HasData(UserContestsSeed.SeedData);
-            modelBuilder.Entity<User>().HasData(UsersSeed.SeedData);
+            modelBuilder.Entity<ParticipantContest>().HasData(ParticipantContestsSeed.SeedData);
         }
     }
 }

@@ -5,12 +5,13 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="ContestService\" />
-    <Folder Include="ContestTypeService\" />
-    <Folder Include="UserContestService\" />
-    <Folder Include="UserService\" />
-    <Folder Include="PhotoService\" />
-    <Folder Include="PhaseService\" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="3.1.9" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\FullFraim.Data\FullFraim.Data.csproj" />
+    <ProjectReference Include="..\FullFraim.Models\FullFraim.Models.csproj" />
+    <ProjectReference Include="..\Shared\Shared.csproj" />
   </ItemGroup>
 
 </Project>
