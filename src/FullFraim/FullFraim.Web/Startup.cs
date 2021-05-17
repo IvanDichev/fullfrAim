@@ -1,6 +1,5 @@
 using FullFraim.Data;
 using FullFraim.Data.Models;
-using FullFraim.Models;
 using FullFraim.Services.API_JwtServices;
 using FullFraim.Web.Configurations.StartupConfig;
 using FullFraim.Web.Filters;
@@ -11,6 +10,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Utilities.Mailing;
 
 namespace FullFraim.Web
 {
@@ -25,6 +25,7 @@ namespace FullFraim.Web
 
         public void ConfigureServices(IServiceCollection services)
         {
+          //  var v = this.Configuration["SendGrid:ApiKey"];
             services.AddDbContext<FullFraimDbContext>(options =>
             options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
@@ -35,6 +36,8 @@ namespace FullFraim.Web
                 .AddEntityFrameworkStores<FullFraimDbContext>();
 
             services.AddScoped<IJwtServices, JwtServices>();
+            services.AddTransient<IEmailSender>(
+                serviceProvider => new SendGridEmailSender(Configuration["SendGrid:ApiKey"]));
             services.AddTransient<APIExceptionFilter>();
 
             AuthenticationConfig.ConfigureWith_Jwt(services, Configuration);
