@@ -1,48 +1,87 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using FullFraim.Data.Models;
+using FullFraim.Models.Dto_s.AccountAPI;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using Shared;
 using System;
+using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
+using System.Linq;
 using System.Security.Claims;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace FullFraim.Services.API_JwtServices
 {
     public class JwtServices : IJwtServices
     {
         private readonly IOptions<JwtSettings> options;
-        private readonly IConfiguration configuration;
+        private readonly UserManager<User> userManager;
 
-        public JwtServices(IOptions<JwtSettings> options, IConfiguration configuration)
+        public JwtServices(IOptions<JwtSettings> options,
+            UserManager<User> userManager)
         {
             this.options = options;
-            this.configuration = configuration;
+            this.userManager = userManager;
         }
 
-        public string Login(string username, string password)
+        public async Task<OutputLoginModel_API> Login(InputLoginModel_API model)
         {
+            var userName = model.Username;
+            var password = model.Password;
+
+            //ToDO: Implement through another service
+            User user = await userManager.FindByNameAsync(userName);
+
+            if( user == null || 
+                !await userManager.CheckPasswordAsync(user, password))
+            {
+                return null;
+            }
+            ////
+            
             var secret = this.options.Value.Secret;
             var key = Encoding.UTF8.GetBytes(secret);
 
-            var tokenHandler = new JwtSecurityTokenHandler();
-            var tokenDescriptor = new SecurityTokenDescriptor
+            var userRoles = await userManager.GetRolesAsync(user);
+
+            var roleClaims = userRoles.Select(ur => new Claim(ClaimTypes.Role, ur));
+            var authClaims = new List<Claim>(roleClaims)
             {
-                Expires = DateTime.UtcNow.AddDays(7),
-                Subject = new ClaimsIdentity(new[]
-                {
-                        new Claim(ClaimTypes.Role, Constants.RolesSeed.Admin),
-                        new Claim(ClaimTypes.Name, this.configuration["AccountAdminInfo:Email"]),
-                        new Claim(ClaimTypes.NameIdentifier, Guid.NewGuid().ToString())
-                    }),
-                SigningCredentials = new SigningCredentials(
+                new Claim(ClaimTypes.Name, userName),
+                new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
+            };
+            
+            var tokenHandler = new JwtSecurityTokenHandler();
+            var token = new JwtSecurityToken(
+                    expires: DateTime.Now.AddMinutes(15),
+                    claims: authClaims,
+                    signingCredentials: new SigningCredentials(
                     new SymmetricSecurityKey(key),
                     SecurityAlgorithms.HmacSha256Signature)
-            };
+                    );
 
-            var token = tokenHandler.CreateToken(tokenDescriptor);
             var jwt = tokenHandler.WriteToken(token);
-            return jwt;
+
+            return new OutputLoginModel_API() { Username = userName, JwtToken = jwt };
+        }
+
+        public async Task<bool> Register(RegisterInputModel_API model)
+        {
+            //TODO: Implement throught another service
+
+            var email = model.Email;
+            var password = model.Password;
+
+            var user = new User { UserName = email, Email = email };
+            var result = await userManager.CreateAsync(user, password);
+
+            await this.userManager
+                .AddToRoleAsync(user, Constants.RolesSeed.Participant);
+            ///
+
+            return result.Succeeded;
         }
     }
 }
