@@ -18,24 +18,20 @@ namespace FullFraim.Web.Filters
         public void OnException(ExceptionContext context)
         {
             var exception = context.Exception;
-
-            var exMessage = context.Exception.Message;
             var source = context.Exception.Source;
-            var stackTrace = context.Exception.StackTrace;
 
-            if(exception is ArgumentNullException)
-            {
-                context.Result = new ContentResult() 
-                { Content = Constants.Exceptions.ArgumentNull_Content, StatusCode = 400 };
-
-            }
-            /*else if(exception is Exception)
+            if(exception is ArgumentNullException ex)
             {
                 context.Result = new ContentResult()
-                { Content = Constants.Exceptions.Server500_Content, StatusCode = 500 };
-            }*/
+                {
+                    Content = ex.Message,
+                    StatusCode = 500,
+                };
 
-            logger.LogError(exMessage, source);
+                logger.LogError(ex.Message, source);
+            }
+
+            logger.LogCritical(Constants.Exceptions.APIFilterFail_Critical, source);
         }
     }
 }

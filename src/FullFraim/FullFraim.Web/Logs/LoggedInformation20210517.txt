@@ -66,3 +66,9 @@ System.ArgumentNullException: Value cannot be null.
    at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
    at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware.Invoke(HttpContext context)
 2021-05-17 03:13:02.585 +03:00 [ERR] Value cannot be null.
+2021-05-17 14:58:36.795 +03:00 [ERR] [null]
+2021-05-17 14:58:36.829 +03:00 [FTL] Api Exception filter failed to capture exception!
+2021-05-17 15:02:08.935 +03:00 [ERR] [null]
+2021-05-17 15:02:08.970 +03:00 [FTL] Api Exception filter failed to capture exception!
+2021-05-17 15:18:22.219 +03:00 [ERR] [null]
+2021-05-17 15:18:22.253 +03:00 [FTL] Api Exception filter failed to capture exception!

@@ -1,0 +1,38 @@
+﻿@model InputContestViewModel
+    
+<style>
+    .form-group {
+        padding-bottom: 1em
+    }
+</style>
+
+    <h1>Create Contest</h1>
+<hr>
+<form>
+    <div class="form-group">
+        <label asp-for="Name"></label>
+        <input asp-for="Name" type="text" class="form-control" id="formGroupExampleInput" placeholder="Example input">
+    </div>
+    <div class="form-group">
+        <label asp-for="Description"></label>
+        <input asp-for="Description" type="text" class="form-control" id="formGroupExampleInput" placeholder="Example input">
+    </div>
+    <div class="form-group">
+        <label asp-for="Cover_Url"></label>
+        <input asp-for="Cover_Url" type="text" class="form-control" id="formGroupExampleInput" placeholder="Example input">
+    </div>
+    <div class="form-group">
+        <label asp-for="Phase"></label>
+        <input asp-for="Phase" type="text" class="form-control" id="formGroupExampleInput" placeholder="Example input">
+    </div>
+    <div class="form-group">
+        <label asp-for="ContestCategory"></label>
+        <input asp-for="ContestCategory" type="text" class="form-control" id="formGroupExampleInput" placeholder="Example input">
+    </div>
+    <div class="form-group">
+        <label asp-for="ContestType"></label>
+        <input asp-for="ContestType" type="text" class="form-control" id="formGroupExampleInput" placeholder="Example input">
+    </div>
+
+    <button asp-controller="Contest" asp-action="Create" formmethod="post" type="submit" class="btn btn-primary">Create</button>
+</form>
