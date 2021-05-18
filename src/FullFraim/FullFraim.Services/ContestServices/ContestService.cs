@@ -1,8 +1,11 @@
 ﻿using FullFraim.Data;
-using FullFraim.Data.Models;
 using FullFraim.Models.Dto_s.Contests;
+using FullFraim.Services.Exceptions;
+using Microsoft.EntityFrameworkCore;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
+using Utilities.Mapper;
 
 namespace FullFraim.Services.ContestServices
 {
@@ -15,29 +18,87 @@ namespace FullFraim.Services.ContestServices
             this.context = context;
         }
 
-        public async Task<InputContestModel> Create(InputContestModel model)
+        public async Task<ContestModel> Create(ContestModel model)
         {
-            if(model == null)
+            if (model == null)
             {
-                throw new ArgumentNullException();
+                throw new NullModelException();
             }
 
-            var contest = new Contest()
-            {
-                Name = model.Name,
-                Cover_Url = model.Cover_Url,
-                Description = model.Description,
-                CreatedOn = DateTime.UtcNow,
-                ContestCategoryId = model.ContestCategoryId,
-                PhaseId = model.PhaseId,
-                ContestTypeId = model.ContestTypeId
-            };
-
-            await this.context.Contests.AddAsync(contest);
+            var result = await this.context.Contests.AddAsync(model.MapToRaw());
 
             await this.context.SaveChangesAsync();
 
-            return model;
+            return result.Entity.MapToDto();
+        }
+
+        public async Task Delete(int id)
+        {
+            if (id <= 0)
+            {
+                throw new InvalidIdException();
+            }
+
+            var modelToRemove = await this.context.Contests
+                .FirstOrDefaultAsync(CC => CC.Id == id);
+
+            modelToRemove.DeletedOn = DateTime.UtcNow;
+            modelToRemove.IsDeleted = true;
+
+            await this.context.SaveChangesAsync();
+        }
+
+        public async Task<ICollection<ContestModel>> GetAll()
+        {
+            var DbResult = await this.context.Contests.ToListAsync();
+
+            var result = new List<ContestModel>();
+
+            foreach (var contest in DbResult)
+            {
+                result.Add(contest.MapToDto());
+            }
+
+            return result;
+        }
+
+        public async Task<ContestModel> GetById(int id)
+        {
+            if (id <= 0)
+            {
+                throw new InvalidIdException();
+            }
+
+            var result = await this.context.Contests
+                .FirstOrDefaultAsync(CC => CC.Id == id);
+
+            if (result == null)
+            {
+                throw new DbModelNotFoundException();
+            }
+
+            return result.MapToDto();
+        }
+
+        public async Task<ContestModel> Update(int id, ContestModel model)
+        {
+            if (model == null)
+            {
+                throw new NullModelException();
+            }
+
+            var dbModelToUpdate = await this.context.Contests
+                .FirstOrDefaultAsync(CC => CC.Id == id);
+
+            if (dbModelToUpdate == null)
+            {
+                throw new DbModelNotFoundException();
+            }
+
+            dbModelToUpdate.Name = model.Name ?? dbModelToUpdate.Name;
+            dbModelToUpdate.ModifiedOn = DateTime.UtcNow;
+
+            return dbModelToUpdate.MapToDto();
         }
     }
 }

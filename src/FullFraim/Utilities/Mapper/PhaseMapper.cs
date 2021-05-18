@@ -5,15 +5,15 @@ namespace Utilities.Mapper
 {
     public static class PhaseMapper
     {
-        public static OutputPhaseModel MapToDto(this Phase model)
+        public static PhaseModel MapToDto(this Phase model)
         {
-            return new OutputPhaseModel()
+            return new PhaseModel()
             {
                 Name = model.Name,
             };
         }
 
-        public static Phase MapToRaw(this InputPhaseModel model)
+        public static Phase MapToRaw(this PhaseModel model)
         {
             return new Phase()
             {

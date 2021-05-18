@@ -18,7 +18,7 @@ namespace FullFraim.Services.ContestTypeServices
             this.context = context;
         }
 
-        public async Task<OutputContestTypeModel> Create(InputContestTypeModel model)
+        public async Task<ContestTypeModel> Create(ContestTypeModel model)
         {
             if (model == null)
             {
@@ -51,11 +51,11 @@ namespace FullFraim.Services.ContestTypeServices
             await this.context.SaveChangesAsync();
         }
 
-        public async Task<ICollection<OutputContestTypeModel>> GetAll()
+        public async Task<ICollection<ContestTypeModel>> GetAll()
         {
             var DbResult = await this.context.ContestTypes.ToListAsync();
 
-            var result = new List<OutputContestTypeModel>();
+            var result = new List<ContestTypeModel>();
 
             foreach (var contestType in DbResult)
             {
@@ -65,7 +65,7 @@ namespace FullFraim.Services.ContestTypeServices
             return result;
         }
 
-        public async Task<OutputContestTypeModel> GetById(int id)
+        public async Task<ContestTypeModel> GetById(int id)
         {
             if (id <= 0)
             {
@@ -83,7 +83,7 @@ namespace FullFraim.Services.ContestTypeServices
             return result.MapToDto();
         }
 
-        public async Task<OutputContestTypeModel> Update(int id, InputContestTypeModel model)
+        public async Task<ContestTypeModel> Update(int id, ContestTypeModel model)
         {
             if (model == null)
             {

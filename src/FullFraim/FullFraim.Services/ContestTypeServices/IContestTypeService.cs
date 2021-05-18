@@ -1,4 +1,4 @@
-﻿using FullFraim.Models.Dto_s.ContestType;
+﻿using FullFraim.Models.Dto_s.ContestTypes;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -6,10 +6,10 @@ namespace FullFraim.Services.ContestTypeServices
 {
     public interface IContestTypeService
     {
-        Task<ICollection<OutputContestTypeModel>> GetAll();
-        Task<OutputContestTypeModel> GetById(int id);
-        Task<OutputContestTypeModel> Create(InputContestTypeModel model);
-        Task<OutputContestTypeModel> Update(int id, InputContestTypeModel model);
+        Task<ICollection<ContestTypeModel>> GetAll();
+        Task<ContestTypeModel> GetById(int id);
+        Task<ContestTypeModel> Create(ContestTypeModel model);
+        Task<ContestTypeModel> Update(int id, ContestTypeModel model);
         Task Delete(int id);
     }
 }

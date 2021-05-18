@@ -18,14 +18,14 @@ namespace FullFraim.Models.ViewModels
 
         [Required]
         [Display(Name = "Phase")]
-        public string Phase { get; set; }
+        public int PhaseId { get; set; }
 
         [Required]
         [Display(Name = "Contest Category")]
-        public string ContestCategory { get; set; }
+        public int ContestCategoryId { get; set; }
 
         [Required]
         [Display(Name = "Contest Type")]
-        public string ContestType { get; set; }
+        public int ContestTypeId { get; set; }
     }
 }

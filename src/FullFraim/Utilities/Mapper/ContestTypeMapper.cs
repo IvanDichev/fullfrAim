@@ -5,15 +5,15 @@ namespace Utilities.Mapper
 {
     public static class ContestTypeMapper
     {
-        public static OutputContestTypeModel MapToDto(this ContestType model)
+        public static ContestTypeModel MapToDto(this ContestType model)
         {
-            return new OutputContestTypeModel()
+            return new ContestTypeModel()
             {
                 Name = model.Name,
             };
         }
 
-        public static ContestType MapToRaw(this InputContestTypeModel model)
+        public static ContestType MapToRaw(this ContestTypeModel model)
         {
             return new ContestType()
             {
