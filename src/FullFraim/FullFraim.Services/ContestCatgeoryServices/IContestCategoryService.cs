@@ -9,7 +9,7 @@ namespace FullFraim.Services.ContestCatgeoryServices
         Task<ICollection<OutputContestCategoryModel>> GetAll();
         Task<OutputContestCategoryModel> GetById(int id);
         Task<OutputContestCategoryModel> Create(InputContestCategoryModel model);
-        Task<OutputContestCategoryModel> Update(InputContestCategoryModel model);
-        Task Delete(InputContestCategoryModel model);
+        Task<OutputContestCategoryModel> Update(int id, InputContestCategoryModel model);
+        Task Delete(int id);
     }
 }

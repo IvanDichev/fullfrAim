@@ -1,10 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace FullFraim.Services.Exceptions
 {
-    class NullModelException
+    public class NullModelException : ArgumentNullException
     {
+        public NullModelException()
+        { }
+
+        public NullModelException(string message)
+            :base(message)
+        { }
     }
 }

@@ -4,7 +4,6 @@ using FullFraim.Services.Exceptions;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 using Utilities.Mapper;
 
@@ -33,14 +32,18 @@ namespace FullFraim.Services.ContestCatgeoryServices
             return result.Entity.MapToDto();
         }
 
-        public async Task Delete(InputContestCategoryModel model)
+        public async Task Delete(int id)
         {
-            if (model == null)
+            if (id <= 0)
             {
-                throw new NullModelException();
+                throw new InvalidIdException();
             }
 
-            this.context.ContestCategories.Remove(model.MapToRaw());
+            var modelToRemove = await this.context.ContestCategories
+                .FirstOrDefaultAsync(CC => CC.Id == id);
+
+            modelToRemove.DeletedOn = DateTime.UtcNow;
+            modelToRemove.IsDeleted = true;
 
             await this.context.SaveChangesAsync();
         }
@@ -71,14 +74,32 @@ namespace FullFraim.Services.ContestCatgeoryServices
 
             if(result == null)
             {
-
+                throw new DbModelNotFoundException();
             }
 
+            return result.MapToDto();
         }
 
-        public async Task<OutputContestCategoryModel> Update(InputContestCategoryModel model)
+        public async Task<OutputContestCategoryModel> Update(int id, InputContestCategoryModel model)
         {
-            throw new NotImplementedException();
+            if(model == null)
+            {
+                throw new NullModelException();
+            }
+
+            var dbModelToUpdate = await this.context.ContestCategories
+                .FirstOrDefaultAsync(CC => CC.Id == id);
+
+            if(dbModelToUpdate == null)
+            {
+                throw new DbModelNotFoundException();
+            }
+
+            dbModelToUpdate.Name = model.Name == null? 
+                dbModelToUpdate.Name : model.Name;
+            dbModelToUpdate.ModifiedOn = DateTime.UtcNow;
+
+            return dbModelToUpdate.MapToDto();
         }
     }
 }
