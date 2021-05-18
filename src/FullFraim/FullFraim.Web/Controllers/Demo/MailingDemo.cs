@@ -7,7 +7,6 @@ namespace FullFraim.Web.Controllers.Demo
     public class MailingDemo : Controller
     {
         private readonly IEmailSender emailSender;
-
         public MailingDemo(IEmailSender emailSender)
         {
             this.emailSender = emailSender;

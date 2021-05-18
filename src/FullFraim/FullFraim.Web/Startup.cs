@@ -1,11 +1,9 @@
 using FullFraim.Data;
-using FullFraim.Data.Models;
 using FullFraim.Services.API_JwtServices;
 using FullFraim.Web.Configurations.StartupConfig;
 using FullFraim.Web.Filters;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -25,24 +23,13 @@ namespace FullFraim.Web
 
         public void ConfigureServices(IServiceCollection services)
         {
-          //  var v = this.Configuration["SendGrid:ApiKey"];
             services.AddDbContext<FullFraimDbContext>(options =>
             options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddControllersWithViews();
             services.AddControllers();
 
-            services.AddIdentity<User, IdentityRole<int>>(options =>
-            {
-                options.SignIn.RequireConfirmedAccount = true;
-                options.Password.RequiredLength = 10;
-                options.Password.RequiredUniqueChars = 0;
-                options.Password.RequireLowercase = false;
-                options.Password.RequireUppercase = false;
-                options.Password.RequireNonAlphanumeric = false;
-                options.User.RequireUniqueEmail = true;
-            })
-                .AddEntityFrameworkStores<FullFraimDbContext>();
+            AuthenticationConfig.SingInConfiguration(services);
 
             services.AddScoped<IJwtServices, JwtServices>();
             services.AddTransient<IEmailSender>(

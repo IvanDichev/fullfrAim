@@ -1,5 +1,8 @@
-﻿using FullFraim.Services.API_JwtServices;
+﻿using FullFraim.Data;
+using FullFraim.Data.Models;
+using FullFraim.Services.API_JwtServices;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
@@ -40,9 +43,19 @@ namespace FullFraim.Web.Configurations.StartupConfig
             });
         }
 
-        public static void SingInConfiguration()
-        { 
-        
+        public static void SingInConfiguration(IServiceCollection services)
+        {
+            services.AddIdentity<User, IdentityRole<int>>(options =>
+            {
+                options.SignIn.RequireConfirmedAccount = true;
+                options.Password.RequiredLength = 10;
+                options.Password.RequiredUniqueChars = 0;
+                options.Password.RequireLowercase = false;
+                options.Password.RequireUppercase = false;
+                options.Password.RequireNonAlphanumeric = false;
+                options.User.RequireUniqueEmail = true;
+            })
+                    .AddEntityFrameworkStores<FullFraimDbContext>();
         }
     }
 }
