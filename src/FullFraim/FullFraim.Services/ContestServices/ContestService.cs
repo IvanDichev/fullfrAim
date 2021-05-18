@@ -2,8 +2,6 @@
 using FullFraim.Data.Models;
 using FullFraim.Models.Dto_s.Contests;
 using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace FullFraim.Services.ContestServices
@@ -30,8 +28,9 @@ namespace FullFraim.Services.ContestServices
                 Cover_Url = model.Cover_Url,
                 Description = model.Description,
                 CreatedOn = DateTime.UtcNow,
-                //TODO: 
-                //Retreive ContestCategory, phase, contestType via service
+                ContestCategoryId = model.ContestCategoryId,
+                PhaseId = model.PhaseId,
+                ContestTypeId = model.ContestTypeId
             };
 
             await this.context.Contests.AddAsync(contest);

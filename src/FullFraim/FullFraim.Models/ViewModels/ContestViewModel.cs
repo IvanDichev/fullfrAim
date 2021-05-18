@@ -2,7 +2,7 @@
 
 namespace FullFraim.Models.ViewModels
 {
-    public class InputContestViewModel
+    public class ContestViewModel
     {
         [Required]
         [Display(Name = "Name")]

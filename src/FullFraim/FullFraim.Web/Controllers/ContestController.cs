@@ -1,4 +1,5 @@
 ﻿using FullFraim.Models.ViewModels;
+using FullFraim.Services.ContestServices;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -9,6 +10,13 @@ namespace FullFraim.Web.Controllers
 {
     public class ContestController : Controller
     {
+        private readonly ContestService contestService;
+
+        public ContestController(ContestService contestService)
+        {
+            this.contestService = contestService;
+        }
+
         public IActionResult Index()
         {
             return View();
@@ -21,9 +29,12 @@ namespace FullFraim.Web.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create(InputContestViewModel model)
+        public async Task<IActionResult> Create(ContestViewModel model)
         {
-            
+            if(ModelState.IsValid)
+            {
+                await this.contestService.Create(model);
+            }
         }
     }
 }
