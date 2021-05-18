@@ -25,11 +25,14 @@ namespace FullFraim.Services.ContestCatgeoryServices
                 throw new NullModelException();
             }
 
-            var result = await this.context.ContestCategories.AddAsync(model.MapToRaw());
+            var result = await this.context.ContestCategories
+                .AddAsync(model.MapToRaw());
 
-            await this.context.SaveChangesAsync();
+            await this.context
+                .SaveChangesAsync();
 
-            return result.Entity.MapToDto();
+            return result.Entity
+                .MapToDto();
         }
 
         public async Task Delete(int id)
@@ -95,8 +98,7 @@ namespace FullFraim.Services.ContestCatgeoryServices
                 throw new DbModelNotFoundException();
             }
 
-            dbModelToUpdate.Name = model.Name == null? 
-                dbModelToUpdate.Name : model.Name;
+            dbModelToUpdate.Name = model.Name ?? dbModelToUpdate.Name;
             dbModelToUpdate.ModifiedOn = DateTime.UtcNow;
 
             return dbModelToUpdate.MapToDto();
