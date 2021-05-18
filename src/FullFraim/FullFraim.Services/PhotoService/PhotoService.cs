@@ -25,8 +25,8 @@ namespace FullFraim.Services.PhotoService
             var photosDto = await photos.Select(p => new PhotoDto()
             {
                 Id = p.Id,
-                FirstName = p.User.FirstName,
-                LastName = p.User.LastName,
+                //FirstName = p.User.FirstName,
+                //LastName = p.User.LastName,
                 PhotoName = p.Name,
                 PhotoUrl = p.Url,
             }).ToListAsync();
