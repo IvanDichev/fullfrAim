@@ -1,6 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using FullFraim.Web.Models;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using FullFraim.Web.Models;
 using System.Diagnostics;
 
 namespace FullFraim.Web.Controllers
@@ -8,7 +8,6 @@ namespace FullFraim.Web.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> logger;
-
         public HomeController(ILogger<HomeController> logger)
         {
             this.logger = logger;
