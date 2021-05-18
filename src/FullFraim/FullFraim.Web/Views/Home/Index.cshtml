@@ -1,20 +1,12 @@
 ﻿@model IEnumerable<HomeIndexViewModel>
 
-    @*<div class="container-fluid">
+<div class="carousel-item active">
+    <div class="container">
         <partial name="_CarouselPartial" />
-    </div>*@
-
-
-    <div class="carousel-item active">
-        <div class="container">
-            <partial name="_CarouselPartial" />
-        </div>
     </div>
+</div>
 
-
-@{
-    ViewData["Title"] = "Home Page";
-}
-
-
+<div class="container-fluid">
+    <partial name="_ContestPartial" />
+</div>
 
