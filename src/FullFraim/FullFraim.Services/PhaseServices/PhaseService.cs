@@ -1,5 +1,5 @@
 ﻿using FullFraim.Data;
-using FullFraim.Models.Dto_s.ContestTypes;
+using FullFraim.Models.Dto_s.Phases;
 using FullFraim.Services.Exceptions;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -7,25 +7,25 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Utilities.Mapper;
 
-namespace FullFraim.Services.ContestTypeServices
+namespace FullFraim.Services.PhaseServices
 {
-    public class ContestTypeService : IContestTypeService
+    public class PhaseService : IPhaseService
     {
         private readonly FullFraimDbContext context;
 
-        public ContestTypeService(FullFraimDbContext context)
+        public PhaseService(FullFraimDbContext context)
         {
             this.context = context;
         }
 
-        public async Task<OutputContestTypeModel> Create(InputContestTypeModel model)
+        public async Task<OutputPhaseModel> Create(InputPhaseModel model)
         {
             if (model == null)
             {
                 throw new NullModelException();
             }
 
-            var result = await this.context.ContestTypes
+            var result = await this.context.Phases
                 .AddAsync(model.MapToRaw());
 
             await this.context
@@ -42,7 +42,7 @@ namespace FullFraim.Services.ContestTypeServices
                 throw new InvalidIdException();
             }
 
-            var modelToRemove = await this.context.ContestTypes
+            var modelToRemove = await this.context.Phases
                 .FirstOrDefaultAsync(CC => CC.Id == id);
 
             modelToRemove.DeletedOn = DateTime.UtcNow;
@@ -51,28 +51,28 @@ namespace FullFraim.Services.ContestTypeServices
             await this.context.SaveChangesAsync();
         }
 
-        public async Task<ICollection<OutputContestTypeModel>> GetAll()
+        public async Task<ICollection<OutputPhaseModel>> GetAll()
         {
-            var DbResult = await this.context.ContestTypes.ToListAsync();
+            var DbResult = await this.context.Phases.ToListAsync();
 
-            var result = new List<OutputContestTypeModel>();
+            var result = new List<OutputPhaseModel>();
 
-            foreach (var contestType in DbResult)
+            foreach (var phase in DbResult)
             {
-                result.Add(contestType.MapToDto());
+                result.Add(phase.MapToDto());
             }
 
             return result;
         }
 
-        public async Task<OutputContestTypeModel> GetById(int id)
+        public async Task<OutputPhaseModel> GetById(int id)
         {
             if (id <= 0)
             {
                 throw new InvalidIdException();
             }
 
-            var result = await this.context.ContestTypes
+            var result = await this.context.Phases
                 .FirstOrDefaultAsync(CC => CC.Id == id);
 
             if (result == null)
@@ -83,14 +83,14 @@ namespace FullFraim.Services.ContestTypeServices
             return result.MapToDto();
         }
 
-        public async Task<OutputContestTypeModel> Update(int id, InputContestTypeModel model)
+        public async Task<OutputPhaseModel> Update(int id, InputPhaseModel model)
         {
             if (model == null)
             {
                 throw new NullModelException();
             }
 
-            var dbModelToUpdate = await this.context.ContestTypes
+            var dbModelToUpdate = await this.context.Phases
                 .FirstOrDefaultAsync(CC => CC.Id == id);
 
             if (dbModelToUpdate == null)

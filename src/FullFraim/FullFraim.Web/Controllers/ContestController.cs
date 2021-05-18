@@ -31,10 +31,7 @@ namespace FullFraim.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(ContestViewModel model)
         {
-            if(ModelState.IsValid)
-            {
-                await this.contestService.Create(model);
-            }
+            throw new Exception();
         }
     }
 }
