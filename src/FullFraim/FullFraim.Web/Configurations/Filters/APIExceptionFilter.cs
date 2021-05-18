@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using FullFraim.Services.Exceptions;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.Extensions.Logging;
 using Shared;
@@ -20,18 +21,38 @@ namespace FullFraim.Web.Filters
             var exception = context.Exception;
             var source = context.Exception.Source;
 
-            if(exception is ArgumentNullException ex)
+            if (exception is NullModelException nullEx)
             {
                 context.Result = new ContentResult()
                 {
-                    Content = ex.Message,
-                    StatusCode = 500,
+                    Content = nullEx.Message,
+                    StatusCode = 400,
+                };
+            }
+            else if (exception is DbModelNotFoundException notFoundEx)
+            {
+                context.Result = new ContentResult()
+                {
+                    Content = notFoundEx.Message,
+                    StatusCode = 400,
                 };
 
-                logger.LogError(ex.Message, source);
+            }
+            else if (exception is InvalidIdException invalidIdEx)
+            {
+                context.Result = new ContentResult()
+                {
+                    Content = invalidIdEx.Message,
+                    StatusCode = 400,
+                };
+            }
+            else
+            {
+                logger.LogCritical(Constants.Exceptions.APIFilterFail_Critical, source);
+                return;
             }
 
-            logger.LogCritical(Constants.Exceptions.APIFilterFail_Critical, source);
+            logger.LogError(exception.Message, source);
         }
     }
 }
