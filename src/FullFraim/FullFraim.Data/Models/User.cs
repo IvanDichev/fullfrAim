@@ -17,6 +17,9 @@ namespace FullFraim.Data.Models
 
         public uint Points { get; set; }
 
+        public int RankId { get; set; }
+        public Rank Rank { get; set; }
+
         public ICollection<ParticipantContest> ParticipantContests { get; set; }
 
         public ICollection<JuryContest> JuryContests { get; set; }
