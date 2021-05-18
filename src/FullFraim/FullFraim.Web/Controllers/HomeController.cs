@@ -2,6 +2,8 @@
 using Microsoft.Extensions.Logging;
 using FullFraim.Web.Models;
 using System.Diagnostics;
+using Microsoft.AspNetCore.Identity;
+using System.Threading.Tasks;
 
 namespace FullFraim.Web.Controllers
 {

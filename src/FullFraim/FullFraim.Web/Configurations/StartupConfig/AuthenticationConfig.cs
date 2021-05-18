@@ -39,5 +39,10 @@ namespace FullFraim.Web.Configurations.StartupConfig
                 };
             });
         }
+
+        public static void SingInConfiguration()
+        { 
+        
+        }
     }
 }
