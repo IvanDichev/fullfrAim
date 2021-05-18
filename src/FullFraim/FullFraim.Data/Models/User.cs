@@ -17,10 +17,8 @@ namespace FullFraim.Data.Models
 
         public uint Points { get; set; }
 
-        public ICollection<UserContest> UserContests { get; set; }
+        public ICollection<ParticipantContest> ParticipantContests { get; set; }
 
-        public ICollection<Photo> Photos { get; set; }
-
-        public ICollection<PhotoReview> PhotoReviews { get; set; }
+        public ICollection<JuryContest> JuryContests { get; set; }
     }
 }

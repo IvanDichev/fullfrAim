@@ -1,0 +1,68 @@
+2021-05-17 02:05:50.950 +03:00 [FTL] Some services are not able to be constructed (Error while validating the service descriptor 'ServiceType: FullFraim.Services.API_JwtServices.IJwtServices Lifetime: Scoped ImplementationType: FullFraim.Services.API_JwtServices.JwtServices': Unable to resolve service for type 'Microsoft.AspNetCore.Identity.RoleManager`1[Microsoft.AspNetCore.Identity.IdentityRole]' while attempting to activate 'FullFraim.Services.API_JwtServices.JwtServices'.) (Error while validating the service descriptor 'ServiceType: FullFraim.Web.test.MyExceptionFilter Lifetime: Transient ImplementationType: FullFraim.Web.test.MyExceptionFilter': Unable to resolve service for type 'Microsoft.Extensions.Logging.Logger`1[System.Object]' while attempting to activate 'FullFraim.Web.test.MyExceptionFilter'.)
+2021-05-17 02:14:10.233 +03:00 [FTL] Some services are not able to be constructed (Error while validating the service descriptor 'ServiceType: FullFraim.Services.API_JwtServices.IJwtServices Lifetime: Scoped ImplementationType: FullFraim.Services.API_JwtServices.JwtServices': Unable to resolve service for type 'Microsoft.AspNetCore.Identity.RoleManager`1[Microsoft.AspNetCore.Identity.IdentityRole]' while attempting to activate 'FullFraim.Services.API_JwtServices.JwtServices'.) (Error while validating the service descriptor 'ServiceType: FullFraim.Web.test.MyExceptionFilter Lifetime: Transient ImplementationType: FullFraim.Web.test.MyExceptionFilter': Unable to resolve service for type 'Microsoft.Extensions.Logging.Logger`1[System.Exception]' while attempting to activate 'FullFraim.Web.test.MyExceptionFilter'.)
+2021-05-17 02:15:26.723 +03:00 [FTL] Some services are not able to be constructed (Error while validating the service descriptor 'ServiceType: FullFraim.Web.test.MyExceptionFilter Lifetime: Transient ImplementationType: FullFraim.Web.test.MyExceptionFilter': Unable to resolve service for type 'Microsoft.Extensions.Logging.Logger`1[System.Exception]' while attempting to activate 'FullFraim.Web.test.MyExceptionFilter'.)
+2021-05-17 02:16:19.366 +03:00 [FTL] Some services are not able to be constructed (Error while validating the service descriptor 'ServiceType: FullFraim.Web.test.MyExceptionFilter Lifetime: Transient ImplementationType: FullFraim.Web.test.MyExceptionFilter': Unable to resolve service for type 'Microsoft.Extensions.Logging.Logger`1[FullFraim.Web.Controllers.ApiControllers.AccountController]' while attempting to activate 'FullFraim.Web.test.MyExceptionFilter'.)
+2021-05-17 02:16:44.858 +03:00 [FTL] Some services are not able to be constructed (Error while validating the service descriptor 'ServiceType: FullFraim.Web.test.MyExceptionFilter Lifetime: Transient ImplementationType: FullFraim.Web.test.MyExceptionFilter': Unable to resolve service for type 'Microsoft.Extensions.Logging.Logger`1[FullFraim.Web.test.MyExceptionFilter]' while attempting to activate 'FullFraim.Web.test.MyExceptionFilter'.)
+2021-05-17 02:17:18.646 +03:00 [FTL] Some services are not able to be constructed (Error while validating the service descriptor 'ServiceType: FullFraim.Web.test.MyExceptionFilter Lifetime: Scoped ImplementationType: FullFraim.Web.test.MyExceptionFilter': Unable to resolve service for type 'Microsoft.Extensions.Logging.Logger`1[FullFraim.Web.test.MyExceptionFilter]' while attempting to activate 'FullFraim.Web.test.MyExceptionFilter'.)
+2021-05-17 02:20:45.323 +03:00 [FTL] Some services are not able to be constructed (Error while validating the service descriptor 'ServiceType: FullFraim.Web.test.MyExceptionFilter Lifetime: Scoped ImplementationType: FullFraim.Web.test.MyExceptionFilter': Unable to resolve service for type 'Microsoft.Extensions.Logging.Logger`1[FullFraim.Web.test.MyExceptionFilter]' while attempting to activate 'FullFraim.Web.test.MyExceptionFilter'.)
+2021-05-17 02:23:13.315 +03:00 [ERR] An unhandled exception has occurred while executing the request.
+Swashbuckle.AspNetCore.SwaggerGen.SwaggerGeneratorException: Conflicting method/path combination "GET api/Account" for actions - FullFraim.Web.Controllers.ApiControllers.AccountController.Login (FullFraim.Web),FullFraim.Web.Controllers.ApiControllers.AccountController.Register (FullFraim.Web). Actions require a unique method/path combination for Swagger/OpenAPI 3.0. Use ConflictingActionsResolver as a workaround
+   at Swashbuckle.AspNetCore.SwaggerGen.SwaggerGenerator.GenerateOperations(IEnumerable`1 apiDescriptions, SchemaRepository schemaRepository)
+   at Swashbuckle.AspNetCore.SwaggerGen.SwaggerGenerator.GeneratePaths(IEnumerable`1 apiDescriptions, SchemaRepository schemaRepository)
+   at Swashbuckle.AspNetCore.SwaggerGen.SwaggerGenerator.GetSwagger(String documentName, String host, String basePath)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware.Invoke(HttpContext context)
+2021-05-17 02:25:44.868 +03:00 [ERR] An unhandled exception has occurred while executing the request.
+System.ArgumentNullException: Value cannot be null. (Parameter 'userName')
+   at Microsoft.AspNetCore.Identity.UserManager`1.FindByNameAsync(String userName)
+   at FullFraim.Services.API_JwtServices.JwtServices.Login(String userName, String password) in C:\Users\User\source\repos\photocontest\src\FullFraim\FullFraim.Services\API-JwtServices\JwtServices.cs:line 30
+   at FullFraim.Web.Controllers.ApiControllers.AccountController.Login(String userName, String password) in C:\Users\User\source\repos\photocontest\src\FullFraim\FullFraim.Web\Controllers\ApiControllers\AccountController.cs:line 25
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeInnerFilterAsync()
+--- End of stack trace from previous location where exception was thrown ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeNextResourceFilter>g__Awaited|24_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Rethrow(ResourceExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.InvokeFilterPipelineAsync()
+--- End of stack trace from previous location where exception was thrown ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|6_0(Endpoint endpoint, Task requestTask, ILogger logger)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware.Invoke(HttpContext context)
+2021-05-17 02:27:00.371 +03:00 [ERR] Value cannot be null.
+2021-05-17 02:27:00.418 +03:00 [ERR] An unhandled exception has occurred while executing the request.
+System.ArgumentNullException: Value cannot be null.
+   at FullFraim.Web.Controllers.ApiControllers.AccountController.Register(RegisterInputModel model) in C:\Users\User\source\repos\photocontest\src\FullFraim\FullFraim.Web\Controllers\ApiControllers\AccountController.cs:line 39
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.TaskOfIActionResultExecutor.Execute(IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeActionMethodAsync>g__Awaited|12_0(ControllerActionInvoker invoker, ValueTask`1 actionResultValueTask)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.<InvokeNextActionFilterAsync>g__Awaited|10_0(ControllerActionInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeInnerFilterAsync()
+--- End of stack trace from previous location where exception was thrown ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeNextExceptionFilterAsync>g__Awaited|25_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Rethrow(ExceptionContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.InvokeNextResourceFilter()
+--- End of stack trace from previous location where exception was thrown ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Rethrow(ResourceExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.InvokeFilterPipelineAsync()
+--- End of stack trace from previous location where exception was thrown ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Logged|17_1(ResourceInvoker invoker)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|6_0(Endpoint endpoint, Task requestTask, ILogger logger)
+   at Swashbuckle.AspNetCore.SwaggerUI.SwaggerUIMiddleware.Invoke(HttpContext httpContext)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware.Invoke(HttpContext context)
+2021-05-17 03:13:02.585 +03:00 [ERR] Value cannot be null.

@@ -1,7 +1,8 @@
-﻿using FullFraim.Services.API_JwtServices;
+﻿using FullFraim.Models.Dto_s.AccountAPI;
+using FullFraim.Services.API_JwtServices;
+using FullFraim.Web.Filters;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
-using Shared;
+using System.Threading.Tasks;
 
 namespace FullFraim.Web.Controllers.ApiControllers
 {
@@ -10,24 +11,40 @@ namespace FullFraim.Web.Controllers.ApiControllers
     public class AccountController : ControllerBase
     {
         private readonly IJwtServices jwtServices;
-        private readonly IConfiguration configuration;
 
-        public AccountController(IJwtServices jwtServices, IConfiguration configuration)
+        public AccountController(IJwtServices jwtServices)
         {
             this.jwtServices = jwtServices;
-            this.configuration = configuration;
         }
 
-        [HttpGet("[action]")]
-        public ActionResult<string> Login(string username, string password)
+        [HttpGet()]
+        public async Task<IActionResult> Login([FromBody] InputLoginModel_API model)
         {
-            if (username == configuration["AccountAdminInfo:UserName"] 
-                && password == configuration["AccountAdminInfo:Password"])
+            var result = await this.jwtServices.Login(model);
+
+            if (result != null)
             {
-                return this.jwtServices.Login(username, password);
+                return Ok(result);
             }
 
-            return this.Forbid();
+            return Unauthorized();
+        }
+
+        [HttpPost("[action]")]
+        [ServiceFilter(typeof(APIExceptionFilter))]
+        public async Task<IActionResult> Register([FromBody] RegisterInputModel_API model)
+        {
+            if (ModelState.IsValid)
+            {
+                var result = await this.jwtServices.Register(model);
+
+                if (result == true)
+                {
+                    return Ok("Registered");
+                }
+            }
+
+            return BadRequest();
         }
     }
 }
