@@ -9,6 +9,7 @@ namespace Utilities.Mapper
         {
             return new PhaseModel()
             {
+                Id = model.Id,
                 Name = model.Name,
             };
         }
@@ -17,6 +18,7 @@ namespace Utilities.Mapper
         {
             return new Phase()
             {
+                Id = model.Id,
                 Name = model.Name,
             };
         }

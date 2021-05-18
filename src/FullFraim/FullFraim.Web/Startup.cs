@@ -1,6 +1,10 @@
 using FullFraim.Data;
 using FullFraim.Data.Models;
 using FullFraim.Services.API_JwtServices;
+using FullFraim.Services.ContestCatgeoryServices;
+using FullFraim.Services.ContestServices;
+using FullFraim.Services.ContestTypeServices;
+using FullFraim.Services.PhaseServices;
 using FullFraim.Web.Configurations.StartupConfig;
 using FullFraim.Web.Filters;
 using Microsoft.AspNetCore.Builder;
@@ -34,6 +38,10 @@ namespace FullFraim.Web
                 .AddEntityFrameworkStores<FullFraimDbContext>();
 
             services.AddScoped<IJwtServices, JwtServices>();
+            services.AddScoped<IContestService, ContestService>();
+            services.AddScoped<IContestCategoryService, ContestCategoryService>();
+            services.AddScoped<IContestTypeService, ContestTypeService>();
+            services.AddScoped<IPhaseService, PhaseService>();
             services.AddTransient<APIExceptionFilter>();
 
             AuthenticationConfig.ConfigureWith_Jwt(services, Configuration);

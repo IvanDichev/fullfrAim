@@ -9,6 +9,7 @@ namespace Utilities.Mapper
         {
             return new ContestTypeModel()
             {
+                Id = model.Id,
                 Name = model.Name,
             };
         }
@@ -17,6 +18,7 @@ namespace Utilities.Mapper
         {
             return new ContestType()
             {
+                Id = model.Id,
                 Name = model.Name,
             };
         }

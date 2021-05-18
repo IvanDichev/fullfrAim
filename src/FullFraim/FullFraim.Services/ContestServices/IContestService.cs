@@ -6,10 +6,10 @@ namespace FullFraim.Services.ContestServices
 {
     public interface IContestService
     {
-        Task<ICollection<ContestModel>> GetAll();
-        Task<ContestModel> GetById(int id);
-        Task<ContestModel> Create(ContestModel model);
-        Task<ContestModel> Update(int id, ContestModel model);
-        Task Delete(int id);
+        Task<ICollection<ContestModel>> GetAllAsync();
+        Task<ContestModel> GetByIdAsync(int id);
+        Task<ContestModel> CreateAsync(ContestModel model);
+        Task<ContestModel> UpdateAsync(int id, ContestModel model);
+        Task DeleteAsync(int id);
     }
 }

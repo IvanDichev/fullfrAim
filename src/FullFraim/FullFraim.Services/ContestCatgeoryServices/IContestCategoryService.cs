@@ -6,10 +6,10 @@ namespace FullFraim.Services.ContestCatgeoryServices
 {
     public interface IContestCategoryService
     {
-        Task<ICollection<OutputContestCategoryModel>> GetAll();
-        Task<OutputContestCategoryModel> GetById(int id);
-        Task<OutputContestCategoryModel> Create(InputContestCategoryModel model);
-        Task<OutputContestCategoryModel> Update(int id, InputContestCategoryModel model);
-        Task Delete(int id);
+        Task<ICollection<ContestCategoryModel>> GetAllAsync();
+        Task<ContestCategoryModel> GetByIdAsync(int id);
+        Task<ContestCategoryModel> CreateAsync(ContestCategoryModel model);
+        Task<ContestCategoryModel> UpdateAsync(int id, ContestCategoryModel model);
+        Task DeleteAsync(int id);
     }
 }

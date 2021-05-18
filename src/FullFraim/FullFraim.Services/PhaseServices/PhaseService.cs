@@ -18,7 +18,7 @@ namespace FullFraim.Services.PhaseServices
             this.context = context;
         }
 
-        public async Task<PhaseModel> Create(PhaseModel model)
+        public async Task<PhaseModel> CreateAsync(PhaseModel model)
         {
             if (model == null)
             {
@@ -35,7 +35,7 @@ namespace FullFraim.Services.PhaseServices
                 .MapToDto();
         }
 
-        public async Task Delete(int id)
+        public async Task DeleteAsync(int id)
         {
             if (id <= 0)
             {
@@ -51,7 +51,7 @@ namespace FullFraim.Services.PhaseServices
             await this.context.SaveChangesAsync();
         }
 
-        public async Task<ICollection<PhaseModel>> GetAll()
+        public async Task<ICollection<PhaseModel>> GetAllAsync()
         {
             var DbResult = await this.context.Phases.ToListAsync();
 
@@ -65,7 +65,7 @@ namespace FullFraim.Services.PhaseServices
             return result;
         }
 
-        public async Task<PhaseModel> GetById(int id)
+        public async Task<PhaseModel> GetByIdAsync(int id)
         {
             if (id <= 0)
             {
@@ -83,7 +83,7 @@ namespace FullFraim.Services.PhaseServices
             return result.MapToDto();
         }
 
-        public async Task<PhaseModel> Update(int id, PhaseModel model)
+        public async Task<PhaseModel> UpdateAsync(int id, PhaseModel model)
         {
             if (model == null)
             {

@@ -5,18 +5,20 @@ namespace Utilities.Mapper
 {
     public static class ContestCategoryMapper
     {
-        public static OutputContestCategoryModel MapToDto (this ContestCategory model)
+        public static ContestCategoryModel MapToDto (this ContestCategory model)
         {
-            return new OutputContestCategoryModel()
+            return new ContestCategoryModel()
             {
+                Id = model.Id,
                 Name = model.Name,
             };
         }
 
-        public static ContestCategory MapToRaw(this InputContestCategoryModel model)
+        public static ContestCategory MapToRaw(this ContestCategoryModel model)
         {
             return new ContestCategory()
             {
+                Id = model.Id,
                 Name = model.Name,
             };
         }

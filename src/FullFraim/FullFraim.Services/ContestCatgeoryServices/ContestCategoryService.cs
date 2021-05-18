@@ -18,7 +18,7 @@ namespace FullFraim.Services.ContestCatgeoryServices
             this.context = context;
         }
 
-        public async Task<OutputContestCategoryModel> Create(InputContestCategoryModel model)
+        public async Task<ContestCategoryModel> CreateAsync(ContestCategoryModel model)
         {
             if(model == null)
             {
@@ -35,7 +35,7 @@ namespace FullFraim.Services.ContestCatgeoryServices
                 .MapToDto();
         }
 
-        public async Task Delete(int id)
+        public async Task DeleteAsync(int id)
         {
             if (id <= 0)
             {
@@ -51,11 +51,11 @@ namespace FullFraim.Services.ContestCatgeoryServices
             await this.context.SaveChangesAsync();
         }
 
-        public async Task<ICollection<OutputContestCategoryModel>> GetAll()
+        public async Task<ICollection<ContestCategoryModel>> GetAllAsync()
         {
             var DbResult = await this.context.ContestCategories.ToListAsync();
 
-            var result = new List<OutputContestCategoryModel>();
+            var result = new List<ContestCategoryModel>();
 
             foreach (var contestCategory in DbResult)
             {
@@ -65,7 +65,7 @@ namespace FullFraim.Services.ContestCatgeoryServices
             return result;
         }
 
-        public async Task<OutputContestCategoryModel> GetById(int id)
+        public async Task<ContestCategoryModel> GetByIdAsync(int id)
         {
             if(id <= 0)
             {
@@ -83,7 +83,7 @@ namespace FullFraim.Services.ContestCatgeoryServices
             return result.MapToDto();
         }
 
-        public async Task<OutputContestCategoryModel> Update(int id, InputContestCategoryModel model)
+        public async Task<ContestCategoryModel> UpdateAsync(int id, ContestCategoryModel model)
         {
             if(model == null)
             {

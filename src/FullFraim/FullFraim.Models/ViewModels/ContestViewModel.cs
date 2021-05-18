@@ -1,4 +1,7 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using FullFraim.Models.Dto_s.ContestCategories;
+using FullFraim.Models.Dto_s.ContestTypes;
+using FullFraim.Models.Dto_s.Phases;
+using System.ComponentModel.DataAnnotations;
 
 namespace FullFraim.Models.ViewModels
 {

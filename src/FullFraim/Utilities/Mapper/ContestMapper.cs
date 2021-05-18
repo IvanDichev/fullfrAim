@@ -6,36 +6,12 @@ namespace Utilities.Mapper
 {
     public static class ContestMapper
     {
-        public static ContestViewModel MapToView(this ContestModel model)
-        {
-            return new ContestViewModel()
-            {
-                Name = model.Name,
-                ContestCategoryId = model.ContestCategoryId,
-                Cover_Url = model.Cover_Url,
-                ContestTypeId = model.ContestTypeId,
-                Description = model.Description,
-                PhaseId = model.PhaseId
-            };
-        }
-
-        public static ContestModel MapToDto(this ContestViewModel model)
-        {
-            return new ContestModel()
-            {
-                Name = model.Name,
-                ContestCategoryId = model.ContestCategoryId,
-                ContestTypeId = model.ContestTypeId,
-                Cover_Url = model.Cover_Url,
-                Description = model.Description,
-                PhaseId = model.PhaseId
-            };
-        }
 
         public static Contest MapToRaw(this ContestModel model)
         {
             return new Contest()
             {
+                Id = model.Id,
                 Name = model.Name,
                 Cover_Url = model.Cover_Url,
                 Description = model.Description,
@@ -49,6 +25,7 @@ namespace Utilities.Mapper
         {
             return new ContestModel()
             {
+                Id = model.Id,
                 Name = model.Name,
                 Cover_Url = model.Cover_Url,
                 Description = model.Description,
