@@ -27,10 +27,6 @@ namespace FullFraim.Models.ViewModels
         public DateTime PhaseIII_Time { get; set; }
 
         [Required]
-        [Display(Name = "Phase")]
-        public int PhaseId { get; set; }
-
-        [Required]
         [Display(Name = "Contest Category")]
         public int ContestCategoryId { get; set; }
 

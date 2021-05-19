@@ -1,5 +1,4 @@
 using FullFraim.Data;
-using FullFraim.Data.Models;
 using FullFraim.Services.API_JwtServices;
 using FullFraim.Services.ContestCatgeoryServices;
 using FullFraim.Services.ContestServices;
@@ -9,11 +8,12 @@ using FullFraim.Web.Configurations.StartupConfig;
 using FullFraim.Web.Filters;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Utilities.CloudinaryUtils;
+using Utilities.Mailing;
 
 namespace FullFraim.Web
 {
@@ -34,8 +34,7 @@ namespace FullFraim.Web
             services.AddControllersWithViews();
             services.AddControllers();
 
-            services.AddIdentity<User, IdentityRole<int>>()
-                .AddEntityFrameworkStores<FullFraimDbContext>();
+            AuthenticationConfig.SingInConfiguration(services);
 
             services.AddScoped<IJwtServices, JwtServices>();
             services.AddScoped<IContestService, ContestService>();
@@ -43,6 +42,8 @@ namespace FullFraim.Web
             services.AddScoped<IContestTypeService, ContestTypeService>();
             services.AddScoped<IPhaseService, PhaseService>();
             services.AddTransient<APIExceptionFilter>();
+            services.AddTransient<ICloudinaryService, CloudinaryService>();
+
 
             AuthenticationConfig.ConfigureWith_Jwt(services, Configuration);
 

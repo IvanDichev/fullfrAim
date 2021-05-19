@@ -16,7 +16,6 @@ namespace Utilities.Mapper
                 Description = model.Description,
                 ContestCategoryId = model.ContestCategoryId,
                 ContestTypeId = model.ContestTypeId,
-                PhaseId = model.PhaseId
             };
         }
 
@@ -29,7 +28,6 @@ namespace Utilities.Mapper
                 Description = model.Description,
                 ContestCategoryId = model.ContestCategoryId,
                 ContestTypeId = model.ContestTypeId,
-                PhaseId = model.PhaseId
             };
         }
 
@@ -43,7 +41,6 @@ namespace Utilities.Mapper
                 Description = model.Description,
                 ContestCategoryId = model.ContestCategoryId,
                 ContestTypeId = model.ContestTypeId,
-                PhaseId = model.PhaseId
             };
         }
 
@@ -58,7 +55,6 @@ namespace Utilities.Mapper
                 Description = x.Description,
                 ContestCategoryId = x.ContestCategoryId,
                 ContestTypeId = x.ContestTypeId,
-                PhaseId = x.PhaseId
             });
         }
     }

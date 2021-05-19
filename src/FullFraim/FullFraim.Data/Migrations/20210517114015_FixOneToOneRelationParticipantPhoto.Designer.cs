@@ -4,14 +4,16 @@ using FullFraim.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace FullFraim.Data.Migrations
 {
     [DbContext(typeof(FullFraimDbContext))]
-    partial class FullFraimDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210517114015_FixOneToOneRelationParticipantPhoto")]
+    partial class FixOneToOneRelationParticipantPhoto
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -579,35 +581,35 @@ namespace FullFraim.Data.Migrations
                         new
                         {
                             Id = 1,
-                            ConcurrencyStamp = "e9a2c837-63ad-409c-bcc5-d1b1803767eb",
+                            ConcurrencyStamp = "ff3fb9e7-4c0f-482a-97db-e4ff922dede4",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
                             Id = 2,
-                            ConcurrencyStamp = "11a33437-50ad-4bb7-953e-9931a74d2966",
+                            ConcurrencyStamp = "8280e00f-461f-48f4-86c1-141d56806592",
                             Name = "Organizer",
                             NormalizedName = "ORGANIZER"
                         },
                         new
                         {
                             Id = 3,
-                            ConcurrencyStamp = "d4989492-4089-4f18-a0f7-24aa2e2c08b3",
+                            ConcurrencyStamp = "18d7c3ee-5cc0-40a6-a850-e83bdf8288bf",
                             Name = "Jury",
                             NormalizedName = "JURY"
                         },
                         new
                         {
                             Id = 4,
-                            ConcurrencyStamp = "01b9c614-2153-42e6-99b9-008be1a58e84",
+                            ConcurrencyStamp = "6d7766f1-5d03-4320-96d3-4950233f0244",
                             Name = "Participant",
                             NormalizedName = "PARTICIPANT"
                         },
                         new
                         {
                             Id = 5,
-                            ConcurrencyStamp = "0023a6be-6b18-4780-934e-8911282472d9",
+                            ConcurrencyStamp = "9a503fa8-4eb5-449d-b0b1-cb683850fb97",
                             Name = "PhotoMaster",
                             NormalizedName = "PHOTOMASTER"
                         });

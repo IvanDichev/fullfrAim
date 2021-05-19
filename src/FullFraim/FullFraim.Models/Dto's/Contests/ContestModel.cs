@@ -9,8 +9,6 @@
         public string Cover_Url { get; set; }
 
         public string Description { get; set; }
-
-        public int PhaseId { get; set; }
                
         public int ContestCategoryId { get; set; }
                

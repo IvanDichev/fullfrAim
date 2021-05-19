@@ -16,7 +16,7 @@ namespace FullFraim.Data.Models
         public int PhotoId { get; set; }
         public Photo Photo { get; set; }
 
-        public int UserId { get; set; }
-        public User User { get; set; }
+        public int JuryContestId { get; set; }
+        public JuryContest JuryContest { get; set; }
     }
 }
