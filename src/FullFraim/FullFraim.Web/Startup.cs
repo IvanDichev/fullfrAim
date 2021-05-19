@@ -8,11 +8,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-<<<<<<< HEAD
 using Utilities.CloudinaryUtils;
-=======
 using Utilities.Mailing;
->>>>>>> 2094a27bbe0569d1f5082b530efea7d28bf2f1f6
 
 namespace FullFraim.Web
 {
@@ -36,13 +33,7 @@ namespace FullFraim.Web
             AuthenticationConfig.SingInConfiguration(services);
 
             services.AddScoped<IJwtServices, JwtServices>();
-<<<<<<< HEAD
             services.AddTransient<ICloudinaryService, CloudinaryService>();
-=======
-            services.AddTransient<IEmailSender>(
-                serviceProvider => new SendGridEmailSender(Configuration["SendGrid:ApiKey"]));
-            services.AddTransient<APIExceptionFilter>();
->>>>>>> 2094a27bbe0569d1f5082b530efea7d28bf2f1f6
 
             AuthenticationConfig.ConfigureWith_Jwt(services, Configuration);
 
