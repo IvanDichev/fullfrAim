@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace FullFraim.Data.Migrations
 {
-    public partial class Initial : Migration
+    public partial class InitialMigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -221,7 +221,6 @@ namespace FullFraim.Data.Migrations
                     Name = table.Column<string>(maxLength: 20, nullable: false),
                     Cover_Url = table.Column<string>(nullable: true),
                     Description = table.Column<string>(nullable: false),
-                    PhaseId = table.Column<int>(nullable: false),
                     ContestCategoryId = table.Column<int>(nullable: false),
                     ContestTypeId = table.Column<int>(nullable: false)
                 },
@@ -240,10 +239,64 @@ namespace FullFraim.Data.Migrations
                         principalTable: "ContestTypes",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ContestPhases",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    CreatedOn = table.Column<DateTime>(nullable: false),
+                    ModifiedOn = table.Column<DateTime>(nullable: true),
+                    IsDeleted = table.Column<bool>(nullable: false),
+                    DeletedOn = table.Column<DateTime>(nullable: true),
+                    ContestId = table.Column<int>(nullable: false),
+                    PhaseId = table.Column<int>(nullable: false),
+                    PhaseEndDate = table.Column<DateTime>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ContestPhases", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Contests_Phases_PhaseId",
+                        name: "FK_ContestPhases_Contests_ContestId",
+                        column: x => x.ContestId,
+                        principalTable: "Contests",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_ContestPhases_Phases_PhaseId",
                         column: x => x.PhaseId,
                         principalTable: "Phases",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "JuryContests",
+                columns: table => new
+                {
+                    UserId = table.Column<int>(nullable: false),
+                    ContestId = table.Column<int>(nullable: false),
+                    Id = table.Column<int>(nullable: false),
+                    CreatedOn = table.Column<DateTime>(nullable: false),
+                    ModifiedOn = table.Column<DateTime>(nullable: true),
+                    IsDeleted = table.Column<bool>(nullable: false),
+                    DeletedOn = table.Column<DateTime>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_JuryContests", x => new { x.ContestId, x.UserId });
+                    table.ForeignKey(
+                        name: "FK_JuryContests_Contests_ContestId",
+                        column: x => x.ContestId,
+                        principalTable: "Contests",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_JuryContests_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -260,8 +313,8 @@ namespace FullFraim.Data.Migrations
                     DeletedOn = table.Column<DateTime>(nullable: true),
                     Name = table.Column<string>(maxLength: 20, nullable: false),
                     Url = table.Column<string>(nullable: false),
-                    UserId = table.Column<int>(nullable: false),
-                    ContestId = table.Column<int>(nullable: false)
+                    ContestId = table.Column<int>(nullable: true),
+                    UserId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -271,17 +324,17 @@ namespace FullFraim.Data.Migrations
                         column: x => x.ContestId,
                         principalTable: "Contests",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Photos_AspNetUsers_UserId",
                         column: x => x.UserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
-                name: "UserContest",
+                name: "ParticipantContests",
                 columns: table => new
                 {
                     UserId = table.Column<int>(nullable: false),
@@ -290,19 +343,26 @@ namespace FullFraim.Data.Migrations
                     CreatedOn = table.Column<DateTime>(nullable: false),
                     ModifiedOn = table.Column<DateTime>(nullable: true),
                     IsDeleted = table.Column<bool>(nullable: false),
-                    DeletedOn = table.Column<DateTime>(nullable: true)
+                    DeletedOn = table.Column<DateTime>(nullable: true),
+                    PhotoId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_UserContest", x => new { x.UserId, x.ContestId });
+                    table.PrimaryKey("PK_ParticipantContests", x => new { x.UserId, x.ContestId });
                     table.ForeignKey(
-                        name: "FK_UserContest_Contests_ContestId",
+                        name: "FK_ParticipantContests_Contests_ContestId",
                         column: x => x.ContestId,
                         principalTable: "Contests",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_UserContest_AspNetUsers_UserId",
+                        name: "FK_ParticipantContests_Photos_PhotoId",
+                        column: x => x.PhotoId,
+                        principalTable: "Photos",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_ParticipantContests_AspNetUsers_UserId",
                         column: x => x.UserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
@@ -323,7 +383,10 @@ namespace FullFraim.Data.Migrations
                     Score = table.Column<long>(nullable: false),
                     Checkbox = table.Column<bool>(nullable: false),
                     PhotoId = table.Column<int>(nullable: false),
-                    UserId = table.Column<int>(nullable: false)
+                    JuryContestId = table.Column<int>(nullable: false),
+                    JuryContestContestId = table.Column<int>(nullable: false),
+                    JuryContestUserId = table.Column<int>(nullable: false),
+                    UserId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -338,7 +401,14 @@ namespace FullFraim.Data.Migrations
                         name: "FK_PhotoReviews_AspNetUsers_UserId",
                         column: x => x.UserId,
                         principalTable: "AspNetUsers",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_PhotoReviews_JuryContests_JuryContestContestId_JuryContestUserId",
+                        columns: x => new { x.JuryContestContestId, x.JuryContestUserId },
+                        principalTable: "JuryContests",
+                        principalColumns: new[] { "ContestId", "UserId" },
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.InsertData(
@@ -346,34 +416,29 @@ namespace FullFraim.Data.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { 5, "14081e7a-e097-44b7-9a50-b6600afd9e80", "PhotoMaster", "PHOTOMASTER" },
-                    { 3, "52d538bd-7da4-4279-a3a2-504e44283e2b", "Jury", "JURY" },
-                    { 2, "6e9355fd-355f-4782-aa26-6ae770aa90e9", "Organizer", "ORGANIZER" },
-                    { 1, "f6a6b3ec-3df7-4d31-9c41-04f2b3e3e2c7", "Admin", "ADMIN" },
-                    { 4, "399c309c-fa78-4880-a2d9-60bd142fd294", "Participant", "PARTICIPANT" }
+                    { 5, "4bab9aa2-4f09-46bf-aa84-8d533ed7f3d4", "PhotoMaster", "PHOTOMASTER" },
+                    { 3, "5998235b-bf5a-41c9-84b8-c27d880d89c2", "Jury", "JURY" },
+                    { 2, "76b458f3-812c-426c-848a-9d2a697d1a73", "Organizer", "ORGANIZER" },
+                    { 1, "e0495a4d-cb0f-4004-9a31-982307a90c03", "Admin", "ADMIN" },
+                    { 4, "1bb397de-e30c-45c3-b187-b5cb2b06fc83", "Participant", "PARTICIPANT" }
                 });
-
-            migrationBuilder.InsertData(
-                table: "AspNetUsers",
-                columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "FirstName", "LastName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "Points", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[] { 1, 0, "06ea2551-7cca-49a0-b1b3-9bcb1f56eaaf", "admin@fullfraim.com", false, "I.B.V.", "Admins", false, null, "ADMIN@FULLFRAIM.COM", "ADMIN@FULLFRAIM.COM", "AQAAAAEAACcQAAAAEHXjGTYNDLPMpyhDoG++yKd+MnvExnhoWGinxQskRlq2yWbxi3N/lROFYpNLc2Uowg==", null, false, 0L, "8dec16e2-e82a-4aa9-8f50-95fc2c7242bf", false, "admin@fullfraim.com" });
 
             migrationBuilder.InsertData(
                 table: "ContestCategories",
                 columns: new[] { "Id", "CreatedOn", "DeletedOn", "IsDeleted", "ModifiedOn", "Name" },
                 values: new object[,]
                 {
-                    { 11, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, false, null, "Street" },
-                    { 10, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, false, null, "Portrait" },
                     { 12, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, false, null, "Wildlife" },
-                    { 8, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, false, null, "Nude" },
+                    { 10, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, false, null, "Portrait" },
+                    { 9, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, false, null, "Photojournalism" },
+                    { 11, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, false, null, "Street" },
                     { 7, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, false, null, "Natrue" },
                     { 6, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, false, null, "Landscapes" },
                     { 5, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, false, null, "Fine Art" },
                     { 4, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, false, null, "Fashion/Beauty" },
                     { 3, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, false, null, "Conceptual" },
                     { 2, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, false, null, "Architecture" },
-                    { 9, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, false, null, "Photojournalism" },
+                    { 8, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, false, null, "Nude" },
                     { 1, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, false, null, "Abstract" }
                 });
 
@@ -395,11 +460,6 @@ namespace FullFraim.Data.Migrations
                     { 2, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, false, null, "PhaseII" },
                     { 3, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, false, null, "Finished" }
                 });
-
-            migrationBuilder.InsertData(
-                table: "AspNetUserRoles",
-                columns: new[] { "UserId", "RoleId" },
-                values: new object[] { 1, 1 });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
@@ -441,6 +501,16 @@ namespace FullFraim.Data.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
+                name: "IX_ContestPhases_ContestId",
+                table: "ContestPhases",
+                column: "ContestId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ContestPhases_PhaseId",
+                table: "ContestPhases",
+                column: "PhaseId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Contests_ContestCategoryId",
                 table: "Contests",
                 column: "ContestCategoryId");
@@ -451,9 +521,19 @@ namespace FullFraim.Data.Migrations
                 column: "ContestTypeId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Contests_PhaseId",
-                table: "Contests",
-                column: "PhaseId");
+                name: "IX_JuryContests_UserId",
+                table: "JuryContests",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ParticipantContests_ContestId",
+                table: "ParticipantContests",
+                column: "ContestId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ParticipantContests_PhotoId",
+                table: "ParticipantContests",
+                column: "PhotoId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_PhotoReviews_PhotoId",
@@ -466,6 +546,11 @@ namespace FullFraim.Data.Migrations
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_PhotoReviews_JuryContestContestId_JuryContestUserId",
+                table: "PhotoReviews",
+                columns: new[] { "JuryContestContestId", "JuryContestUserId" });
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Photos_ContestId",
                 table: "Photos",
                 column: "ContestId");
@@ -474,11 +559,6 @@ namespace FullFraim.Data.Migrations
                 name: "IX_Photos_UserId",
                 table: "Photos",
                 column: "UserId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_UserContest_ContestId",
-                table: "UserContest",
-                column: "ContestId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -499,16 +579,25 @@ namespace FullFraim.Data.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
-                name: "PhotoReviews");
+                name: "ContestPhases");
 
             migrationBuilder.DropTable(
-                name: "UserContest");
+                name: "ParticipantContests");
+
+            migrationBuilder.DropTable(
+                name: "PhotoReviews");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
+                name: "Phases");
+
+            migrationBuilder.DropTable(
                 name: "Photos");
+
+            migrationBuilder.DropTable(
+                name: "JuryContests");
 
             migrationBuilder.DropTable(
                 name: "Contests");
@@ -521,9 +610,6 @@ namespace FullFraim.Data.Migrations
 
             migrationBuilder.DropTable(
                 name: "ContestTypes");
-
-            migrationBuilder.DropTable(
-                name: "Phases");
         }
     }
 }
