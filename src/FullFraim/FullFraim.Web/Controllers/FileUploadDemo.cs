@@ -26,7 +26,7 @@ namespace FullFraim.Web.Controllers
 
             var resp = new ImageInputUploadDemo() 
             {
-                ImageUrl = imageUrl.Result,
+                ImageUrl = imageUrl,
             };
 
             return View(resp);
