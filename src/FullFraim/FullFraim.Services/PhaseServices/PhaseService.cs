@@ -25,14 +25,13 @@ namespace FullFraim.Services.PhaseServices
                 throw new NullModelException();
             }
 
-            var result = await this.context.Phases
+            await this.context.Phases
                 .AddAsync(model.MapToRaw());
 
             await this.context
                 .SaveChangesAsync();
 
-            return result.Entity
-                .MapToDto();
+            return model;
         }
 
         public async Task DeleteAsync(int id)
@@ -53,14 +52,9 @@ namespace FullFraim.Services.PhaseServices
 
         public async Task<ICollection<PhaseModel>> GetAllAsync()
         {
-            var DbResult = await this.context.Phases.ToListAsync();
-
-            var result = new List<PhaseModel>();
-
-            foreach (var phase in DbResult)
-            {
-                result.Add(phase.MapToDto());
-            }
+            var result = await this.context.Phases
+                .MapToDto()
+                .ToListAsync();
 
             return result;
         }
@@ -73,6 +67,7 @@ namespace FullFraim.Services.PhaseServices
             }
 
             var result = await this.context.Phases
+                .MapToDto()
                 .FirstOrDefaultAsync(CC => CC.Id == id);
 
             if (result == null)
@@ -80,7 +75,7 @@ namespace FullFraim.Services.PhaseServices
                 throw new DbModelNotFoundException();
             }
 
-            return result.MapToDto();
+            return result;
         }
 
         public async Task<PhaseModel> UpdateAsync(int id, PhaseModel model)
@@ -101,7 +96,9 @@ namespace FullFraim.Services.PhaseServices
             dbModelToUpdate.Name = model.Name ?? dbModelToUpdate.Name;
             dbModelToUpdate.ModifiedOn = DateTime.UtcNow;
 
-            return dbModelToUpdate.MapToDto();
+            await this.context.SaveChangesAsync();
+
+            return model;
         }
     }
 }

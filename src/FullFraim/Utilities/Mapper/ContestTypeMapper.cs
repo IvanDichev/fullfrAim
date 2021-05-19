@@ -1,17 +1,19 @@
 ﻿using FullFraim.Data.Models;
 using FullFraim.Models.Dto_s.ContestTypes;
+using System.Linq;
 
 namespace Utilities.Mapper
 {
     public static class ContestTypeMapper
     {
-        public static ContestTypeModel MapToDto(this ContestType model)
+        public static IQueryable<ContestTypeModel> MapToDto(this IQueryable<ContestType> query)
         {
-            return new ContestTypeModel()
+            return query.Select(x =>
+            new ContestTypeModel()
             {
-                Id = model.Id,
-                Name = model.Name,
-            };
+                Id = x.Id,
+                Name = x.Name
+            });
         }
 
         public static ContestType MapToRaw(this ContestTypeModel model)

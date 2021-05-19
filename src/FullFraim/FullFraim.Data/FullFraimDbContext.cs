@@ -25,6 +25,8 @@ namespace FullFraim.Data
 
             builder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
 
+            builder.Entity<User>();
+
             base.OnModelCreating(builder);
         }
 

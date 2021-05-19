@@ -25,11 +25,11 @@ namespace FullFraim.Services.ContestServices
                 throw new NullModelException();
             }
 
-            var result = await this.context.Contests.AddAsync(model.MapToRaw());
+            await this.context.Contests.AddAsync(model.MapToRaw());
 
             await this.context.SaveChangesAsync();
 
-            return result.Entity.MapToDto();
+            return model;
         }
 
         public async Task DeleteAsync(int id)
@@ -50,14 +50,9 @@ namespace FullFraim.Services.ContestServices
 
         public async Task<ICollection<ContestModel>> GetAllAsync()
         {
-            var DbResult = await this.context.Contests.ToListAsync();
-
-            var result = new List<ContestModel>();
-
-            foreach (var contest in DbResult)
-            {
-                result.Add(contest.MapToDto());
-            }
+            var result = await this.context.Contests
+                .MapToDto()
+                .ToListAsync();
 
             return result;
         }
@@ -70,6 +65,7 @@ namespace FullFraim.Services.ContestServices
             }
 
             var result = await this.context.Contests
+                .MapToDto()
                 .FirstOrDefaultAsync(CC => CC.Id == id);
 
             if (result == null)
@@ -77,7 +73,7 @@ namespace FullFraim.Services.ContestServices
                 throw new DbModelNotFoundException();
             }
 
-            return result.MapToDto();
+            return result;
         }
 
         public async Task<ContestModel> UpdateAsync(int id, ContestModel model)
@@ -98,7 +94,9 @@ namespace FullFraim.Services.ContestServices
             dbModelToUpdate.Name = model.Name ?? dbModelToUpdate.Name;
             dbModelToUpdate.ModifiedOn = DateTime.UtcNow;
 
-            return dbModelToUpdate.MapToDto();
+            await this.context.SaveChangesAsync();
+
+            return model;
         }
     }
 }
