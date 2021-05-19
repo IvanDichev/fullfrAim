@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace FullFraim.Data.Models
 {
@@ -17,7 +18,9 @@ namespace FullFraim.Data.Models
 
         public uint Points { get; set; }
 
-        public int RankId { get; set; }
+        // Generateb by trigger in the Db
+        [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
+        public int? RankId { get; set; }
         public Rank Rank { get; set; }
 
         public ICollection<ParticipantContest> ParticipantContests { get; set; }
