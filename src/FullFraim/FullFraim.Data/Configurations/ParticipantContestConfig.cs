@@ -8,7 +8,8 @@ namespace FullFraim.Data.Configurations
     {
         public void Configure(EntityTypeBuilder<ParticipantContest> builder)
         {
-            builder.HasKey(k => new { k.UserId, k.ContestId });
+            builder.HasKey(pc => new { pc.UserId, pc.ContestId });
+            builder.HasQueryFilter(pc => !pc.IsDeleted);
         }
     }
 }

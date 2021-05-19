@@ -8,7 +8,7 @@ namespace FullFraim.Data.Configurations
     {
         public void Configure(EntityTypeBuilder<PhotoReview> builder)
         {
-
+            builder.HasQueryFilter(pr => !pr.IsDeleted);
         }
     }
 }
