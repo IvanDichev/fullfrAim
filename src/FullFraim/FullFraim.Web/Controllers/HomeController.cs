@@ -1,6 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using FullFraim.Web.Models;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using FullFraim.Web.Models;
 using System.Diagnostics;
 using FullFraim.Services.PhotoService;
 using System.Threading.Tasks;
@@ -13,12 +14,9 @@ namespace FullFraim.Web.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> logger;
-        private readonly IPhotoService photoService;
-
-        public HomeController(ILogger<HomeController> logger, IPhotoService photoService)
+        public HomeController(ILogger<HomeController> logger)
         {
             this.logger = logger;
-            this.photoService = photoService;
         }
 
         public async Task<IActionResult> Index()
@@ -31,11 +29,6 @@ namespace FullFraim.Web.Controllers
             });
 
             return View(photosView);
-        }
-
-        public IActionResult Privacy()
-        {
-            return View();
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

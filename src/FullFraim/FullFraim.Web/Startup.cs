@@ -1,17 +1,16 @@
 using FullFraim.Data;
-using FullFraim.Data.Models;
-using FullFraim.Models;
 using FullFraim.Services.API_JwtServices;
 using FullFraim.Services.PhotoService;
 using FullFraim.Web.Configurations.StartupConfig;
 using FullFraim.Web.Filters;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Utilities.CloudinaryUtils;
+using Utilities.Mailing;
 
 namespace FullFraim.Web
 {
@@ -32,10 +31,10 @@ namespace FullFraim.Web
             services.AddControllersWithViews();
             services.AddControllers();
 
-            services.AddIdentity<User, IdentityRole<int>>()
-                .AddEntityFrameworkStores<FullFraimDbContext>();
+            AuthenticationConfig.SingInConfiguration(services);
 
             services.AddScoped<IJwtServices, JwtServices>();
+            services.AddTransient<ICloudinaryService, CloudinaryService>();
             services.AddScoped<IPhotoService, PhotoService>();
             services.AddTransient<APIExceptionFilter>();
 
