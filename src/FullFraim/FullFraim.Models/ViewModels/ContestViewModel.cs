@@ -1,6 +1,4 @@
-﻿using FullFraim.Models.Dto_s.ContestCategories;
-using FullFraim.Models.Dto_s.ContestTypes;
-using FullFraim.Models.Dto_s.Phases;
+﻿using System;
 using System.ComponentModel.DataAnnotations;
 
 namespace FullFraim.Models.ViewModels
@@ -18,6 +16,15 @@ namespace FullFraim.Models.ViewModels
         [Required]
         [Display(Name = "Decription")]
         public string Description { get; set; }
+
+        [Required]
+        public DateTime PhaseI_Time { get; set; }
+
+        [Required]
+        public DateTime PhaseII_Time { get; set; }
+
+        [Required]
+        public DateTime PhaseIII_Time { get; set; }
 
         [Required]
         [Display(Name = "Phase")]

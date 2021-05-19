@@ -31,8 +31,12 @@
         @Html.DropDownListFor(x => x.ContestTypeId, new SelectList(ViewBag.ContestTypes, "Id", "Name"), "Select Contest Type")
     </div>
     <div>
-        <label asp-for="PhaseId" class="form-group"></label>
-        @Html.DropDownListFor(x => x.PhaseId, new SelectList(ViewBag.Phases, "Id", "Name"), "Select Phase")
+        <label asp-for="PhaseII_Time" class="form-group"></label>
+        <input type="date" asp-for="PhaseII_Time" class="form-group" id="formGroupExampleInput">
+    </div>
+    <div>
+        <label asp-for="PhaseIII_Time" class="form-group"></label>
+        <input type="date" asp-for="PhaseIII_Time" class="form-group" id="formGroupExampleInput">
     </div>
 
     <button asp-controller="Contest" asp-action="Create" formmethod="post" type="submit" class="btn btn-primary">Create</button>

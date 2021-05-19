@@ -5,8 +5,10 @@ using FullFraim.Services.ContestTypeServices;
 using FullFraim.Services.PhaseServices;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Utilities.Mapper;
 
 namespace FullFraim.Web.Controllers.MvcControllers
 {
@@ -50,14 +52,21 @@ namespace FullFraim.Web.Controllers.MvcControllers
         }
 
         [HttpPost]
+        [AutoValidateAntiforgeryToken]
         public async Task<IActionResult> Create(ContestViewModel model)
         {
-            if(ModelState.IsValid)
+            if (ModelState.IsValid)
             {
+                
 
+                await this.contestService.CreateAsync(model.MapToDto());
 
+                return RedirectToAction("Index", "Home");
             }
-                return Ok();
+            else
+            {
+                return View(model);
+            }
         }
     }
 }
