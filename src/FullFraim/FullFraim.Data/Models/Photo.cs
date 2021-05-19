@@ -13,6 +13,10 @@ namespace FullFraim.Data.Models
         [Required]
         public string Url { get; set; }
 
+        [Required]
+        [StringLength(maximumLength: 20)] // TODO: Put minimum length?
+        public string Description { get; set; }
+
         public ParticipantContest Participant { get; set; }
 
         public ICollection<PhotoReview> PhotoReviews { get; set; }
