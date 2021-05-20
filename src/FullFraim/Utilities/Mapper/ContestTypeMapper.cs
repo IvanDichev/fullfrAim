@@ -6,17 +6,17 @@ namespace Utilities.Mapper
 {
     public static class ContestTypeMapper
     {
-        public static IQueryable<ContestTypeModel> MapToDto(this IQueryable<ContestType> query)
+        public static IQueryable<ContestTypeDto> MapToDto(this IQueryable<ContestType> query)
         {
             return query.Select(x =>
-            new ContestTypeModel()
+            new ContestTypeDto()
             {
                 Id = x.Id,
                 Name = x.Name
             });
         }
 
-        public static ContestType MapToRaw(this ContestTypeModel model)
+        public static ContestType MapToRaw(this ContestTypeDto model)
         {
             return new ContestType()
             {

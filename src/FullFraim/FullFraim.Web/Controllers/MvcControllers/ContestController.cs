@@ -57,8 +57,6 @@ namespace FullFraim.Web.Controllers.MvcControllers
         {
             if (ModelState.IsValid)
             {
-                
-
                 await this.contestService.CreateAsync(model.MapToDto());
 
                 return RedirectToAction("Index", "Home");

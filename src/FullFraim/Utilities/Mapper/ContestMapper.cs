@@ -7,9 +7,9 @@ namespace Utilities.Mapper
 {
     public static class ContestMapper
     {
-        public static ContestModel MapToDto(this ContestViewModel model)
+        public static ContestDto MapToDto(this ContestViewModel model)
         {
-            return new ContestModel()
+            return new ContestDto()
             {
                 Name = model.Name,
                 Cover_Url = model.Cover_Url,
@@ -19,7 +19,7 @@ namespace Utilities.Mapper
             };
         }
 
-        public static ContestViewModel MapToView(this ContestModel model)
+        public static ContestViewModel MapToView(this ContestDto model)
         {
             return new ContestViewModel()
             {
@@ -31,7 +31,7 @@ namespace Utilities.Mapper
             };
         }
 
-        public static Contest MapToRaw(this ContestModel model)
+        public static Contest MapToRaw(this ContestDto model)
         {
             return new Contest()
             {
@@ -44,10 +44,10 @@ namespace Utilities.Mapper
             };
         }
 
-        public static IQueryable<ContestModel> MapToDto(this IQueryable<Contest> query)
+        public static IQueryable<ContestDto> MapToDto(this IQueryable<Contest> query)
         {
             return query.Select(x =>
-            new ContestModel()
+            new ContestDto()
             {
                 Id = x.Id,
                 Name = x.Name,

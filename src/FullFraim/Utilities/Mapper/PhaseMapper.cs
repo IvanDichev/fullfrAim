@@ -6,17 +6,17 @@ namespace Utilities.Mapper
 {
     public static class PhaseMapper
     {
-        public static IQueryable<PhaseModel> MapToDto(this IQueryable<Phase> query)
+        public static IQueryable<PhaseDto> MapToDto(this IQueryable<Phase> query)
         {
             return query.Select(x =>
-            new PhaseModel()
+            new PhaseDto()
             {
                 Id = x.Id,
                 Name = x.Name
             });
         }
 
-        public static Phase MapToRaw(this PhaseModel model)
+        public static Phase MapToRaw(this PhaseDto model)
         {
             return new Phase()
             {
