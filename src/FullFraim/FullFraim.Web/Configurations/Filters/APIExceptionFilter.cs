@@ -29,7 +29,7 @@ namespace FullFraim.Web.Filters
                     StatusCode = 400,
                 };
             }
-            else if (exception is DbModelNotFoundException notFoundEx)
+            else if (exception is NotFoundException notFoundEx)
             {
                 context.Result = new ContentResult()
                 {

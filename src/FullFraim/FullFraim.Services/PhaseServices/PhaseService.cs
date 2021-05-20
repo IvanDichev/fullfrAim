@@ -72,7 +72,7 @@ namespace FullFraim.Services.PhaseServices
 
             if (result == null)
             {
-                throw new DbModelNotFoundException();
+                throw new NotFoundException();
             }
 
             return result;
@@ -90,7 +90,7 @@ namespace FullFraim.Services.PhaseServices
 
             if (dbModelToUpdate == null)
             {
-                throw new DbModelNotFoundException();
+                throw new NotFoundException();
             }
 
             dbModelToUpdate.Name = model.Name ?? dbModelToUpdate.Name;
