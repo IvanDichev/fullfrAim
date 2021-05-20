@@ -9,7 +9,7 @@ namespace FullFraim.Services.PhotoServices
         Task<ICollection<PhotoModel>> GetAllAsync();
         Task<PhotoModel> GetByIdAsync(int id);
         Task<PhotoModel> CreateAsync(PhotoModel model);
-        Task<PhotoModel> UpdateAsync(PhotoModel model);
-        Task DeleteAsync(PhotoModel model);
+        Task<PhotoModel> UpdateAsync(int id, PhotoModel model);
+        Task DeleteAsync(int id);
     }
 }
