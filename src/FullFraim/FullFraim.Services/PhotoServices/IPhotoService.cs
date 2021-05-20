@@ -6,10 +6,10 @@ namespace FullFraim.Services.PhotoServices
 {
     public interface IPhotoService
     {
-        Task<ICollection<OutputPhotoModel>> GetAllAsync();
-        Task<OutputPhotoModel> GetByIdAsync(int id);
-        Task<OutputPhotoModel> CreateAsync(InputPhotoModel model);
-        Task<OutputPhotoModel> UpdateAsync(InputPhotoModel model);
-        Task DeleteAsync(InputPhotoModel model);
+        Task<ICollection<PhotoModel>> GetAllAsync();
+        Task<PhotoModel> GetByIdAsync(int id);
+        Task<PhotoModel> CreateAsync(PhotoModel model);
+        Task<PhotoModel> UpdateAsync(PhotoModel model);
+        Task DeleteAsync(PhotoModel model);
     }
 }

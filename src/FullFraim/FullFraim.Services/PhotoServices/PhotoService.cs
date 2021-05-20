@@ -14,7 +14,7 @@ namespace FullFraim.Services.PhotoServices
         {
             this.context = context;
         }
-        public Task<OutputPhotoModel> CreateAsync(InputPhotoModel model)
+        public Task<PhotoModel> CreateAsync(PhotoModel model)
         {
             if (model == null)
             {
@@ -23,22 +23,22 @@ namespace FullFraim.Services.PhotoServices
 
         }
 
-        public Task DeleteAsync(InputPhotoModel model)
+        public Task DeleteAsync(PhotoModel model)
         {
             throw new NotImplementedException();
         }
 
-        public Task<ICollection<OutputPhotoModel>> GetAllAsync()
+        public Task<ICollection<PhotoModel>> GetAllAsync()
         {
             throw new NotImplementedException();
         }
 
-        public Task<OutputPhotoModel> GetByIdAsync(int id)
+        public Task<PhotoModel> GetByIdAsync(int id)
         {
             throw new NotImplementedException();
         }
 
-        public Task<OutputPhotoModel> UpdateAsync(InputPhotoModel model)
+        public Task<PhotoModel> UpdateAsync(PhotoModel model)
         {
             throw new NotImplementedException();
         }
