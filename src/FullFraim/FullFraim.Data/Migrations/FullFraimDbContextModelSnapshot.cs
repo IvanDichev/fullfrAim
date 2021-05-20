@@ -467,6 +467,33 @@ namespace FullFraim.Data.Migrations
                     b.ToTable("PhotoReviews");
                 });
 
+            modelBuilder.Entity("FullFraim.Data.Models.Rank", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("ModifiedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Ranks");
+                });
+
             modelBuilder.Entity("FullFraim.Data.Models.User", b =>
                 {
                     b.Property<int>("Id")
@@ -524,6 +551,10 @@ namespace FullFraim.Data.Migrations
                     b.Property<long>("Points")
                         .HasColumnType("bigint");
 
+                    b.Property<int?>("RankId")
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnType("int");
+
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("nvarchar(max)");
 
@@ -543,6 +574,8 @@ namespace FullFraim.Data.Migrations
                         .IsUnique()
                         .HasName("UserNameIndex")
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
+
+                    b.HasIndex("RankId");
 
                     b.ToTable("AspNetUsers");
                 });
@@ -579,35 +612,35 @@ namespace FullFraim.Data.Migrations
                         new
                         {
                             Id = 1,
-                            ConcurrencyStamp = "e9a2c837-63ad-409c-bcc5-d1b1803767eb",
+                            ConcurrencyStamp = "946e41ba-16b8-4ac8-97f3-aaeefbbe9d6f",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
                             Id = 2,
-                            ConcurrencyStamp = "11a33437-50ad-4bb7-953e-9931a74d2966",
+                            ConcurrencyStamp = "95154f89-7a62-4321-b195-b9e4fce9e264",
                             Name = "Organizer",
                             NormalizedName = "ORGANIZER"
                         },
                         new
                         {
                             Id = 3,
-                            ConcurrencyStamp = "d4989492-4089-4f18-a0f7-24aa2e2c08b3",
+                            ConcurrencyStamp = "a91fefc6-2c56-4fdd-a67b-c707362d7d03",
                             Name = "Jury",
                             NormalizedName = "JURY"
                         },
                         new
                         {
                             Id = 4,
-                            ConcurrencyStamp = "01b9c614-2153-42e6-99b9-008be1a58e84",
+                            ConcurrencyStamp = "7302f197-5bc8-4bdd-bfa3-a2fd76c9a327",
                             Name = "Participant",
                             NormalizedName = "PARTICIPANT"
                         },
                         new
                         {
                             Id = 5,
-                            ConcurrencyStamp = "0023a6be-6b18-4780-934e-8911282472d9",
+                            ConcurrencyStamp = "785a522e-8349-46b2-b46c-af7fdf63fddd",
                             Name = "PhotoMaster",
                             NormalizedName = "PHOTOMASTER"
                         });
@@ -800,6 +833,13 @@ namespace FullFraim.Data.Migrations
                         .HasForeignKey("JuryContestContestId", "JuryContestUserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("FullFraim.Data.Models.User", b =>
+                {
+                    b.HasOne("FullFraim.Data.Models.Rank", "Rank")
+                        .WithMany("Users")
+                        .HasForeignKey("RankId");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<int>", b =>

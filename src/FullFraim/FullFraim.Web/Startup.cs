@@ -1,5 +1,10 @@
 using FullFraim.Data;
 using FullFraim.Services.API_JwtServices;
+using FullFraim.Services.ContestCatgeoryServices;
+using FullFraim.Services.ContestServices;
+using FullFraim.Services.ContestTypeServices;
+using FullFraim.Services.PhaseServices;
+using FullFraim.Services.PhotoService;
 using FullFraim.Web.Configurations.StartupConfig;
 using FullFraim.Web.Filters;
 using Microsoft.AspNetCore.Builder;
@@ -33,7 +38,15 @@ namespace FullFraim.Web
             AuthenticationConfig.SingInConfiguration(services);
 
             services.AddScoped<IJwtServices, JwtServices>();
+            services.AddScoped<IContestService, ContestService>();
+            services.AddScoped<IContestCategoryService, ContestCategoryService>();
+            services.AddScoped<IContestTypeService, ContestTypeService>();
+            services.AddScoped<IPhaseService, PhaseService>();
+            services.AddTransient<APIExceptionFilter>();
             services.AddTransient<ICloudinaryService, CloudinaryService>();
+            services.AddScoped<IPhotoService, PhotoService>();
+            services.AddTransient<APIExceptionFilter>();
+
 
             AuthenticationConfig.ConfigureWith_Jwt(services, Configuration);
 

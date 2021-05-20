@@ -17,6 +17,7 @@ namespace FullFraim.Data
         public DbSet<ContestType> ContestTypes { get; set; }
         public DbSet<Phase> Phases { get; set; }
         public DbSet<Photo> Photos { get; set; }
+        public DbSet<Rank> Ranks { get; set; }
         public DbSet<PhotoReview> PhotoReviews { get; set; }
         public DbSet<ContestPhase> ContestPhases { get; set; }
         public DbSet<JuryContest> JuryContests { get; set; }
@@ -27,6 +28,8 @@ namespace FullFraim.Data
             builder.Seed();
 
             builder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+
+            builder.Entity<User>();
 
             base.OnModelCreating(builder);
         }
