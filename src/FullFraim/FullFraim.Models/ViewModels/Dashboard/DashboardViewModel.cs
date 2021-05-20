@@ -2,7 +2,7 @@
 
 namespace FullFraim.Models.ViewModels.Dashboard
 {
-    public class ContestViewModel
+    public class DashboardViewModel
     {
         //public int TestProperty { get; set; }
         //public List<string> TestListProperty { get; set; }

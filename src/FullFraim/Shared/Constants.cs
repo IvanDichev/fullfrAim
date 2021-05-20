@@ -47,8 +47,8 @@
         //Exception constants
         public class Exceptions
         {
-            public const string ArgumentNull_Content = "BadRequest";
-            public const string Server500_Content = "Something went wrong";
+            public const string APIFilterFail_Critical = "Api Exception filter failed to capture exception!";
+            public const string AMVCFilterFail_Critical = "MVC Exception filter failed to capture exception!";
         }
     }
 }

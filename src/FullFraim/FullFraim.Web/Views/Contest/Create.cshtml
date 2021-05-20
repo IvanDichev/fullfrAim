@@ -1,0 +1,43 @@
+﻿@model ContestViewModel
+
+<style>
+    .form-group {
+        padding-bottom: 1em
+    }
+</style>
+
+<h1>Create Contest</h1>
+<hr>
+<form>
+    <div class="form-group">
+        <label asp-for="Name"></label>
+        <input asp-for="Name" type="text" class="form-control" id="formGroupExampleInput" placeholder="Example input">
+    </div>
+    <div class="form-group">
+        <label asp-for="Description"></label>
+        <input asp-for="Description" type="text" class="form-control" id="formGroupExampleInput" placeholder="Example input">
+    </div>
+    <div class="form-group">
+        <label asp-for="Cover_Url"></label>
+        <input asp-for="Cover_Url" type="text" class="form-control" id="formGroupExampleInput" placeholder="Example input">
+    </div>
+
+    <div>
+        <label asp-for="ContestCategoryId" class="form-group"></label>
+        @Html.DropDownListFor(x => x.ContestCategoryId, new SelectList(ViewBag.Categories, "Id", "Name"), "Select Category")
+    </div>
+    <div>
+        <label asp-for="ContestTypeId" class="form-group"></label>
+        @Html.DropDownListFor(x => x.ContestTypeId, new SelectList(ViewBag.ContestTypes, "Id", "Name"), "Select Contest Type")
+    </div>
+    <div>
+        <label asp-for="PhaseII_Time" class="form-group"></label>
+        <input type="date" asp-for="PhaseII_Time" class="form-group" id="formGroupExampleInput">
+    </div>
+    <div>
+        <label asp-for="PhaseIII_Time" class="form-group"></label>
+        <input type="date" asp-for="PhaseIII_Time" class="form-group" id="formGroupExampleInput">
+    </div>
+
+    <button asp-controller="Contest" asp-action="Create" formmethod="post" type="submit" class="btn btn-primary">Create</button>
+</form>

@@ -5,6 +5,8 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\FullFraim.Data\FullFraim.Data.csproj" />
+    <ProjectReference Include="..\FullFraim.Models\FullFraim.Models.csproj" />
     <PackageReference Include="CloudinaryDotNet" Version="1.15.1" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="5.0.0" />
     <PackageReference Include="SendGrid" Version="9.23.1" />
