@@ -18,7 +18,7 @@ namespace FullFraim.Services.ContestTypeServices
             this.context = context;
         }
 
-        public async Task<ContestTypeModel> CreateAsync(ContestTypeModel model)
+        public async Task<ContestTypeDto> CreateAsync(ContestTypeDto model)
         {
             if (model == null)
             {
@@ -50,7 +50,7 @@ namespace FullFraim.Services.ContestTypeServices
             await this.context.SaveChangesAsync();
         }
 
-        public async Task<ICollection<ContestTypeModel>> GetAllAsync()
+        public async Task<ICollection<ContestTypeDto>> GetAllAsync()
         {
             var result = await this.context.ContestTypes
                 .MapToDto()
@@ -59,7 +59,7 @@ namespace FullFraim.Services.ContestTypeServices
             return result;
         }
 
-        public async Task<ContestTypeModel> GetByIdAsync(int id)
+        public async Task<ContestTypeDto> GetByIdAsync(int id)
         {
             if (id <= 0)
             {
@@ -78,7 +78,7 @@ namespace FullFraim.Services.ContestTypeServices
             return result;
         }
 
-        public async Task<ContestTypeModel> UpdateAsync(int id, ContestTypeModel model)
+        public async Task<ContestTypeDto> UpdateAsync(int id, ContestTypeDto model)
         {
             if (model == null)
             {

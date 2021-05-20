@@ -18,7 +18,7 @@ namespace FullFraim.Services.ContestCatgeoryServices
             this.context = context;
         }
 
-        public async Task<ContestCategoryModel> CreateAsync(ContestCategoryModel model)
+        public async Task<ContestCategoryDto> CreateAsync(ContestCategoryDto model)
         {
             if(model == null)
             {
@@ -50,7 +50,7 @@ namespace FullFraim.Services.ContestCatgeoryServices
             await this.context.SaveChangesAsync();
         }
 
-        public async Task<ICollection<ContestCategoryModel>> GetAllAsync()
+        public async Task<ICollection<ContestCategoryDto>> GetAllAsync()
         {
             var result = await this.context.ContestCategories
                 .MapToDto()
@@ -59,7 +59,7 @@ namespace FullFraim.Services.ContestCatgeoryServices
             return result;
         }
 
-        public async Task<ContestCategoryModel> GetByIdAsync(int id)
+        public async Task<ContestCategoryDto> GetByIdAsync(int id)
         {
             if(id <= 0)
             {
@@ -78,7 +78,7 @@ namespace FullFraim.Services.ContestCatgeoryServices
             return result;
         }
 
-        public async Task<ContestCategoryModel> UpdateAsync(int id, ContestCategoryModel model)
+        public async Task<ContestCategoryDto> UpdateAsync(int id, ContestCategoryDto model)
         {
             if(model == null)
             {

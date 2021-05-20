@@ -1,6 +1,6 @@
 ﻿namespace FullFraim.Models.Dto_s.Contests
 {
-    public class ContestModel
+    public class ContestDto
     {
         public int Id { get; set; }
 

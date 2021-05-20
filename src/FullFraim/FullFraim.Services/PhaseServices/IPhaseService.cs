@@ -6,10 +6,10 @@ namespace FullFraim.Services.PhaseServices
 {
     public interface IPhaseService
     {
-        Task<ICollection<PhaseModel>> GetAllAsync();
-        Task<PhaseModel> GetByIdAsync(int id);
-        Task<PhaseModel> CreateAsync(PhaseModel model);
-        Task<PhaseModel> UpdateAsync(int id, PhaseModel model);
+        Task<ICollection<PhaseDto>> GetAllAsync();
+        Task<PhaseDto> GetByIdAsync(int id);
+        Task<PhaseDto> CreateAsync(PhaseDto model);
+        Task<PhaseDto> UpdateAsync(int id, PhaseDto model);
         Task DeleteAsync(int id);
     }
 }

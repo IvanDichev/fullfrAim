@@ -2,12 +2,12 @@
 
 namespace FullFraim.Services.Exceptions
 {
-    public class DbModelNotFoundException : ArgumentNullException
+    public class NotFoundException : ArgumentNullException
     {
-        public DbModelNotFoundException()
+        public NotFoundException()
         { }
 
-        public DbModelNotFoundException(string message)
+        public NotFoundException(string message)
             : base(message)
         { }
     }

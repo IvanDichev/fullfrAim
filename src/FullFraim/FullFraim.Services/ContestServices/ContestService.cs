@@ -18,7 +18,7 @@ namespace FullFraim.Services.ContestServices
             this.context = context;
         }
 
-        public async Task<ContestModel> CreateAsync(ContestModel model)
+        public async Task<ContestDto> CreateAsync(ContestDto model)
         {
             if (model == null)
             {
@@ -48,7 +48,7 @@ namespace FullFraim.Services.ContestServices
             await this.context.SaveChangesAsync();
         }
 
-        public async Task<ICollection<ContestModel>> GetAllAsync()
+        public async Task<ICollection<ContestDto>> GetAllAsync()
         {
             var result = await this.context.Contests
                 .MapToDto()
@@ -57,7 +57,7 @@ namespace FullFraim.Services.ContestServices
             return result;
         }
 
-        public async Task<ContestModel> GetByIdAsync(int id)
+        public async Task<ContestDto> GetByIdAsync(int id)
         {
             if (id <= 0)
             {
@@ -70,13 +70,13 @@ namespace FullFraim.Services.ContestServices
 
             if (result == null)
             {
-                throw new DbModelNotFoundException();
+                throw new NotFoundException();
             }
 
             return result;
         }
 
-        public async Task<ContestModel> UpdateAsync(int id, ContestModel model)
+        public async Task<ContestDto> UpdateAsync(int id, ContestDto model)
         {
             if (model == null)
             {
@@ -88,7 +88,7 @@ namespace FullFraim.Services.ContestServices
 
             if (dbModelToUpdate == null)
             {
-                throw new DbModelNotFoundException();
+                throw new NotFoundException();
             }
 
             dbModelToUpdate.Name = model.Name ?? dbModelToUpdate.Name;
