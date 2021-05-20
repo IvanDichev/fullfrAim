@@ -1,5 +1,6 @@
 using FullFraim.Data;
 using FullFraim.Services.API_JwtServices;
+using FullFraim.Services.PhotoService;
 using FullFraim.Web.Configurations.StartupConfig;
 using FullFraim.Web.Filters;
 using Microsoft.AspNetCore.Builder;
@@ -34,6 +35,8 @@ namespace FullFraim.Web
 
             services.AddScoped<IJwtServices, JwtServices>();
             services.AddTransient<ICloudinaryService, CloudinaryService>();
+            services.AddScoped<IPhotoService, PhotoService>();
+            services.AddTransient<APIExceptionFilter>();
 
             AuthenticationConfig.ConfigureWith_Jwt(services, Configuration);
 
