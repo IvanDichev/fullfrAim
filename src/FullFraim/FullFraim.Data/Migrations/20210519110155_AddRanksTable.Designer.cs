@@ -4,14 +4,16 @@ using FullFraim.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace FullFraim.Data.Migrations
 {
     [DbContext(typeof(FullFraimDbContext))]
-    partial class FullFraimDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210519110155_AddRanksTable")]
+    partial class AddRanksTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -551,8 +553,7 @@ namespace FullFraim.Data.Migrations
                     b.Property<long>("Points")
                         .HasColumnType("bigint");
 
-                    b.Property<int?>("RankId")
-                        .ValueGeneratedOnAddOrUpdate()
+                    b.Property<int>("RankId")
                         .HasColumnType("int");
 
                     b.Property<string>("SecurityStamp")
@@ -612,35 +613,35 @@ namespace FullFraim.Data.Migrations
                         new
                         {
                             Id = 1,
-                            ConcurrencyStamp = "946e41ba-16b8-4ac8-97f3-aaeefbbe9d6f",
+                            ConcurrencyStamp = "c72a4875-5597-4ead-ba12-44d3675aae2d",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
                             Id = 2,
-                            ConcurrencyStamp = "95154f89-7a62-4321-b195-b9e4fce9e264",
+                            ConcurrencyStamp = "05d15190-3bbb-4284-8dbb-aed581bd7636",
                             Name = "Organizer",
                             NormalizedName = "ORGANIZER"
                         },
                         new
                         {
                             Id = 3,
-                            ConcurrencyStamp = "a91fefc6-2c56-4fdd-a67b-c707362d7d03",
+                            ConcurrencyStamp = "e434da91-ab1c-465e-a8e8-9ec7c73e6db0",
                             Name = "Jury",
                             NormalizedName = "JURY"
                         },
                         new
                         {
                             Id = 4,
-                            ConcurrencyStamp = "7302f197-5bc8-4bdd-bfa3-a2fd76c9a327",
+                            ConcurrencyStamp = "da7515f0-3463-43ce-a177-ede0d4cacd6b",
                             Name = "Participant",
                             NormalizedName = "PARTICIPANT"
                         },
                         new
                         {
                             Id = 5,
-                            ConcurrencyStamp = "785a522e-8349-46b2-b46c-af7fdf63fddd",
+                            ConcurrencyStamp = "bba475ce-9027-450d-b678-b4f1cad34652",
                             Name = "PhotoMaster",
                             NormalizedName = "PHOTOMASTER"
                         });
@@ -839,7 +840,9 @@ namespace FullFraim.Data.Migrations
                 {
                     b.HasOne("FullFraim.Data.Models.Rank", "Rank")
                         .WithMany("Users")
-                        .HasForeignKey("RankId");
+                        .HasForeignKey("RankId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<int>", b =>
