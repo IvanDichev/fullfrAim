@@ -1,7 +1,13 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
-}
+﻿@model IEnumerable<HomeIndexViewModel>
 
-<div class="text-center">
-    <h1 class="display-4">Welcome To FullFraim</h1>
+<div class="carousel-item active">
+    <div class="container">
+        <partial name="~/Views/Shared/Partials/_CarouselPartial.cshtml" />
+    </div>
 </div>
+
+<div class="container-fluid">
+    
+</div>
+
+@*<partial action="TestPartialInController()"/>*@
