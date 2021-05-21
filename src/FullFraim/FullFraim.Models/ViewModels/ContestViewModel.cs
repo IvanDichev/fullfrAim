@@ -5,6 +5,8 @@ namespace FullFraim.Models.ViewModels
 {
     public class ContestViewModel
     {
+        public int Id { get; set; } // Do we need to make validations in the view model?
+
         [Required]
         [Display(Name = "Name")]
         public string Name { get; set; }

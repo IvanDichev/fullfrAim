@@ -6,7 +6,7 @@ namespace FullFraim.Services.ContestServices
 {
     public interface IContestService
     {
-        Task<ICollection<ContestDto>> GetAllAsync();
+        Task<IEnumerable<ContestDto>> GetAllAsync();
         Task<ContestDto> GetByIdAsync(int id);
         Task<ContestDto> CreateAsync(ContestDto model);
         Task<ContestDto> UpdateAsync(int id, ContestDto model);

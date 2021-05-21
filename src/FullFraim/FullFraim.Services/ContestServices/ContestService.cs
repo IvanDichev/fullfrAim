@@ -1,9 +1,11 @@
 ﻿using FullFraim.Data;
 using FullFraim.Models.Dto_s.Contests;
+using FullFraim.Models.ViewModels;
 using FullFraim.Services.Exceptions;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Utilities.Mapper;
 
@@ -17,6 +19,7 @@ namespace FullFraim.Services.ContestServices
         {
             this.context = context;
         }
+
 
         public async Task<ContestDto> CreateAsync(ContestDto model)
         {
@@ -48,7 +51,7 @@ namespace FullFraim.Services.ContestServices
             await this.context.SaveChangesAsync();
         }
 
-        public async Task<ICollection<ContestDto>> GetAllAsync()
+        public async Task<IEnumerable<ContestDto>> GetAllAsync() // TODO: Task<ICollection<T>>
         {
             var result = await this.context.Contests
                 .MapToDto()
@@ -76,6 +79,7 @@ namespace FullFraim.Services.ContestServices
             return result;
         }
 
+        
         public async Task<ContestDto> UpdateAsync(int id, ContestDto model)
         {
             if (model == null)

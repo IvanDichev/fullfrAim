@@ -1,4 +1,6 @@
-﻿    <!-- Social Sidebar Area Start -->
+﻿    @model DashboardViewModel 
+    
+    <!-- Social Sidebar Area Start -->
     <div class="social-sidebar-area">
         <!-- Social Area -->
         <div class="social-info-area">
@@ -12,21 +14,25 @@
     <!-- Project Area Start -->
     <div class="gallery_area clearfix">
         <div class="container-fluid clearfix">
-            <div class="gallery_menu">
-                <div class="portfolio-menu">
-                    <button class="active btn" type="button" data-filter="*">All</button>
-                    <button class="btn" type="button" data-filter=".portraits">Portraits</button>
-                    <button class="btn" type="button" data-filter=".weddings">Weddings</button>
-                    <button class="btn" type="button" data-filter=".studio">Studio</button>
-                    <button class="btn" type="button" data-filter=".fashion">Fashion</button>
-                    <button class="btn" type="button" data-filter=".life">Lifestyle</button>
+            <div class="dropdown">
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Categories
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <a class="dropdown-item" href="#">Action</a>
+                    <a class="dropdown-item" href="#">Another action</a>
+                    <a class="dropdown-item" href="#">Something else here</a>
                 </div>
             </div>
 
             <div class="row portfolio-column">
 
-                <partial name="~/Views/Shared/Partials/_ContestCardPartial.cshtml"/>
-            
+                @foreach (var item in Model.Contests)
+                {
+                    <partial name="~/Views/Shared/Partials/_ContestCardPartial.cshtml" model="item" />
+
+                }
+
             </div>
 
             <div class="row">

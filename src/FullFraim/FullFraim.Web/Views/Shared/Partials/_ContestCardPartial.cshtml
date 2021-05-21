@@ -1,95 +1,144 @@
-﻿<!-- Single Item -->
-<div class="col-12 col-sm-6 col-md-4 col-lg-3 column_single_gallery_item portraits life">
+﻿@model ContestViewModel
+
+
+<div class="col-sm-4 col-lg-4 col-md-4 align">
+    <div class="img-thumbnail">
+        <img src="https://images.unsplash.com/photo-1621101452060-a1e421ecb3af?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80" alt="" class="img-fluid" />
+        <div class="figure-caption">
+            @*<h4 class="float-right">@Model.Price.ToString("c")</h4>*@
+            <h4 class="text-info">
+                <a>@Model.Name</a>
+            </h4>
+            <p>@Model.Description</p>
+
+            @if (Model.PhaseI_Time < DateTime.UtcNow)
+            {
+                int daysLeft = (int)(DateTime.UtcNow - Model.PhaseI_Time).TotalDays;
+                <p>Deadline in @daysLeft days</p>
+            }
+            else if (Model.PhaseI_Time >= DateTime.UtcNow && Model.PhaseII_Time < DateTime.UtcNow)
+            {
+                <p>Closed for uploading</p>
+            }
+            else if (Model.PhaseIII_Time == DateTime.UtcNow)
+            {
+                <p>Finished</p>
+            }
+
+
+        </div>
+
+        <div class=" learnMore text-center">
+            <p><a class="btn btn-info text-light btn-lg btn-block" href="https://getbootstrap.com/docs/4.0/components/buttons/" role="button">SUMBIT</a></p>
+        </div>
+        @*<div class=" submit text-center">
+            <p class="btn btn-info btn-lg btn-block">
+                <a class="btn-info" id="submissionButton"
+                   asp-controller="SubmissionForm"
+                   asp-action="SubmitAContest"
+                   asp-route-contestId="@Model.Id">
+                    SUBMIT
+                </a>
+            </p>
+        </div>*@
+        <div class=" learnMore text-center">
+            <p><a class="btn btn-link text-dark" href="https://getbootstrap.com/docs/4.0/components/buttons/" role="button">LEARN MORE</a></p>
+        </div>
+    </div>
+</div>
+
+<!-- Single Item -->
+<!--<div class="col-12 col-sm-6 col-md-4 col-lg-3 column_single_gallery_item portraits life">
     <img src="img/bg-img/p1.jpg" alt="">
     <div class="hover_overlay">
         <a class="gallery_img" href="img/bg-img/p1.jpg"><i class="fa fa-eye"></i></a>
     </div>
-</div>
+</div>-->
 
 <!-- Single Item -->
-<div class="col-12 col-sm-6 col-md-4 col-lg-3 column_single_gallery_item weddings">
+<!--<div class="col-12 col-sm-6 col-md-4 col-lg-3 column_single_gallery_item weddings">
     <img src="img/bg-img/p2.jpg" alt="">
     <div class="hover_overlay">
         <a class="gallery_img" href="img/bg-img/p2.jpg"><i class="fa fa-eye"></i></a>
     </div>
-</div>
+</div>-->
 
 <!-- Single Item -->
-<div class="col-12 col-sm-6 col-md-4 col-lg-3 column_single_gallery_item portraits">
+<!--<div class="col-12 col-sm-6 col-md-4 col-lg-3 column_single_gallery_item portraits">
     <img src="img/bg-img/p3.jpg" alt="">
     <div class="hover_overlay">
         <a class="gallery_img" href="img/bg-img/p3.jpg"><i class="fa fa-eye"></i></a>
     </div>
-</div>
+</div>-->
 
 <!-- Single Item -->
-<div class="col-12 col-sm-6 col-md-4 col-lg-3 column_single_gallery_item weddings life">
+<!--<div class="col-12 col-sm-6 col-md-4 col-lg-3 column_single_gallery_item weddings life">
     <img src="img/bg-img/p4.jpg" alt="">
     <div class="hover_overlay">
         <a class="gallery_img" href="img/bg-img/p4.jpg"><i class="fa fa-eye"></i></a>
     </div>
-</div>
+</div>-->
 
 <!-- Single Item -->
-<div class="col-12 col-sm-6 col-md-4 col-lg-3 column_single_gallery_item weddings">
+<!--<div class="col-12 col-sm-6 col-md-4 col-lg-3 column_single_gallery_item weddings">
     <img src="img/bg-img/p5.jpg" alt="">
     <div class="hover_overlay">
         <a class="gallery_img" href="img/bg-img/p5.jpg"><i class="fa fa-eye"></i></a>
     </div>
-</div>
+</div>-->
 
 <!-- Single Item -->
-<div class="col-12 col-sm-6 col-md-4 col-lg-3 column_single_gallery_item portraits">
+<!--<div class="col-12 col-sm-6 col-md-4 col-lg-3 column_single_gallery_item portraits">
     <img src="img/bg-img/p6.jpg" alt="">
     <div class="hover_overlay">
         <a class="gallery_img" href="img/bg-img/p6.jpg"><i class="fa fa-eye"></i></a>
     </div>
-</div>
+</div>-->
 
 <!-- Single Item -->
-<div class="col-12 col-sm-6 col-md-4 col-lg-3 column_single_gallery_item studio">
+<!--<div class="col-12 col-sm-6 col-md-4 col-lg-3 column_single_gallery_item studio">
     <img src="img/bg-img/p7.jpg" alt="">
     <div class="hover_overlay">
         <a class="gallery_img" href="img/bg-img/p7.jpg"><i class="fa fa-eye"></i></a>
     </div>
-</div>
+</div>-->
 
 <!-- Single Item -->
-<div class="col-12 col-sm-6 col-md-4 col-lg-3 column_single_gallery_item studio life">
+<!--<div class="col-12 col-sm-6 col-md-4 col-lg-3 column_single_gallery_item studio life">
     <img src="img/bg-img/p8.jpg" alt="">
     <div class="hover_overlay">
         <a class="gallery_img" href="img/bg-img/p8.jpg"><i class="fa fa-eye"></i></a>
     </div>
-</div>
+</div>-->
 
 <!-- Single Item -->
-<div class="col-12 col-sm-6 col-md-4 col-lg-3 column_single_gallery_item fashion">
+<!--<div class="col-12 col-sm-6 col-md-4 col-lg-3 column_single_gallery_item fashion">
     <img src="img/bg-img/p9.jpg" alt="">
     <div class="hover_overlay">
         <a class="gallery_img" href="img/bg-img/p9.jpg"><i class="fa fa-eye"></i></a>
     </div>
-</div>
+</div>-->
 
 <!-- Single Item -->
-<div class="col-12 col-sm-6 col-md-4 col-lg-3 column_single_gallery_item portraits">
+<!--<div class="col-12 col-sm-6 col-md-4 col-lg-3 column_single_gallery_item portraits">
     <img src="img/bg-img/p10.jpg" alt="">
     <div class="hover_overlay">
         <a class="gallery_img" href="img/bg-img/p10.jpg"><i class="fa fa-eye"></i></a>
     </div>
-</div>
+</div>-->
 
 <!-- Single Item -->
-<div class="col-12 col-sm-6 col-md-4 col-lg-3 column_single_gallery_item studio life">
+<!--<div class="col-12 col-sm-6 col-md-4 col-lg-3 column_single_gallery_item studio life">
     <img src="img/bg-img/p11.jpg" alt="">
     <div class="hover_overlay">
         <a class="gallery_img" href="img/bg-img/p11.jpg"><i class="fa fa-eye"></i></a>
     </div>
-</div>
+</div>-->
 
 <!-- Single Item -->
-<div class="col-12 col-sm-6 col-md-4 col-lg-3 column_single_gallery_item fashion">
+<!--<div class="col-12 col-sm-6 col-md-4 col-lg-3 column_single_gallery_item fashion">
     <img src="img/bg-img/p12.jpg" alt="">
     <div class="hover_overlay">
         <a class="gallery_img" href="img/bg-img/p12.jpg"><i class="fa fa-eye"></i></a>
     </div>
-</div>
+</div>-->
