@@ -5,59 +5,18 @@
     <meta name="description" content="">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <!-- The above 4 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <!-- Title  -->
-    <title>Studio - Creative Photography Template | Home</title>
 
-    <!-- Favicon  -->
     <link rel="icon" href="img/core-img/favicon.ico">
 
-    <!-- Core Style CSS -->
-    <link rel="stylesheet" href="css/core-style.css">
-    <link rel="stylesheet" href="style.css">
-
-    <!-- Responsive CSS -->
-    <link href="css/responsive.css" rel="stylesheet">
+    <link rel="stylesheet" href="~/css/core-style.css" asp-append-version="true">
+    <link rel="stylesheet" href="~/css/responsive.css" asp-append-version="true">
 
     <title>@ViewData["Title"] - FullFraim.Web</title>
 
 </head>
 <body>
-    <div id="preloader">
-        <div class="showbox">
-            <div class="loader">
-                <svg class="circular" viewBox="25 25 50 50">
-                    <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="2" stroke-miterlimit="10" />
-                </svg>
-            </div>
-        </div>
-        <div class="questions-area text-center">
-            <p>Did you know?</p>
-            <ul>
-                <li>The largest photography competition is 353,768 entries.</li>
-                <li>Photography is the toughest profession in the world.</li>
-                <li>The world’s largest photo album by dimensions was 13 ft 11.5 in x 17 ft.</li>
-                <li>The world’s largest photo mosaic featured 176,175 pictures.</li>
-                <li>The world’s largest camera lens was a 5200mm lens attached to a canon.</li>
-            </ul>
-        </div>
-    </div>
 
-    <!-- Gradient Background Overlay -->
-    <div class="gradient-background-overlay"></div>
-
-    <!-- Header Area Start -->
-    <header class="header-area">
-        <div class="container-fluid h-100">
-            <div class="row h-100 align-items-center">
-                <div class="col-12 h-100">
-                    <div class="main-menu h-100">
-                        <nav class="navbar h-100 navbar-expand-lg">
-                            <!-- Logo Area  -->
-                            <a class="navbar-brand" href="index.html"><img src="img/core-img/logo.png" alt="Logo"></a>
-
-                            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#studioMenu" aria-controls="studioMenu" aria-expanded="false" aria-label="Toggle navigation"><i class="fa fa-bars"></i> Menu</button>
-
+<<<<<<< HEAD
                             <div class="collapse navbar-collapse" id="studioMenu">
                                 <!-- Menu Area Start  -->
                                 <ul class="navbar-nav ml-auto">
@@ -116,9 +75,14 @@
         </div>
     </header>
     <!-- Header Area End -->
+=======
+    <partial name="~/Views/Shared/Partials/_PreloaderPartial.cshtml" />
+>>>>>>> deb5c2009cbcb6e68cd69fe63693352c2fb3c68d
 
+    <partial name="~/Views/Shared/Partials/_HeaderPartial.cshtml" />
 
     @RenderBody()
+<<<<<<< HEAD
     <script src=".lib/jquery/jquery.min.js"></script>
 
     <!-- jQuery (Necessary for All JavaScript Plugins) -->
@@ -131,6 +95,15 @@
     <script src=".js/plugins.js"></script>
     <!-- Active js -->
     <script src=".js/active.js"></script>
+=======
+
+    <script src="~/lib/jquery/jquery.min.js" asp-append-version="true"></script>
+    
+    <script src="~/js/popper.min.js" asp-append-version="true"></script>
+    <script src="~/js/bootstrap.min.js" asp-append-version="true"></script>
+    <script src="~/js/plugins.js" asp-append-version="true"></script>
+    <script src="~/js/active.js" asp-append-version="true"></script>
+>>>>>>> deb5c2009cbcb6e68cd69fe63693352c2fb3c68d
 
     @RenderSection("Scripts", required: false)
 </body>
