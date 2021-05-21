@@ -1,6 +1,7 @@
 ﻿using FullFraim.Data.Models;
 using FullFraim.Models.Dto_s.Contests;
 using FullFraim.Models.ViewModels;
+using FullFraim.Models.ViewModels.Dashboard;
 using System.Linq;
 
 namespace Utilities.Mapper
@@ -28,6 +29,16 @@ namespace Utilities.Mapper
                 Description = model.Description,
                 ContestCategoryId = model.ContestCategoryId,
                 ContestTypeId = model.ContestTypeId,
+            };
+        }
+
+        public static DashboardViewModel MapToViewDashboard(this ContestDto model) 
+        {
+            return new DashboardViewModel()
+            {
+                Name = model.Name,
+                Cover_Url = model.Cover_Url,
+                Description = model.Description,
             };
         }
 

@@ -14,37 +14,42 @@ namespace FullFraim.Web.Controllers
     public class DashboardController : Controller
     {
         private readonly IContestService contestService;
-        private readonly IContestCategoryService contestCategory;
+        private readonly IContestCategoryService contestCategoryService;
 
-        public DashboardController(IContestService contestService, IContestCategoryService contestCategory)
+        public DashboardController(IContestService contestService, IContestCategoryService contestCategoryService)
         {
             this.contestService = contestService;
-            this.contestCategory = contestCategory;
+            this.contestCategoryService = contestCategoryService;
         }
-        public IActionResult Index() // TODO: Shall we make it async?
+        public IActionResult Index(int categoryId) // TODO: Shall we make it async?
         {
             var dashboardViewModel = new DashboardViewModel()
             {
-                Contests = GetContestsByCategory(0).Result // Just for test - Bad practice
+                Contests = GetContestsByCategory(categoryId).GetAwaiter().GetResult(), 
+                Categories = this.contestCategoryService.GetAllAsync().GetAwaiter().GetResult()
             };
 
             return View(dashboardViewModel);
         }
 
-        public async Task<IEnumerable<ContestViewModel>> GetContestsByCategory(int categoryId) // Move to service layer
+        public async Task<IEnumerable<DashboardViewModel>> GetContestsByCategory(int categoryId) // Move to service layer
         {
-            var categories = (await this.contestService.GetAllAsync());
+            var categories = await this.contestService.GetAllAsync();
 
             if (categoryId != 0)
             {
-                categories.Where(c => c.Id == categoryId);
-               
+                categories = categories.Where(c => c.ContestCategoryId == categoryId);
             }
 
-            var result = categories.Select(x => x.MapToView());
+            var result = categories.Select(x => x.MapToViewDashboard());
 
             return result;
         }
+
+        
+
+
+
         //public async Task<IActionResult> ListContestsAsync(string category)
         //{
         //    string selectedCategory = category;
