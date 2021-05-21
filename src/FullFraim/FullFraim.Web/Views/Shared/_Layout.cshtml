@@ -93,6 +93,9 @@
                                     <li class="nav-item">
                                         <a class="nav-link" href="contact.html">contact</a>
                                     </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" asp-controller="Contest" asp-action="Create" >CreateContest</a>
+                                    </li>
                                 </ul>
                                 <!-- Search Form -->
                                 <div class="header-search-form ml-auto">
@@ -116,18 +119,18 @@
 
 
     @RenderBody()
-    <script src="~/lib/jquery/jquery.min.js"></script>
+    <script src=".lib/jquery/jquery.min.js"></script>
 
     <!-- jQuery (Necessary for All JavaScript Plugins) -->
     @*<script src="js/jquery/jquery-2.2.4.min.js"></script>*@
     <!-- Popper js -->
-    <script src="js/popper.min.js"></script>
+    <script src=".js/popper.min.js"></script>
     <!-- Bootstrap js -->
-    <script src="js/bootstrap.min.js"></script>
+    <script src=".js/bootstrap.min.js"></script>
     <!-- Plugins js -->
-    <script src="js/plugins.js"></script>
+    <script src=".js/plugins.js"></script>
     <!-- Active js -->
-    <script src="js/active.js"></script>
+    <script src=".js/active.js"></script>
 
     @RenderSection("Scripts", required: false)
 </body>

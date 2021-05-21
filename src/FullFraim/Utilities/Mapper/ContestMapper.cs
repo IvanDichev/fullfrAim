@@ -1,15 +1,16 @@
 ﻿using FullFraim.Data.Models;
 using FullFraim.Models.Dto_s.Contests;
 using FullFraim.Models.ViewModels;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Utilities.Mapper
 {
     public static class ContestMapper
     {
-        public static ContestDto MapToDto(this ContestViewModel model)
+        public static InputContestDto MapToDto(this ContestViewModel model)
         {
-            return new ContestDto()
+            return new InputContestDto()
             {
                 Name = model.Name,
                 Cover_Url = model.Cover_Url,
@@ -19,7 +20,19 @@ namespace Utilities.Mapper
             };
         }
 
-        public static ContestViewModel MapToView(this ContestDto model)
+        public static OutputContestDto MapToDto(this InputContestDto model)
+        {
+            return new OutputContestDto()
+            {
+                Name = model.Name,
+                Cover_Url = model.Cover_Url,
+                Description = model.Description,
+                ContestCategoryId = model.ContestCategoryId,
+                ContestTypeId = model.ContestTypeId,
+            };
+        }
+
+        public static ContestViewModel MapToView(this InputContestDto model)
         {
             return new ContestViewModel()
             {
@@ -31,7 +44,7 @@ namespace Utilities.Mapper
             };
         }
 
-        public static Contest MapToRaw(this ContestDto model)
+        public static Contest MapToRaw(this InputContestDto model)
         {
             return new Contest()
             {
@@ -44,10 +57,10 @@ namespace Utilities.Mapper
             };
         }
 
-        public static IQueryable<ContestDto> MapToDto(this IQueryable<Contest> query)
+        public static IQueryable<OutputContestDto> MapToDto(this IQueryable<Contest> query)
         {
             return query.Select(x =>
-            new ContestDto()
+            new OutputContestDto()
             {
                 Id = x.Id,
                 Name = x.Name,

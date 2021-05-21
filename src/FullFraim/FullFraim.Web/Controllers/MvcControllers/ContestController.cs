@@ -31,11 +31,6 @@ namespace FullFraim.Web.Controllers.MvcControllers
             this.contestTypeService = contestTypeService;
         }
 
-        public IActionResult Index()
-        {
-            return View();
-        }
-
         [HttpGet]
         public async Task<IActionResult> Create()
         {
@@ -52,12 +47,13 @@ namespace FullFraim.Web.Controllers.MvcControllers
         }
 
         [HttpPost]
-        [AutoValidateAntiforgeryToken]
         public async Task<IActionResult> Create(ContestViewModel model)
         {
             if (ModelState.IsValid)
             {
                 await this.contestService.CreateAsync(model.MapToDto());
+
+
 
                 return RedirectToAction("Index", "Home");
             }
