@@ -33,7 +33,7 @@ namespace FullFraim.Web
             options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddControllersWithViews();
-            services.AddControllers();
+            //services.AddControllers();
 
             AuthenticationConfig.SingInConfiguration(services);
 
@@ -45,7 +45,6 @@ namespace FullFraim.Web
             services.AddTransient<APIExceptionFilter>();
             services.AddTransient<ICloudinaryService, CloudinaryService>();
             services.AddScoped<IPhotoService, PhotoService>();
-            services.AddTransient<APIExceptionFilter>();
 
 
             AuthenticationConfig.ConfigureWith_Jwt(services, Configuration);
@@ -82,7 +81,7 @@ namespace FullFraim.Web
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapControllers();
+                //endpoints.MapControllers();
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
