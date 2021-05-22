@@ -25,10 +25,10 @@ namespace FullFraim.Services.PhotoJunkieServices
             // All contests that are open or junkie currently participates or have participated
         {
             var contests = await this.context.Contests
-                .Where(c => c.ParticipantContests
-                    .Any(pc => pc.UserId == userId) || c.ContestPhases
-                        .Any(cph => cph.PhaseId == this.context.Phases
-                            .FirstOrDefault(ph => ph.Name == Constants.PhasesSeed.PhaseI).Id))
+                .Where(c => c.ParticipantContests.Any(pc => pc.UserId == userId) || 
+                        (c.ContestPhases.Any(cph => cph.PhaseId == this.context.Phases
+                            .FirstOrDefault(ph => ph.Name == Constants.PhasesSeed.PhaseI).Id) &&
+                            c.ContestType.Name == Constants.ContestTypeSeed.Open))
                 .MapToDto()
                 .ToListAsync();
 
