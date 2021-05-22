@@ -24,14 +24,7 @@ namespace FullFraim.Web.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var photos = await this.photoService.GetTopRecentPhotosAsync();
-
-            var photosView = photos.Select(p => new HomeIndexViewModel()
-            {
-                TopRecentPhotosUrl = p.PhotoUrl
-            });
-
-            return View(photosView);
+            return View();
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
