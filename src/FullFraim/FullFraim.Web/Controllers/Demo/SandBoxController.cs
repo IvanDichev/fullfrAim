@@ -52,7 +52,7 @@ namespace FullFraim.Web.Controllers.Demo
         {
             var input = new InputGiveReviewDto()
             {
-                Comment = "The best ant the only photo we have",
+                Comment = "The best and the only photo we have",
                 Score = 10,
                 Checkbox = false,
                 PhotoId = 1,
