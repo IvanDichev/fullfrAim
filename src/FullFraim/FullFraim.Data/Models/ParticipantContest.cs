@@ -2,7 +2,7 @@
 
 namespace FullFraim.Data.Models
 {
-    public class ParticipantContest : DeletableEntity<int>
+    public class ParticipantContest : DeletableJunctionEntity
     {
         public int UserId { get; set; }
         public User User { get; set; }

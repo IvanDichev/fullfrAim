@@ -3,7 +3,7 @@ using System;
 
 namespace FullFraim.Data.Models
 {
-    public class ContestPhase : DeletableEntity<int>
+    public class ContestPhase : DeletableJunctionEntity
     {
         public int ContestId { get; set; }
         public Contest Contest { get; set; }

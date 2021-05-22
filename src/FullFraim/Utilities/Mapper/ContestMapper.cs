@@ -72,7 +72,6 @@ namespace Utilities.Mapper
                 ContestTypeId = x.ContestTypeId,
                 PhasesInfo = x.ContestPhases.Select(y => new PhaseDto()
                 {
-                    Id = y.Id,
                     Name = y.Phase.Name,
                     StartDate = y.StartDate,
                     EndDate = y.EndDate

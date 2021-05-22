@@ -43,7 +43,6 @@ namespace FullFraim.Services.PhotoJunkieServices
                 UserId = inputModel.UserId,
                 IsDeleted = false,
                 CreatedOn = DateTime.UtcNow,
-                Id = 26,
                 Photo = new Photo()
                 {
                     Title = inputModel.ImageTitle,
