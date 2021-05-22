@@ -1,30 +1,28 @@
-﻿using System;
+﻿using FullFraim.Models.ViewModels.Contest;
+using Microsoft.AspNetCore.Http;
+using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace FullFraim.Models.ViewModels
+namespace FullFraim.Models.Contest.ViewModels
 {
-    public class ContestViewModel
+    public class CreateContestViewModel
     {
         [Required]
         [Display(Name = "Name")]
         public string Name { get; set; }
 
         [Required]
-        [Display(Name = "Cover_Url")]
+        [Display(Name = "Cover")]
+        public IFormFile Cover { get; set; }
+
         public string Cover_Url { get; set; }
 
         [Required]
         [Display(Name = "Decription")]
         public string Description { get; set; }
 
-        [Required]
-        public DateTime PhaseI_Time { get; set; }
-
-        [Required]
-        public DateTime PhaseII_Time { get; set; }
-
-        [Required]
-        public DateTime PhaseIII_Time { get; set; }
+        public PhasesHelperModel Phases { get; set; }
 
         [Required]
         [Display(Name = "Contest Category")]
