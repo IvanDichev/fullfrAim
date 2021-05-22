@@ -8,6 +8,9 @@ namespace FullFraim.Data.Configurations
     {
         public void Configure(EntityTypeBuilder<ContestPhase> builder)
         {
+            builder.Property(cp => cp.Id).IsRequired(false);
+            builder.HasKey(cp => new { cp.PhaseId, cp.ContestId });
+
             builder.HasQueryFilter(cp => !cp.IsDeleted);
         }
     }

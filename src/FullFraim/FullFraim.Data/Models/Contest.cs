@@ -21,7 +21,7 @@ namespace FullFraim.Data.Models
         public int ContestTypeId { get; set; }
         public ContestType ContestType { get; set; }
 
-        public ICollection<ContestPhase> Phases { get; set; }
+        public ICollection<ContestPhase> ContestPhases { get; set; }
 
         public ICollection<ParticipantContest> ParticipantContests { get; set; }
 
