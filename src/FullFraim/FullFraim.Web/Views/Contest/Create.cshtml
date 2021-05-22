@@ -1,38 +1,59 @@
-﻿@model ContestViewModel
+﻿@model CreateContestViewModel
 
-
+@{
+    var categories = new SelectList(ViewBag.Categories, "Id", "Name");
+    var types = new SelectList(ViewBag.ContestTypes, "Id", "Name");
+}
 
 <div style="padding: 12rem 12rem 12rem 12rem">
     <h1>Create Contest</h1>
     <hr>
-    <form>
+    <form method="post" enctype="multipart/form-data">
         <div class="form-group">
-            <label for="exampleFormControlInput1">Email address</label>
-            <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
+            <label asp-for="Name"></label>
+            <input asp-for="Name" type="text" class="form-control" placeholder="Name of Contest">
+            <span asp-validation-for="Name" class="text-danger"></span>
         </div>
         <div class="form-group">
-            <label for="exampleFormControlSelect1">Example select</label>
-            <select class="form-control" id="exampleFormControlSelect1">
-                <option>1</option>
-                <option>2</option>
-                <option>3</option>
-                <option>4</option>
-                <option>5</option>
+            <label asp-for="Cover"></label>
+            <input asp-for="Cover" class="form-control">
+            <span asp-validation-for="Cover" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Description"></label>
+            <textarea asp-for="Description" class="form-control" placeholder="Contest Description"></textarea>
+            <span asp-validation-for="Description" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="ContestCategoryId"></label>
+            <select asp-for="ContestCategoryId" asp-items="categories" class="form-control">
             </select>
+            <span asp-validation-for="ContestCategoryId" class="text-danger"></span>
         </div>
         <div class="form-group">
-            <label for="exampleFormControlSelect2">Example multiple select</label>
-            <select multiple class="form-control" id="exampleFormControlSelect2">
-                <option>1</option>
-                <option>2</option>
-                <option>3</option>
-                <option>4</option>
-                <option>5</option>
+            <label asp-for="ContestTypeId"></label>
+            <select asp-for="ContestTypeId" asp-items="types" class="form-control">
             </select>
+            <span asp-validation-for="ContestTypeId" class="text-danger"></span>
         </div>
+
+        <h5>Phase I</h5>
         <div class="form-group">
-            <label for="exampleFormControlTextarea1">Example textarea</label>
-            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+            <label asp-for="Phases.EndDate_PhaseI"></label>
+            <input asp-for="Phases.EndDate_PhaseI" class="form-control">
+            <span asp-validation-for="Phases.EndDate_PhaseI" class="text-danger"></span>
         </div>
+        <h5>Phase II</h5>
+        <div class="form-group">
+            <label asp-for="Phases.EndDate_PhaseII"></label>
+            <input asp-for="Phases.EndDate_PhaseII" class="form-control">
+            <span asp-validation-for="Phases.EndDate_PhaseII" class="text-danger"></span>
+        </div>
+
+        <button asp-controller="Contest" asp-action="Create" formmethod="post" type="submit" class="btn btn-success btn-rounded">Create</button>
     </form>
 </div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial">
+}

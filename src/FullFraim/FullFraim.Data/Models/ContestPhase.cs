@@ -11,6 +11,7 @@ namespace FullFraim.Data.Models
         public int PhaseId { get; set; }
         public Phase Phase { get; set; }
 
-        public DateTime PhaseEndDate { get; set; }
+        public DateTime StartDate { get; set; }
+        public DateTime EndDate { get; set; }
     }
 }

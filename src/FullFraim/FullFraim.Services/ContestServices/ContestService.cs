@@ -3,7 +3,6 @@ using FullFraim.Data.Models;
 using FullFraim.Models.Dto_s.Contests;
 using FullFraim.Services.Exceptions;
 using Microsoft.EntityFrameworkCore;
-using Shared;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,20 +20,25 @@ namespace FullFraim.Services.ContestServices
             this.context = context;
         }
 
-        public async Task<OutputContestDto> CreateAsync(InputContestDto model)
+        public async Task CreateAsync(InputContestDto model)
         {
             if (model == null)
             {
                 throw new NullModelException();
             }
 
-            await this.AddPhasesEndTime(model);
+            model.Phases.StartDate_PhaseI = DateTime.UtcNow;
+            model.Phases.StartDate_PhaseII = model.Phases.EndDate_PhaseI;
+            model.Phases.StartDate_PhaseIII = model.Phases.EndDate_PhaseII;
+            model.Phases.EndDate_PhaseIII = DateTime.MaxValue;
 
-            await this.context.Contests.AddAsync(model.MapToRaw());
+            var contest = await this.context.Contests.AddAsync(model.MapToRaw());
 
             await this.context.SaveChangesAsync();
+            
+            await this.AddContestPhasesAsync(model, contest.Entity.Id);
 
-            return await AssignPhaseToDto(model.MapToDto());
+            await this.context.SaveChangesAsync();
         }
 
         public async Task DeleteAsync(int id)
@@ -59,7 +63,7 @@ namespace FullFraim.Services.ContestServices
                 .MapToDto()
                 .ToListAsync();
 
-            return await AssignPhaseToDto(result);
+            return result;
         }
 
         public async Task<OutputContestDto> GetByIdAsync(int id)
@@ -70,18 +74,19 @@ namespace FullFraim.Services.ContestServices
             }
 
             var result = await this.context.Contests
+                .Where(C => C.Id == id)
                 .MapToDto()
-                .FirstOrDefaultAsync(CC => CC.Id == id);
+                .FirstOrDefaultAsync();
 
             if (result == null)
             {
                 throw new NotFoundException();
             }
 
-            return await AssignPhaseToDto(result);
+            return result;
         }
 
-        public async Task<OutputContestDto> UpdateAsync(int id, InputContestDto model)
+        public async Task UpdateAsync(int id, InputContestDto model)
         {
             if (model == null)
             {
@@ -100,92 +105,36 @@ namespace FullFraim.Services.ContestServices
             dbModelToUpdate.ModifiedOn = DateTime.UtcNow;
 
             await this.context.SaveChangesAsync();
-
-            return await AssignPhaseToDto(model.MapToDto());
         }
 
-        private async Task AddPhasesEndTime(InputContestDto model)
+        private async Task AddContestPhasesAsync(InputContestDto model, int id)
         {
-            var a = Task.Run(() => this.context.ContestPhases
+            await this.context.ContestPhases
                 .AddAsync(new ContestPhase()
                 {
-                    ContestId = model.Id,
+                    ContestId = id,
                     PhaseId = 1,
-                    PhaseEndDate = model.PhaseI_EndTime,
-                }));
+                    StartDate = model.Phases.StartDate_PhaseI,
+                    EndDate = model.Phases.EndDate_PhaseI,
+                }); ;
 
-            var b = Task.Run(() => this.context.ContestPhases
+            await this.context.ContestPhases
                 .AddAsync(new ContestPhase()
                 {
-                    ContestId = model.Id,
+                    ContestId = id,
                     PhaseId = 2,
-                    PhaseEndDate = model.PhaseII_EndTime,
-                }));
+                    StartDate = model.Phases.StartDate_PhaseII,
+                    EndDate = model.Phases.EndDate_PhaseII,
+                });
 
-            var c = Task.Run(() => this.context.ContestPhases
-               .AddAsync(new ContestPhase()
-               {
-                   ContestId = model.Id,
-                   PhaseId = 3,
-                   PhaseEndDate = model.PhaseIII_EndTime,
-               }));
-
-            await a;
-            await b;
-            await c;
-        }
-
-        private async Task<OutputContestDto> AssignPhaseToDto(OutputContestDto model)
-        {
-            var result = await this.context.ContestPhases
-                .Where(Cp => Cp.ContestId == model.Id)
-                .ToListAsync();
-
-            model.Phase = CalculatePhase
-            (result[0].PhaseEndDate,
-            result[1].PhaseEndDate,
-            result[2].PhaseEndDate);
-
-            return model;
-        }
-
-        private async Task<ICollection<OutputContestDto>> AssignPhaseToDto(ICollection<OutputContestDto> models)
-        {
-            foreach (var item in models)
-            {
-                var result = await this.context.ContestPhases
-                    .Where(Cp => Cp.ContestId == item.Id)
-                    .ToListAsync();
-
-                item.Phase = CalculatePhase
-                (result[0].PhaseEndDate,
-                result[1].PhaseEndDate,
-                result[2].PhaseEndDate);
-            }
-
-            return models;
-        }
-
-        private string CalculatePhase
-            (DateTime phaseI,
-             DateTime phaseII,
-             DateTime phaseIII)
-        {
-            if (DateTime.UtcNow > phaseI
-                && DateTime.UtcNow < phaseII)
-            {
-                return Constants.PhasesSeed.PhaseI;
-            }
-
-            if (DateTime.UtcNow > phaseII
-                && DateTime.UtcNow < phaseIII)
-            {
-                return Constants.PhasesSeed.PhaseII;
-            }
-            else
-            {
-                return Constants.PhasesSeed.Finished;
-            }
+            await this.context.ContestPhases
+              .AddAsync(new ContestPhase()
+              {
+                  ContestId = id,
+                  PhaseId = 3,
+                  StartDate = model.Phases.StartDate_PhaseIII,
+                  EndDate = model.Phases.EndDate_PhaseIII,
+              });
         }
     }
 }

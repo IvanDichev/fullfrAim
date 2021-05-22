@@ -15,95 +15,21 @@
 
 </head>
 <body>
-
-<<<<<<< HEAD
-                            <div class="collapse navbar-collapse" id="studioMenu">
-                                <!-- Menu Area Start  -->
-                                <ul class="navbar-nav ml-auto">
-                                    <li class="nav-item active">
-                                        <a class="nav-link" href="index.html">Home <span class="sr-only">(current)</span></a>
-                                    </li>
-                                    <li class="nav-item dropdown">
-                                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Pages</a>
-                                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                            <a class="dropdown-item" href="index.html">Home</a>
-                                            <a class="dropdown-item" href="about-me.html">About</a>
-                                            <a class="dropdown-item" href="portfolio.html">Portfolio</a>
-                                            <a class="dropdown-item" href="blog.html">Blog</a>
-                                            <a class="dropdown-item" href="contact.html">Contact</a>
-                                            <a class="dropdown-item" href="elements.html">Elements</a>
-                                        </div>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="about-me.html">About</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" asp-controller="FileUploadDemo" asp-action="Index">upload</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" asp-controller="Dashboard" asp-action="Index">dashboard</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="portfolio.html">Portfolio</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="blog.html">Blog</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="contact.html">contact</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" asp-controller="Contest" asp-action="Create" >CreateContest</a>
-                                    </li>
-                                </ul>
-                                <!-- Search Form -->
-                                <div class="header-search-form ml-auto">
-                                    <form action="#">
-                                        <input type="search" class="form-control" placeholder="Input your keyword then press enter..." id="search" name="search">
-                                        <input class="d-none" type="submit" value="submit">
-                                    </form>
-                                </div>
-                                <!-- Search btn -->
-                                <div id="searchbtn">
-                                    <img src="img/core-img/search.png" alt="">
-                                </div>
-                            </div>
-                        </nav>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </header>
-    <!-- Header Area End -->
-=======
     <partial name="~/Views/Shared/Partials/_PreloaderPartial.cshtml" />
->>>>>>> deb5c2009cbcb6e68cd69fe63693352c2fb3c68d
-
     <partial name="~/Views/Shared/Partials/_HeaderPartial.cshtml" />
 
     @RenderBody()
-<<<<<<< HEAD
-    <script src=".lib/jquery/jquery.min.js"></script>
 
-    <!-- jQuery (Necessary for All JavaScript Plugins) -->
-    @*<script src="js/jquery/jquery-2.2.4.min.js"></script>*@
-    <!-- Popper js -->
-    <script src=".js/popper.min.js"></script>
-    <!-- Bootstrap js -->
-    <script src=".js/bootstrap.min.js"></script>
-    <!-- Plugins js -->
-    <script src=".js/plugins.js"></script>
-    <!-- Active js -->
-    <script src=".js/active.js"></script>
-=======
-
-    <script src="~/lib/jquery/jquery.min.js" asp-append-version="true"></script>
-    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
+        integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="
+        crossorigin="anonymous"
+        referrerpolicy="no-referrer"
+        asp-fallback-src="~/lib/jquery/jquery.min.js"
+        asp-append-version="true"></script>
     <script src="~/js/popper.min.js" asp-append-version="true"></script>
     <script src="~/js/bootstrap.min.js" asp-append-version="true"></script>
     <script src="~/js/plugins.js" asp-append-version="true"></script>
     <script src="~/js/active.js" asp-append-version="true"></script>
->>>>>>> deb5c2009cbcb6e68cd69fe63693352c2fb3c68d
 
     @RenderSection("Scripts", required: false)
 </body>

@@ -8,8 +8,8 @@ namespace FullFraim.Services.ContestServices
     {
         Task<ICollection<OutputContestDto>> GetAllAsync();
         Task<OutputContestDto> GetByIdAsync(int id);
-        Task<OutputContestDto> CreateAsync(InputContestDto model);
-        Task<OutputContestDto> UpdateAsync(int id, InputContestDto model);
+        Task CreateAsync(InputContestDto model);
+        Task UpdateAsync(int id, InputContestDto model);
         Task DeleteAsync(int id);
     }
 }
