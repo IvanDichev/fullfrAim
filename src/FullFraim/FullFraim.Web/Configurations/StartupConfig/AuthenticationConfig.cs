@@ -55,7 +55,8 @@ namespace FullFraim.Web.Configurations.StartupConfig
                 options.Password.RequireNonAlphanumeric = false;
                 options.User.RequireUniqueEmail = true;
             })
-                    .AddEntityFrameworkStores<FullFraimDbContext>();
+                    .AddEntityFrameworkStores<FullFraimDbContext>()
+                    .AddDefaultTokenProviders();
         }
     }
 }
