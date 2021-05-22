@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System.Diagnostics;
+using System.Threading.Tasks;
 
 namespace FullFraim.Web.Controllers
 {
@@ -18,17 +19,17 @@ namespace FullFraim.Web.Controllers
             this.photoService = photoService;
         }
 
-        //public async Task<IActionResult> Index()
-        //{
-        //    var photos = await this.photoService.GetTopRecentPhotosAsync();
+        public async Task<IActionResult> Index()
+        {
+            //var photos = await this.photoService.GetTopRecentPhotosAsync();
 
-        //    var photosView = photos.Select(p => new HomeIndexViewModel()
-        //    {
-        //        TopRecentPhotosUrl = p.PhotoUrl
-        //    });
+            //var photosView = photos.Select(p => new HomeIndexViewModel()
+            //{
+            //    TopRecentPhotosUrl = p.PhotoUrl
+            //});
 
-        //    return View(photosView);
-        //}
+            return View("Index");
+        }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()

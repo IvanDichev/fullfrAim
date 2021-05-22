@@ -52,12 +52,11 @@ namespace FullFraim.Web.Controllers.Demo
         {
             var input = new InputGiveReviewDto()
             {
-                UserId = 8,
                 Comment = "The best ant the only photo we have",
                 Score = 10,
                 Checkbox = false,
                 PhotoId = 1,
-                JuryContestUserId = 1
+                JuryId = 1
             };
 
             await this.juryService.GiveReviewAsync(input);

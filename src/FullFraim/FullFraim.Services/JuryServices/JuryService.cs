@@ -35,13 +35,16 @@ namespace FullFraim.Services.JuryServices
 
         public async Task GiveReviewAsync(InputGiveReviewDto inputModel)
         {
+            // TODO: Each juror can give one review per photo
+            // Check if in phaseI, otherwise can't give a review
+
             var toAddReview = new PhotoReview()
             {
                 Comment = inputModel.Comment,
                 Score = inputModel.Score,
                 Checkbox = inputModel.Checkbox,
                 PhotoId = inputModel.PhotoId,
-                JuryContestId = inputModel.JuryContestUserId
+                JuryContestId = inputModel.JuryId
             };
 
             await this.context.PhotoReviews.AddAsync(toAddReview);
