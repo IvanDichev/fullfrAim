@@ -1,9 +1,9 @@
 ﻿using FullFraim.Data;
+using FullFraim.Data.Models;
 using FullFraim.Models.Dto_s.Contests;
 using FullFraim.Models.Dto_s.Juries;
 using Microsoft.EntityFrameworkCore;
 using Shared;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -33,9 +33,19 @@ namespace FullFraim.Services.JuryServices
             return contests;
         }
 
-        public Task GiveReviewAsync(InputGiveReviewDto inputModel)
+        public async Task GiveReviewAsync(InputGiveReviewDto inputModel)
         {
-            throw new NotImplementedException();
+            var toAddReview = new PhotoReview()
+            {
+                Comment = inputModel.Comment,
+                Score = inputModel.Score,
+                Checkbox = inputModel.Checkbox,
+                PhotoId = inputModel.PhotoId,
+                JuryContestId = inputModel.JuryContestUserId
+            };
+
+            await this.context.PhotoReviews.AddAsync(toAddReview);
+            await this.context.SaveChangesAsync();
         }
     }
 }
