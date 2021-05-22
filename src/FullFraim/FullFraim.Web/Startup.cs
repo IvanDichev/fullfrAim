@@ -4,6 +4,7 @@ using FullFraim.Services.ContestCatgeoryServices;
 using FullFraim.Services.ContestServices;
 using FullFraim.Services.ContestTypeServices;
 using FullFraim.Services.PhaseServices;
+using FullFraim.Services.PhotoJunkieServices;
 using FullFraim.Services.PhotoService;
 using FullFraim.Web.Configurations.StartupConfig;
 using FullFraim.Web.Filters;
@@ -50,6 +51,7 @@ namespace FullFraim.Web
             services.AddTransient<APIExceptionFilter>();
             services.AddTransient<ICloudinaryService, CloudinaryService>();
             services.AddScoped<IPhotoService, PhotoService>();
+            services.AddScoped<IPhotoJunkieService, PhotoJunkieService>();
 
 
             AuthenticationConfig.ConfigureWith_Jwt(services, Configuration);

@@ -27,7 +27,7 @@ namespace FullFraim.Services.PhotoService
                 Id = p.Id,
                 //FirstName = p.User.FirstName,
                 //LastName = p.User.LastName,
-                PhotoName = p.Name,
+                PhotoName = p.Title,
                 PhotoUrl = p.Url,
             }).ToListAsync();
 
