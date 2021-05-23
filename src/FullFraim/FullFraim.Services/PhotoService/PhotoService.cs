@@ -1,5 +1,4 @@
 ﻿using FullFraim.Data;
-using FullFraim.Models.Dtos.Photo;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,7 +15,7 @@ namespace FullFraim.Services.PhotoService
             this.context = context;
         }
 
-        public async Task<IEnumerable<PhotoDto>> GetTopRecentPhotosAsync()
+        /*public async Task<IEnumerable<PhotoDto>> GetTopRecentPhotosAsync()
         {
             var photos = this.context.Photos;
                 //.OrderBy(p => p.PhotoReviews) // TODO: Not working with PhotoReviews
@@ -32,6 +31,6 @@ namespace FullFraim.Services.PhotoService
             }).ToListAsync();
 
             return photosDto;
-        }
+        }*/
     }
 }

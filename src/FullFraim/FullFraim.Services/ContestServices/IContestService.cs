@@ -11,5 +11,6 @@ namespace FullFraim.Services.ContestServices
         Task CreateAsync(InputContestDto model);
         Task UpdateAsync(int id, InputContestDto model);
         Task DeleteAsync(int id);
+        Task<ICollection<string>> GetCoversAsync();
     }
 }

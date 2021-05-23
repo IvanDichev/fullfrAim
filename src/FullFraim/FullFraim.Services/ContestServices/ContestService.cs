@@ -66,6 +66,15 @@ namespace FullFraim.Services.ContestServices
             return result;
         }
 
+        public async Task<ICollection<string>> GetCoversAsync()
+        {
+            var result = await this.context.Contests
+                .MapToUrl()
+                .ToListAsync();
+
+            return result;
+        }
+
         public async Task<OutputContestDto> GetByIdAsync(int id)
         {
             if (id <= 0)
