@@ -13,6 +13,7 @@
                 <h5 style="display: inline-block">Create a new account</h5>
             </div>
             <hr />
+            <div asp-validation-summary="ModelOnly"></div>
             <div class="form-group">
                 <label asp-for="Input.Email"></label>
                 <input asp-for="Input.Email" class="form-control fadeIn second" placeholder="e.g. IvanPertov@gmail.com"/>

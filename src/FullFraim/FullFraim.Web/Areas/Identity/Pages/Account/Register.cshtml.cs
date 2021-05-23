@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
+using Shared;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -97,8 +98,8 @@ namespace Web.Areas.Identity.Pages.Account
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)
                 {
-                    // TODO Add to role
-                    //await _userManager.AddToRoleAsync(user, ApplicationRolesConstatnts.User);
+                    //TODO Add to role
+                    //await _userManager.AddToRoleAsync(user, Constants.RolesSeed.User);
                     _logger.LogInformation("User created a new account with password.");
 
                     var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
@@ -109,17 +110,29 @@ namespace Web.Areas.Identity.Pages.Account
                         values: new { area = "Identity", userId = user.Id, code = code, returnUrl = returnUrl },
                         protocol: Request.Scheme);
 
-                    await this._emailSender.SendEmailAsync(this._config["SendGrid:SenderEmail"], "FullFraim", user.Email,
-                        "Confirm Email", HtmlEncoder.Default.Encode(callbackUrl));
+                    await this._emailSender.SendEmailAsync(
+                        Sender: this._config["SendGrid:SenderEmail"], 
+                        SenderName: Constants.Email.SenderName, 
+                        To: user.Email,
+                        Subject: Constants.Email.ConfirmEmailSubject, 
+                        HtmlContent: string.Format(Constants.EmailContents.ConfirmEmail, 
+                            user.Email, HtmlEncoder.Default.Encode(callbackUrl),
+                            "https://FullFrAim.com/ConfirmEmail", string.Format(Constants.Email.NHours, "24"), 
+                            Constants.EmailContents.ConfirmEmailStyles));
 
-                    //var emailSender = new SendGridEmailSender(this._config["SendGrid:Key"]);
-                    //await emailSender.SendEmailAsync(_config["SendGrid:Email"], EmailConstants.FromMailingName, Input.Email,
-                    //    EmailConstants.ConfirmationEmailSubject,
-                    //    string.Format(EmailConstants.ConfirmEmail, HtmlEncoder.Default.Encode(callbackUrl)));
 
                     if (_userManager.Options.SignIn.RequireConfirmedAccount)
                     {
-                        return RedirectToPage("RegisterConfirmation", new { email = Input.Email, returnUrl = returnUrl });
+                        var userTry = await _userManager.FindByEmailAsync(user.Email);
+                        if (userTry == null)
+                        {
+                            return NotFound($"Unable to load user with email '{user.Email}'.");
+                        }
+
+                        TempData["Success"] = "Please confirm your email with the link we sent you.";
+
+                        return RedirectToPage("./Login");
+                        //return RedirectToPage("RegisterConfirmation", new { email = Input.Email, returnUrl = returnUrl });
                     }
                     else
                     {

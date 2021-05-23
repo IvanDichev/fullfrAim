@@ -1,0 +1,11 @@
+2021-05-24 00:04:47.877 +03:00 [WRN] User 20 cannot sign in without a confirmed email.
+2021-05-24 00:06:40.142 +03:00 [WRN] Invalid password for user 20.
+2021-05-24 00:06:40.180 +03:00 [WRN] User 20 failed to provide the correct password.
+2021-05-24 00:07:14.949 +03:00 [WRN] User 20 cannot sign in without a confirmed email.
+2021-05-24 00:15:31.396 +03:00 [WRN] VerifyUserTokenAsync() failed with purpose: ResetPassword for user 20.
+2021-05-24 00:16:22.852 +03:00 [WRN] VerifyUserTokenAsync() failed with purpose: ResetPassword for user 20.
+2021-05-24 00:16:30.979 +03:00 [WRN] VerifyUserTokenAsync() failed with purpose: ResetPassword for user 20.
+2021-05-24 00:17:32.476 +03:00 [WRN] VerifyUserTokenAsync() failed with purpose: ResetPassword for user 20.
+2021-05-24 00:17:32.576 +03:00 [WRN] VerifyUserTokenAsync() failed with purpose: ResetPassword for user 20.
+2021-05-24 00:17:41.057 +03:00 [WRN] VerifyUserTokenAsync() failed with purpose: ResetPassword for user 20.
+2021-05-24 00:18:16.803 +03:00 [WRN] VerifyUserTokenAsync() failed with purpose: ResetPassword for user 20.

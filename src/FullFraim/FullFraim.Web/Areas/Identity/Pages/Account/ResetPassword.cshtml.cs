@@ -30,7 +30,7 @@ namespace Web.Areas.Identity.Pages.Account
             public string Email { get; set; }
 
             [Required]
-            [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
+            [StringLength(50, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 10)]
             [DataType(DataType.Password)]
             public string Password { get; set; }
 
@@ -68,20 +68,22 @@ namespace Web.Areas.Identity.Pages.Account
             var user = await _userManager.FindByEmailAsync(Input.Email);
             if (user == null)
             {
-                // Don't reveal that the user does not exist
-                return RedirectToPage("./ResetPasswordConfirmation");
+                TempData["Success"] = "Password reset successfully";
+                return RedirectToPage("./Login");
             }
 
             var result = await _userManager.ResetPasswordAsync(user, Input.Code, Input.Password);
             if (result.Succeeded)
             {
-                return RedirectToPage("./ResetPasswordConfirmation");
+                TempData["Success"] = "Password reset successfully";
+                return RedirectToPage("./Login");
             }
 
             foreach (var error in result.Errors)
             {
                 ModelState.AddModelError(string.Empty, error.Description);
             }
+
             return Page();
         }
     }

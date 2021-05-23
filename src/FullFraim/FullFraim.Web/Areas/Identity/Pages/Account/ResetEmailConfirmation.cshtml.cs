@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
+using Shared;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
 using System.Text.Encodings.Web;
@@ -64,19 +65,19 @@ namespace Web.Areas.Identity.Pages.Account
                     var callbackUrl = Url.Page(
                         "/Account/ConfirmEmail",
                         pageHandler: null,
-                        values: new { area = "Identity", userId = user.Id, code = code},
+                        values: new { area = "Identity", userId = user.Id, code = code },
                         protocol: Request.Scheme);
 
                     await this._emailSender.SendEmailAsync(this._config["SendGrid:SenderEmail"], "FullFraim", user.Email,
-                        "Email Confirmation", HtmlEncoder.Default.Encode(callbackUrl));
+                        "Confirm Email", string.Format
+                        (Constants.EmailContents.ConfirmEmail, user.Email, HtmlEncoder.Default.Encode(callbackUrl),
+                        "https://FullFrAim.com/ConfirmEmail", "Whithin 48 hours", Constants.EmailContents.ConfirmEmailStyles));
 
-                    //var emailSender = new SendGridEmailSender(this._config["SendGrid:Key"]);
-                    //await emailSender.SendEmailAsync(_config["SendGrid:Email"], EmailConstants.FromMailingName, Input.Email,
-                    //   EmailConstants.ConfirmationEmailSubject,
-                    //   string.Format(EmailConstants.ResetEmailConfirmation, HtmlEncoder.Default.Encode(callbackUrl)));
                 }
+
+                TempData["Success"] = "Email confirmation token resend.";
             }
-            return RedirectToPage("./EmailConfirmationTokenReset");
+            return RedirectToPage("./Login");
         }
     }
 }

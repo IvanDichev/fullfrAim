@@ -8,7 +8,20 @@
 <link rel="stylesheet" href="~/css/Identity/Login.css" />
 
 <div class="wrapper fadeInDown">
+
     <div id="formContent">
+        @if (TempData["Success"] != null)
+        {
+            <div class="alert alert-success" role="alert">
+                <p>@TempData["Success"]</p>
+            </div>
+        }
+        @if (TempData["Error"] != null)
+        {
+            <div class="alert alert-danger" role="alert">
+                <p>@TempData["Error"]</p>
+            </div>
+        }
         <form id="account" method="post">
             <div class="fadeIn first" style="margin-top: 1rem;">
                 <h5 style="display: inline-block">Login</h5>

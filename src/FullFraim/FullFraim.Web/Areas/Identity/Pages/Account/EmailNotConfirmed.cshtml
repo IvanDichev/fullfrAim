@@ -4,9 +4,17 @@
     ViewData["Title"] = "Email not confirmed";
 }
 
-<header>
-    <h1 class="text-danger">@ViewData["Title"]</h1>
-    <p class="text-danger">This account has not been confimed, please confirm your email first and try again.</p>
-    <p class="text-info">If you haved recieved an email for confirmation <a asp-area="Identity" asp-page="/Account/ResetEmailConfirmation">click here</a></p>
-    
-</header>
+<link rel="stylesheet" href="~/css/Identity/Login.css" />
+
+<div class="wrapper fadeInDown">
+    <div id="formContent">
+        <div class="fadeIn first">
+            <hr />
+            <p class="text-danger">@ViewData["Title"]</p>
+            <p> Please check your email to confirm your account.</p>
+        </div>
+        <div class="form-group">
+            <p class="text-info">If you haven't received an email for confirmation <a asp-area="Identity" asp-page="/Account/ResetEmailConfirmation">click here</a></p>
+        </div>
+    </div>
+</div>

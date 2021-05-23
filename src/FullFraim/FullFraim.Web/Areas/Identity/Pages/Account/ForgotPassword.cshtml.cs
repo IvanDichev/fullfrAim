@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
 using Microsoft.Extensions.Configuration;
+using Shared;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
 using System.Text.Encodings.Web;
@@ -43,15 +44,15 @@ namespace Web.Areas.Identity.Pages.Account
         {
             if (ModelState.IsValid)
             {
+                TempData["Success"] = Constants.TempDataNotifications.PasswordResetTokenSuccessfullySend;
+
                 var user = await _userManager.FindByEmailAsync(Input.Email);
                 if (user == null || !(await _userManager.IsEmailConfirmedAsync(user)))
                 {
                     // Don't reveal that the user does not exist or is not confirmed
-                    return RedirectToPage("./ForgotPasswordConfirmation");
+                    return RedirectToPage("./Login");
                 }
 
-                // For more information on how to enable account confirmation and password reset please 
-                // visit https://go.microsoft.com/fwlink/?LinkID=532713
                 var code = await _userManager.GeneratePasswordResetTokenAsync(user);
                 code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
                 var callbackUrl = Url.Page(
@@ -60,15 +61,15 @@ namespace Web.Areas.Identity.Pages.Account
                     values: new { area = "Identity", code },
                     protocol: Request.Scheme);
 
-                //var emailSender = new SendGridEmailSender(this._config["SendGrid:Key"]);
-                //await emailSender.SendEmailAsync(_config["SendGrid:Email"], EmailConstants.FromMailingName, Input.Email,
-                //        EmailConstants.ConfirmationEmailSubject,
-                //        string.Format(EmailConstants.ConfirmResetPassword, HtmlEncoder.Default.Encode(callbackUrl)));
+                await this._emailSender.SendEmailAsync(
+                        Sender: this._config["SendGrid:SenderEmail"],
+                        SenderName: Constants.Email.SenderName,
+                        To: user.Email,
+                        Subject: Constants.Email.ResetPasswordSubject,
+                        HtmlContent: string.Format(Constants.EmailContents.PasswordResetLink,
+                            HtmlEncoder.Default.Encode(callbackUrl)));
 
-                await this._emailSender.SendEmailAsync(this._config["SendGrid:SenderEmail"], "FullFraim", user.Email,
-                     "Reset Password", HtmlEncoder.Default.Encode(callbackUrl));
-
-                return RedirectToPage("./ForgotPasswordConfirmation");
+                return RedirectToPage("./Login");
             }
 
             return Page();
