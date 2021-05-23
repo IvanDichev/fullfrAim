@@ -61,7 +61,7 @@ namespace FullFraim.Web
             services.AddScoped<IEmailSender>
                 (serviceProvider => new SendGridEmailSender(this.Configuration["SendGrid:ApiKey"]));
 
-            AuthenticationConfig.ConfigureWith_Jwt(services, Configuration);
+            //AuthenticationConfig.ConfigureWith_Jwt(services, Configuration);
 
             SwaggerConfig.Configure(services);
         }
