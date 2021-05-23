@@ -1,6 +1,4 @@
-﻿using FullFraim.Models.ViewModels.Dashboard;
-using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
+﻿using Microsoft.AspNetCore.Mvc;
 
 namespace FullFraim.Web.Controllers
 {
@@ -12,11 +10,6 @@ namespace FullFraim.Web.Controllers
         }
         public IActionResult Index()
         {
-            //var model = new ContestViewModel();
-            //model.TestProperty = 1;
-            //model.TestListProperty = new List<string>(){"uno", "dos", "tres" };
-
-            //  return View(model); 
             return View();
         }
 
