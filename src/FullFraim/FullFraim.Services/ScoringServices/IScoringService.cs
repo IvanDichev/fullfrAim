@@ -5,7 +5,6 @@ namespace FullFraim.Services.ScoringServices
 {
     public interface IScoringService
     {
-      //  Task GivePointsForJoiningContest(int userId, int contestId);
-        Task CalculateScoring(InputScoringDto inputModel);
+        Task SelectWinners(int userId, int contestId);
     }
 }

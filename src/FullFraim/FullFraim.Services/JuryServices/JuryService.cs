@@ -37,7 +37,7 @@ namespace FullFraim.Services.JuryServices
         {
             // TODO: Each juror can give one review per photo
             // Check if in phaseI, otherwise can't give a review
-
+            
             var toAddReview = new PhotoReview()
             {
                 Comment = inputModel.Comment,
@@ -46,6 +46,12 @@ namespace FullFraim.Services.JuryServices
                 PhotoId = inputModel.PhotoId,
                 JuryContestId = inputModel.JuryId
             };
+
+            if (toAddReview.Checkbox == true)
+            {
+                toAddReview.Score = 0;
+                toAddReview.Comment = "Wrong Category"; // TODO: Make it as a constant
+            }
 
             await this.context.PhotoReviews.AddAsync(toAddReview);
             await this.context.SaveChangesAsync();
