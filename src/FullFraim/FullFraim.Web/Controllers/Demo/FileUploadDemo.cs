@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using Utilities.CloudinaryUtils;
 
-namespace FullFraim.Web.Controllers
+namespace FullFraim.Web.Controllers.Demo
 {
     public class FileUploadDemo : Controller
     {
