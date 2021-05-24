@@ -4,6 +4,8 @@ using FullFraim.Models.ViewModels;
 using System.Linq;
 using System;
 using FullFraim.Models.Dto_s.Phases;
+using FullFraim.Models.Contest.ViewModels;
+using FullFraim.Models.ViewModels.Dashboard;
 
 namespace Utilities.Mapper
 {
@@ -47,17 +49,6 @@ namespace Utilities.Mapper
         }
 
         public static Contest MapToRaw(this InputContestDto model)
-        public static DashboardViewModel MapToViewDashboard(this ContestDto model) 
-        {
-            return new DashboardViewModel()
-            {
-                Name = model.Name,
-                Cover_Url = model.Cover_Url,
-                Description = model.Description,
-            };
-        }
-
-        public static Contest MapToRaw(this ContestDto model)
         {
             return new Contest()
             {
@@ -69,6 +60,29 @@ namespace Utilities.Mapper
                 ContestTypeId = model.ContestTypeId,
             };
         }
+
+        public static DashboardViewModel MapToViewDashboard(this OutputContestDto model)  // this ContestDto model
+        {
+            return new DashboardViewModel()
+            {
+                Name = model.Name,
+                Cover_Url = model.Cover_Url,
+                Description = model.Description,
+            };
+        }
+
+        //public static Contest MapToRaw(this ContestDto model)
+        //{
+        //    return new Contest()
+        //    {
+        //        //Id = model.Id,
+        //        Name = model.Name,
+        //        Cover_Url = model.Cover_Url,
+        //        Description = model.Description,
+        //        ContestCategoryId = model.ContestCategoryId,
+        //        ContestTypeId = model.ContestTypeId,
+        //    };
+        //}
 
         public static IQueryable<OutputContestDto> MapToDto(this IQueryable<Contest> query)
         {

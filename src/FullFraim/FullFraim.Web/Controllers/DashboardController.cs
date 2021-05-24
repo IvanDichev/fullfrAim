@@ -38,7 +38,7 @@ namespace FullFraim.Web.Controllers
 
             if (categoryId != 0)
             {
-                categories = categories.Where(c => c.ContestCategoryId == categoryId);
+                categories = categories.Where(c => c.ContestCategoryId == categoryId).ToList();
             }
 
             var result = categories.Select(x => x.MapToViewDashboard());
