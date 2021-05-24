@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 using Utilities.CloudinaryUtils;
 using Utilities.Mapper;
 
-namespace FullFraim.Web.Controllers.MvcControllers
+namespace FullFraim.Web.Controllers
 {
     [Controller]
     public class ContestController : Controller
@@ -59,7 +59,7 @@ namespace FullFraim.Web.Controllers.MvcControllers
 
             await this.contestService.CreateAsync(model.MapToDto());
 
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction(nameof(HomeController.Index), nameof(HomeController).Replace("Controller", ""));
         }
 
         [HttpGet]

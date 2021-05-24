@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace FullFraim.Data.Models
 {
-    public class JuryContest : DeletableJunctionEntity
+    public class JuryContest : DeletableEntity<int>
     {
         public int UserId { get; set; }
         public User User { get; set; }
