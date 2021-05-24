@@ -1,13 +1,10 @@
 ﻿using FullFraim.Models.Contest.ViewModels;
-using FullFraim.Models.ViewModels.Contest;
 using FullFraim.Services.ContestCatgeoryServices;
 using FullFraim.Services.ContestServices;
 using FullFraim.Services.ContestTypeServices;
 using FullFraim.Services.PhaseServices;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using Utilities.CloudinaryUtils;
 using Utilities.Mapper;
@@ -94,15 +91,6 @@ namespace FullFraim.Web.Controllers.MvcControllers
             ViewBag.Covers = result;
 
             return View();
-        }
-
-
-        [HttpGet]
-        public async Task<IActionResult> Demo()
-        {
-            var result = await this.contestService.GetAllAsync();
-
-            return View(result);
         }
     }
 }
