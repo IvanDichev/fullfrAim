@@ -16,6 +16,9 @@ namespace FullFraim.Data.Models
         [Required]
         public string Url { get; set; }
 
+        public int ContestId { get; set; }
+        public Contest Contest { get; set; }
+
         public ParticipantContest Participant { get; set; }
 
         public ICollection<PhotoReview> PhotoReviews { get; set; }

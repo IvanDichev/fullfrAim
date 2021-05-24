@@ -37,8 +37,9 @@ namespace FullFraim.Web
             services.AddControllersWithViews(options =>
             {
                 options.Filters
-                .Add(new AutoValidateAntiforgeryTokenAttribute());
+                    .Add(new AutoValidateAntiforgeryTokenAttribute());
             });
+
             services.AddControllers();
 
             AuthenticationConfig.SingInConfiguration(services);
@@ -55,7 +56,7 @@ namespace FullFraim.Web
             services.AddScoped<IJuryService, JuryService>();
 
 
-            AuthenticationConfig.ConfigureWith_Jwt(services, Configuration);
+            //AuthenticationConfig.ConfigureWith_Jwt(services, Configuration);
 
             SwaggerConfig.Configure(services);
         }
@@ -89,7 +90,7 @@ namespace FullFraim.Web
 
             app.UseEndpoints(endpoints =>
             {
-                // endpoints.MapControllers();
+                endpoints.MapControllers();
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
