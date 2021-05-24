@@ -6,5 +6,6 @@ namespace FullFraim.Services.PhotoService
     public interface IPhotoService
     {
        /* Task<IEnumerable<PhotoDto>> GetTopRecentPhotosAsync();*/
+
     }
 }

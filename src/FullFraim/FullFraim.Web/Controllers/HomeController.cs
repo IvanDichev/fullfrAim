@@ -1,13 +1,10 @@
-﻿using FullFraim.Web.Models;
+﻿using FullFraim.Services.PhotoService;
+using FullFraim.Web.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System.Diagnostics;
-using FullFraim.Services.PhotoService;
 using System.Threading.Tasks;
-using System.Linq;
-using FullFraim.Models.ViewModels.Home;
-using System.Collections.Generic;
 
 namespace FullFraim.Web.Controllers
 {
@@ -24,13 +21,6 @@ namespace FullFraim.Web.Controllers
 
         public async Task<IActionResult> Index()
         {
-            /*var photos = await this.photoService.GetTopRecentPhotosAsync();
-
-            var photosView = photos.Select(p => new HomeIndexViewModel()
-            {
-                TopRecentPhotosUrl = p.PhotoUrl
-            });*/
-
             return View();
         }
 

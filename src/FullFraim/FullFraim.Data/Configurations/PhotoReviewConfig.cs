@@ -9,6 +9,8 @@ namespace FullFraim.Data.Configurations
         public void Configure(EntityTypeBuilder<PhotoReview> builder)
         {
             builder.HasQueryFilter(pr => !pr.IsDeleted);
+
+            builder.HasIndex(pr => new { pr.PhotoId, pr.JuryContestId }).IsUnique();
         }
     }
 }

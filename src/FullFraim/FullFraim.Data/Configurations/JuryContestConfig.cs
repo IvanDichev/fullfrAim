@@ -8,7 +8,8 @@ namespace FullFraim.Data.Configurations
     {
         public void Configure(EntityTypeBuilder<JuryContest> builder)
         {
-            builder.HasKey(jc => new { jc.ContestId, jc.UserId });
+            //builder.HasKey(jc => new { jc.ContestId, jc.UserId });
+            builder.HasIndex(jc => new { jc.ContestId, jc.UserId }).IsUnique();
 
             builder.HasQueryFilter(jc => !jc.IsDeleted);
         }
