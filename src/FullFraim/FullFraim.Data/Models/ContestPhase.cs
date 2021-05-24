@@ -3,7 +3,7 @@ using System;
 
 namespace FullFraim.Data.Models
 {
-    public class ContestPhase : DeletableEntity<int>
+    public class ContestPhase : DeletableJunctionEntity
     {
         public int ContestId { get; set; }
         public Contest Contest { get; set; }
@@ -11,6 +11,7 @@ namespace FullFraim.Data.Models
         public int PhaseId { get; set; }
         public Phase Phase { get; set; }
 
-        public DateTime PhaseEndDate { get; set; }
+        public DateTime StartDate { get; set; }
+        public DateTime EndDate { get; set; }
     }
 }

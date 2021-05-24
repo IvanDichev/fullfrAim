@@ -1,12 +1,9 @@
-﻿using FullFraim.Models.ViewModels;
+﻿using FullFraim.Models.Contest.ViewModels;
 using FullFraim.Services.ContestCatgeoryServices;
 using FullFraim.Services.ContestServices;
 using FullFraim.Services.ContestTypeServices;
 using FullFraim.Services.PhaseServices;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using Utilities.Mapper;
 
@@ -31,11 +28,6 @@ namespace FullFraim.Web.Controllers
             this.contestTypeService = contestTypeService;
         }
 
-        public IActionResult Index()
-        {
-            return View();
-        }
-
         [HttpGet]
         public async Task<IActionResult> Create()
         {
@@ -52,8 +44,7 @@ namespace FullFraim.Web.Controllers
         }
 
         [HttpPost]
-        [AutoValidateAntiforgeryToken]
-        public async Task<IActionResult> Create(ContestViewModel model)
+        public async Task<IActionResult> Create(CreateContestViewModel model)
         {
             if (ModelState.IsValid)
             {

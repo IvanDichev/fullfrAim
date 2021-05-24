@@ -1,5 +1,6 @@
 ﻿using FullFraim.Data.Models;
 using FullFraim.Models.Dto_s.Phases;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Utilities.Mapper
@@ -14,6 +15,23 @@ namespace Utilities.Mapper
                 Id = x.Id,
                 Name = x.Name
             });
+        }
+
+        public static ICollection<PhaseDto> MapToDto(this ICollection<Phase> collection)
+        {
+            var listPhaseDto = new List<PhaseDto>();
+
+            foreach (var item in collection)
+            {
+                listPhaseDto.Add(
+                    new PhaseDto()
+                    {
+                        Id = item.Id,
+                        Name = item.Name
+                    });
+            }
+
+            return listPhaseDto;
         }
 
         public static Phase MapToRaw(this PhaseDto model)

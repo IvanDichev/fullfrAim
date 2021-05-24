@@ -8,7 +8,10 @@ namespace FullFraim.Data.Models
     {
         [Required]
         [StringLength(maximumLength: 20)]
-        public string Name { get; set; }
+        public string Title { get; set; }
+
+        [StringLength(maximumLength: 2000)]
+        public string Story { get; set; }
 
         [Required]
         public string Url { get; set; }

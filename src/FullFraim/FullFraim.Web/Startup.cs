@@ -3,12 +3,15 @@ using FullFraim.Services.API_JwtServices;
 using FullFraim.Services.ContestCatgeoryServices;
 using FullFraim.Services.ContestServices;
 using FullFraim.Services.ContestTypeServices;
+using FullFraim.Services.JuryServices;
 using FullFraim.Services.PhaseServices;
+using FullFraim.Services.PhotoJunkieServices;
 using FullFraim.Services.PhotoService;
 using FullFraim.Web.Configurations.StartupConfig;
 using FullFraim.Web.Filters;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -32,7 +35,12 @@ namespace FullFraim.Web
             services.AddDbContext<FullFraimDbContext>(options =>
             options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
-            services.AddControllersWithViews();
+            services.AddControllersWithViews(options =>
+            {
+                options.Filters
+                .Add(new AutoValidateAntiforgeryTokenAttribute());
+            });
+
             services.AddControllers();
 
             AuthenticationConfig.SingInConfiguration(services);
@@ -53,6 +61,7 @@ namespace FullFraim.Web
             services.AddScoped<IPhaseService, PhaseService>();
             services.AddTransient<APIExceptionFilter>();
             services.AddScoped<IPhotoService, PhotoService>();
+
             services.AddScoped<ICloudinaryService>
                 (serviceProvider => new CloudinaryService(
                     this.Configuration["Cloudinary:CloudName"],
@@ -60,6 +69,8 @@ namespace FullFraim.Web
                     this.Configuration["Cloudinary:ApiSecret"]));
             services.AddScoped<IEmailSender>
                 (serviceProvider => new SendGridEmailSender(this.Configuration["SendGrid:ApiKey"]));
+            services.AddScoped<IPhotoJunkieService, PhotoJunkieService>();
+            services.AddScoped<IJuryService, JuryService>();
 
             //AuthenticationConfig.ConfigureWith_Jwt(services, Configuration);
 
