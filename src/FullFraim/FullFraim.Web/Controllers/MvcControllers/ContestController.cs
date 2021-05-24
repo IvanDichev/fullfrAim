@@ -54,7 +54,8 @@ namespace FullFraim.Web.Controllers.MvcControllers
         public async Task<IActionResult> Create(CreateContestViewModel model)
         {
             if (!ModelState.IsValid || 
-                (model.Cover_Url != null && model.Cover != null))
+                (model.Cover_Url != null && model.Cover != null) ||
+                (model.Cover_Url == null && model.Cover == null))
             {
                 ViewBag.Categories = await this.contestCategoryService
                     .GetAllAsync();
@@ -83,7 +84,7 @@ namespace FullFraim.Web.Controllers.MvcControllers
                     nameof(HomeController).Replace("Controller", string.Empty));
             }
 
-            return View(model);
+            throw new Exception();
         }
 
         public async Task<IActionResult> ChooseCovers()
