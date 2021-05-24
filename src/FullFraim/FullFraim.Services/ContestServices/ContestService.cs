@@ -1,4 +1,5 @@
 ﻿using FullFraim.Data;
+using FullFraim.Data.Models;
 using FullFraim.Models.Dto_s.Contests;
 using FullFraim.Models.ViewModels;
 using FullFraim.Services.Exceptions;
@@ -20,19 +21,25 @@ namespace FullFraim.Services.ContestServices
             this.context = context;
         }
 
-
-        public async Task<ContestDto> CreateAsync(ContestDto model)
+        public async Task CreateAsync(InputContestDto model)
         {
             if (model == null)
             {
                 throw new NullModelException();
             }
 
-            await this.context.Contests.AddAsync(model.MapToRaw());
+            model.Phases.StartDate_PhaseI = DateTime.UtcNow;
+            model.Phases.StartDate_PhaseII = model.Phases.EndDate_PhaseI;
+            model.Phases.StartDate_PhaseIII = model.Phases.EndDate_PhaseII;
+            model.Phases.EndDate_PhaseIII = DateTime.MaxValue;
+
+            var contest = await this.context.Contests.AddAsync(model.MapToRaw());
 
             await this.context.SaveChangesAsync();
+            
+            await this.AddContestPhasesAsync(model, contest.Entity.Id);
 
-            return model;
+            await this.context.SaveChangesAsync();
         }
 
         public async Task DeleteAsync(int id)
@@ -51,7 +58,7 @@ namespace FullFraim.Services.ContestServices
             await this.context.SaveChangesAsync();
         }
 
-        public async Task<IEnumerable<ContestDto>> GetAllAsync() // TODO: Task<ICollection<T>>
+        public async Task<ICollection<OutputContestDto>> GetAllAsync()
         {
             var result = await this.context.Contests
                 .MapToDto()
@@ -60,7 +67,7 @@ namespace FullFraim.Services.ContestServices
             return result;
         }
 
-        public async Task<ContestDto> GetByIdAsync(int id)
+        public async Task<OutputContestDto> GetByIdAsync(int id)
         {
             if (id <= 0)
             {
@@ -68,8 +75,9 @@ namespace FullFraim.Services.ContestServices
             }
 
             var result = await this.context.Contests
+                .Where(C => C.Id == id)
                 .MapToDto()
-                .FirstOrDefaultAsync(CC => CC.Id == id);
+                .FirstOrDefaultAsync();
 
             if (result == null)
             {
@@ -79,8 +87,7 @@ namespace FullFraim.Services.ContestServices
             return result;
         }
 
-        
-        public async Task<ContestDto> UpdateAsync(int id, ContestDto model)
+        public async Task UpdateAsync(int id, InputContestDto model)
         {
             if (model == null)
             {
@@ -99,8 +106,36 @@ namespace FullFraim.Services.ContestServices
             dbModelToUpdate.ModifiedOn = DateTime.UtcNow;
 
             await this.context.SaveChangesAsync();
+        }
 
-            return model;
+        private async Task AddContestPhasesAsync(InputContestDto model, int id)
+        {
+            await this.context.ContestPhases
+                .AddAsync(new ContestPhase()
+                {
+                    ContestId = id,
+                    PhaseId = 1,
+                    StartDate = model.Phases.StartDate_PhaseI,
+                    EndDate = model.Phases.EndDate_PhaseI,
+                }); ;
+
+            await this.context.ContestPhases
+                .AddAsync(new ContestPhase()
+                {
+                    ContestId = id,
+                    PhaseId = 2,
+                    StartDate = model.Phases.StartDate_PhaseII,
+                    EndDate = model.Phases.EndDate_PhaseII,
+                });
+
+            await this.context.ContestPhases
+              .AddAsync(new ContestPhase()
+              {
+                  ContestId = id,
+                  PhaseId = 3,
+                  StartDate = model.Phases.StartDate_PhaseIII,
+                  EndDate = model.Phases.EndDate_PhaseIII,
+              });
         }
     }
 }

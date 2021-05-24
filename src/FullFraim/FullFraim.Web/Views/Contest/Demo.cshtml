@@ -1,0 +1,12 @@
+﻿@model ICollection<OutputContestDto>
+
+<div style="padding: 12rem 12rem 12rem 12rem">
+    @foreach (var item in Model)
+    {
+<p>
+@item.Name;<br>
+@item.ActivePhase.Name
+@item.Cover_Url;
+</p>
+    }
+</div>

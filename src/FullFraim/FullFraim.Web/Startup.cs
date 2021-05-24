@@ -4,11 +4,13 @@ using FullFraim.Services.ContestCatgeoryServices;
 using FullFraim.Services.ContestServices;
 using FullFraim.Services.ContestTypeServices;
 using FullFraim.Services.PhaseServices;
+using FullFraim.Services.PhotoJunkieServices;
 using FullFraim.Services.PhotoService;
 using FullFraim.Web.Configurations.StartupConfig;
 using FullFraim.Web.Filters;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -32,8 +34,12 @@ namespace FullFraim.Web
             services.AddDbContext<FullFraimDbContext>(options =>
             options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
-            services.AddControllersWithViews();
-            //services.AddControllers();
+            services.AddControllersWithViews(options =>
+            {
+                options.Filters
+                .Add(new AutoValidateAntiforgeryTokenAttribute());
+            });
+            services.AddControllers();
 
             AuthenticationConfig.SingInConfiguration(services);
 
@@ -45,6 +51,7 @@ namespace FullFraim.Web
             services.AddTransient<APIExceptionFilter>();
             services.AddTransient<ICloudinaryService, CloudinaryService>();
             services.AddScoped<IPhotoService, PhotoService>();
+            services.AddScoped<IPhotoJunkieService, PhotoJunkieService>();
 
 
             AuthenticationConfig.ConfigureWith_Jwt(services, Configuration);

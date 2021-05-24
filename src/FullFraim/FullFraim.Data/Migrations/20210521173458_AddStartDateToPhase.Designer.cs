@@ -4,14 +4,16 @@ using FullFraim.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace FullFraim.Data.Migrations
 {
     [DbContext(typeof(FullFraimDbContext))]
-    partial class FullFraimDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210521173458_AddStartDateToPhase")]
+    partial class AddStartDateToPhase
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -182,8 +184,10 @@ namespace FullFraim.Data.Migrations
 
             modelBuilder.Entity("FullFraim.Data.Models.ContestPhase", b =>
                 {
-                    b.Property<int>("PhaseId")
-                        .HasColumnType("int");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<int>("ContestId")
                         .HasColumnType("int");
@@ -203,12 +207,17 @@ namespace FullFraim.Data.Migrations
                     b.Property<DateTime?>("ModifiedOn")
                         .HasColumnType("datetime2");
 
+                    b.Property<int>("PhaseId")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("StartDate")
                         .HasColumnType("datetime2");
 
-                    b.HasKey("PhaseId", "ContestId");
+                    b.HasKey("Id");
 
                     b.HasIndex("ContestId");
+
+                    b.HasIndex("PhaseId");
 
                     b.ToTable("ContestPhases");
                 });
@@ -271,6 +280,9 @@ namespace FullFraim.Data.Migrations
                     b.Property<DateTime?>("DeletedOn")
                         .HasColumnType("datetime2");
 
+                    b.Property<int>("Id")
+                        .HasColumnType("int");
+
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
@@ -297,6 +309,9 @@ namespace FullFraim.Data.Migrations
 
                     b.Property<DateTime?>("DeletedOn")
                         .HasColumnType("datetime2");
+
+                    b.Property<int>("Id")
+                        .HasColumnType("int");
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
@@ -391,11 +406,7 @@ namespace FullFraim.Data.Migrations
                     b.Property<DateTime?>("ModifiedOn")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("Story")
-                        .HasColumnType("nvarchar(2000)")
-                        .HasMaxLength(2000);
-
-                    b.Property<string>("Title")
+                    b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(20)")
                         .HasMaxLength(20);
@@ -606,35 +617,35 @@ namespace FullFraim.Data.Migrations
                         new
                         {
                             Id = 1,
-                            ConcurrencyStamp = "042d5f47-8caa-46ee-8a95-52a432beb76e",
+                            ConcurrencyStamp = "f9731bc3-2ae3-4ae8-b8bd-352a3d9b8838",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
                             Id = 2,
-                            ConcurrencyStamp = "a115cc00-039a-4923-a146-6d995a2ffa94",
+                            ConcurrencyStamp = "6dffe131-0101-4073-b459-efd8a75f92f6",
                             Name = "Organizer",
                             NormalizedName = "ORGANIZER"
                         },
                         new
                         {
                             Id = 3,
-                            ConcurrencyStamp = "e0c9f138-8803-4387-85e8-1876895b53b1",
+                            ConcurrencyStamp = "87f79a4c-58d7-4d4f-90fb-4f9d8af23b68",
                             Name = "Jury",
                             NormalizedName = "JURY"
                         },
                         new
                         {
                             Id = 4,
-                            ConcurrencyStamp = "1f43dfc4-09a9-4995-8021-930ffd8049c2",
+                            ConcurrencyStamp = "e33c2c3d-6bdd-4f9d-8de5-bf8c87954956",
                             Name = "Participant",
                             NormalizedName = "PARTICIPANT"
                         },
                         new
                         {
                             Id = 5,
-                            ConcurrencyStamp = "cafcaac6-bc87-4c29-96b4-9c754cba132e",
+                            ConcurrencyStamp = "13ed03e8-bbcf-4c0b-8ad0-873ed7460e05",
                             Name = "PhotoMaster",
                             NormalizedName = "PHOTOMASTER"
                         });
@@ -759,7 +770,7 @@ namespace FullFraim.Data.Migrations
             modelBuilder.Entity("FullFraim.Data.Models.ContestPhase", b =>
                 {
                     b.HasOne("FullFraim.Data.Models.Contest", "Contest")
-                        .WithMany("ContestPhases")
+                        .WithMany("Phases")
                         .HasForeignKey("ContestId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
