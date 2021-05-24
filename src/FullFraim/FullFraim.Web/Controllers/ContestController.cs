@@ -4,9 +4,7 @@ using FullFraim.Services.ContestServices;
 using FullFraim.Services.ContestTypeServices;
 using FullFraim.Services.PhaseServices;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using Utilities.CloudinaryUtils;
 using Utilities.Mapper;
@@ -36,7 +34,7 @@ namespace FullFraim.Web.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Create()
+        public async Task<IActionResult> Create(string url)
         {
             ViewBag.Categories = await this.contestCategoryService
                     .GetAllAsync();
@@ -44,30 +42,55 @@ namespace FullFraim.Web.Controllers
             ViewBag.ContestTypes = await this.contestTypeService
                 .GetAllAsync();
 
+            ViewBag.Cover = url;
+
             return View();
         }
 
         [HttpPost]
         public async Task<IActionResult> Create(CreateContestViewModel model)
         {
-            if (!ModelState.IsValid)
+            if (!ModelState.IsValid || 
+                (model.Cover_Url != null && model.Cover != null) ||
+                (model.Cover_Url == null && model.Cover == null))
             {
+                ViewBag.Categories = await this.contestCategoryService
+                    .GetAllAsync();
+
+                ViewBag.ContestTypes = await this.contestTypeService
+                    .GetAllAsync();
+
                 return View(model);
             }
 
-            model.Cover_Url = this.cloudinaryService.UploadImage(model.Cover);
+            if (model.Cover != null && model.Cover_Url == null)
+            {
 
-            await this.contestService.CreateAsync(model.MapToDto());
+                model.Cover_Url = this.cloudinaryService.UploadImage(model.Cover);
 
-            return RedirectToAction(nameof(HomeController.Index), nameof(HomeController).Replace("Controller", ""));
+                await this.contestService.CreateAsync(model.MapToDto());
+
+                return RedirectToAction(nameof(HomeController.Index), 
+                    nameof(HomeController).Replace("Controller", string.Empty));
+            }
+            else if(model.Cover == null && model.Cover_Url != null)
+            {
+                await this.contestService.CreateAsync(model.MapToDto());
+
+                return RedirectToAction(nameof(HomeController.Index),
+                    nameof(HomeController).Replace("Controller", string.Empty));
+            }
+
+            throw new Exception();
         }
 
-        [HttpGet]
-        public async Task<IActionResult> Demo()
+        public async Task<IActionResult> ChooseCovers()
         {
-            var result = await this.contestService.GetAllAsync();
+            var result = await this.contestService.GetCoversAsync();
 
-            return View(result);
+            ViewBag.Covers = result;
+
+            return View();
         }
     }
 }

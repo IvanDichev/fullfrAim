@@ -5,6 +5,5 @@ namespace FullFraim.Services.PhotoService
 {
     public interface IPhotoService
     {
-
     }
 }
