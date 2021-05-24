@@ -21,6 +21,8 @@ namespace FullFraim.Services.PhotoJunkieServices
             this.context = context;
         }
 
+        // TODO: Display current points and ranking and how much until next ranking at a visible place 
+
         public async Task<ICollection<OutputContestDto>> GetContestsAsync(int userId) 
             // All contests that are open or junkie currently participates or have participated
         {

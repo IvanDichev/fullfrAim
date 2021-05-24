@@ -3,6 +3,7 @@ using FullFraim.Services.API_JwtServices;
 using FullFraim.Services.ContestCatgeoryServices;
 using FullFraim.Services.ContestServices;
 using FullFraim.Services.ContestTypeServices;
+using FullFraim.Services.JuryServices;
 using FullFraim.Services.PhaseServices;
 using FullFraim.Services.PhotoJunkieServices;
 using FullFraim.Services.PhotoService;
@@ -16,7 +17,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Utilities.CloudinaryUtils;
-using Utilities.Mailing;
 
 namespace FullFraim.Web
 {
@@ -52,6 +52,7 @@ namespace FullFraim.Web
             services.AddTransient<ICloudinaryService, CloudinaryService>();
             services.AddScoped<IPhotoService, PhotoService>();
             services.AddScoped<IPhotoJunkieService, PhotoJunkieService>();
+            services.AddScoped<IJuryService, JuryService>();
 
 
             AuthenticationConfig.ConfigureWith_Jwt(services, Configuration);
@@ -88,7 +89,7 @@ namespace FullFraim.Web
 
             app.UseEndpoints(endpoints =>
             {
-                //endpoints.MapControllers();
+                // endpoints.MapControllers();
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
