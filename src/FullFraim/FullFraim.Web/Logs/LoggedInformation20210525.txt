@@ -176,3 +176,9 @@ System.Threading.Tasks.TaskCanceledException: A task was canceled.
    at Microsoft.EntityFrameworkCore.Query.Internal.QueryingEnumerable`1.AsyncEnumerator.InitializeReaderAsync(DbContext _, Boolean result, CancellationToken cancellationToken)
    at Microsoft.EntityFrameworkCore.SqlServer.Storage.Internal.SqlServerExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
    at Microsoft.EntityFrameworkCore.Query.Internal.QueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+2021-05-25 02:40:58.523 +03:00 [FTL] Api Exception filter failed to capture exception!
+2021-05-25 02:41:02.671 +03:00 [FTL] Api Exception filter failed to capture exception!
+2021-05-25 02:41:16.947 +03:00 [FTL] Api Exception filter failed to capture exception!
+2021-05-25 02:41:41.393 +03:00 [FTL] Api Exception filter failed to capture exception!
+2021-05-25 02:44:48.911 +03:00 [ERR] Thrown in get all TEST
+2021-05-25 02:45:23.079 +03:00 [ERR] Thrown in get all TEST

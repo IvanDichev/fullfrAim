@@ -1,6 +1,8 @@
 ﻿using FullFraim.Services.Exceptions;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Shared;
 using System;
@@ -9,15 +11,10 @@ namespace FullFraim.Web.Filters
 {
     public class APIExceptionFilter : Attribute, IExceptionFilter
     {
-        private readonly ILogger<APIExceptionFilter> logger;
-
-        public APIExceptionFilter(ILogger<APIExceptionFilter> logger)
-        {
-            this.logger = logger;
-        }
-
         public void OnException(ExceptionContext context)
         {
+            var logger = context.HttpContext.RequestServices.GetRequiredService<ILogger<APIExceptionFilter>>();
+
             var exception = context.Exception;
             var source = context.Exception.Source;
 
@@ -26,7 +23,7 @@ namespace FullFraim.Web.Filters
                 context.Result = new ContentResult()
                 {
                     Content = nullEx.Message,
-                    StatusCode = 400,
+                    StatusCode = StatusCodes.Status400BadRequest,
                 };
             }
             else if (exception is NotFoundException notFoundEx)
@@ -34,7 +31,7 @@ namespace FullFraim.Web.Filters
                 context.Result = new ContentResult()
                 {
                     Content = notFoundEx.Message,
-                    StatusCode = 400,
+                    StatusCode = StatusCodes.Status400BadRequest,
                 };
 
             }
@@ -43,8 +40,18 @@ namespace FullFraim.Web.Filters
                 context.Result = new ContentResult()
                 {
                     Content = invalidIdEx.Message,
-                    StatusCode = 400,
+                    StatusCode = StatusCodes.Status400BadRequest,
                 };
+            }
+            else if (exception is Exception ex)
+            {
+                context.Result = new ContentResult()
+                {
+                    Content = "Server unavailable",
+                    StatusCode = StatusCodes.Status500InternalServerError,
+                };
+
+                logger.LogCritical(ex.Message, source);
             }
             else
             {
