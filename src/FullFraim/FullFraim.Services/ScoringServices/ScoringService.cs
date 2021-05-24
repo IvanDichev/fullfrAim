@@ -16,7 +16,7 @@ namespace FullFraim.Services.ScoringServices
             this.context = context;
         }
 
-        public async Task AwardWinners(int userId, int contestId) // TODO: Check if no participants!!!
+        public async Task AwardWinners(int userId, int contestId) 
         // Once in Phase III
         {
             var currentContest = await this.context.Contests
@@ -24,6 +24,11 @@ namespace FullFraim.Services.ScoringServices
                 .FirstOrDefaultAsync(c => c.Id == contestId);
 
             var allParticipants = currentContest.ParticipantContests;
+
+            if (allParticipants.Count == 0) // Check if there's no participants in the contest
+            {
+                return;
+            }
 
             var allParticipantsDto = new List<InputScoringDto>();
 
