@@ -6,11 +6,11 @@ namespace Utilities.Mailing
     public interface IEmailSender
     {
         Task SendEmailAsync(
-            string from,
-            string fromName,
-            string to,
-            string subject,
-            string htmlContent,
-            IEnumerable<EmailAttachment> attachments = null);
+            string Sender,
+            string SenderName,
+            string To,
+            string Subject,
+            string HtmlContent,
+            IEnumerable<EmailAttachment> Attachments = null);
     }
 }

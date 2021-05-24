@@ -11,12 +11,21 @@
       "destination": "wwwroot/lib/jquery/"
     },
     {
+<<<<<<< HEAD
+      "library": "jquery-validation-unobtrusive@3.2.12",
+      "destination": "wwwroot/lib/jquery-validation-unobtrusive/"
+    },
+    {
+      "library": "jquery-validate@1.19.2",
+      "destination": "wwwroot/lib/jquery-validate/"
+=======
       "library": "jquery-validate@1.19.2",
       "destination": "wwwroot/lib/jquery-validate/"
     },
     {
       "library": "jquery-validation-unobtrusive@3.2.12",
       "destination": "wwwroot/lib/jquery-validation-unobtrusive/"
+>>>>>>> 974a8ae11321dae920936281e587e0395ae58869
     }
   ]
 }

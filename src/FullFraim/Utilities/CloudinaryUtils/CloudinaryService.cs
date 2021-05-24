@@ -9,18 +9,12 @@ namespace Utilities.CloudinaryUtils
 {
     public class CloudinaryService : ICloudinaryService
     {
-        private readonly IConfiguration config;
         private readonly Account account;
         private readonly Cloudinary cloudinary;
 
-        public CloudinaryService(IConfiguration config)
+        public CloudinaryService(string CloudName, string ApiKey, string ApiSecret)
         {
-            this.config = config;
-
-            this.account = new Account(
-                this.config["Cloudinary:CloudName"],
-                this.config["Cloudinary:ApiKey"],
-                this.config["Cloudinary:ApiSecret"]);
+            this.account = new Account(CloudName, ApiKey, ApiSecret);
 
             this.cloudinary = new Cloudinary(account);
         }

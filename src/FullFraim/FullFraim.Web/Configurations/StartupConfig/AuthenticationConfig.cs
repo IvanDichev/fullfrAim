@@ -48,14 +48,18 @@ namespace FullFraim.Web.Configurations.StartupConfig
             services.AddIdentity<User, IdentityRole<int>>(options =>
             {
                 options.SignIn.RequireConfirmedAccount = true;
+                options.SignIn.RequireConfirmedEmail = true;
+
                 options.Password.RequiredLength = 10;
                 options.Password.RequiredUniqueChars = 0;
                 options.Password.RequireLowercase = false;
                 options.Password.RequireUppercase = false;
                 options.Password.RequireNonAlphanumeric = false;
+
                 options.User.RequireUniqueEmail = true;
             })
-                    .AddEntityFrameworkStores<FullFraimDbContext>();
+                    .AddEntityFrameworkStores<FullFraimDbContext>()
+                    .AddDefaultTokenProviders();
         }
     }
 }
