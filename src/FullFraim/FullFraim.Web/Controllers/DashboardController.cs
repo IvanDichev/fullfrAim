@@ -12,11 +12,6 @@ namespace FullFraim.Web.Controllers
         }
         public IActionResult Index()
         {
-            //var model = new ContestViewModel();
-            //model.TestProperty = 1;
-            //model.TestListProperty = new List<string>(){"uno", "dos", "tres" };
-
-            //  return View(model); 
             return View();
         }
 

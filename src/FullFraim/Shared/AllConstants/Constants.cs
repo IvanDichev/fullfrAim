@@ -9,11 +9,8 @@
         public static class RolesSeed
         {
             public const string Admin = "Admin";
-            public const string User = "User";
             public const string Organizer = "Organizer";
-            public const string Jury = "Jury";
-            public const string Participant = "Participant";
-            public const string PhotoMaster = "PhotoMaster";
+            public const string User = "User";
         }
 
         public static class PhasesSeed

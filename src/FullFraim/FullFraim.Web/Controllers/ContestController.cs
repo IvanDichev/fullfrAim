@@ -10,7 +10,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Utilities.Mapper;
 
-namespace FullFraim.Web.Controllers.MvcControllers
+namespace FullFraim.Web.Controllers
 {
     [Controller]
     public class ContestController : Controller
