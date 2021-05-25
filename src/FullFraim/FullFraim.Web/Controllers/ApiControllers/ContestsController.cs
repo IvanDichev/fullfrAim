@@ -97,7 +97,7 @@ namespace FullFraim.Web.Controllers.ApiControllers
             return this.Unauthorized();
         }
 
-        [HttpGet]
+        [HttpGet("/Covers")]
         [APIExceptionFilter]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ICollection<string>))]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -111,7 +111,7 @@ namespace FullFraim.Web.Controllers.ApiControllers
 
         // TODO: AddContestPhases()
 
-        [HttpGet]
+        [HttpGet("/Open")]
         [APIExceptionFilter]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ICollection<OutputContestDto>))]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -120,6 +120,32 @@ namespace FullFraim.Web.Controllers.ApiControllers
         { 
             int userId = int.Parse(HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value);
             var contests = await this.contestService.GetContestsInPhaseOneAsync(userId);
+
+            return this.Ok(contests);
+        }
+
+        [HttpGet("/Closed")]
+        [APIExceptionFilter]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ICollection<OutputContestDto>))]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        public async Task<IActionResult> GetContestsInPhaseTwo()                    // TODO: Add PaginationFilter
+        {
+            int userId = int.Parse(HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value);
+            var contests = await this.contestService.GetContestsInPhaseTwoAsync(userId);
+
+            return this.Ok(contests);
+        }
+
+        [HttpGet("/Finished")]
+        [APIExceptionFilter]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ICollection<OutputContestDto>))]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        public async Task<IActionResult> GetContestsInPhaseFinished()                    // TODO: Add PaginationFilter
+        {
+            int userId = int.Parse(HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value);
+            var contests = await this.contestService.GetContestsInPhaseFinishedAsync(userId);
 
             return this.Ok(contests);
         }
