@@ -3,17 +3,17 @@ using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 using System.Threading.Tasks;
 
-namespace FullFraim.Web.Controllers.ApiControllers
+namespace FullFraim.Web.Controllers
 {
-    public abstract class BaseApiController : ControllerBase
+    public abstract class BaseMvcController : Controller
     {
         private readonly ISecurityService securityService;
 
-        public BaseApiController()
+        public BaseMvcController()
         {
         }
 
-        public BaseApiController(ISecurityService securityService)
+        public BaseMvcController(ISecurityService securityService)
         {
             this.securityService = securityService;
         }

@@ -6,6 +6,5 @@ namespace FullFraim.Services.SecurityServices
     {
         Task<bool> IsUserJuryInContestAsync(int userId, int contestId);
         Task<bool> IsUserParticipantInContestAsync(int userId, int contestId);
-
     }
 }
