@@ -1,5 +1,6 @@
 ﻿using FullFraim.Services.PhotoJunkieServices;
 using FullFraim.Web.Filters;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Linq;
@@ -7,8 +8,9 @@ using System.Threading.Tasks;
 
 namespace FullFraim.Web.Controllers.ApiControllers
 {
-    [Route("api/[controller]")]
+    [Authorize]
     [ApiController]
+    [Route("api/[controller]")]
     public class JunkiesController : ControllerBase
     {
         private readonly IPhotoJunkieService photoJunkieService;

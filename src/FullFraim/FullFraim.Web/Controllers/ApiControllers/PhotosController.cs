@@ -2,6 +2,7 @@
 using FullFraim.Models.Dto_s.Photos;
 using FullFraim.Services.PhotoService;
 using FullFraim.Web.Filters;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -9,6 +10,7 @@ using System.Threading.Tasks;
 
 namespace FullFraim.Web.Controllers.ApiControllers
 {
+    [Authorize]
     [ApiController]
     [APIExceptionFilter]
     [Route("api/[Controller]")]

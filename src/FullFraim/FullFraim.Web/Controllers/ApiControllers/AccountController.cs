@@ -17,8 +17,8 @@ namespace FullFraim.Web.Controllers.ApiControllers
             this.jwtServices = jwtServices;
         }
 
-        [HttpGet()]
-        public async Task<IActionResult> Login([FromBody] InputLoginModel_API model)
+        [HttpGet("[Action]")]
+        public async Task<IActionResult> Login([FromQuery] InputLoginModel_API model)
         {
             var result = await this.jwtServices.Login(model);
 

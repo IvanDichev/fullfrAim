@@ -56,7 +56,7 @@ namespace FullFraim.Web
             services.AddScoped<IJuryService, JuryService>();
 
 
-            //AuthenticationConfig.ConfigureWith_Jwt(services, Configuration);
+            AuthenticationConfig.ConfigureWith_Jwt(services, Configuration);
 
             SwaggerConfig.Configure(services);
         }
