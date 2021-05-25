@@ -50,5 +50,34 @@ namespace FullFraim.Web.Controllers.ApiControllers
 
             return this.Unauthorized();
         }
+
+        [HttpPost]
+        [APIExceptionFilter]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        public async Task<IActionResult> Create([FromBody] InputContestDto inputModel) // TODO: Check if the user is authorized to create
+        {
+            await this.contestService.CreateAsync(inputModel);
+
+            return this.Ok();
+        }
+
+        [HttpPut("{id}")]
+        [APIExceptionFilter]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        public async Task<IActionResult> Update([FromHeader] int id, [FromBody] InputContestDto inputModel)
+        {
+            if (await IsCurrentUserJuryInContestAsync(id))
+            {
+                await this.contestService.UpdateAsync(id, inputModel);
+
+                return this.Ok();
+            }
+
+            return this.Unauthorized();
+        }
     }
 }
