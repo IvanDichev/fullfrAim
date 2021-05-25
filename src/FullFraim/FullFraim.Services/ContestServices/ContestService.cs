@@ -2,6 +2,7 @@
 using FullFraim.Data.Models;
 using FullFraim.Models.Dto_s.Contests;
 using FullFraim.Services.Exceptions;
+using Shared;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -144,6 +145,24 @@ namespace FullFraim.Services.ContestServices
                   StartDate = model.Phases.StartDate_PhaseIII,
                   EndDate = model.Phases.EndDate_PhaseIII,
               });
+        }
+
+        public async Task<ICollection<OutputContestDto>> GetContestsInPhaseOneAsync()
+        {
+            return await this.context.Contests
+                .Where(c => c.ContestPhases.Any(cph => cph.Phase.Name == Constants.PhasesSeed.PhaseI))
+                .MapToDto()
+                .ToListAsync();
+        }
+
+        public Task<ICollection<OutputContestDto>> GetContestsInPhaseTwoAsync()
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<ICollection<OutputContestDto>> GetContestsInPhaseFinishedAsync()
+        {
+            throw new NotImplementedException();
         }
     }
 }
