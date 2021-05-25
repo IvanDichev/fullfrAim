@@ -159,18 +159,22 @@ namespace FullFraim.Services.ContestServices
                 .ToListAsync();
         }
 
-        public async Task<ICollection<OutputContestDto>> GetContestsInPhaseTwoAsync(int userId) // FIX
+        public async Task<ICollection<OutputContestDto>> GetContestsInPhaseTwoAsync(int userId) 
         {
             return await this.context.Contests
-               .Where(c => c.ContestPhases.Any(cph => cph.Phase.Name == Constants.PhasesSeed.PhaseII))
+               .Where(c => c.ContestPhases.Any(cph => cph.Phase.Name == Constants.PhasesSeed.PhaseII) &&
+                    c.ParticipantContests.Any(pc => pc.UserId == userId) ||
+                    c.JuryContests.Any(jc => jc.UserId == userId))
                .MapToDto()
                .ToListAsync();
         }
 
-        public async Task<ICollection<OutputContestDto>> GetContestsInPhaseFinishedAsync(int userId) // FIX
+        public async Task<ICollection<OutputContestDto>> GetContestsInPhaseFinishedAsync(int userId) 
         {
             return await this.context.Contests
-              .Where(c => c.ContestPhases.Any(cph => cph.Phase.Name == Constants.PhasesSeed.Finished))
+              .Where(c => c.ContestPhases.Any(cph => cph.Phase.Name == Constants.PhasesSeed.Finished) &&
+                    c.ParticipantContests.Any(pc => pc.UserId == userId) ||
+                    c.JuryContests.Any(jc => jc.UserId == userId))
               .MapToDto()
               .ToListAsync();
         }
