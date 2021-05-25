@@ -19,6 +19,9 @@ namespace FullFraim.Services.PhotoService
             this.context = context;
         }
 
+        // 9
+        // pagesize 3
+        // 2
         public async Task<PaginatedModel<PhotoDto>> GetPhotosForContestAsync(int contestId, PaginationFilter paginationFilter)
         {
             var photos = this.context.Photos
@@ -26,7 +29,10 @@ namespace FullFraim.Services.PhotoService
 
             var paginatedModel = new PaginatedModel<PhotoDto>()
             {
-                Model = await photos.OrderByDescending(p => p.CreatedOn).MapToDto().ToListAsync(),
+                Model = await photos.OrderByDescending(p => p.CreatedOn)
+                .Skip(paginationFilter.PageSize * (paginationFilter.PageNumber - 1))
+                .Take(paginationFilter.PageSize)
+                .MapToDto().ToListAsync(),
                 RecordsPerPage = paginationFilter.PageSize,
                 TotalPages = (int)Math.Ceiling(await this.context.Photos
                     .CountAsync(p => p.Id == p.Id) / (double)paginationFilter.PageSize),
