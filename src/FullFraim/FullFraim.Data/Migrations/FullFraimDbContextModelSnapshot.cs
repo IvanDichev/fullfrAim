@@ -384,7 +384,7 @@ namespace FullFraim.Data.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("ContestId")
+                    b.Property<int>("ContestId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("CreatedOn")
@@ -609,35 +609,35 @@ namespace FullFraim.Data.Migrations
                         new
                         {
                             Id = 1,
-                            ConcurrencyStamp = "0c925893-c563-4137-bdf3-35932bd83f5f",
+                            ConcurrencyStamp = "8f311559-f7b2-4827-bdd0-bdd3e577dc62",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
                             Id = 2,
-                            ConcurrencyStamp = "9e8aed99-1cd2-49a2-8dc1-c2d24a4694fd",
+                            ConcurrencyStamp = "b3a909f6-1050-42d5-bafe-f0a7fe77b33e",
                             Name = "Organizer",
                             NormalizedName = "ORGANIZER"
                         },
                         new
                         {
                             Id = 3,
-                            ConcurrencyStamp = "bc998671-e823-4f1e-8f63-735b9863faf9",
+                            ConcurrencyStamp = "4104a2f2-3906-4bed-ab15-07191927ea57",
                             Name = "Jury",
                             NormalizedName = "JURY"
                         },
                         new
                         {
                             Id = 4,
-                            ConcurrencyStamp = "004f58e2-1918-44d9-8c0c-f90e69262eac",
+                            ConcurrencyStamp = "936b597e-760b-4ab5-aca7-26360b7bfacd",
                             Name = "Participant",
                             NormalizedName = "PARTICIPANT"
                         },
                         new
                         {
                             Id = 5,
-                            ConcurrencyStamp = "23845565-6646-4c90-8530-66d4659007be",
+                            ConcurrencyStamp = "f0182390-a4ad-4b72-a5d9-9d11292fcdcb",
                             Name = "PhotoMaster",
                             NormalizedName = "PHOTOMASTER"
                         });
@@ -777,7 +777,7 @@ namespace FullFraim.Data.Migrations
             modelBuilder.Entity("FullFraim.Data.Models.JuryContest", b =>
                 {
                     b.HasOne("FullFraim.Data.Models.Contest", "Contest")
-                        .WithMany()
+                        .WithMany("JuryContests")
                         .HasForeignKey("ContestId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -812,9 +812,11 @@ namespace FullFraim.Data.Migrations
 
             modelBuilder.Entity("FullFraim.Data.Models.Photo", b =>
                 {
-                    b.HasOne("FullFraim.Data.Models.Contest", null)
+                    b.HasOne("FullFraim.Data.Models.Contest", "Contest")
                         .WithMany("Photos")
-                        .HasForeignKey("ContestId");
+                        .HasForeignKey("ContestId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("FullFraim.Data.Models.PhotoReview", b =>

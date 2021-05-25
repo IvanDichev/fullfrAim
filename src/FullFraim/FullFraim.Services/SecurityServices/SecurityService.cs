@@ -1,7 +1,5 @@
 ﻿using FullFraim.Data;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace FullFraim.Services.SecurityServices
@@ -15,10 +13,16 @@ namespace FullFraim.Services.SecurityServices
             this.context = context;
         }
 
-        public async Task<bool> IsUserJuryInContest(int userId, int contestId)
+        public async Task<bool> IsUserJuryInContestAsync(int userId, int contestId)
         {
             return await this.context.JuryContests
                 .AnyAsync(jc => jc.UserId == userId && jc.ContestId == contestId);
+        }
+
+        public async Task<bool> IsUserParticipantInContestAsync(int userId, int contestId)
+        {
+            return await this.context.ParticipantContests
+                .AnyAsync(pc => pc.UserId == userId && pc.ContestId == contestId);
         }
     }
 }

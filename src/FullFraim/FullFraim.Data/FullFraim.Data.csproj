@@ -7,6 +7,8 @@
   <ItemGroup>
     <Compile Remove="Migrations\20210519110219_AddTriggersForRanks.cs" />
     <Compile Remove="Migrations\20210519110219_AddTriggersForRanks.Designer.cs" />
+    <Compile Remove="Migrations\20210524141651_AddNavigationFromPhotoToContest.cs" />
+    <Compile Remove="Migrations\20210524141651_AddNavigationFromPhotoToContest.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

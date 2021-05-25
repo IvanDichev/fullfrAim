@@ -17,6 +17,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Utilities.CloudinaryUtils;
+using Utilities.Mailing;
 
 namespace FullFraim.Web
 {
@@ -37,11 +38,21 @@ namespace FullFraim.Web
             services.AddControllersWithViews(options =>
             {
                 options.Filters
-                .Add(new AutoValidateAntiforgeryTokenAttribute());
+                    .Add(new AutoValidateAntiforgeryTokenAttribute());
             });
+
             services.AddControllers();
 
             AuthenticationConfig.SingInConfiguration(services);
+
+            services.ConfigureApplicationCookie(options =>
+            {
+                options.LoginPath = $"/Identity/Account/Login";
+                options.LogoutPath = $"/Identity/Account/Logout";
+                options.AccessDeniedPath = $"/Identity/Account/AccessDenied";
+            });
+
+            services.AddRazorPages();
 
             services.AddScoped<IJwtServices, JwtServices>();
             services.AddScoped<IContestService, ContestService>();
@@ -49,13 +60,19 @@ namespace FullFraim.Web
             services.AddScoped<IContestTypeService, ContestTypeService>();
             services.AddScoped<IPhaseService, PhaseService>();
             services.AddTransient<APIExceptionFilter>();
-            services.AddTransient<ICloudinaryService, CloudinaryService>();
             services.AddScoped<IPhotoService, PhotoService>();
+
+            services.AddScoped<ICloudinaryService>
+                (serviceProvider => new CloudinaryService(
+                    this.Configuration["Cloudinary:CloudName"],
+                    this.Configuration["Cloudinary:ApiKey"],
+                    this.Configuration["Cloudinary:ApiSecret"]));
+            services.AddScoped<IEmailSender>
+                (serviceProvider => new SendGridEmailSender(this.Configuration["SendGrid:ApiKey"]));
             services.AddScoped<IPhotoJunkieService, PhotoJunkieService>();
             services.AddScoped<IJuryService, JuryService>();
 
-
-            AuthenticationConfig.ConfigureWith_Jwt(services, Configuration);
+            //AuthenticationConfig.ConfigureWith_Jwt(services, Configuration);
 
             SwaggerConfig.Configure(services);
         }
@@ -89,10 +106,15 @@ namespace FullFraim.Web
 
             app.UseEndpoints(endpoints =>
             {
-                // endpoints.MapControllers();
+                endpoints.MapControllers();
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
+
+                endpoints.MapControllerRoute(
+                            "areaRoute",
+                            "{area:exists}/{controller=Home}/{action=Index}/{projectId?}/{id?}");
+                endpoints.MapRazorPages();
             });
         }
     }

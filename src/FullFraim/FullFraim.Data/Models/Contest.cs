@@ -24,7 +24,9 @@ namespace FullFraim.Data.Models
         public ICollection<ContestPhase> ContestPhases { get; set; }
 
         public ICollection<ParticipantContest> ParticipantContests { get; set; }
+
         public ICollection<JuryContest> JuryContests { get; set; }
+
         public ICollection<Photo> Photos { get; set; }
     }
 }
