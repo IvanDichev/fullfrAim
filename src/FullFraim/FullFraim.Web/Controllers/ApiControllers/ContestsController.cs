@@ -35,12 +35,17 @@ namespace FullFraim.Web.Controllers.ApiControllers
             return this.Ok(contests);
         }
 
-        //[HttpGet("{id}")]
-        //[APIExceptionFilter]
-        //[ProducesResponseType(StatusCodes.Status200OK)]
-        //public async Task<IActionResult> GetById([FromHeader] int id)
-        //{ 
-        
-        //}
+        [HttpGet("{id}")]
+        [APIExceptionFilter]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(OutputContestDto))]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        public async Task<IActionResult> GetById()
+        {
+            int userId = int.Parse(HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value);
+            var contest = await this.contestService.GetByIdAsync(userId);
+
+            return this.Ok(contest);
+        }
     }
 }
