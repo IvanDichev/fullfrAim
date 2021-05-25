@@ -79,5 +79,24 @@ namespace FullFraim.Web.Controllers.ApiControllers
 
             return this.Unauthorized();
         }
+
+        [HttpDelete("{id}")]
+        [APIExceptionFilter]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        public async Task<IActionResult> Delete([FromHeader] int id)
+        {
+            if (await IsCurrentUserJuryInContestAsync(id))
+            {
+                await this.contestService.DeleteAsync(id);
+
+                return this.Ok();
+            }
+
+            return this.Unauthorized();
+        }
+
+
     }
 }
