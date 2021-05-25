@@ -1,9 +1,30 @@
-﻿namespace Shared
+﻿using System.Collections.Generic;
+
+namespace Shared
 {
     public static partial class Constants
     {
         public static class UserSeed
         {
+            public const string Ivan = "Ivan";
+            public const string Dichev = "Dichev";
+            public const string IDichevEmail = "idichev@fullfraim.com";
+
+            public const string Valentin = "Valentin";
+            public const string Shikov = "Shikov";
+            public const string VShikovEmail = "vshikov@";
+
+            public const string Boryana = "Boryana";
+            public const string Mihaylova = "Mihaylova";
+            public const string BMihaylovaEmail = "BMihaylova@fullfraim.com";
+
+            public const string Dimitar = "Dimitar";
+            public const string Dimitrov = "Dimitrov";
+            public const string DDimitrovEmail = "DDimitrov@fullfraim.com";
+
+            public const string Emily = "Emily";
+            public const string Ivanova = "Ivanova";
+            public const string EIvanovaEmail = "EIvanova@fullfraim.com";
         }
 
         public static class RolesSeed
@@ -18,6 +39,14 @@
             public const string PhaseI = "PhaseI";
             public const string PhaseII = "PhaseII";
             public const string Finished = "Finished";
+        }
+
+        public static class RanksSeed
+        {
+            public const string Junkie = "Junkie";
+            public const string Enthusiast = "Enthusiast";
+            public const string Master = "Master";
+            public const string WiseAndBenevolentPhotoDictator = "Wise and Benevolent Photo Dictator";
         }
 
         public static class ConstestCategorySeed

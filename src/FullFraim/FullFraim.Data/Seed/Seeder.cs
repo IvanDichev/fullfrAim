@@ -14,6 +14,7 @@ namespace FullFraim.Data.Seed
             modelBuilder.Entity<PhotoReview>().HasData(PhotoReviewsSeed.SeedData);
             modelBuilder.Entity<Photo>().HasData(PhotosSeed.SeedData);
             modelBuilder.Entity<ParticipantContest>().HasData(ParticipantContestsSeed.SeedData);
+            modelBuilder.Entity<Rank>().HasData(RanksSeed.SeedData);
         }
     }
 }
