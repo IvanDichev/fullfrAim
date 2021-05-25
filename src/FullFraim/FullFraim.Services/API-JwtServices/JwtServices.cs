@@ -78,8 +78,7 @@ namespace FullFraim.Services.API_JwtServices
             var result = await userManager.CreateAsync(user, password);
 
             await this.userManager
-                .AddToRoleAsync(user, Constants.RolesSeed.Participant);
-            ///
+                .AddToRoleAsync(user, Constants.RolesSeed.User);
 
             return result.Succeeded;
         }

@@ -24,20 +24,8 @@ namespace FullFraim.Data.Seed
             new IdentityRole<int>()
             {
                 Id = 3,
-                Name = Constants.RolesSeed.Jury,
-                NormalizedName = Constants.RolesSeed.Jury.ToUpper()
-            },
-            new IdentityRole<int>()
-            {
-                Id = 4,
-                Name = Constants.RolesSeed.Participant,
-                NormalizedName = Constants.RolesSeed.Participant.ToUpper()
-            },
-            new IdentityRole<int>()
-            {
-                Id = 5,
-                Name = Constants.RolesSeed.PhotoMaster,
-                NormalizedName = Constants.RolesSeed.PhotoMaster.ToUpper()
+                Name = Constants.RolesSeed.User,
+                NormalizedName = Constants.RolesSeed.User.ToUpper()
             });
         }
     }

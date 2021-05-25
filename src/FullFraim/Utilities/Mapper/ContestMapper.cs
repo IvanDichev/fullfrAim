@@ -78,5 +78,11 @@ namespace Utilities.Mapper
                 }).ToList()
             });
         }
+
+        public static IQueryable<string> MapToUrl(this IQueryable<Contest> query)
+        {
+            return query
+                .Select(x => x.Cover_Url);
+        }
     }
 }
