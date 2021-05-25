@@ -46,7 +46,7 @@ namespace FullFraim.Data.Seed
            new ContestCategory()
            {
                Id = 8,
-              Name = Constants.ConstestCategorySeed.Nude
+              Name = Constants.ConstestCategorySeed.Boudoir
            },
            new ContestCategory()
            {

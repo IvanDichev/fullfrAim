@@ -113,6 +113,9 @@ namespace FullFraim.Data.Seed
 
         public void Configure(EntityTypeBuilder<IdentityUserRole<int>> builder)
         {
+            // RoleId 1 -> Admin
+            // RoleId 2 -> Organizer
+            // RoleId 3 -> User
             builder.HasData(
                 new IdentityUserRole<int>()
                 {
