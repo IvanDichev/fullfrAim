@@ -9,9 +9,9 @@ namespace FullFraim.Services.ScoringServices
 {
     public class ScoringService : IScoringService
     {
-        private const string firstWinners = "firstWinners";
-        private const string secondWinners = "secondWinners";
-        private const string thirdWinners = "thirdWinners";
+        private const string FirstWinners = "firstWinners";
+        private const string SecondWinners = "secondWinners";
+        private const string ThirdWinners = "thirdWinners";
 
         private readonly FullFraimDbContext context;
 
@@ -55,16 +55,16 @@ namespace FullFraim.Services.ScoringServices
 
             var prizeWinnerDict = new Dictionary<string, List<InputScoringDto>>();  // Holds list of winners for each prize
 
-            prizeWinnerDict[firstWinners] = allParticipantsDto.Where(p => p.Score == topThreeScores[0]).ToList();
+            prizeWinnerDict[FirstWinners] = allParticipantsDto.Where(p => p.Score == topThreeScores[0]).ToList();
 
             if (topThreeScores.Count > 1)                                           // Checks if there are more than one participants
             {
-                prizeWinnerDict[secondWinners] = allParticipantsDto.Where(p => p.Score == topThreeScores[1]).ToList();
+                prizeWinnerDict[SecondWinners] = allParticipantsDto.Where(p => p.Score == topThreeScores[1]).ToList();
             }
 
             if (topThreeScores.Count > 2)                                          // Checks if there are more than two participants
             {
-                prizeWinnerDict[thirdWinners] = allParticipantsDto.Where(p => p.Score == topThreeScores[2]).ToList();
+                prizeWinnerDict[ThirdWinners] = allParticipantsDto.Where(p => p.Score == topThreeScores[2]).ToList();
             }
 
             UpdateWinnersPoints(prizeWinnerDict, topThreeScores);                  // Updates winners points in database
@@ -76,7 +76,7 @@ namespace FullFraim.Services.ScoringServices
         {
             foreach (var kvp in prizeWinnerDict)       // Checks how many winners for each prize: first, second and third
             {
-                if (kvp.Key == firstWinners)
+                if (kvp.Key == FirstWinners)
                 {
                     foreach (var winner in kvp.Value)  // Finds all the first winners and updates their points
                     {
@@ -102,7 +102,7 @@ namespace FullFraim.Services.ScoringServices
                         }
                     }
                 }
-                else if (kvp.Key == secondWinners)
+                else if (kvp.Key == SecondWinners)
                 {
                     foreach (var winner in kvp.Value)  // Finds all the second winners and updates their points
                     {
