@@ -4,9 +4,24 @@
     {
         private const int MaxPageSize = 50;
         private const int MinPageNumber = 1;
+        private const int DefaultPageNumber = 1;
+        private const int DefaultPageSize = 10;
 
         private int pageNumber;
         private int pageSize;
+
+        public PaginationFilter()
+        {
+            this.pageNumber = DefaultPageNumber;
+            this.pageSize = DefaultPageSize;
+        }
+
+        public PaginationFilter(int pageNumber, int pageSize)
+            : this()
+        {
+            this.PageNumber = pageNumber;
+            this.PageSize = pageSize;
+        }
 
         public int PageNumber
         {
@@ -18,18 +33,6 @@
         {
             get => pageSize;
             set => pageSize = value > MaxPageSize ? MaxPageSize : value;
-        }
-
-        public PaginationFilter()
-        {
-            this.pageNumber = 1;
-            this.pageSize = 10;
-        }
-
-        public PaginationFilter(int pageNumber, int pageSize)
-        {
-            this.PageNumber = pageNumber;
-            this.PageSize = pageSize;
         }
     }
 }

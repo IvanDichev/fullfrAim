@@ -13,7 +13,8 @@ namespace FullFraim.Web.Filters
     {
         public void OnException(ExceptionContext context)
         {
-            var logger = context.HttpContext.RequestServices.GetRequiredService<ILogger<APIExceptionFilter>>();
+            var logger = context.HttpContext.RequestServices
+                .GetRequiredService<ILogger<APIExceptionFilter>>();
 
             var exception = context.Exception;
             var source = context.Exception.Source;
