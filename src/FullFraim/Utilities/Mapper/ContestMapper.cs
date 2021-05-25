@@ -5,6 +5,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System;
 using FullFraim.Models.Dto_s.Phases;
+using FullFraim.Models.Dto_s.User;
+using System.Collections.Concurrent;
+using System.Threading.Tasks;
 
 namespace Utilities.Mapper
 {
@@ -83,6 +86,56 @@ namespace Utilities.Mapper
         {
             return query
                 .Select(x => x.Cover_Url);
+        }
+
+        public static IQueryable<UserDto> MapToDto(this IQueryable<User> query)
+        {
+            return query.Select(q => new UserDto()
+            {
+                UserId = q.Id,
+                FirstName = q.FirstName,
+                LastName = q.LastName,
+                RankId = q.RankId,
+                Points = q.Points
+            });
+        }
+
+        public static ICollection<JuryContest> MapToJuryContest
+            (this ICollection<UserDto> users, int contestId)
+        {
+            var list = new ConcurrentBag<JuryContest>();
+
+            Parallel.ForEach(users, user =>
+            {
+                var juryContest = new JuryContest()
+                {
+                    ContestId = contestId,
+                    UserId = user.UserId,
+                };
+
+                list.Add(juryContest);
+            });
+
+            return list.ToList();
+        }
+
+        public static ICollection<ParticipantContest> MapToParticipantContest
+            (this ICollection<UserDto> users, int contestId)
+        {
+            var list = new List<ParticipantContest>();
+
+            foreach (var item in users)
+            {
+                var participantContest = new ParticipantContest()
+                {
+                    ContestId = contestId,
+                    UserId = item.UserId,
+                };
+
+                list.Add(participantContest);
+            }
+
+            return list;
         }
     }
 }

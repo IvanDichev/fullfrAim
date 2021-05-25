@@ -1,7 +1,9 @@
 ﻿using FullFraim.Data;
 using FullFraim.Data.Models;
 using FullFraim.Models.Dto_s.Contests;
+using FullFraim.Models.Dto_s.User;
 using FullFraim.Services.Exceptions;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -14,10 +16,13 @@ namespace FullFraim.Services.ContestServices
     public class ContestService : IContestService
     {
         private readonly FullFraimDbContext context;
+        private readonly UserManager<User> userManager;
 
-        public ContestService(FullFraimDbContext context)
+        public ContestService(FullFraimDbContext context,
+            UserManager<User> userManager)
         {
             this.context = context;
+            this.userManager = userManager;
         }
 
         public async Task CreateAsync(InputContestDto model)
@@ -35,7 +40,7 @@ namespace FullFraim.Services.ContestServices
             var contest = await this.context.Contests.AddAsync(model.MapToRaw());
 
             await this.context.SaveChangesAsync();
-            
+
             await this.AddContestPhasesAsync(model, contest.Entity.Id);
 
             await this.context.SaveChangesAsync();
@@ -118,32 +123,106 @@ namespace FullFraim.Services.ContestServices
 
         private async Task AddContestPhasesAsync(InputContestDto model, int id)
         {
-            await this.context.ContestPhases
-                .AddAsync(new ContestPhase()
-                {
-                    ContestId = id,
-                    PhaseId = 1,
-                    StartDate = model.Phases.StartDate_PhaseI,
-                    EndDate = model.Phases.EndDate_PhaseI,
-                }); ;
+            var a = Task.Run(() => this.context.ContestPhases
+               .AddAsync(new ContestPhase()
+               {
+                   ContestId = id,
+                   PhaseId = 1,
+                   StartDate = model.Phases.StartDate_PhaseI,
+                   EndDate = model.Phases.EndDate_PhaseI,
+               }));
 
-            await this.context.ContestPhases
+            var b = Task.Run(() => this.context.ContestPhases
                 .AddAsync(new ContestPhase()
                 {
                     ContestId = id,
                     PhaseId = 2,
                     StartDate = model.Phases.StartDate_PhaseII,
                     EndDate = model.Phases.EndDate_PhaseII,
-                });
+                }));
 
-            await this.context.ContestPhases
+            var c = Task.Run(() => this.context.ContestPhases
               .AddAsync(new ContestPhase()
               {
                   ContestId = id,
                   PhaseId = 3,
                   StartDate = model.Phases.StartDate_PhaseIII,
                   EndDate = model.Phases.EndDate_PhaseIII,
-              });
+              }));
+
+            await a;
+            await b;
+            await c;
+        }
+
+        public async Task<ICollection<UserDto>> GetParticipantsForInvitationAsync(int contestId)
+        {
+            if (contestId <= 0)
+            {
+                throw new InvalidIdException();
+            }
+
+            var users = await this.context.Users
+                .Where(u => !u.JuryContests
+                .Any(jc => jc.ContestId == contestId))
+                .MapToDto()
+                .ToListAsync();
+
+            return users;
+        }
+
+        public async Task<ICollection<UserDto>> GetJuryForInvitationAsync(int contestId)
+        {
+            if (contestId <= 0)
+            {
+                throw new InvalidIdException();
+            }
+
+            var users = await this.context.Users
+                .Where(u => u.Points >= 150)
+                .MapToDto()
+                .ToListAsync();
+
+            return users;
+        }
+
+        public async Task AddInvitedForTheContestAsync
+            (ICollection<UserDto> participants, ICollection<UserDto> jury, int contestId)
+        {
+            if (participants == null || jury == null)
+            {
+                throw new NullModelException();
+            }
+
+            if (this.context.JuryContests
+                .Any(j => participants.Any(p => p.UserId == j.UserId)))
+            {
+                //Funny Joke :D
+                throw new CheaterException();
+            }
+
+            var contest = await this.context.Contests
+                .FirstOrDefaultAsync(c => c.Id == contestId);
+
+            if (contest == null)
+            {
+                throw new NotFoundException();
+            }
+
+            var juryContests = jury.MapToJuryContest(contestId);
+            var participantContests = participants.MapToParticipantContest(contestId);
+
+            foreach (var juryCont in juryContests)
+            {
+                await this.context.JuryContests.AddAsync(juryCont);
+            }
+
+            foreach (var partCont in participantContests)
+            {
+                await this.context.ParticipantContests.AddAsync(partCont);
+            }
+
+            await this.context.SaveChangesAsync();
         }
     }
 }

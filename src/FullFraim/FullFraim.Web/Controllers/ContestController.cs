@@ -1,4 +1,5 @@
 ﻿using FullFraim.Models.Contest.ViewModels;
+using FullFraim.Models.Dto_s.User;
 using FullFraim.Services.ContestCatgeoryServices;
 using FullFraim.Services.ContestServices;
 using FullFraim.Services.ContestTypeServices;

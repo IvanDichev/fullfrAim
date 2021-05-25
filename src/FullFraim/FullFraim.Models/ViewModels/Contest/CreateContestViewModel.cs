@@ -7,7 +7,7 @@ namespace FullFraim.Models.Contest.ViewModels
     public class CreateContestViewModel
     {
         [Required(ErrorMessage = "*Required")]
-        [StringLength(maximumLength: 20)]
+        [StringLength(50, MinimumLength = 5)]
         [Display(Name = "Name")]
         public string Name { get; set; }
 
