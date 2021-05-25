@@ -97,6 +97,16 @@ namespace FullFraim.Web.Controllers.ApiControllers
             return this.Unauthorized();
         }
 
+        [HttpGet]
+        [APIExceptionFilter]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ICollection<string>))]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        public async Task<IActionResult> GetCovers()                   // TODO: Check if the user is authorized to get covers
+        {
+            var result = await this.contestService.GetCoversAsync();
 
+            return this.Ok(result);
+        }
     }
 }
