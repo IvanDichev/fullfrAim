@@ -155,14 +155,20 @@ namespace FullFraim.Services.ContestServices
                 .ToListAsync();
         }
 
-        public Task<ICollection<OutputContestDto>> GetContestsInPhaseTwoAsync()
+        public async Task<ICollection<OutputContestDto>> GetContestsInPhaseTwoAsync()
         {
-            throw new NotImplementedException();
+            return await this.context.Contests
+               .Where(c => c.ContestPhases.Any(cph => cph.Phase.Name == Constants.PhasesSeed.PhaseII))
+               .MapToDto()
+               .ToListAsync();
         }
 
-        public Task<ICollection<OutputContestDto>> GetContestsInPhaseFinishedAsync()
+        public async Task<ICollection<OutputContestDto>> GetContestsInPhaseFinishedAsync()
         {
-            throw new NotImplementedException();
+            return await this.context.Contests
+              .Where(c => c.ContestPhases.Any(cph => cph.Phase.Name == Constants.PhasesSeed.Finished))
+              .MapToDto()
+              .ToListAsync();
         }
     }
 }
