@@ -27,11 +27,11 @@ namespace FullFraim.Services.PhotoJunkieServices
 
         // TODO: Display current points and ranking and how much until next ranking at a visible place 
 
-        public async Task<ICollection<OutputContestDto>> GetContestsAsync(int userId) 
-            // All contests that are open or junkie currently participates or have participated
+        public async Task<ICollection<OutputContestDto>> GetContestsAsync(int userId)
+        // All contests that are open or junkie currently participates or have participated
         {
             var contests = await this.context.Contests
-                .Where(c => c.ParticipantContests.Any(pc => pc.UserId == userId) || 
+                .Where(c => c.ParticipantContests.Any(pc => pc.UserId == userId) ||
                         (c.ContestPhases.Any(cph => cph.PhaseId == this.context.Phases
                             .FirstOrDefault(ph => ph.Name == Constants.PhasesSeed.PhaseI).Id) &&
                             c.ContestType.Name == Constants.ContestTypeSeed.Open))
@@ -59,6 +59,8 @@ namespace FullFraim.Services.PhotoJunkieServices
                 }
             };
 
+            AddPointsToUser(toAddParticipantContest);
+
             await this.context.ParticipantContests.AddAsync(toAddParticipantContest);
             await this.context.SaveChangesAsync();
         }
@@ -71,7 +73,7 @@ namespace FullFraim.Services.PhotoJunkieServices
         public async Task<PhotoJunkieRankDto> GetPointsTillNextRankAsync(int userId)
         {
             var user = await this.userManager.FindByIdAsync(userId.ToString());
-            
+
             if (user == null)
             {
                 throw new NotFoundException();
@@ -104,5 +106,21 @@ namespace FullFraim.Services.PhotoJunkieServices
 
             return 0;
         }
+
+        private static void AddPointsToUser(ParticipantContest toAddParticipantContest)
+        {
+            string contestType = toAddParticipantContest.Contest.ContestType.Name;
+
+            switch (contestType)
+            {
+                case Constants.ContestTypeSeed.Open:
+                    toAddParticipantContest.User.Points += 1;
+                    break;
+
+                case Constants.ContestTypeSeed.Invitational:
+                    toAddParticipantContest.User.Points += 3;
+                    break;
+            }
+        } 
     }
 }

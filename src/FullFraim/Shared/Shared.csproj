@@ -5,11 +5,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Constants\**" />
     <Compile Remove="CustomExceptions\**" />
-    <EmbeddedResource Remove="Constants\**" />
     <EmbeddedResource Remove="CustomExceptions\**" />
-    <None Remove="Constants\**" />
     <None Remove="CustomExceptions\**" />
   </ItemGroup>
 
