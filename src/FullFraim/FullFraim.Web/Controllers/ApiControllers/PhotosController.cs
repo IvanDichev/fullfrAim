@@ -2,6 +2,7 @@
 using FullFraim.Models.Dto_s.Photos;
 using FullFraim.Services.PhotoService;
 using FullFraim.Web.Filters;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -13,6 +14,7 @@ namespace FullFraim.Web.Controllers.ApiControllers
     [Authorize]
     [ApiController]
     [APIExceptionFilter]
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     [Route("api/[Controller]")]
     public class PhotosController : BaseApiController
     {

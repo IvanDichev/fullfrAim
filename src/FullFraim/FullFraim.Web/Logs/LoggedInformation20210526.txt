@@ -1,0 +1,2 @@
+2021-05-26 02:04:00.327 +03:00 [FTL] Could not parse the JSON file.
+2021-05-26 02:05:21.203 +03:00 [WRN] User null password validation failed: PasswordRequiresDigit.

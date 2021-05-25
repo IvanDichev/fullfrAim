@@ -139,7 +139,7 @@ namespace Utilities.Mapper
         }
 
         public static ICollection<UserDto> MapToDto
-            (this ICollection<User> users, int contestId)
+            (this ICollection<User> users)
         {
             var list = new ConcurrentBag<UserDto>();
 

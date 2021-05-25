@@ -16,8 +16,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Utilities.CloudinaryUtils;
-using Utilities.Mailing;
 
 namespace FullFraim.Web
 {
@@ -40,18 +38,7 @@ namespace FullFraim.Web
                 options.Filters
                     .Add(new AutoValidateAntiforgeryTokenAttribute());
             });
-
             services.AddControllers();
-
-            AuthenticationConfig.SingInConfiguration(services);
-
-            services.ConfigureApplicationCookie(options =>
-            {
-                options.LoginPath = $"/Identity/Account/Login";
-                options.LogoutPath = $"/Identity/Account/Logout";
-                options.AccessDeniedPath = $"/Identity/Account/AccessDenied";
-            });
-
             services.AddRazorPages();
 
             services.AddScoped<IJwtServices, JwtServices>();
@@ -61,18 +48,15 @@ namespace FullFraim.Web
             services.AddScoped<IPhaseService, PhaseService>();
             services.AddTransient<APIExceptionFilter>();
             services.AddScoped<IPhotoService, PhotoService>();
-
-            services.AddScoped<ICloudinaryService>
-                (serviceProvider => new CloudinaryService(
-                    this.Configuration["Cloudinary:CloudName"],
-                    this.Configuration["Cloudinary:ApiKey"],
-                    this.Configuration["Cloudinary:ApiSecret"]));
-            services.AddScoped<IEmailSender>
-                (serviceProvider => new SendGridEmailSender(this.Configuration["SendGrid:ApiKey"]));
             services.AddScoped<IPhotoJunkieService, PhotoJunkieService>();
             services.AddScoped<IJuryService, JuryService>();
 
-            //AuthenticationConfig.ConfigureWith_Jwt(services, Configuration);
+            ServicesConfig.ConfigureIdentityCookiePaths(services);
+            ServicesConfig.ConfigureCloudinary(services, Configuration);
+            ServicesConfig.ConfigureEmailSender(services, Configuration);
+
+            AuthenticationConfig.IdentityConfiguration(services);
+            AuthenticationConfig.ConfigureWith_JwtAndMVC(services, Configuration);
 
             SwaggerConfig.Configure(services);
         }
@@ -98,7 +82,6 @@ namespace FullFraim.Web
             app.UseAuthorization();
 
             app.UseSwagger();
-
             app.UseSwaggerUI(c =>
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "FullFraim");

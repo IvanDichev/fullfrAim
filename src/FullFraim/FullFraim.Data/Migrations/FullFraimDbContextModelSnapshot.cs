@@ -15,7 +15,7 @@ namespace FullFraim.Data.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "3.1.9")
+                .HasAnnotation("ProductVersion", "3.1.15")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -609,37 +609,23 @@ namespace FullFraim.Data.Migrations
                         new
                         {
                             Id = 1,
-                            ConcurrencyStamp = "8f311559-f7b2-4827-bdd0-bdd3e577dc62",
+                            ConcurrencyStamp = "3ba1e192-518a-4cc5-8f53-18dce5c0059c",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
                             Id = 2,
-                            ConcurrencyStamp = "b3a909f6-1050-42d5-bafe-f0a7fe77b33e",
+                            ConcurrencyStamp = "be19bd0b-1e1a-4f40-b68a-eea906c544fa",
                             Name = "Organizer",
                             NormalizedName = "ORGANIZER"
                         },
                         new
                         {
                             Id = 3,
-                            ConcurrencyStamp = "4104a2f2-3906-4bed-ab15-07191927ea57",
-                            Name = "Jury",
-                            NormalizedName = "JURY"
-                        },
-                        new
-                        {
-                            Id = 4,
-                            ConcurrencyStamp = "936b597e-760b-4ab5-aca7-26360b7bfacd",
-                            Name = "Participant",
-                            NormalizedName = "PARTICIPANT"
-                        },
-                        new
-                        {
-                            Id = 5,
-                            ConcurrencyStamp = "f0182390-a4ad-4b72-a5d9-9d11292fcdcb",
-                            Name = "PhotoMaster",
-                            NormalizedName = "PHOTOMASTER"
+                            ConcurrencyStamp = "9589db6a-76ac-4740-85b5-01ea41198cdd",
+                            Name = "User",
+                            NormalizedName = "USER"
                         });
                 });
 
