@@ -9,6 +9,10 @@ namespace FullFraim.Data.Configurations
         public void Configure(EntityTypeBuilder<Photo> builder)
         {
             builder.HasQueryFilter(p => !p.IsDeleted);
+
+            builder.HasOne(p => p.Contest)
+                .WithMany(c => c.Photos)
+                .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }

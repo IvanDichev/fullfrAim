@@ -38,7 +38,7 @@ namespace FullFraim.Web
             services.AddControllersWithViews(options =>
             {
                 options.Filters
-                .Add(new AutoValidateAntiforgeryTokenAttribute());
+                    .Add(new AutoValidateAntiforgeryTokenAttribute());
             });
 
             services.AddControllers();
