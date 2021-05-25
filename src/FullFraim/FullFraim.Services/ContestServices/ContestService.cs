@@ -58,9 +58,11 @@ namespace FullFraim.Services.ContestServices
             await this.context.SaveChangesAsync();
         }
 
-        public async Task<ICollection<OutputContestDto>> GetAllAsync()
+        public async Task<ICollection<OutputContestDto>> GetAllAsync(int userId)
         {
             var result = await this.context.Contests
+                .Where(c => c.ParticipantContests.Any(pc => pc.UserId == userId) ||
+                    c.JuryContests.Any(jc => jc.UserId == userId))
                 .MapToDto()
                 .ToListAsync();
 
@@ -84,7 +86,7 @@ namespace FullFraim.Services.ContestServices
             }
 
             var result = await this.context.Contests
-                .Where(C => C.Id == id)
+                .Where(c => c.Id == id)
                 .MapToDto()
                 .FirstOrDefaultAsync();
 
@@ -147,15 +149,17 @@ namespace FullFraim.Services.ContestServices
               });
         }
 
-        public async Task<ICollection<OutputContestDto>> GetContestsInPhaseOneAsync()
+        public async Task<ICollection<OutputContestDto>> GetContestsInPhaseOneAsync(int userId)
         {
             return await this.context.Contests
-                .Where(c => c.ContestPhases.Any(cph => cph.Phase.Name == Constants.PhasesSeed.PhaseI))
+                .Where(c => c.ContestPhases.Any(cph => cph.Phase.Name == Constants.PhasesSeed.PhaseI) &&
+                    c.ParticipantContests.Any(pc => pc.UserId == userId) ||
+                    c.JuryContests.Any(jc => jc.UserId == userId))
                 .MapToDto()
                 .ToListAsync();
         }
 
-        public async Task<ICollection<OutputContestDto>> GetContestsInPhaseTwoAsync()
+        public async Task<ICollection<OutputContestDto>> GetContestsInPhaseTwoAsync(int userId) // FIX
         {
             return await this.context.Contests
                .Where(c => c.ContestPhases.Any(cph => cph.Phase.Name == Constants.PhasesSeed.PhaseII))
@@ -163,7 +167,7 @@ namespace FullFraim.Services.ContestServices
                .ToListAsync();
         }
 
-        public async Task<ICollection<OutputContestDto>> GetContestsInPhaseFinishedAsync()
+        public async Task<ICollection<OutputContestDto>> GetContestsInPhaseFinishedAsync(int userId) // FIX
         {
             return await this.context.Contests
               .Where(c => c.ContestPhases.Any(cph => cph.Phase.Name == Constants.PhasesSeed.Finished))
