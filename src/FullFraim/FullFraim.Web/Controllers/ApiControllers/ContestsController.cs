@@ -102,11 +102,26 @@ namespace FullFraim.Web.Controllers.ApiControllers
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ICollection<string>))]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        public async Task<IActionResult> GetCovers()                   // TODO: Check if the user is authorized to get covers
+        public async Task<IActionResult> GetCovers()                               // TODO: Check if the user is authorized to get covers
         {
             var result = await this.contestService.GetCoversAsync();
 
             return this.Ok(result);
+        }
+
+        // TODO: AddContestPhases()
+
+        [HttpGet]
+        [APIExceptionFilter]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ICollection<OutputContestDto>))]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        public async Task<IActionResult> GetContestsInPhaseOne()                    // TODO: Add PaginationFilter
+        { 
+            int userId = int.Parse(HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value);
+            var contests = await this.contestService.GetContestsInPhaseOneAsync(userId);
+
+            return this.Ok(contests);
         }
     }
 }
