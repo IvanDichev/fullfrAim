@@ -137,5 +137,27 @@ namespace Utilities.Mapper
 
             return list;
         }
+
+        public static ICollection<UserDto> MapToDto
+            (this ICollection<User> users, int contestId)
+        {
+            var list = new ConcurrentBag<UserDto>();
+
+            Parallel.ForEach(users, user =>
+            {
+                var userDto = new UserDto()
+                {
+                    UserId = user.Id,
+                    FirstName = user.FirstName,
+                    LastName = user.LastName,
+                    RankId = user.RankId,
+                    Points = user.Points
+                };
+
+                list.Add(userDto);
+            });
+
+            return list.ToList();
+        }
     }
 }

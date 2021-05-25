@@ -178,10 +178,18 @@ namespace FullFraim.Services.ContestServices
                 throw new InvalidIdException();
             }
 
+            var task1 = Task.Run(() => userManager.GetUsersInRoleAsync("ORGANIZER"));
+            var task2 = Task.Run(() => userManager.GetUsersInRoleAsync("ADMIN"));
+            var organisers = await task1;
+            var admins = await task2;
+
             var users = await this.context.Users
                 .Where(u => u.Points >= 150)
                 .MapToDto()
                 .ToListAsync();
+
+            users.AddRange(organisers.MapToDto());
+            users.AddRange(admins.MapToDto());
 
             return users;
         }
