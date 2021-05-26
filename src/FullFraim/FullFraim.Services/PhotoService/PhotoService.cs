@@ -39,9 +39,11 @@ namespace FullFraim.Services.PhotoService
             return paginatedModel;
         }
 
-        public async Task<ICollection<PhotoDto>> GetTopPhotosForDashboardAsync()
+        public async Task<ICollection<PhotoDto>> GetTopRecentPhotos()
         {
             var TopTenPhotos = await this.context.Photos
+                .Where(p => p.Contest.ContestPhases.Where(cp => cp.Phase.Name == "Finished")
+                    .Any(cp => cp.StartDate < DateTime.UtcNow))
                 .OrderByDescending(p => p.Contest.CreatedOn)
                 .OrderByDescending(p => p.PhotoReviews.Sum(pr => pr.Score) / p.PhotoReviews.Count)
                 .Take(10)

@@ -13,21 +13,12 @@ namespace FullFraim.Data.Seed
         {
             new Contest()
             {
-                Name = "WildlifePhaseOne",
-                Description = "PhaseOne",
-                Cover_Url = Constants.ImagesSeed.WildlifeImgUrlCover,
-                ContestCategoryId = 12,
-                ContestTypeId = 1,
+                Name = "Portrait",
+                Description = "Portrait contest - PhaseOne",
+                Cover_Url = Constants.ImagesSeed.PortraitImgUrlCover,
+                ContestCategoryId = 10,
+                ContestTypeId = 2,
                 CreatedOn = DateTime.UtcNow,
-            },
-            new Contest()
-            {
-                Name = "WildlifePhaseTwo",
-                Description = "PhaseTwo",
-                Cover_Url = Constants.ImagesSeed.WildlifeImgUrlCover,
-                ContestCategoryId = 12,
-                ContestTypeId = 1,
-                CreatedOn = DateTime.UtcNow.AddDays(-30),
             },
             new Contest()
             {
@@ -40,19 +31,32 @@ namespace FullFraim.Data.Seed
             },
             new Contest()
             {
-                Name = "Portrait",
-                Description = "Portrait contest - PhaseOne",
-                Cover_Url = Constants.ImagesSeed.PortraitImgUrlCover,
-                ContestCategoryId = 10,
-                ContestTypeId = 2,
+                Name = "WildlifePhaseTwo",
+                Description = "PhaseTwo",
+                Cover_Url = Constants.ImagesSeed.WildlifeImgUrlCover,
+                ContestCategoryId = 12,
+                ContestTypeId = 1,
+                CreatedOn = DateTime.UtcNow.AddDays(-30),
+            },
+            new Contest()
+            {
+                Name = "WildlifePhaseOne",
+                Description = "PhaseOne",
+                Cover_Url = Constants.ImagesSeed.WildlifeImgUrlCover,
+                ContestCategoryId = 12,
+                ContestTypeId = 1,
                 CreatedOn = DateTime.UtcNow,
-            }
+            },
         };
 
         public async Task SeedAsync(FullFraimDbContext dbContext, IServiceProvider serviceProvider)
         {
             if (!dbContext.Contests.Any())
-                await dbContext.AddRangeAsync(SeedData);
+                foreach (var contest in SeedData)
+                {
+                    await dbContext.AddAsync(contest);
+                }
+            //await dbContext.AddRangeAsync(SeedData);
         }
     }
 }

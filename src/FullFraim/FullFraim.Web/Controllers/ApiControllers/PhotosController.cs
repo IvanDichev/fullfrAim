@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace FullFraim.Web.Controllers.ApiControllers
@@ -32,6 +33,16 @@ namespace FullFraim.Web.Controllers.ApiControllers
         public async Task<IActionResult> GetAll(int contestId,[FromQuery] PaginationFilter paginationFilter)
         {
             var photos = await this.photoService.GetPhotosForContestAsync(contestId, paginationFilter);
+
+            return Ok(photos);
+        }
+        
+        [HttpGet("TopRecent")]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ICollection<PhotoDto>))]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public async Task<IActionResult> GetTopRecent(int contestId,[FromQuery] PaginationFilter paginationFilter)
+        {
+            var photos = await this.photoService.GetTopRecentPhotos();
 
             return Ok(photos);
         }

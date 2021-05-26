@@ -8,6 +8,6 @@ namespace FullFraim.Services.PhotoService
     public interface IPhotoService
     {
         Task<PaginatedModel<PhotoDto>> GetPhotosForContestAsync(int contestId, PaginationFilter paginationFilter);
-        Task<ICollection<PhotoDto>> GetTopPhotosForDashboardAsync();
+        Task<ICollection<PhotoDto>> GetTopRecentPhotos();
     }
 }
