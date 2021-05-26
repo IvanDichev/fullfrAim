@@ -29,11 +29,11 @@ namespace Shared
 
             public const string Valentin = "Valentin";
             public const string Shikov = "Shikov";
-            public const string VShikovEmail = "vshikov@";
+            public const string VShikovEmail = "vshikov@fullfraim.com";
 
             public const string Boryana = "Boryana";
             public const string Mihaylova = "Mihaylova";
-            public const string BMihaylovaEmail = "BMihaylova@fullfraim.com";
+            public const string BMihaylovaEmail = "BО@fullfraim.com";
 
             public const string Dimitar = "Dimitar";
             public const string Dimitrov = "Dimitrov";

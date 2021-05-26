@@ -1,10 +1,13 @@
 ﻿using FullFraim.Data.Models;
 using Shared;
+using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace FullFraim.Data.Seed
 {
-    public class RanksSeed
+    public class RanksSeed : ISeeder
     {
         public static readonly List<Rank> SeedData = new List<Rank>()
         {
@@ -29,5 +32,11 @@ namespace FullFraim.Data.Seed
                 Name = Constants.RanksSeed.WiseAndBenevolentPhotoDictator,
             },
         };
+
+        public async Task SeedAsync(FullFraimDbContext dbContext, IServiceProvider serviceProvider)
+        {
+            if (!dbContext.Ranks.Any())
+                await dbContext.AddAsync(SeedData);
+        }
     }
 }

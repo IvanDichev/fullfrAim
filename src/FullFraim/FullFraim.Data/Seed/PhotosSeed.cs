@@ -1,10 +1,13 @@
 ﻿using FullFraim.Data.Models;
 using Shared;
+using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace FullFraim.Data.Seed
 {
-    public static class PhotosSeed
+    public class PhotosSeed : ISeeder
     {
         public static readonly List<Photo> SeedData = new List<Photo>()
         { 
@@ -164,5 +167,11 @@ namespace FullFraim.Data.Seed
                 Url = Constants.ImagesSeed.PortraitImgUrlCover,
             }
         };
+
+        public async Task SeedAsync(FullFraimDbContext dbContext, IServiceProvider serviceProvider)
+        {
+            if (!dbContext.Photos.Any())
+                await dbContext.AddAsync(SeedData);
+        }
     }
 }

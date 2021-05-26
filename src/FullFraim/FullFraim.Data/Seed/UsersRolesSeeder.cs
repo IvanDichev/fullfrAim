@@ -33,11 +33,10 @@ namespace FullFraim.Data.Seed
 
             foreach (var role in roles)
             {
-                if (roleManager.RoleExistsAsync(role) == null)
+                if (!(await roleManager.RoleExistsAsync(role)))
                     await roleManager.CreateAsync(new IdentityRole<int>(role));
             }
         }
-
 
         private async Task SeedUsers(UserManager<User> userManager)
         {
@@ -69,19 +68,19 @@ namespace FullFraim.Data.Seed
                     EmailConfirmed = true,
                     Points = 0,
                 },
-                //new User()
-                //{
-                //    //Id = 4,
-                //    FirstName = Constants.UserSeed.Boryana,
-                //    LastName = Constants.UserSeed.BMihaylovaEmail,
-                //    UserName = Constants.UserSeed.BMihaylovaEmail,
-                //    NormalizedUserName = Constants.UserSeed.BMihaylovaEmail.ToUpper(),
-                //    Email = Constants.UserSeed.BMihaylovaEmail,
-                //    NormalizedEmail = Constants.UserSeed.BMihaylovaEmail.ToUpper(),
-                //    SecurityStamp = Guid.NewGuid().ToString(),
-                //    EmailConfirmed = true,
-                //    Points = 0,
-                //},
+                new User()
+                {
+                    //Id = 4,
+                    FirstName = Constants.UserSeed.Boryana,
+                    LastName = Constants.UserSeed.BMihaylovaEmail,
+                    UserName = Constants.UserSeed.BMihaylovaEmail,
+                    NormalizedUserName = Constants.UserSeed.BMihaylovaEmail.ToUpper(),
+                    Email = Constants.UserSeed.BMihaylovaEmail,
+                    NormalizedEmail = Constants.UserSeed.BMihaylovaEmail.ToUpper(),
+                    SecurityStamp = Guid.NewGuid().ToString(),
+                    EmailConfirmed = true,
+                    Points = 0,
+                },
                 new User()
                 {
                     //Id = 5,
@@ -112,9 +111,10 @@ namespace FullFraim.Data.Seed
 
             foreach (var user in usersToSeed)
             {
-                if (userManager.FindByEmailAsync(user.Email) == null)
+                if (await userManager.FindByEmailAsync(user.Email) == null)
                 {
                     var createdUserResult = await userManager.CreateAsync(user, "12345678901");
+
                     if (createdUserResult.Succeeded)
                     {
                         var createdUser = await userManager.FindByEmailAsync(user.Email);
@@ -141,7 +141,7 @@ namespace FullFraim.Data.Seed
                 Points = 0,
             };
 
-            if (userManager.FindByEmailAsync(admin.Email) == null)
+            if (await userManager.FindByEmailAsync(admin.Email) == null)
             {
                 var createdAdmin = await userManager.CreateAsync(admin, configuration["AccountAdminInfo:Password"]);
 

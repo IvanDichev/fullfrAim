@@ -1,10 +1,12 @@
 ﻿using FullFraim.Data.Models;
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace FullFraim.Data.Seed
 {
-    public class ContestPhasesSeed
+    public class ContestPhasesSeed : ISeeder
     {
         public static readonly List<ContestPhase> SeedData = new List<ContestPhase>()
         {
@@ -97,5 +99,11 @@ namespace FullFraim.Data.Seed
             },
 
         };
+
+        public async Task SeedAsync(FullFraimDbContext dbContext, IServiceProvider serviceProvider)
+        {
+            if (!dbContext.ContestPhases.Any())
+                await dbContext.AddAsync(SeedData);
+        }
     }
 }

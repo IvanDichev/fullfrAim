@@ -24,7 +24,16 @@ namespace FullFraim.Data.Seed
 
             var seeders = new List<ISeeder>()
             {
+                new RanksSeed(),
                 new UsersRolesSeeder(),
+                new ContestTypesSeed(),
+                new PhasesSeed(),
+                new ContestCategoriesSeed(),
+                new ContestPhasesSeed(),
+                new JuryContestsSeed(),
+                new ParticipantContestsSeed(),
+                new PhotosSeed(),
+                new PhotoReviewsSeed(),
             };
 
             foreach (var seeder in seeders)

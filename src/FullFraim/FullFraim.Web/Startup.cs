@@ -83,7 +83,7 @@ namespace FullFraim.Web
             using (var serviceScope = app.ApplicationServices.CreateScope())
             {
                 var dbContext = serviceScope.ServiceProvider.GetRequiredService<FullFraimDbContext>();
-
+                dbContext.Database.Migrate();
                 new FullFraimContextSeeder().SeedAsync(dbContext, serviceScope.ServiceProvider).GetAwaiter().GetResult();
             }
 

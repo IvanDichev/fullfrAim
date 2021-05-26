@@ -1,9 +1,12 @@
 ﻿using FullFraim.Data.Models;
+using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace FullFraim.Data.Seed
 {
-    public static class ParticipantContestsSeed
+    public class ParticipantContestsSeed : ISeeder
     {
         public static readonly List<ParticipantContest> SeedData = new List<ParticipantContest>()
         {
@@ -89,5 +92,11 @@ namespace FullFraim.Data.Seed
             //    PhotoId = 19,
             //},
         };
+
+        public async Task SeedAsync(FullFraimDbContext dbContext, IServiceProvider serviceProvider)
+        {
+            if (!dbContext.ParticipantContests.Any())
+                await dbContext.AddAsync(SeedData);
+        }
     }
 }

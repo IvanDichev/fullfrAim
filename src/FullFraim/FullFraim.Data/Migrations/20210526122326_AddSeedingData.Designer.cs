@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FullFraim.Data.Migrations
 {
     [DbContext(typeof(FullFraimDbContext))]
-    [Migration("20210526115434_ChangeSeedingData")]
-    partial class ChangeSeedingData
+    [Migration("20210526122326_AddSeedingData")]
+    partial class AddSeedingData
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -73,7 +73,7 @@ namespace FullFraim.Data.Migrations
                             ContestCategoryId = 12,
                             ContestTypeId = 1,
                             Cover_Url = "https://res.cloudinary.com/fullfraim/image/upload/v1621963776/y37iclssc2ozv18fnioo.jpg",
-                            CreatedOn = new DateTime(2021, 5, 26, 11, 54, 33, 414, DateTimeKind.Utc).AddTicks(6029),
+                            CreatedOn = new DateTime(2021, 5, 26, 12, 23, 25, 900, DateTimeKind.Utc).AddTicks(8482),
                             Description = "PhaseOne",
                             IsDeleted = false,
                             Name = "WildlifePhaseOne"
@@ -84,7 +84,7 @@ namespace FullFraim.Data.Migrations
                             ContestCategoryId = 12,
                             ContestTypeId = 1,
                             Cover_Url = "https://res.cloudinary.com/fullfraim/image/upload/v1621963776/y37iclssc2ozv18fnioo.jpg",
-                            CreatedOn = new DateTime(2021, 4, 26, 11, 54, 33, 414, DateTimeKind.Utc).AddTicks(7143),
+                            CreatedOn = new DateTime(2021, 4, 26, 12, 23, 25, 900, DateTimeKind.Utc).AddTicks(9226),
                             Description = "PhaseTwo",
                             IsDeleted = false,
                             Name = "WildlifePhaseTwo"
@@ -95,7 +95,7 @@ namespace FullFraim.Data.Migrations
                             ContestCategoryId = 12,
                             ContestTypeId = 1,
                             Cover_Url = "https://res.cloudinary.com/fullfraim/image/upload/v1621963776/y37iclssc2ozv18fnioo.jpg",
-                            CreatedOn = new DateTime(2021, 5, 24, 11, 54, 33, 414, DateTimeKind.Utc).AddTicks(7299),
+                            CreatedOn = new DateTime(2021, 5, 24, 12, 23, 25, 900, DateTimeKind.Utc).AddTicks(9354),
                             Description = "PhaseThree",
                             IsDeleted = false,
                             Name = "WildlifePhaseThree"
@@ -106,7 +106,7 @@ namespace FullFraim.Data.Migrations
                             ContestCategoryId = 10,
                             ContestTypeId = 2,
                             Cover_Url = "https://res.cloudinary.com/fullfraim/image/upload/v1621962983/ska4ybfpaaioa4flg0bo.jpg",
-                            CreatedOn = new DateTime(2021, 5, 26, 11, 54, 33, 414, DateTimeKind.Utc).AddTicks(7306),
+                            CreatedOn = new DateTime(2021, 5, 26, 12, 23, 25, 900, DateTimeKind.Utc).AddTicks(9359),
                             Description = "Portrait contest - PhaseOne",
                             IsDeleted = false,
                             Name = "Portrait"
@@ -266,108 +266,108 @@ namespace FullFraim.Data.Migrations
                             PhaseId = 1,
                             ContestId = 1,
                             CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            EndDate = new DateTime(2021, 6, 25, 11, 54, 33, 416, DateTimeKind.Utc).AddTicks(1451),
+                            EndDate = new DateTime(2021, 6, 25, 12, 23, 25, 901, DateTimeKind.Utc).AddTicks(9541),
                             IsDeleted = false,
-                            StartDate = new DateTime(2021, 5, 26, 11, 54, 33, 416, DateTimeKind.Utc).AddTicks(743)
+                            StartDate = new DateTime(2021, 5, 26, 12, 23, 25, 901, DateTimeKind.Utc).AddTicks(8999)
                         },
                         new
                         {
                             PhaseId = 2,
                             ContestId = 1,
                             CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            EndDate = new DateTime(2021, 7, 25, 11, 54, 33, 416, DateTimeKind.Utc).AddTicks(2224),
+                            EndDate = new DateTime(2021, 7, 25, 12, 23, 25, 902, DateTimeKind.Utc).AddTicks(220),
                             IsDeleted = false,
-                            StartDate = new DateTime(2021, 6, 25, 11, 54, 33, 416, DateTimeKind.Utc).AddTicks(2205)
+                            StartDate = new DateTime(2021, 6, 25, 12, 23, 25, 902, DateTimeKind.Utc).AddTicks(203)
                         },
                         new
                         {
                             PhaseId = 3,
                             ContestId = 1,
                             CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            EndDate = new DateTime(2023, 11, 12, 11, 54, 33, 416, DateTimeKind.Utc).AddTicks(2239),
+                            EndDate = new DateTime(2023, 11, 12, 12, 23, 25, 902, DateTimeKind.Utc).AddTicks(233),
                             IsDeleted = false,
-                            StartDate = new DateTime(2021, 7, 25, 11, 54, 33, 416, DateTimeKind.Utc).AddTicks(2237)
+                            StartDate = new DateTime(2021, 7, 25, 12, 23, 25, 902, DateTimeKind.Utc).AddTicks(232)
                         },
                         new
                         {
                             PhaseId = 1,
                             ContestId = 2,
                             CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            EndDate = new DateTime(2021, 5, 26, 11, 54, 33, 416, DateTimeKind.Utc).AddTicks(2243),
+                            EndDate = new DateTime(2021, 5, 26, 12, 23, 25, 902, DateTimeKind.Utc).AddTicks(237),
                             IsDeleted = false,
-                            StartDate = new DateTime(2021, 4, 26, 11, 54, 33, 416, DateTimeKind.Utc).AddTicks(2241)
+                            StartDate = new DateTime(2021, 4, 26, 12, 23, 25, 902, DateTimeKind.Utc).AddTicks(235)
                         },
                         new
                         {
                             PhaseId = 2,
                             ContestId = 2,
                             CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            EndDate = new DateTime(2021, 6, 25, 11, 54, 33, 416, DateTimeKind.Utc).AddTicks(2246),
+                            EndDate = new DateTime(2021, 6, 25, 12, 23, 25, 902, DateTimeKind.Utc).AddTicks(239),
                             IsDeleted = false,
-                            StartDate = new DateTime(2021, 5, 26, 11, 54, 33, 416, DateTimeKind.Utc).AddTicks(2245)
+                            StartDate = new DateTime(2021, 5, 26, 12, 23, 25, 902, DateTimeKind.Utc).AddTicks(238)
                         },
                         new
                         {
                             PhaseId = 3,
                             ContestId = 2,
                             CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            EndDate = new DateTime(2023, 1, 16, 11, 54, 33, 416, DateTimeKind.Utc).AddTicks(2256),
+                            EndDate = new DateTime(2023, 1, 16, 12, 23, 25, 902, DateTimeKind.Utc).AddTicks(246),
                             IsDeleted = false,
-                            StartDate = new DateTime(2021, 6, 25, 11, 54, 33, 416, DateTimeKind.Utc).AddTicks(2254)
+                            StartDate = new DateTime(2021, 6, 25, 12, 23, 25, 902, DateTimeKind.Utc).AddTicks(244)
                         },
                         new
                         {
                             PhaseId = 1,
                             ContestId = 3,
                             CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            EndDate = new DateTime(2021, 5, 25, 11, 54, 33, 416, DateTimeKind.Utc).AddTicks(2260),
+                            EndDate = new DateTime(2021, 5, 25, 12, 23, 25, 902, DateTimeKind.Utc).AddTicks(249),
                             IsDeleted = false,
-                            StartDate = new DateTime(2021, 5, 24, 11, 54, 33, 416, DateTimeKind.Utc).AddTicks(2258)
+                            StartDate = new DateTime(2021, 5, 24, 12, 23, 25, 902, DateTimeKind.Utc).AddTicks(247)
                         },
                         new
                         {
                             PhaseId = 2,
                             ContestId = 3,
                             CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            EndDate = new DateTime(2021, 5, 26, 11, 54, 33, 416, DateTimeKind.Utc).AddTicks(2264),
+                            EndDate = new DateTime(2021, 5, 26, 12, 23, 25, 902, DateTimeKind.Utc).AddTicks(313),
                             IsDeleted = false,
-                            StartDate = new DateTime(2021, 5, 25, 11, 54, 33, 416, DateTimeKind.Utc).AddTicks(2262)
+                            StartDate = new DateTime(2021, 5, 25, 12, 23, 25, 902, DateTimeKind.Utc).AddTicks(311)
                         },
                         new
                         {
                             PhaseId = 3,
                             ContestId = 3,
                             CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            EndDate = new DateTime(2022, 3, 22, 11, 54, 33, 416, DateTimeKind.Utc).AddTicks(2268),
+                            EndDate = new DateTime(2022, 3, 22, 12, 23, 25, 902, DateTimeKind.Utc).AddTicks(316),
                             IsDeleted = false,
-                            StartDate = new DateTime(2021, 5, 26, 11, 54, 33, 416, DateTimeKind.Utc).AddTicks(2266)
+                            StartDate = new DateTime(2021, 5, 26, 12, 23, 25, 902, DateTimeKind.Utc).AddTicks(315)
                         },
                         new
                         {
                             PhaseId = 1,
                             ContestId = 4,
                             CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            EndDate = new DateTime(2021, 6, 25, 11, 54, 33, 416, DateTimeKind.Utc).AddTicks(2273),
+                            EndDate = new DateTime(2021, 6, 25, 12, 23, 25, 902, DateTimeKind.Utc).AddTicks(321),
                             IsDeleted = false,
-                            StartDate = new DateTime(2021, 5, 26, 11, 54, 33, 416, DateTimeKind.Utc).AddTicks(2271)
+                            StartDate = new DateTime(2021, 5, 26, 12, 23, 25, 902, DateTimeKind.Utc).AddTicks(320)
                         },
                         new
                         {
                             PhaseId = 2,
                             ContestId = 4,
                             CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            EndDate = new DateTime(2021, 7, 25, 11, 54, 33, 416, DateTimeKind.Utc).AddTicks(2276),
+                            EndDate = new DateTime(2021, 7, 25, 12, 23, 25, 902, DateTimeKind.Utc).AddTicks(324),
                             IsDeleted = false,
-                            StartDate = new DateTime(2021, 6, 25, 11, 54, 33, 416, DateTimeKind.Utc).AddTicks(2275)
+                            StartDate = new DateTime(2021, 6, 25, 12, 23, 25, 902, DateTimeKind.Utc).AddTicks(323)
                         },
                         new
                         {
                             PhaseId = 3,
                             ContestId = 4,
                             CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            EndDate = new DateTime(2022, 3, 22, 11, 54, 33, 416, DateTimeKind.Utc).AddTicks(2280),
+                            EndDate = new DateTime(2022, 3, 22, 12, 23, 25, 902, DateTimeKind.Utc).AddTicks(327),
                             IsDeleted = false,
-                            StartDate = new DateTime(2021, 7, 25, 11, 54, 33, 416, DateTimeKind.Utc).AddTicks(2279)
+                            StartDate = new DateTime(2021, 7, 25, 12, 23, 25, 902, DateTimeKind.Utc).AddTicks(326)
                         });
                 });
 

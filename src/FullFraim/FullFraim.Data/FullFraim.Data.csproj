@@ -35,8 +35,14 @@
     <Compile Remove="Migrations\20210525221124_FixFk.Designer.cs" />
     <Compile Remove="Migrations\20210525221203_FixFk2.cs" />
     <Compile Remove="Migrations\20210525221203_FixFk2.Designer.cs" />
+    <Compile Remove="Migrations\20210525221338_AddSeedingData.cs" />
+    <Compile Remove="Migrations\20210525221338_AddSeedingData.Designer.cs" />
     <Compile Remove="Migrations\20210526115227_SeedingDataAltering.cs" />
     <Compile Remove="Migrations\20210526115227_SeedingDataAltering.Designer.cs" />
+    <Compile Remove="Migrations\20210526115434_ChangeSeedingData.cs" />
+    <Compile Remove="Migrations\20210526115434_ChangeSeedingData.Designer.cs" />
+    <Compile Remove="Migrations\20210526122002_RemoveSomeSeededData.cs" />
+    <Compile Remove="Migrations\20210526122002_RemoveSomeSeededData.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

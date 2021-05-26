@@ -1,10 +1,13 @@
 ﻿using FullFraim.Data.Models;
 using Shared;
+using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace FullFraim.Data.Seed
 {
-    public static class ContestCategoriesSeed
+    public class ContestCategoriesSeed : ISeeder
     {
         public static readonly List<ContestCategory> SeedData = new List<ContestCategory>()
         {
@@ -69,5 +72,11 @@ namespace FullFraim.Data.Seed
               Name = Constants.ConstestCategorySeed.Wildlife
            }
         };
+
+        public async Task SeedAsync(FullFraimDbContext dbContext, IServiceProvider serviceProvider)
+        {
+            if (!dbContext.ContestCategories.Any())
+                await dbContext.AddAsync(SeedData);
+        }
     }
 }

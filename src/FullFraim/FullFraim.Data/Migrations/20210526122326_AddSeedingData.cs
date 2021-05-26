@@ -10,33 +10,27 @@ namespace FullFraim.Data.Migrations
             migrationBuilder.DeleteData(
                 table: "AspNetRoles",
                 keyColumn: "Id",
+                keyValue: 1);
+
+            migrationBuilder.DeleteData(
+                table: "AspNetRoles",
+                keyColumn: "Id",
+                keyValue: 2);
+
+            migrationBuilder.DeleteData(
+                table: "AspNetRoles",
+                keyColumn: "Id",
+                keyValue: 3);
+
+            migrationBuilder.DeleteData(
+                table: "AspNetRoles",
+                keyColumn: "Id",
                 keyValue: 4);
 
             migrationBuilder.DeleteData(
                 table: "AspNetRoles",
                 keyColumn: "Id",
                 keyValue: 5);
-
-            migrationBuilder.UpdateData(
-                table: "AspNetRoles",
-                keyColumn: "Id",
-                keyValue: 1,
-                column: "ConcurrencyStamp",
-                value: "90afd873-e6fe-4623-9b67-0982fb892878");
-
-            migrationBuilder.UpdateData(
-                table: "AspNetRoles",
-                keyColumn: "Id",
-                keyValue: 2,
-                column: "ConcurrencyStamp",
-                value: "3a230e9a-6d5a-43f6-a2d3-bc06a5c02f4e");
-
-            migrationBuilder.UpdateData(
-                table: "AspNetRoles",
-                keyColumn: "Id",
-                keyValue: 3,
-                columns: new[] { "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[] { "cfa7636b-85bc-4e51-8ef9-e6ff721c8869", "User", "USER" });
 
             migrationBuilder.UpdateData(
                 table: "ContestCategories",
@@ -50,10 +44,10 @@ namespace FullFraim.Data.Migrations
                 columns: new[] { "Id", "ContestCategoryId", "ContestTypeId", "Cover_Url", "CreatedOn", "DeletedOn", "Description", "IsDeleted", "ModifiedOn", "Name" },
                 values: new object[,]
                 {
-                    { 1, 12, 1, "https://res.cloudinary.com/fullfraim/image/upload/v1621963776/y37iclssc2ozv18fnioo.jpg", new DateTime(2021, 5, 25, 22, 13, 36, 545, DateTimeKind.Utc).AddTicks(4237), null, "PhaseOne", false, null, "WildlifePhaseOne" },
-                    { 2, 12, 1, "https://res.cloudinary.com/fullfraim/image/upload/v1621963776/y37iclssc2ozv18fnioo.jpg", new DateTime(2021, 4, 25, 22, 13, 36, 545, DateTimeKind.Utc).AddTicks(5679), null, "PhaseTwo", false, null, "WildlifePhaseTwo" },
-                    { 3, 12, 1, "https://res.cloudinary.com/fullfraim/image/upload/v1621963776/y37iclssc2ozv18fnioo.jpg", new DateTime(2021, 5, 23, 22, 13, 36, 545, DateTimeKind.Utc).AddTicks(5876), null, "PhaseThree", false, null, "WildlifePhaseThree" },
-                    { 4, 10, 2, "https://res.cloudinary.com/fullfraim/image/upload/v1621962983/ska4ybfpaaioa4flg0bo.jpg", new DateTime(2021, 5, 25, 22, 13, 36, 545, DateTimeKind.Utc).AddTicks(5885), null, "Portrait contest - PhaseOne", false, null, "Portrait" }
+                    { 1, 12, 1, "https://res.cloudinary.com/fullfraim/image/upload/v1621963776/y37iclssc2ozv18fnioo.jpg", new DateTime(2021, 5, 26, 12, 23, 25, 900, DateTimeKind.Utc).AddTicks(8482), null, "PhaseOne", false, null, "WildlifePhaseOne" },
+                    { 2, 12, 1, "https://res.cloudinary.com/fullfraim/image/upload/v1621963776/y37iclssc2ozv18fnioo.jpg", new DateTime(2021, 4, 26, 12, 23, 25, 900, DateTimeKind.Utc).AddTicks(9226), null, "PhaseTwo", false, null, "WildlifePhaseTwo" },
+                    { 3, 12, 1, "https://res.cloudinary.com/fullfraim/image/upload/v1621963776/y37iclssc2ozv18fnioo.jpg", new DateTime(2021, 5, 24, 12, 23, 25, 900, DateTimeKind.Utc).AddTicks(9354), null, "PhaseThree", false, null, "WildlifePhaseThree" },
+                    { 4, 10, 2, "https://res.cloudinary.com/fullfraim/image/upload/v1621962983/ska4ybfpaaioa4flg0bo.jpg", new DateTime(2021, 5, 26, 12, 23, 25, 900, DateTimeKind.Utc).AddTicks(9359), null, "Portrait contest - PhaseOne", false, null, "Portrait" }
                 });
 
             migrationBuilder.InsertData(
@@ -72,18 +66,18 @@ namespace FullFraim.Data.Migrations
                 columns: new[] { "PhaseId", "ContestId", "CreatedOn", "DeletedOn", "EndDate", "IsDeleted", "ModifiedOn", "StartDate" },
                 values: new object[,]
                 {
-                    { 1, 1, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, new DateTime(2021, 6, 24, 22, 13, 36, 548, DateTimeKind.Utc).AddTicks(1491), false, null, new DateTime(2021, 5, 25, 22, 13, 36, 548, DateTimeKind.Utc).AddTicks(106) },
-                    { 2, 3, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, new DateTime(2021, 5, 25, 22, 13, 36, 548, DateTimeKind.Utc).AddTicks(3156), false, null, new DateTime(2021, 5, 24, 22, 13, 36, 548, DateTimeKind.Utc).AddTicks(3154) },
-                    { 1, 3, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, new DateTime(2021, 5, 24, 22, 13, 36, 548, DateTimeKind.Utc).AddTicks(3150), false, null, new DateTime(2021, 5, 23, 22, 13, 36, 548, DateTimeKind.Utc).AddTicks(3148) },
-                    { 3, 2, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, new DateTime(2023, 1, 15, 22, 13, 36, 548, DateTimeKind.Utc).AddTicks(3143), false, null, new DateTime(2021, 6, 24, 22, 13, 36, 548, DateTimeKind.Utc).AddTicks(3141) },
-                    { 3, 3, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, new DateTime(2022, 3, 21, 22, 13, 36, 548, DateTimeKind.Utc).AddTicks(3162), false, null, new DateTime(2021, 5, 25, 22, 13, 36, 548, DateTimeKind.Utc).AddTicks(3160) },
-                    { 1, 2, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, new DateTime(2021, 5, 25, 22, 13, 36, 548, DateTimeKind.Utc).AddTicks(3123), false, null, new DateTime(2021, 4, 25, 22, 13, 36, 548, DateTimeKind.Utc).AddTicks(3120) },
-                    { 2, 2, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, new DateTime(2021, 6, 24, 22, 13, 36, 548, DateTimeKind.Utc).AddTicks(3128), false, null, new DateTime(2021, 5, 25, 22, 13, 36, 548, DateTimeKind.Utc).AddTicks(3126) },
-                    { 2, 4, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, new DateTime(2021, 7, 24, 22, 13, 36, 548, DateTimeKind.Utc).AddTicks(3180), false, null, new DateTime(2021, 6, 24, 22, 13, 36, 548, DateTimeKind.Utc).AddTicks(3177) },
-                    { 3, 4, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, new DateTime(2022, 3, 21, 22, 13, 36, 548, DateTimeKind.Utc).AddTicks(3186), false, null, new DateTime(2021, 7, 24, 22, 13, 36, 548, DateTimeKind.Utc).AddTicks(3184) },
-                    { 3, 1, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, new DateTime(2023, 11, 11, 22, 13, 36, 548, DateTimeKind.Utc).AddTicks(3116), false, null, new DateTime(2021, 7, 24, 22, 13, 36, 548, DateTimeKind.Utc).AddTicks(3113) },
-                    { 2, 1, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, new DateTime(2021, 7, 24, 22, 13, 36, 548, DateTimeKind.Utc).AddTicks(3090), false, null, new DateTime(2021, 6, 24, 22, 13, 36, 548, DateTimeKind.Utc).AddTicks(3058) },
-                    { 1, 4, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, new DateTime(2021, 6, 24, 22, 13, 36, 548, DateTimeKind.Utc).AddTicks(3173), false, null, new DateTime(2021, 5, 25, 22, 13, 36, 548, DateTimeKind.Utc).AddTicks(3170) }
+                    { 1, 1, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, new DateTime(2021, 6, 25, 12, 23, 25, 901, DateTimeKind.Utc).AddTicks(9541), false, null, new DateTime(2021, 5, 26, 12, 23, 25, 901, DateTimeKind.Utc).AddTicks(8999) },
+                    { 2, 3, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, new DateTime(2021, 5, 26, 12, 23, 25, 902, DateTimeKind.Utc).AddTicks(313), false, null, new DateTime(2021, 5, 25, 12, 23, 25, 902, DateTimeKind.Utc).AddTicks(311) },
+                    { 1, 3, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, new DateTime(2021, 5, 25, 12, 23, 25, 902, DateTimeKind.Utc).AddTicks(249), false, null, new DateTime(2021, 5, 24, 12, 23, 25, 902, DateTimeKind.Utc).AddTicks(247) },
+                    { 3, 2, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, new DateTime(2023, 1, 16, 12, 23, 25, 902, DateTimeKind.Utc).AddTicks(246), false, null, new DateTime(2021, 6, 25, 12, 23, 25, 902, DateTimeKind.Utc).AddTicks(244) },
+                    { 3, 3, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, new DateTime(2022, 3, 22, 12, 23, 25, 902, DateTimeKind.Utc).AddTicks(316), false, null, new DateTime(2021, 5, 26, 12, 23, 25, 902, DateTimeKind.Utc).AddTicks(315) },
+                    { 1, 2, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, new DateTime(2021, 5, 26, 12, 23, 25, 902, DateTimeKind.Utc).AddTicks(237), false, null, new DateTime(2021, 4, 26, 12, 23, 25, 902, DateTimeKind.Utc).AddTicks(235) },
+                    { 2, 2, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, new DateTime(2021, 6, 25, 12, 23, 25, 902, DateTimeKind.Utc).AddTicks(239), false, null, new DateTime(2021, 5, 26, 12, 23, 25, 902, DateTimeKind.Utc).AddTicks(238) },
+                    { 2, 4, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, new DateTime(2021, 7, 25, 12, 23, 25, 902, DateTimeKind.Utc).AddTicks(324), false, null, new DateTime(2021, 6, 25, 12, 23, 25, 902, DateTimeKind.Utc).AddTicks(323) },
+                    { 3, 4, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, new DateTime(2022, 3, 22, 12, 23, 25, 902, DateTimeKind.Utc).AddTicks(327), false, null, new DateTime(2021, 7, 25, 12, 23, 25, 902, DateTimeKind.Utc).AddTicks(326) },
+                    { 3, 1, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, new DateTime(2023, 11, 12, 12, 23, 25, 902, DateTimeKind.Utc).AddTicks(233), false, null, new DateTime(2021, 7, 25, 12, 23, 25, 902, DateTimeKind.Utc).AddTicks(232) },
+                    { 2, 1, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, new DateTime(2021, 7, 25, 12, 23, 25, 902, DateTimeKind.Utc).AddTicks(220), false, null, new DateTime(2021, 6, 25, 12, 23, 25, 902, DateTimeKind.Utc).AddTicks(203) },
+                    { 1, 4, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, new DateTime(2021, 6, 25, 12, 23, 25, 902, DateTimeKind.Utc).AddTicks(321), false, null, new DateTime(2021, 5, 26, 12, 23, 25, 902, DateTimeKind.Utc).AddTicks(320) }
                 });
 
             migrationBuilder.InsertData(
@@ -421,32 +415,14 @@ namespace FullFraim.Data.Migrations
                 keyColumn: "Id",
                 keyValue: 3);
 
-            migrationBuilder.UpdateData(
-                table: "AspNetRoles",
-                keyColumn: "Id",
-                keyValue: 1,
-                column: "ConcurrencyStamp",
-                value: "8f311559-f7b2-4827-bdd0-bdd3e577dc62");
-
-            migrationBuilder.UpdateData(
-                table: "AspNetRoles",
-                keyColumn: "Id",
-                keyValue: 2,
-                column: "ConcurrencyStamp",
-                value: "b3a909f6-1050-42d5-bafe-f0a7fe77b33e");
-
-            migrationBuilder.UpdateData(
-                table: "AspNetRoles",
-                keyColumn: "Id",
-                keyValue: 3,
-                columns: new[] { "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[] { "4104a2f2-3906-4bed-ab15-07191927ea57", "Jury", "JURY" });
-
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
+                    { 1, "8f311559-f7b2-4827-bdd0-bdd3e577dc62", "Admin", "ADMIN" },
+                    { 2, "b3a909f6-1050-42d5-bafe-f0a7fe77b33e", "Organizer", "ORGANIZER" },
+                    { 3, "4104a2f2-3906-4bed-ab15-07191927ea57", "Jury", "JURY" },
                     { 4, "936b597e-760b-4ab5-aca7-26360b7bfacd", "Participant", "PARTICIPANT" },
                     { 5, "f0182390-a4ad-4b72-a5d9-9d11292fcdcb", "PhotoMaster", "PHOTOMASTER" }
                 });

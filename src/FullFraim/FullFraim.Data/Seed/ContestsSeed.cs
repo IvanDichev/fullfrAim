@@ -2,10 +2,12 @@
 using Shared;
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace FullFraim.Data.Seed
 {
-    public static class ContestsSeed
+    public class ContestsSeed : ISeeder
     {
         public static readonly List<Contest> SeedData = new List<Contest>()
         {
@@ -50,5 +52,11 @@ namespace FullFraim.Data.Seed
                 CreatedOn = DateTime.UtcNow,
             }
         };
+
+        public async Task SeedAsync(FullFraimDbContext dbContext, IServiceProvider serviceProvider)
+        {
+            if (!dbContext.Contests.Any())
+                await dbContext.AddAsync(SeedData);
+        }
     }
 }
