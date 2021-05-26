@@ -13,7 +13,6 @@ namespace FullFraim.Data.Seed
         { 
             new Photo()
             {
-                Id = 1,
                 ContestId = 1,
                 Title = "Squirrel",
                 Story = "Looking down",
@@ -21,7 +20,6 @@ namespace FullFraim.Data.Seed
             },
             new Photo()
             {
-                Id = 2,
                 ContestId = 1,
                 Title = "Bath time",
                 Story = "On my way",
@@ -29,7 +27,6 @@ namespace FullFraim.Data.Seed
             },
             new Photo()
             {
-                Id = 3,
                 ContestId = 1,
                 Title = "Fight in the night",
                 Story = "Subway fighters",
@@ -37,7 +34,6 @@ namespace FullFraim.Data.Seed
             },
             new Photo()
             {
-                Id = 4,
                 ContestId = 1,
                 Title = "I can climb it",
                 Story = "Not a long way, we can climb it",
@@ -78,7 +74,6 @@ namespace FullFraim.Data.Seed
             //},
             new Photo()
             {
-                Id = 9,
                 ContestId = 2,
                 Title = "Fight in the night",
                 Story = "Subway fighters",
@@ -86,7 +81,6 @@ namespace FullFraim.Data.Seed
             },
             new Photo()
             {
-                Id = 10,
                 ContestId = 2,
                 Title = "I can climb it",
                 Story = "Not a long way, we can climb it",
@@ -94,7 +88,6 @@ namespace FullFraim.Data.Seed
             },
             new Photo()
             {
-                Id = 11,
                 ContestId = 2,
                 Title = "Can I have some?",
                 Story = "Hungry birds",
@@ -102,7 +95,6 @@ namespace FullFraim.Data.Seed
             },
             new Photo()
             {
-                Id = 12,
                 ContestId = 2,
                 Title = "Git It!",
                 Story = "Got it!",
@@ -111,7 +103,6 @@ namespace FullFraim.Data.Seed
             
             new Photo()
             {
-                Id = 13,
                 ContestId = 3,
                 Title = "Squirrel",
                 Story = "Looking down",
@@ -119,7 +110,6 @@ namespace FullFraim.Data.Seed
             },
             new Photo()
             {
-                Id = 14,
                 ContestId = 3,
                 Title = "Bath time",
                 Story = "On my way",
@@ -127,7 +117,6 @@ namespace FullFraim.Data.Seed
             },
             new Photo()
             {
-                Id = 15,
                 ContestId = 3,
                 Title = "Fight in the night",
                 Story = "Subway fighters",
@@ -135,7 +124,6 @@ namespace FullFraim.Data.Seed
             },
             new Photo()
             {
-                Id = 16,
                 ContestId = 3,
                 Title = "I can climb it",
                 Story = "Not a long way, we can climb it",
@@ -160,7 +148,6 @@ namespace FullFraim.Data.Seed
 
             new Photo()
             {
-                Id = 19,
                 ContestId = 4,
                 Title = "Smile",
                 Story = "Just a nice picture",
@@ -171,7 +158,7 @@ namespace FullFraim.Data.Seed
         public async Task SeedAsync(FullFraimDbContext dbContext, IServiceProvider serviceProvider)
         {
             if (!dbContext.Photos.Any())
-                await dbContext.AddAsync(SeedData);
+                await dbContext.AddRangeAsync(SeedData);
         }
     }
 }

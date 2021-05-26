@@ -210,7 +210,7 @@ namespace FullFraim.Data.Migrations
                     b.Property<DateTime?>("ModifiedOn")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("PhotoId")
+                    b.Property<int?>("PhotoId")
                         .HasColumnType("int");
 
                     b.HasKey("UserId", "ContestId");
@@ -218,7 +218,8 @@ namespace FullFraim.Data.Migrations
                     b.HasIndex("ContestId");
 
                     b.HasIndex("PhotoId")
-                        .IsUnique();
+                        .IsUnique()
+                        .HasFilter("[PhotoId] IS NOT NULL");
 
                     b.ToTable("ParticipantContests");
                 });
@@ -637,9 +638,7 @@ namespace FullFraim.Data.Migrations
 
                     b.HasOne("FullFraim.Data.Models.Photo", "Photo")
                         .WithOne("Participant")
-                        .HasForeignKey("FullFraim.Data.Models.ParticipantContest", "PhotoId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("FullFraim.Data.Models.ParticipantContest", "PhotoId");
 
                     b.HasOne("FullFraim.Data.Models.User", "User")
                         .WithMany("ParticipantContests")

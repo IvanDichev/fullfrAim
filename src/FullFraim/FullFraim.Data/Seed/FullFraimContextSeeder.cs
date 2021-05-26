@@ -29,10 +29,11 @@ namespace FullFraim.Data.Seed
                 new ContestTypesSeed(),
                 new PhasesSeed(),
                 new ContestCategoriesSeed(),
+                new ContestsSeed(),
                 new ContestPhasesSeed(),
                 new JuryContestsSeed(),
-                new ParticipantContestsSeed(),
                 new PhotosSeed(),
+                new ParticipantContestsSeed(),
                 new PhotoReviewsSeed(),
             };
 

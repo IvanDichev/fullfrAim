@@ -26,20 +26,20 @@ namespace FullFraim.Data.Seed
             {
                 ContestId = 1,
                 UserId = 4,
-                PhotoId = 3,
+                PhotoId = 2,
             },
             new ParticipantContest()
             {
                 ContestId = 1,
                 UserId = 5,
-                PhotoId = 4,
+                PhotoId = 3,
             },
 
             new ParticipantContest()
             {
                 ContestId = 2,
                 UserId = 2,
-                PhotoId = 9,
+                PhotoId = 4,
             },
             //new ParticipantContest()
             //{
@@ -51,20 +51,20 @@ namespace FullFraim.Data.Seed
             {
                 ContestId = 2,
                 UserId = 4,
-                PhotoId = 11,
+                PhotoId = 5,
             },
             new ParticipantContest()
             {
                 ContestId = 2,
                 UserId = 5,
-                PhotoId = 12,
+                PhotoId = 6,
             },
             
             new ParticipantContest()
             {
                 ContestId = 3,
                 UserId = 2,
-                PhotoId = 13,
+                PhotoId = 7,
             },
             //new ParticipantContest()
             //{
@@ -76,13 +76,13 @@ namespace FullFraim.Data.Seed
             {
                 ContestId = 3,
                 UserId = 4,
-                PhotoId = 15,
+                PhotoId = 8,
             },
             new ParticipantContest()
             {
                 ContestId = 3,
                 UserId = 5,
-                PhotoId = 16,
+                PhotoId = 9,
             },
 
             //new ParticipantContest()
@@ -96,7 +96,7 @@ namespace FullFraim.Data.Seed
         public async Task SeedAsync(FullFraimDbContext dbContext, IServiceProvider serviceProvider)
         {
             if (!dbContext.ParticipantContests.Any())
-                await dbContext.AddAsync(SeedData);
+                await dbContext.AddRangeAsync(SeedData);
         }
     }
 }

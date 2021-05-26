@@ -46,36 +46,32 @@ namespace FullFraim.Data.Seed
             
             new PhotoReview()
             {
-                Id = 1,
                 JuryContestId = 1,
-                PhotoId = 9,
+                PhotoId = 1,
                 Score = 4,
                 Checkbox = false,
                 Comment = "nice",
             },
             new PhotoReview()
             {
-                Id = 2,
                 JuryContestId = 1,
-                PhotoId = 10,
+                PhotoId = 2,
                 Score = 10,
                 Comment = "Extraordinary",
                 Checkbox = false,
             },
             new PhotoReview()
             {
-                Id = 3,
                 JuryContestId = 1,
-                PhotoId = 11,
+                PhotoId = 3,
                 Score = 6,
                 Comment = "nice",
                 Checkbox = false,
             },
             new PhotoReview()
             {
-                Id = 4,
                 JuryContestId = 1,
-                PhotoId = 12,
+                PhotoId = 4,
                 Score = 6,
                 Comment = "nice",
                 Checkbox = false,
@@ -83,36 +79,32 @@ namespace FullFraim.Data.Seed
 
             new PhotoReview()
             {
-                Id = 5,
                 JuryContestId = 1,
-                PhotoId = 13,
+                PhotoId = 5,
                 Score = 8,
                 Comment = "nice",
                 Checkbox = false,
             },
             new PhotoReview()
             {
-                Id = 6,
                 JuryContestId = 1,
-                PhotoId = 14,
+                PhotoId = 6,
                 Score = 4,
                 Comment = "nice",
                 Checkbox = false,
             },
             new PhotoReview()
             {
-                Id = 7,
                 JuryContestId = 1,
-                PhotoId = 15,
+                PhotoId = 7,
                 Score = 8,
                 Comment = "nice",
                 Checkbox = false,
             },
             new PhotoReview()
             {
-                Id = 8,
                 JuryContestId = 1,
-                PhotoId = 16,
+                PhotoId = 8,
                 Score = 5,
                 Comment = "nice",
                 Checkbox = false,
@@ -122,7 +114,7 @@ namespace FullFraim.Data.Seed
         public async Task SeedAsync(FullFraimDbContext dbContext, IServiceProvider serviceProvider)
         {
             if (!dbContext.PhotoReviews.Any())
-                await dbContext.AddAsync(SeedData);
+                await dbContext.AddRangeAsync(SeedData);
         }
     }
 }

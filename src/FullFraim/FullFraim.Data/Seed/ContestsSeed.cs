@@ -13,7 +13,6 @@ namespace FullFraim.Data.Seed
         {
             new Contest()
             {
-                Id = 1,
                 Name = "WildlifePhaseOne",
                 Description = "PhaseOne",
                 Cover_Url = Constants.ImagesSeed.WildlifeImgUrlCover,
@@ -23,7 +22,6 @@ namespace FullFraim.Data.Seed
             },
             new Contest()
             {
-                Id = 2,
                 Name = "WildlifePhaseTwo",
                 Description = "PhaseTwo",
                 Cover_Url = Constants.ImagesSeed.WildlifeImgUrlCover,
@@ -33,7 +31,6 @@ namespace FullFraim.Data.Seed
             },
             new Contest()
             {
-                Id = 3,
                 Name = "WildlifePhaseThree",
                 Description = "PhaseThree",
                 Cover_Url = Constants.ImagesSeed.WildlifeImgUrlCover,
@@ -43,7 +40,6 @@ namespace FullFraim.Data.Seed
             },
             new Contest()
             {
-                Id = 4,
                 Name = "Portrait",
                 Description = "Portrait contest - PhaseOne",
                 Cover_Url = Constants.ImagesSeed.PortraitImgUrlCover,
@@ -56,7 +52,7 @@ namespace FullFraim.Data.Seed
         public async Task SeedAsync(FullFraimDbContext dbContext, IServiceProvider serviceProvider)
         {
             if (!dbContext.Contests.Any())
-                await dbContext.AddAsync(SeedData);
+                await dbContext.AddRangeAsync(SeedData);
         }
     }
 }

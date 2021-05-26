@@ -8,7 +8,7 @@ namespace FullFraim.Data.Seed
 {
     public class ContestPhasesSeed : ISeeder
     {
-        public static readonly List<ContestPhase> SeedData = new List<ContestPhase>()
+        public readonly List<ContestPhase> SeedData = new List<ContestPhase>()
         {
             // Contest PhaseOne
             new ContestPhase()
@@ -103,7 +103,7 @@ namespace FullFraim.Data.Seed
         public async Task SeedAsync(FullFraimDbContext dbContext, IServiceProvider serviceProvider)
         {
             if (!dbContext.ContestPhases.Any())
-                await dbContext.AddAsync(SeedData);
+                await dbContext.AddRangeAsync(SeedData);
         }
     }
 }

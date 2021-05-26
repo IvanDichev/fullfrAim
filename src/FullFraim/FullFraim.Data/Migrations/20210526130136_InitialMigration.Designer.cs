@@ -10,14 +10,14 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FullFraim.Data.Migrations
 {
     [DbContext(typeof(FullFraimDbContext))]
-    [Migration("20210524142051_AddNavigationFromPhotoToContest")]
-    partial class AddNavigationFromPhotoToContest
+    [Migration("20210526130136_InitialMigration")]
+    partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "3.1.9")
+                .HasAnnotation("ProductVersion", "3.1.15")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -94,92 +94,6 @@ namespace FullFraim.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("ContestCategories");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            IsDeleted = false,
-                            Name = "Abstract"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            IsDeleted = false,
-                            Name = "Architecture"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            IsDeleted = false,
-                            Name = "Conceptual"
-                        },
-                        new
-                        {
-                            Id = 4,
-                            CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            IsDeleted = false,
-                            Name = "Fashion/Beauty"
-                        },
-                        new
-                        {
-                            Id = 5,
-                            CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            IsDeleted = false,
-                            Name = "Fine Art"
-                        },
-                        new
-                        {
-                            Id = 6,
-                            CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            IsDeleted = false,
-                            Name = "Landscapes"
-                        },
-                        new
-                        {
-                            Id = 7,
-                            CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            IsDeleted = false,
-                            Name = "Natrue"
-                        },
-                        new
-                        {
-                            Id = 8,
-                            CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            IsDeleted = false,
-                            Name = "Nude"
-                        },
-                        new
-                        {
-                            Id = 9,
-                            CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            IsDeleted = false,
-                            Name = "Photojournalism"
-                        },
-                        new
-                        {
-                            Id = 10,
-                            CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            IsDeleted = false,
-                            Name = "Portrait"
-                        },
-                        new
-                        {
-                            Id = 11,
-                            CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            IsDeleted = false,
-                            Name = "Street"
-                        },
-                        new
-                        {
-                            Id = 12,
-                            CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            IsDeleted = false,
-                            Name = "Wildlife"
-                        });
                 });
 
             modelBuilder.Entity("FullFraim.Data.Models.ContestPhase", b =>
@@ -241,22 +155,6 @@ namespace FullFraim.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("ContestTypes");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            IsDeleted = false,
-                            Name = "Open"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            IsDeleted = false,
-                            Name = "Invitational"
-                        });
                 });
 
             modelBuilder.Entity("FullFraim.Data.Models.JuryContest", b =>
@@ -354,29 +252,6 @@ namespace FullFraim.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Phases");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            IsDeleted = false,
-                            Name = "PhaseI"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            IsDeleted = false,
-                            Name = "PhaseII"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            IsDeleted = false,
-                            Name = "Finished"
-                        });
                 });
 
             modelBuilder.Entity("FullFraim.Data.Models.Photo", b =>
@@ -606,43 +481,6 @@ namespace FullFraim.Data.Migrations
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("AspNetRoles");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            ConcurrencyStamp = "8f311559-f7b2-4827-bdd0-bdd3e577dc62",
-                            Name = "Admin",
-                            NormalizedName = "ADMIN"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            ConcurrencyStamp = "b3a909f6-1050-42d5-bafe-f0a7fe77b33e",
-                            Name = "Organizer",
-                            NormalizedName = "ORGANIZER"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            ConcurrencyStamp = "4104a2f2-3906-4bed-ab15-07191927ea57",
-                            Name = "Jury",
-                            NormalizedName = "JURY"
-                        },
-                        new
-                        {
-                            Id = 4,
-                            ConcurrencyStamp = "936b597e-760b-4ab5-aca7-26360b7bfacd",
-                            Name = "Participant",
-                            NormalizedName = "PARTICIPANT"
-                        },
-                        new
-                        {
-                            Id = 5,
-                            ConcurrencyStamp = "f0182390-a4ad-4b72-a5d9-9d11292fcdcb",
-                            Name = "PhotoMaster",
-                            NormalizedName = "PHOTOMASTER"
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<int>", b =>
