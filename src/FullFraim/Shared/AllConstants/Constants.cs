@@ -1,9 +1,47 @@
-﻿namespace Shared
+﻿using System.Collections.Generic;
+
+namespace Shared
 {
     public static partial class Constants
     {
+        public static class ImagesSeed
+        {
+            public const string AbstrctImgUrl = "https://res.cloudinary.com/fullfraim/image/upload/v1621962683/tlmnwsfoieruxk7qs3os.jpg";
+            public const string ArchitectureImgUrl = "https://res.cloudinary.com/fullfraim/image/upload/v1621962698/q98fftipsjjsvzxxztd7.jpg";
+            public const string CatImgUrl = "https://res.cloudinary.com/fullfraim/image/upload/v1621962948/s5e3jmgfwackbkqf1yri.jpg";
+            public const string FineArtImgUrl = "https://res.cloudinary.com/fullfraim/image/upload/v1621962965/mn78itrfiweifoitfqki.jpg";
+            public const string PortraitImgUrlCover = "https://res.cloudinary.com/fullfraim/image/upload/v1621962983/ska4ybfpaaioa4flg0bo.jpg";
+            
+            public const string WildlifeImgUrlCover = "https://res.cloudinary.com/fullfraim/image/upload/v1621963776/y37iclssc2ozv18fnioo.jpg";
+            public const string WildlifeImgUrl = "https://res.cloudinary.com/fullfraim/image/upload/v1621962999/oq8rxujmom66tvv95jdp.jpg";
+            public const string WildlifeImg2Url = "https://res.cloudinary.com/fullfraim/image/upload/v1621963016/voyi4dpg8wtoscgb07ut.png";
+            public const string WildlifeImg3Url = "https://res.cloudinary.com/fullfraim/image/upload/v1621963121/lfmos6aoxpblo8b5cksr.jpg";
+            public const string WildlifeImg4Url = "https://res.cloudinary.com/fullfraim/image/upload/v1621963134/kdgxq6iorhwjwpphlppn.jpg";
+            public const string WildlifeImg5Url = "https://res.cloudinary.com/fullfraim/image/upload/v1621963145/r6hussj1vnw7etwjlwc1.jpg";
+            public const string WildlifeImg6Url = "https://res.cloudinary.com/fullfraim/image/upload/v1621963217/rw0eyykyktcyb1ihqdkn.jpg";
+        }
+
         public static class UserSeed
         {
+            public const string Ivan = "Ivan";
+            public const string Dichev = "Dichev";
+            public const string IDichevEmail = "idichev@fullfraim.com";
+
+            public const string Valentin = "Valentin";
+            public const string Shikov = "Shikov";
+            public const string VShikovEmail = "vshikov@fullfraim.com";
+
+            public const string Boryana = "Boryana";
+            public const string Mihaylova = "Mihaylova";
+            public const string BMihaylovaEmail = "BО@fullfraim.com";
+
+            public const string Dimitar = "Dimitar";
+            public const string Dimitrov = "Dimitrov";
+            public const string DDimitrovEmail = "DDimitrov@fullfraim.com";
+
+            public const string Emily = "Emily";
+            public const string Ivanova = "Ivanova";
+            public const string EIvanovaEmail = "EIvanova@fullfraim.com";
         }
 
         public static class RolesSeed
@@ -20,6 +58,14 @@
             public const string Finished = "Finished";
         }
 
+        public static class RanksSeed
+        {
+            public const string Junkie = "Junkie";
+            public const string Enthusiast = "Enthusiast";
+            public const string Master = "Master";
+            public const string WiseAndBenevolentPhotoDictator = "Wise and Benevolent Photo Dictator";
+        }
+
         public static class ConstestCategorySeed
         {
             public const string Abstract = "Abstract";
@@ -29,7 +75,7 @@
             public const string Fine_Art = "Fine Art";
             public const string Landscapes = "Landscapes";
             public const string Nature = "Natrue";
-            public const string Nude = "Nude";
+            public const string Boudoir = "Boudoir";
             public const string Photojournalism = "Photojournalism";
             public const string Portrait = "Portrait";
             public const string Street = "Street";
@@ -320,6 +366,41 @@ padding:10px 30px 10px 30px!important;
         public static class TempDataNotifications
         {
             public const string PasswordResetTokenSuccessfullySend = "Password reset token successfully send";
+        }
+
+        public static class DatabaseQueries
+        {
+            public const string RankTrigger = @"CREATE TRIGGER TR_AspNetUsers_UpdateRanks_AU_AI ON dbo.AspNetUsers AFTER INSERT,UPDATE AS
+BEGIN
+		DECLARE TrigTempUpdate_Cursor CURSOR FOR
+			SELECT Id FROM Inserted
+
+		Declare @Id int;
+
+		OPEN TrigTempUpdate_Cursor;
+		FETCH NEXT FROM TrigTempUpdate_Cursor INTO @Id
+
+		WHILE @@FETCH_STATUS = 0
+		BEGIN
+		UPDATE AspNetUsers SET RankId = (
+			CASE 
+				WHEN (SELECT Points FROM AspNetUsers WHERE Id = @Id) > 1000
+					THEN (SELECT Id FROM Ranks WHERE [Name] = 'Wise and Benevolent Photo Dictator')
+				WHEN (SELECT Points FROM AspNetUsers WHERE Id = @Id) > 150
+					THEN (SELECT Id FROM Ranks WHERE [Name] = 'Master')
+				WHEN (SELECT Points FROM AspNetUsers WHERE Id = @Id) > 50
+					THEN (SELECT Id FROM Ranks WHERE [Name] = 'Enthusiast')
+				ELSE (SELECT Id FROM Ranks WHERE [Name] = 'Junkie')
+			END)
+			WHERE id = @Id
+
+		FETCH NEXT FROM TrigTempUpdate_Cursor INTO @Id
+		END;
+
+		CLOSE TrigTempUpdate_Cursor;
+		DEALLOCATE TrigTempUpdate_Cursor;  
+END;";
+            public const string DropRankTrigger = @"DROP TRIGGER TR_AspNetUsers_UpdateRanks_AU_AI";
         }
     }
 }

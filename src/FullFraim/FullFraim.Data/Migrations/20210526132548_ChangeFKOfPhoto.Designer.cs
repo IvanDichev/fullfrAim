@@ -10,14 +10,14 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FullFraim.Data.Migrations
 {
     [DbContext(typeof(FullFraimDbContext))]
-    [Migration("20210517133241_UpdateDatabase")]
-    partial class UpdateDatabase
+    [Migration("20210526132548_ChangeFKOfPhoto")]
+    partial class ChangeFKOfPhoto
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "3.1.9")
+                .HasAnnotation("ProductVersion", "3.1.15")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -94,100 +94,12 @@ namespace FullFraim.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("ContestCategories");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            IsDeleted = false,
-                            Name = "Abstract"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            IsDeleted = false,
-                            Name = "Architecture"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            IsDeleted = false,
-                            Name = "Conceptual"
-                        },
-                        new
-                        {
-                            Id = 4,
-                            CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            IsDeleted = false,
-                            Name = "Fashion/Beauty"
-                        },
-                        new
-                        {
-                            Id = 5,
-                            CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            IsDeleted = false,
-                            Name = "Fine Art"
-                        },
-                        new
-                        {
-                            Id = 6,
-                            CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            IsDeleted = false,
-                            Name = "Landscapes"
-                        },
-                        new
-                        {
-                            Id = 7,
-                            CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            IsDeleted = false,
-                            Name = "Natrue"
-                        },
-                        new
-                        {
-                            Id = 8,
-                            CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            IsDeleted = false,
-                            Name = "Nude"
-                        },
-                        new
-                        {
-                            Id = 9,
-                            CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            IsDeleted = false,
-                            Name = "Photojournalism"
-                        },
-                        new
-                        {
-                            Id = 10,
-                            CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            IsDeleted = false,
-                            Name = "Portrait"
-                        },
-                        new
-                        {
-                            Id = 11,
-                            CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            IsDeleted = false,
-                            Name = "Street"
-                        },
-                        new
-                        {
-                            Id = 12,
-                            CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            IsDeleted = false,
-                            Name = "Wildlife"
-                        });
                 });
 
             modelBuilder.Entity("FullFraim.Data.Models.ContestPhase", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                    b.Property<int>("PhaseId")
+                        .HasColumnType("int");
 
                     b.Property<int>("ContestId")
                         .HasColumnType("int");
@@ -198,23 +110,21 @@ namespace FullFraim.Data.Migrations
                     b.Property<DateTime?>("DeletedOn")
                         .HasColumnType("datetime2");
 
+                    b.Property<DateTime>("EndDate")
+                        .HasColumnType("datetime2");
+
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
                     b.Property<DateTime?>("ModifiedOn")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime>("PhaseEndDate")
+                    b.Property<DateTime>("StartDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("PhaseId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
+                    b.HasKey("PhaseId", "ContestId");
 
                     b.HasIndex("ContestId");
-
-                    b.HasIndex("PhaseId");
 
                     b.ToTable("ContestPhases");
                 });
@@ -245,30 +155,16 @@ namespace FullFraim.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("ContestTypes");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            IsDeleted = false,
-                            Name = "Open"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            IsDeleted = false,
-                            Name = "Invitational"
-                        });
                 });
 
             modelBuilder.Entity("FullFraim.Data.Models.JuryContest", b =>
                 {
-                    b.Property<int>("ContestId")
-                        .HasColumnType("int");
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("UserId")
+                    b.Property<int>("ContestId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("CreatedOn")
@@ -277,18 +173,21 @@ namespace FullFraim.Data.Migrations
                     b.Property<DateTime?>("DeletedOn")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("Id")
-                        .HasColumnType("int");
-
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
                     b.Property<DateTime?>("ModifiedOn")
                         .HasColumnType("datetime2");
 
-                    b.HasKey("ContestId", "UserId");
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
 
                     b.HasIndex("UserId");
+
+                    b.HasIndex("ContestId", "UserId")
+                        .IsUnique();
 
                     b.ToTable("JuryContests");
                 });
@@ -307,16 +206,13 @@ namespace FullFraim.Data.Migrations
                     b.Property<DateTime?>("DeletedOn")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("Id")
-                        .HasColumnType("int");
-
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
                     b.Property<DateTime?>("ModifiedOn")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("PhotoId")
+                    b.Property<int?>("PhotoId")
                         .HasColumnType("int");
 
                     b.HasKey("UserId", "ContestId");
@@ -324,7 +220,8 @@ namespace FullFraim.Data.Migrations
                     b.HasIndex("ContestId");
 
                     b.HasIndex("PhotoId")
-                        .IsUnique();
+                        .IsUnique()
+                        .HasFilter("[PhotoId] IS NOT NULL");
 
                     b.ToTable("ParticipantContests");
                 });
@@ -356,29 +253,6 @@ namespace FullFraim.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Phases");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            IsDeleted = false,
-                            Name = "PhaseI"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            IsDeleted = false,
-                            Name = "PhaseII"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            CreatedOn = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            IsDeleted = false,
-                            Name = "Finished"
-                        });
                 });
 
             modelBuilder.Entity("FullFraim.Data.Models.Photo", b =>
@@ -388,7 +262,7 @@ namespace FullFraim.Data.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("ContestId")
+                    b.Property<int>("ContestId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("CreatedOn")
@@ -403,7 +277,11 @@ namespace FullFraim.Data.Migrations
                     b.Property<DateTime?>("ModifiedOn")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("Name")
+                    b.Property<string>("Story")
+                        .HasColumnType("nvarchar(2000)")
+                        .HasMaxLength(2000);
+
+                    b.Property<string>("Title")
                         .IsRequired()
                         .HasColumnType("nvarchar(20)")
                         .HasMaxLength(20);
@@ -442,13 +320,7 @@ namespace FullFraim.Data.Migrations
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
-                    b.Property<int>("JuryContestContestId")
-                        .HasColumnType("int");
-
                     b.Property<int>("JuryContestId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("JuryContestUserId")
                         .HasColumnType("int");
 
                     b.Property<DateTime?>("ModifiedOn")
@@ -462,11 +334,39 @@ namespace FullFraim.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("PhotoId");
+                    b.HasIndex("JuryContestId");
 
-                    b.HasIndex("JuryContestContestId", "JuryContestUserId");
+                    b.HasIndex("PhotoId", "JuryContestId")
+                        .IsUnique();
 
                     b.ToTable("PhotoReviews");
+                });
+
+            modelBuilder.Entity("FullFraim.Data.Models.Rank", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("ModifiedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Ranks");
                 });
 
             modelBuilder.Entity("FullFraim.Data.Models.User", b =>
@@ -526,6 +426,10 @@ namespace FullFraim.Data.Migrations
                     b.Property<long>("Points")
                         .HasColumnType("bigint");
 
+                    b.Property<int?>("RankId")
+                        .ValueGeneratedOnAddOrUpdate()
+                        .HasColumnType("int");
+
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("nvarchar(max)");
 
@@ -545,6 +449,8 @@ namespace FullFraim.Data.Migrations
                         .IsUnique()
                         .HasName("UserNameIndex")
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
+
+                    b.HasIndex("RankId");
 
                     b.ToTable("AspNetUsers");
                 });
@@ -576,43 +482,6 @@ namespace FullFraim.Data.Migrations
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("AspNetRoles");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            ConcurrencyStamp = "e9a2c837-63ad-409c-bcc5-d1b1803767eb",
-                            Name = "Admin",
-                            NormalizedName = "ADMIN"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            ConcurrencyStamp = "11a33437-50ad-4bb7-953e-9931a74d2966",
-                            Name = "Organizer",
-                            NormalizedName = "ORGANIZER"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            ConcurrencyStamp = "d4989492-4089-4f18-a0f7-24aa2e2c08b3",
-                            Name = "Jury",
-                            NormalizedName = "JURY"
-                        },
-                        new
-                        {
-                            Id = 4,
-                            ConcurrencyStamp = "01b9c614-2153-42e6-99b9-008be1a58e84",
-                            Name = "Participant",
-                            NormalizedName = "PARTICIPANT"
-                        },
-                        new
-                        {
-                            Id = 5,
-                            ConcurrencyStamp = "0023a6be-6b18-4780-934e-8911282472d9",
-                            Name = "PhotoMaster",
-                            NormalizedName = "PHOTOMASTER"
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<int>", b =>
@@ -734,7 +603,7 @@ namespace FullFraim.Data.Migrations
             modelBuilder.Entity("FullFraim.Data.Models.ContestPhase", b =>
                 {
                     b.HasOne("FullFraim.Data.Models.Contest", "Contest")
-                        .WithMany("Phases")
+                        .WithMany("ContestPhases")
                         .HasForeignKey("ContestId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -749,7 +618,7 @@ namespace FullFraim.Data.Migrations
             modelBuilder.Entity("FullFraim.Data.Models.JuryContest", b =>
                 {
                     b.HasOne("FullFraim.Data.Models.Contest", "Contest")
-                        .WithMany()
+                        .WithMany("JuryContests")
                         .HasForeignKey("ContestId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -771,9 +640,7 @@ namespace FullFraim.Data.Migrations
 
                     b.HasOne("FullFraim.Data.Models.Photo", "Photo")
                         .WithOne("Participant")
-                        .HasForeignKey("FullFraim.Data.Models.ParticipantContest", "PhotoId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("FullFraim.Data.Models.ParticipantContest", "PhotoId");
 
                     b.HasOne("FullFraim.Data.Models.User", "User")
                         .WithMany("ParticipantContests")
@@ -784,24 +651,33 @@ namespace FullFraim.Data.Migrations
 
             modelBuilder.Entity("FullFraim.Data.Models.Photo", b =>
                 {
-                    b.HasOne("FullFraim.Data.Models.Contest", null)
+                    b.HasOne("FullFraim.Data.Models.Contest", "Contest")
                         .WithMany("Photos")
-                        .HasForeignKey("ContestId");
+                        .HasForeignKey("ContestId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("FullFraim.Data.Models.PhotoReview", b =>
                 {
+                    b.HasOne("FullFraim.Data.Models.JuryContest", "JuryContest")
+                        .WithMany("PhotoReviews")
+                        .HasForeignKey("JuryContestId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("FullFraim.Data.Models.Photo", "Photo")
                         .WithMany("PhotoReviews")
                         .HasForeignKey("PhotoId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
 
-                    b.HasOne("FullFraim.Data.Models.JuryContest", "JuryContest")
-                        .WithMany("PhotoReviews")
-                        .HasForeignKey("JuryContestContestId", "JuryContestUserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+            modelBuilder.Entity("FullFraim.Data.Models.User", b =>
+                {
+                    b.HasOne("FullFraim.Data.Models.Rank", "Rank")
+                        .WithMany("Users")
+                        .HasForeignKey("RankId");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<int>", b =>
