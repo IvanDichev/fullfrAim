@@ -51,18 +51,17 @@ namespace FullFraim.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(CreateContestViewModel model)
         {
-            if (!ModelState.IsValid)
-                if (!ModelState.IsValid ||
-                    (model.Cover_Url != null && model.Cover != null))
-                {
-                    ViewBag.Categories = await this.contestCategoryService
-                        .GetAllAsync();
+            if (!ModelState.IsValid ||
+                (model.Cover_Url != null && model.Cover != null))
+            {
+                ViewBag.Categories = await this.contestCategoryService
+                    .GetAllAsync();
 
-                    ViewBag.ContestTypes = await this.contestTypeService
-                        .GetAllAsync();
+                ViewBag.ContestTypes = await this.contestTypeService
+                    .GetAllAsync();
 
-                    return View(model);
-                }
+                return View(model);
+            }
 
             if (model.Cover != null && model.Cover_Url == null)
             {
@@ -92,5 +91,6 @@ namespace FullFraim.Web.Controllers
 
             return View();
         }
+
     }
 }
