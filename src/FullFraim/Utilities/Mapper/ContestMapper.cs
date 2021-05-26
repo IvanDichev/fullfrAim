@@ -1,12 +1,12 @@
 ﻿using FullFraim.Data.Models;
-using FullFraim.Models.Dto_s.Contests;
 using FullFraim.Models.Contest.ViewModels;
-using System.Collections.Generic;
-using System.Linq;
-using System;
+using FullFraim.Models.Dto_s.Contests;
 using FullFraim.Models.Dto_s.Phases;
 using FullFraim.Models.Dto_s.User;
+using FullFraim.Models.ViewModels.Dashboard;
 using System.Collections.Concurrent;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Utilities.Mapper
@@ -62,6 +62,29 @@ namespace Utilities.Mapper
                 ContestTypeId = model.ContestTypeId,
             };
         }
+
+        public static DashboardViewModel MapToViewDashboard(this OutputContestDto model)  // this ContestDto model
+        {
+            return new DashboardViewModel()
+            {
+                Name = model.Name,
+                Cover_Url = model.Cover_Url,
+                Description = model.Description,
+            };
+        }
+
+        //public static Contest MapToRaw(this ContestDto model)
+        //{
+        //    return new Contest()
+        //    {
+        //        //Id = model.Id,
+        //        Name = model.Name,
+        //        Cover_Url = model.Cover_Url,
+        //        Description = model.Description,
+        //        ContestCategoryId = model.ContestCategoryId,
+        //        ContestTypeId = model.ContestTypeId,
+        //    };
+        //}
 
         public static IQueryable<OutputContestDto> MapToDto(this IQueryable<Contest> query)
         {
