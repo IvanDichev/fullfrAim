@@ -5,6 +5,20 @@
     <div class="card-body">
         <h5 class="card-title">@Model.Name</h5>
         <p class="card-text">@Model.Description</p>
-        <a href="#" class="btn btn-primary">Go somewhere</a>
+        @if (Model.PhaseI_Time < DateTime.UtcNow)
+        {
+            int daysLeft = (int)(DateTime.UtcNow - Model.PhaseI_Time).TotalDays;
+            <p>Deadline in @daysLeft days</p>
+            <button class="btn btn-primary">Enroll</button>
+        }
+        else if (Model.PhaseI_Time >= DateTime.UtcNow && Model.PhaseII_Time < DateTime.UtcNow)
+        {
+            <p>Closed for enrollement</p>
+        }
+        else if (Model.PhaseIII_Time == DateTime.UtcNow)
+        {
+            <p>Finished</p>
+        }
     </div>
 </div>
+
