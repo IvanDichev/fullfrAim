@@ -2,6 +2,7 @@
 using FullFraim.Data.Models;
 using FullFraim.Models.Dto_s.Contests;
 using FullFraim.Models.Dto_s.PhotoJunkies;
+using FullFraim.Models.Dto_s.Users;
 using FullFraim.Services.Exceptions;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -65,9 +66,19 @@ namespace FullFraim.Services.PhotoJunkieServices
             await this.context.SaveChangesAsync();
         }
 
-        public async Task<ICollection<User>> GetAllAsync()
+        public async Task<ICollection<PhotoJunkieDto>> GetAllAsync()
         {
-            return await this.userManager.GetUsersInRoleAsync("User");
+            var users = await this.userManager.GetUsersInRoleAsync("User");
+
+            return users.MapToDto().ToList();
+        }
+
+        public async Task<bool> CanJunkyEnroll(int contestId, int userId)
+        {
+            return !await this.context.Contests
+                .Where(c => c.Id == contestId && 
+                    c.ParticipantContests.Any(p => p.UserId == userId))
+                .AnyAsync();
         }
 
         public async Task<PhotoJunkieRankDto> GetPointsTillNextRankAsync(int userId)

@@ -7,7 +7,9 @@ namespace FullFraim.Services.PhotoService
 {
     public interface IPhotoService
     {
+        Task<PhotoDto> GetByIdAsync(int photoId);
         Task<PaginatedModel<PhotoDto>> GetPhotosForContestAsync(int contestId, PaginationFilter paginationFilter);
         Task<ICollection<PhotoDto>> GetTopRecentPhotos();
+        Task<bool> IsPhotoSubmitedByUserAsync(int userId, int photoId);
     }
 }

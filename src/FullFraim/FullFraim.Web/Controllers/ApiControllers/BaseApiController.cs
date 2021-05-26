@@ -1,5 +1,8 @@
-﻿using FullFraim.Services.SecurityServices;
+﻿using FullFraim.Data.Models;
+using FullFraim.Services.SecurityServices;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Shared;
 using System.Security.Claims;
 using System.Threading.Tasks;
 
@@ -31,6 +34,13 @@ namespace FullFraim.Web.Controllers.ApiControllers
             var userId = int.Parse(HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value);
 
             return await this.securityService.IsUserParticipantInContestAsync(userId, contestId);
+        }
+        
+        protected internal async Task<bool> IsUserAdmin()
+        {
+            var userId = int.Parse(HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value);
+
+            return await this.securityService.IsUserAdmin(userId);
         }
     }
 }

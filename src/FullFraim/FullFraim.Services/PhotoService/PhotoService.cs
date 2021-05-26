@@ -19,6 +19,23 @@ namespace FullFraim.Services.PhotoService
             this.context = context;
         }
 
+        public async Task<PhotoDto> GetByIdAsync(int photoId)
+        {
+            var photo = await this.context.Photos
+                .MapToDto()
+                .FirstOrDefaultAsync(p => p.Id == photoId);
+
+            return photo; 
+        }
+
+        public async Task<bool> IsPhotoSubmitedByUserAsync(int userId, int photoId)
+        {
+            var isPhotoSubmitedbyUser = this.context.Photos
+                .Any(p => p.Id == photoId && p.Participant.UserId == userId);
+
+            return isPhotoSubmitedbyUser;
+        }
+
         public async Task<PaginatedModel<PhotoDto>> GetPhotosForContestAsync(int contestId, PaginationFilter paginationFilter)
         {
             var photos = this.context.Photos
