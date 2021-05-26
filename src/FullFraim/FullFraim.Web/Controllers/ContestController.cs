@@ -6,6 +6,7 @@ using FullFraim.Services.ContestTypeServices;
 using FullFraim.Services.PhaseServices;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
+using Utilities.CloudinaryUtils;
 using Utilities.Mapper;
 
 namespace FullFraim.Web.Controllers
@@ -17,16 +18,19 @@ namespace FullFraim.Web.Controllers
         private readonly IContestCategoryService contestCategoryService;
         private readonly IPhaseService phaseService;
         private readonly IContestTypeService contestTypeService;
+        private readonly ICloudinaryService cloudinaryService;
 
         public ContestController(IContestService contestService,
             IContestCategoryService contestCategoryService,
             IPhaseService phaseService,
-            IContestTypeService contestTypeService)
+            IContestTypeService contestTypeService,
+            ICloudinaryService cloudinaryService)
         {
             this.contestService = contestService;
             this.contestCategoryService = contestCategoryService;
             this.phaseService = phaseService;
             this.contestTypeService = contestTypeService;
+            this.cloudinaryService = cloudinaryService;
         }
 
         [HttpGet]
@@ -47,16 +51,46 @@ namespace FullFraim.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(CreateContestViewModel model)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
+                if (!ModelState.IsValid ||
+                    (model.Cover_Url != null && model.Cover != null))
+                {
+                    ViewBag.Categories = await this.contestCategoryService
+                        .GetAllAsync();
+
+                    ViewBag.ContestTypes = await this.contestTypeService
+                        .GetAllAsync();
+
+                    return View(model);
+                }
+
+            if (model.Cover != null && model.Cover_Url == null)
+            {
+                model.Cover_Url = this.cloudinaryService.UploadImage(model.Cover);
+
+                await this.contestService.CreateAsync(model.MapToDto());
+
+                return RedirectToAction(nameof(HomeController.Index),
+                    nameof(HomeController).Replace("Controller", string.Empty));
+            }
+            else if (model.Cover == null && model.Cover_Url != null)
             {
                 await this.contestService.CreateAsync(model.MapToDto());
 
-                return RedirectToAction("Index", "Home");
+                return RedirectToAction(nameof(HomeController.Index),
+                    nameof(HomeController).Replace("Controller", string.Empty));
             }
-            else
-            {
-                return View(model);
-            }
+
+            return View(model);
+        }
+
+        public async Task<IActionResult> ChooseCovers()
+        {
+            var result = await this.contestService.GetCoversAsync();
+
+            ViewBag.Covers = result;
+
+            return View();
         }
     }
 }
