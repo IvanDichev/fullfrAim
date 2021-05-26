@@ -11,6 +11,7 @@ using FullFraim.Models.ViewModels.Dashboard;
 
 namespace FullFraim.Web.Controllers
 {
+    [Controller]
     public class DashboardController : Controller
     {
         private readonly IContestService contestService;

@@ -12,12 +12,12 @@ namespace FullFraim.Services.PhotoService
 {
     public class PhotoService : IPhotoService
     {
-        //private readonly FullFraimDbContext context;
+        private readonly FullFraimDbContext context;
 
-        //public PhotoService(FullFraimDbContext context)
-        //{
-        //    this.context = context;
-        //}
+        public PhotoService(FullFraimDbContext context)
+        {
+            this.context = context;
+        }
 
         public async Task<PaginatedModel<PhotoDto>> GetPhotosForContestAsync(int contestId, PaginationFilter paginationFilter)
         {
