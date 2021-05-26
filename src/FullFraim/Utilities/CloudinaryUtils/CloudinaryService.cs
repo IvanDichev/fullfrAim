@@ -1,9 +1,7 @@
 ﻿using CloudinaryDotNet;
 using CloudinaryDotNet.Actions;
 using Microsoft.AspNetCore.Http;
-using Microsoft.Extensions.Configuration;
 using System;
-using System.Threading.Tasks;
 
 namespace Utilities.CloudinaryUtils
 {
@@ -23,12 +21,17 @@ namespace Utilities.CloudinaryUtils
         {
             string filePath = Guid.NewGuid().ToString();
 
+            if (file == null)
+            {
+                throw new ArgumentNullException();
+            }
+
             var uploadParams = new ImageUploadParams()
             {
                 File = new FileDescription(filePath + extention, file.OpenReadStream()),
                 Overwrite = true,
             };
-
+            
             var uploadResult = this.cloudinary.Upload(uploadParams);
 
             if (uploadResult.Error != null)

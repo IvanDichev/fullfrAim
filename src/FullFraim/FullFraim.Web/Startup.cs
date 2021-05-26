@@ -1,4 +1,5 @@
 using FullFraim.Data;
+using FullFraim.Data.Seed;
 using FullFraim.Services.API_JwtServices;
 using FullFraim.Services.ContestCatgeoryServices;
 using FullFraim.Services.ContestServices;
@@ -63,6 +64,13 @@ namespace FullFraim.Web
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            using (var serviceScope = app.ApplicationServices.CreateScope())
+            {
+                var dbContext = serviceScope.ServiceProvider.GetRequiredService<FullFraimDbContext>();
+                dbContext.Database.Migrate();
+                new FullFraimContextSeeder().SeedAsync(dbContext, serviceScope.ServiceProvider).GetAwaiter().GetResult();
+            }
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();

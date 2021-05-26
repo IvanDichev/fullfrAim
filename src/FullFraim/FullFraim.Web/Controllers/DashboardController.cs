@@ -8,6 +8,9 @@ using System.Threading.Tasks;
 using System.Linq;
 using Utilities.Mapper;
 using FullFraim.Models.ViewModels.Dashboard;
+using System.Security.Claims;
+using FullFraim.Models.Dto_s.Pagination;
+using FullFraim.Services.Exceptions;
 
 namespace FullFraim.Web.Controllers
 {
@@ -21,12 +24,12 @@ namespace FullFraim.Web.Controllers
             this.contestService = contestService;
             this.contestCategoryService = contestCategoryService;
         }
-        public IActionResult Index(int categoryId) // TODO: Shall we make it async?
+        public async Task<IActionResult> Index(int categoryId) // TODO: Shall we make it async?
         {
             var dashboardViewModel = new DashboardViewModel()
             {
-                Contests = GetContestsByCategory(categoryId).GetAwaiter().GetResult(), 
-                Categories = this.contestCategoryService.GetAllAsync().GetAwaiter().GetResult()
+                Contests = await GetContestsByCategory(categoryId),
+                Categories = await this.contestCategoryService.GetAllAsync()
             };
 
             return View(dashboardViewModel);
@@ -34,16 +37,25 @@ namespace FullFraim.Web.Controllers
 
         public async Task<IEnumerable<DashboardViewModel>> GetContestsByCategory(int categoryId) // Move to service layer
         {
-            var categories = await this.contestService.GetAllAsync();
+            if(categoryId < 0)
+            {
+                throw new InvalidIdException();
+            }
+
+            int userId = int.Parse(HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value);
+
+            var paginatedModel = await this.contestService.GetAllAsync(userId, new PaginationFilter());
 
             if (categoryId != 0)
             {
-                categories = categories.Where(c => c.ContestCategoryId == categoryId).ToList();
+                var categories = paginatedModel.Model.Where(c => c.ContestCategoryId == categoryId).ToList();
+                var result = categories.Select(x => x.MapToViewDashboard());
+
+                return result;
             }
 
-            var result = categories.Select(x => x.MapToViewDashboard());
 
-            return result;
+            return paginatedModel.Model.Select(x => x.MapToViewDashboard());
         }
 
         

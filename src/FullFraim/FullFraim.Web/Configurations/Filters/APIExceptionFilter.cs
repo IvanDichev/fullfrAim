@@ -32,9 +32,8 @@ namespace FullFraim.Web.Filters
                 context.Result = new ContentResult()
                 {
                     Content = notFoundEx.Message,
-                    StatusCode = StatusCodes.Status400BadRequest,
+                    StatusCode = StatusCodes.Status404NotFound,
                 };
-
             }
             else if (exception is InvalidIdException invalidIdEx)
             {

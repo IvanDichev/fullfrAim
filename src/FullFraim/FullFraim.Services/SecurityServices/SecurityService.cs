@@ -13,6 +13,7 @@ namespace FullFraim.Services.SecurityServices
             this.context = context;
         }
 
+      
         public async Task<bool> IsUserJuryInContestAsync(int userId, int contestId)
         {
             return await this.context.JuryContests

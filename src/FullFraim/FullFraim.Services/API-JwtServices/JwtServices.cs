@@ -51,6 +51,7 @@ namespace FullFraim.Services.API_JwtServices
             {
                 new Claim(ClaimTypes.Name, userName),
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
+                new Claim(ClaimTypes.NameIdentifier, user.Id.ToString())
             };
             
             var tokenHandler = new JwtSecurityTokenHandler();

@@ -1,5 +1,5 @@
 ﻿using FullFraim.Models.Contest.ViewModels;
-using FullFraim.Models.Dto_s.User;
+using FullFraim.Models.Dto_s.Pagination;
 using FullFraim.Services.ContestCatgeoryServices;
 using FullFraim.Services.ContestServices;
 using FullFraim.Services.ContestTypeServices;
@@ -51,8 +51,19 @@ namespace FullFraim.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(CreateContestViewModel model)
         {
-            if (!ModelState.IsValid ||
-                (model.Cover_Url != null && model.Cover != null))
+            if(model.Cover_Url != null && model.Cover != null)
+            {
+                ModelState
+                    .AddModelError(string.Empty, "Cannot send both url and image file!");
+            }
+
+            if(model.Cover == null && model.Cover_Url == null)
+            {
+                ModelState
+                    .AddModelError(string.Empty, "Contest cover is *Required");
+            }
+
+            if (!ModelState.IsValid)
             {
                 ViewBag.Categories = await this.contestCategoryService
                     .GetAllAsync();
@@ -62,6 +73,7 @@ namespace FullFraim.Web.Controllers
 
                 return View(model);
             }
+
 
             if (model.Cover != null && model.Cover_Url == null)
             {
@@ -85,12 +97,11 @@ namespace FullFraim.Web.Controllers
 
         public async Task<IActionResult> ChooseCovers()
         {
-            var result = await this.contestService.GetCoversAsync();
+            var result = await this.contestService.GetCoversAsync(new PaginationFilter());
 
             ViewBag.Covers = result;
 
             return View();
         }
-
     }
 }
