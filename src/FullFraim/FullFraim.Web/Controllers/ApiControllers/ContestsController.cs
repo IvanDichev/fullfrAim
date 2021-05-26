@@ -1,9 +1,9 @@
 ﻿using FullFraim.Models.Dto_s.Contests;
 using FullFraim.Services.ContestServices;
 using FullFraim.Web.Filters;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using System.Collections.Generic;
 using System.Security.Claims;
 using System.Threading.Tasks;
@@ -15,10 +15,12 @@ namespace FullFraim.Web.Controllers.ApiControllers
     public class ContestsController : BaseApiController
     {
         private readonly IContestService contestService;
+        private readonly ILogger<PhotosController> logger;
 
-        public ContestsController(IContestService contestService)
+        public ContestsController(IContestService contestService, ILogger<PhotosController> logger)
         {
             this.contestService = contestService;
+            this.logger = logger;
         }
 
 
