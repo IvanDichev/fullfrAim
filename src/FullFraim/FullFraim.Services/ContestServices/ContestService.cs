@@ -1,15 +1,14 @@
 ﻿using FullFraim.Data;
 using FullFraim.Data.Models;
 using FullFraim.Models.Dto_s.Contests;
+using FullFraim.Models.Dto_s.Pagination;
 using FullFraim.Services.Exceptions;
-using Shared;
 using Microsoft.EntityFrameworkCore;
+using Shared;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Utilities.Mapper;
-using FullFraim.Models.Dto_s.Pagination;
 
 namespace FullFraim.Services.ContestServices
 {
