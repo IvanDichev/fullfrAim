@@ -12,7 +12,7 @@ namespace FullFraim.Services.ContestServices
         Task CreateAsync(InputContestDto model);
         Task UpdateAsync(int id, InputContestDto model);
         Task DeleteAsync(int id);
-        Task<ICollection<string>> GetCoversAsync();
+        Task<PaginatedModel<string>> GetCoversAsync(PaginationFilter paginationFilter);
         Task<ICollection<OutputContestDto>> GetContestsInPhaseOneAsync(int userId);
         Task<ICollection<OutputContestDto>> GetContestsInPhaseTwoAsync(int userId);
         Task<ICollection<OutputContestDto>> GetContestsInPhaseFinishedAsync(int userId);

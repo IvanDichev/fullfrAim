@@ -80,13 +80,24 @@ namespace FullFraim.Services.ContestServices
             return paginatedModel;
         }
 
-        public async Task<ICollection<string>> GetCoversAsync()
+        public async Task<PaginatedModel<string>> GetCoversAsync(PaginationFilter paginationFilter)
         {
-            var result = await this.context.Contests
-                .MapToUrl()
-                .ToListAsync();
+            var contests = this.context.Contests
+                .Where(c => c.Cover_Url != null);
 
-            return result;
+            var paginatedModel = new PaginatedModel<string>()
+            {
+                Model = await contests.OrderByDescending(c => c.ContestCategoryId)
+                   .Skip(paginationFilter.PageSize * (paginationFilter.PageNumber - 1))
+                   .Take(paginationFilter.PageSize)
+                   .MapToUrl()
+                   .ToListAsync(),
+                RecordsPerPage = paginationFilter.PageSize,
+                TotalPages = (int)Math.Ceiling(await this.context.Contests
+                   .CountAsync(p => p.Id == p.Id) / (double)paginationFilter.PageSize),
+            };
+
+            return paginatedModel;
         }
 
         public async Task<OutputContestDto> GetByIdAsync(int id)
