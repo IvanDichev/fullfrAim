@@ -1,11 +1,11 @@
 ﻿using FullFraim.Data;
 using FullFraim.Data.Models;
 using FullFraim.Models.Dto_s.Contests;
-using FullFraim.Models.ViewModels;
+using FullFraim.Models.Dto_s.Pagination;
 using FullFraim.Services.Exceptions;
 using Microsoft.EntityFrameworkCore;
+using Shared;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Utilities.Mapper;
@@ -21,11 +21,11 @@ namespace FullFraim.Services.ContestServices
             this.context = context;
         }
 
-        public async Task CreateAsync(InputContestDto model)
+        public async Task<OutputContestDto> CreateAsync(InputContestDto model)
         {
             if (model == null)
             {
-                throw new NullModelException();
+                throw new NullModelException($"{DateTime.UtcNow} - ContestService.CreateAsync() received null input model.");
             }
 
             model.Phases.StartDate_PhaseI = DateTime.UtcNow;
@@ -40,13 +40,15 @@ namespace FullFraim.Services.ContestServices
             await this.AddContestPhasesAsync(model, contest.Entity.Id);
 
             await this.context.SaveChangesAsync();
+
+            return contest.Entity.MapToDto();
         }
 
         public async Task DeleteAsync(int id)
         {
             if (id <= 0)
             {
-                throw new InvalidIdException();
+                throw new InvalidIdException($"{DateTime.UtcNow} - ContestService.DeleteAsync() received invalid ID.");
             }
 
             var modelToRemove = await this.context.Contests
@@ -58,24 +60,53 @@ namespace FullFraim.Services.ContestServices
             await this.context.SaveChangesAsync();
         }
 
-        public async Task<ICollection<OutputContestDto>> GetAllAsync()
+        public async Task<PaginatedModel<OutputContestDto>> GetAllAsync(int userId, PaginationFilter paginationFilter)
         {
-            var result = await this.context.Contests
-                .MapToDto()
-                .ToListAsync();
+            var contests = this.context.Contests
+                .Where(c => c.ParticipantContests.Any(pc => pc.UserId == userId) ||
+                    c.JuryContests.Any(jc => jc.UserId == userId));
 
-            return result;
+            var paginatedModel = new PaginatedModel<OutputContestDto>()
+            {
+                Model = await contests.OrderByDescending(c => c.CreatedOn)
+                    .Skip(paginationFilter.PageSize * (paginationFilter.PageNumber - 1))
+                    .Take(paginationFilter.PageSize)
+                    .MapToDto()
+                    .ToListAsync(),
+                RecordsPerPage = paginationFilter.PageSize,
+                TotalPages = (int)Math.Ceiling(await this.context.Contests
+                    .CountAsync(p => p.Id == p.Id) / (double)paginationFilter.PageSize),
+            };
+
+            return paginatedModel;
+        }
+
+        public async Task<PaginatedModel<string>> GetCoversAsync(PaginationFilter paginationFilter)
+        {
+            var paginatedModel = new PaginatedModel<string>()
+            {
+                Model = await this.context.Contests.OrderByDescending(c => c.CreatedOn)
+                   .Skip(paginationFilter.PageSize * (paginationFilter.PageNumber - 1))
+                   .Take(paginationFilter.PageSize)
+                   .MapToUrl()
+                   .ToListAsync(),
+                RecordsPerPage = paginationFilter.PageSize,
+                TotalPages = (int)Math.Ceiling(await this.context.Contests
+                   .CountAsync(p => p.Id == p.Id) / (double)paginationFilter.PageSize),
+            };
+
+            return paginatedModel;
         }
 
         public async Task<OutputContestDto> GetByIdAsync(int id)
         {
             if (id <= 0)
             {
-                throw new InvalidIdException();
+                throw new InvalidIdException($"{DateTime.UtcNow} - ContestService.GrtByIdAsync() received invalid ID.");
             }
 
             var result = await this.context.Contests
-                .Where(C => C.Id == id)
+                .Where(c => c.Id == id)
                 .MapToDto()
                 .FirstOrDefaultAsync();
 
@@ -91,7 +122,7 @@ namespace FullFraim.Services.ContestServices
         {
             if (model == null)
             {
-                throw new NullModelException();
+                throw new NullModelException($"{DateTime.UtcNow} - ContestService.UpdateAsync() received null input model.");
             }
 
             var dbModelToUpdate = await this.context.Contests
@@ -99,7 +130,7 @@ namespace FullFraim.Services.ContestServices
 
             if (dbModelToUpdate == null)
             {
-                throw new NotFoundException();
+                throw new NotFoundException($"{DateTime.UtcNow} - ContestService.UpdateAsync() the model to update was not found.");
             }
 
             dbModelToUpdate.Name = model.Name ?? dbModelToUpdate.Name;
@@ -136,6 +167,68 @@ namespace FullFraim.Services.ContestServices
                   StartDate = model.Phases.StartDate_PhaseIII,
                   EndDate = model.Phases.EndDate_PhaseIII,
               });
+        }
+
+        public async Task<PaginatedModel<OutputContestDto>> GetContestsInPhaseOneAsync(int userId, PaginationFilter paginationFilter)
+        {
+            var contestsInPhaseOne = this.context.Contests
+                .Where(c => c.ContestPhases.Any(cph => cph.Phase.Name == Constants.PhasesSeed.PhaseI) &&
+                    c.ContestType.Name == Constants.ContestTypeSeed.Open);
+
+            return new PaginatedModel<OutputContestDto>()
+            {
+                Model = await contestsInPhaseOne
+                .OrderByDescending(c => c.CreatedOn)
+                    .Skip(paginationFilter.PageSize * (paginationFilter.PageNumber - 1))
+                    .Take(paginationFilter.PageSize)
+                    .MapToDto()
+                    .ToListAsync(),
+                RecordsPerPage = paginationFilter.PageSize,
+                TotalPages = (int)Math.Ceiling(await this.context.Contests
+                    .CountAsync(p => p.Id == p.Id) / (double)paginationFilter.PageSize),
+            };
+        }
+
+        public async Task<PaginatedModel<OutputContestDto>> GetContestsInPhaseTwoAsync(int userId, PaginationFilter paginationFilter) 
+        {
+            var contestsInPhaseTwo = this.context.Contests
+                .Where(c => c.ContestPhases.Any(cph => cph.Phase.Name == Constants.PhasesSeed.PhaseII) &&
+                    c.ParticipantContests.Any(pc => pc.UserId == userId) ||
+                    c.JuryContests.Any(jc => jc.UserId == userId));
+
+            return new PaginatedModel<OutputContestDto>()
+            {
+                Model = await contestsInPhaseTwo
+                .OrderByDescending(c => c.CreatedOn)
+                    .Skip(paginationFilter.PageSize * (paginationFilter.PageNumber - 1))
+                    .Take(paginationFilter.PageSize)
+                    .MapToDto()
+                    .ToListAsync(),
+                RecordsPerPage = paginationFilter.PageSize,
+                TotalPages = (int)Math.Ceiling(await this.context.Contests
+                    .CountAsync(p => p.Id == p.Id) / (double)paginationFilter.PageSize),
+            };
+        }
+
+        public async Task<PaginatedModel<OutputContestDto>> GetContestsInPhaseFinishedAsync(int userId, PaginationFilter paginationFilter) 
+        {
+            var contestsInPhaseFinished = this.context.Contests
+               .Where(c => c.ContestPhases.Any(cph => cph.Phase.Name == Constants.PhasesSeed.Finished) &&
+                   c.ParticipantContests.Any(pc => pc.UserId == userId) ||
+                   c.JuryContests.Any(jc => jc.UserId == userId));
+
+            return new PaginatedModel<OutputContestDto>()
+            {
+                Model = await contestsInPhaseFinished
+                .OrderByDescending(c => c.CreatedOn)
+                    .Skip(paginationFilter.PageSize * (paginationFilter.PageNumber - 1))
+                    .Take(paginationFilter.PageSize)
+                    .MapToDto()
+                    .ToListAsync(),
+                RecordsPerPage = paginationFilter.PageSize,
+                TotalPages = (int)Math.Ceiling(await this.context.Contests
+                    .CountAsync(p => p.Id == p.Id) / (double)paginationFilter.PageSize),
+            };
         }
     }
 }

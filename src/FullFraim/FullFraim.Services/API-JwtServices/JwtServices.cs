@@ -55,7 +55,7 @@ namespace FullFraim.Services.API_JwtServices
             
             var tokenHandler = new JwtSecurityTokenHandler();
             var token = new JwtSecurityToken(
-                    expires: DateTime.Now.AddMinutes(15),
+                    expires: DateTime.Now.AddHours(24),
                     claims: authClaims,
                     signingCredentials: new SigningCredentials(
                     new SymmetricSecurityKey(key),
@@ -78,8 +78,7 @@ namespace FullFraim.Services.API_JwtServices
             var result = await userManager.CreateAsync(user, password);
 
             await this.userManager
-                .AddToRoleAsync(user, Constants.RolesSeed.Participant);
-            ///
+                .AddToRoleAsync(user, Constants.RolesSeed.User);
 
             return result.Succeeded;
         }

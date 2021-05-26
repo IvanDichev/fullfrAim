@@ -23,7 +23,6 @@ namespace FullFraim.Data
         public DbSet<ContestPhase> ContestPhases { get; set; }
         public DbSet<JuryContest> JuryContests { get; set; }
         public DbSet<ParticipantContest> ParticipantContests { get; set; }
-        public Task Where { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -31,13 +30,12 @@ namespace FullFraim.Data
 
             builder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
 
-            builder.Entity<User>();
-
             base.OnModelCreating(builder);
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
+            optionsBuilder.EnableSensitiveDataLogging();
             base.OnConfiguring(optionsBuilder);
         }
     }
