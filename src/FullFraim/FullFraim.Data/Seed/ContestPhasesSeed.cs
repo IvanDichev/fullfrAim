@@ -29,8 +29,8 @@ namespace FullFraim.Data.Seed
             {
                 ContestId = 1,
                 PhaseId = 3,
-                StartDate = DateTime.UtcNow.AddDays(60),
-                EndDate = DateTime.UtcNow.AddDays(900),
+                StartDate = DateTime.UtcNow.AddDays(90),
+                EndDate = DateTime.MaxValue,
             },
             // Contest PhaseTwo
             new ContestPhase()
@@ -52,9 +52,9 @@ namespace FullFraim.Data.Seed
                 ContestId = 2,
                 PhaseId = 3,
                 StartDate = DateTime.UtcNow.AddDays(30),
-                EndDate = DateTime.UtcNow.AddDays(600),
+                EndDate = DateTime.MaxValue,
             },
-            // Contest PhaseThree
+            // Contest Finished
             new ContestPhase()
             {
                 ContestId = 3,
@@ -74,7 +74,7 @@ namespace FullFraim.Data.Seed
                 ContestId = 3,
                 PhaseId = 3,
                 StartDate = DateTime.UtcNow,
-                EndDate = DateTime.UtcNow.AddDays(300),
+                EndDate = DateTime.MaxValue,
             },
             new ContestPhase()
             {
@@ -95,9 +95,8 @@ namespace FullFraim.Data.Seed
                 ContestId = 4,
                 PhaseId = 3,
                 StartDate = DateTime.UtcNow.AddDays(60),
-                EndDate = DateTime.UtcNow.AddDays(300),
+                EndDate = DateTime.MaxValue,
             },
-
         };
 
         public async Task SeedAsync(FullFraimDbContext dbContext, IServiceProvider serviceProvider)
