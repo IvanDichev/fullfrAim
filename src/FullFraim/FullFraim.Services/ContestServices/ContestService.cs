@@ -21,7 +21,7 @@ namespace FullFraim.Services.ContestServices
             this.context = context;
         }
 
-        public async Task CreateAsync(InputContestDto model)
+        public async Task<OutputContestDto> CreateAsync(InputContestDto model)
         {
             if (model == null)
             {
@@ -40,6 +40,8 @@ namespace FullFraim.Services.ContestServices
             await this.AddContestPhasesAsync(model, contest.Entity.Id);
 
             await this.context.SaveChangesAsync();
+
+            return contest.Entity.MapToDto();
         }
 
         public async Task DeleteAsync(int id)
@@ -66,7 +68,7 @@ namespace FullFraim.Services.ContestServices
 
             var paginatedModel = new PaginatedModel<OutputContestDto>()
             {
-                Model = await contests.OrderByDescending(c => c.ContestCategoryId)
+                Model = await contests.OrderByDescending(c => c.CreatedOn)
                     .Skip(paginationFilter.PageSize * (paginationFilter.PageNumber - 1))
                     .Take(paginationFilter.PageSize)
                     .MapToDto()
@@ -81,12 +83,9 @@ namespace FullFraim.Services.ContestServices
 
         public async Task<PaginatedModel<string>> GetCoversAsync(PaginationFilter paginationFilter)
         {
-            var contests = this.context.Contests
-                .Where(c => c.Cover_Url != null);
-
             var paginatedModel = new PaginatedModel<string>()
             {
-                Model = await contests.OrderByDescending(c => c.ContestCategoryId)
+                Model = await this.context.Contests.OrderByDescending(c => c.CreatedOn)
                    .Skip(paginationFilter.PageSize * (paginationFilter.PageNumber - 1))
                    .Take(paginationFilter.PageSize)
                    .MapToUrl()
@@ -174,13 +173,12 @@ namespace FullFraim.Services.ContestServices
         {
             var contestsInPhaseOne = this.context.Contests
                 .Where(c => c.ContestPhases.Any(cph => cph.Phase.Name == Constants.PhasesSeed.PhaseI) &&
-                    c.ParticipantContests.Any(pc => pc.UserId == userId) ||
-                    c.JuryContests.Any(jc => jc.UserId == userId));
+                    c.ContestType.Name == Constants.ContestTypeSeed.Open);
 
             return new PaginatedModel<OutputContestDto>()
             {
                 Model = await contestsInPhaseOne
-                .OrderByDescending(c => c.ContestCategoryId)
+                .OrderByDescending(c => c.CreatedOn)
                     .Skip(paginationFilter.PageSize * (paginationFilter.PageNumber - 1))
                     .Take(paginationFilter.PageSize)
                     .MapToDto()
@@ -201,7 +199,7 @@ namespace FullFraim.Services.ContestServices
             return new PaginatedModel<OutputContestDto>()
             {
                 Model = await contestsInPhaseTwo
-                .OrderByDescending(c => c.ContestCategoryId)
+                .OrderByDescending(c => c.CreatedOn)
                     .Skip(paginationFilter.PageSize * (paginationFilter.PageNumber - 1))
                     .Take(paginationFilter.PageSize)
                     .MapToDto()
@@ -222,7 +220,7 @@ namespace FullFraim.Services.ContestServices
             return new PaginatedModel<OutputContestDto>()
             {
                 Model = await contestsInPhaseFinished
-                .OrderByDescending(c => c.ContestCategoryId)
+                .OrderByDescending(c => c.CreatedOn)
                     .Skip(paginationFilter.PageSize * (paginationFilter.PageNumber - 1))
                     .Take(paginationFilter.PageSize)
                     .MapToDto()

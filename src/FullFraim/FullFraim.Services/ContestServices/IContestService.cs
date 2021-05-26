@@ -8,7 +8,7 @@ namespace FullFraim.Services.ContestServices
     {
         Task<PaginatedModel<OutputContestDto>> GetAllAsync(int userId, PaginationFilter paginationFilter);
         Task<OutputContestDto> GetByIdAsync(int id);
-        Task CreateAsync(InputContestDto model);
+        Task<OutputContestDto> CreateAsync(InputContestDto model);
         Task UpdateAsync(int id, InputContestDto model);
         Task DeleteAsync(int id);
         Task<PaginatedModel<string>> GetCoversAsync(PaginationFilter paginationFilter);

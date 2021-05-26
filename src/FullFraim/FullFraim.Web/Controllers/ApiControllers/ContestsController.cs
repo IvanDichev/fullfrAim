@@ -41,6 +41,7 @@ namespace FullFraim.Web.Controllers.ApiControllers
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(OutputContestDto))]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetById(int contestId)         
         {
             if (await IsCurrentUserJuryInContestAsync(contestId) || await IsCurrentUserParticipantInContestAsync(contestId))
@@ -55,14 +56,14 @@ namespace FullFraim.Web.Controllers.ApiControllers
         [HttpPost]
         [Authorize(Roles = RolesSeed.Organizer)]
         [APIExceptionFilter]
-        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         public async Task<IActionResult> Create([FromBody] InputContestDto inputModel) 
         {
-            await this.contestService.CreateAsync(inputModel);
+            var createdModel = await this.contestService.CreateAsync(inputModel);
 
-            return this.Ok();
+            return this.Created(nameof(GetById), createdModel);
         }
 
         [HttpPut("{id}")]
@@ -93,7 +94,7 @@ namespace FullFraim.Web.Controllers.ApiControllers
             {
                 await this.contestService.DeleteAsync(id);
 
-                return this.Ok();
+                return this.NoContent();
             }
 
             return this.Unauthorized();
@@ -112,7 +113,7 @@ namespace FullFraim.Web.Controllers.ApiControllers
             return this.Ok(result);
         }
 
-        [HttpGet("/Open")]
+        [HttpGet("/PhaseOne")]
         [APIExceptionFilter]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(PaginatedModel<OutputContestDto>))]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -125,7 +126,7 @@ namespace FullFraim.Web.Controllers.ApiControllers
             return this.Ok(contests);
         }
 
-        [HttpGet("/Closed")]
+        [HttpGet("/PhaseTwo")]
         [APIExceptionFilter]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(PaginatedModel<OutputContestDto>))]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
