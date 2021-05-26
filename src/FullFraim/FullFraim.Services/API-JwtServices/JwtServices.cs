@@ -51,6 +51,7 @@ namespace FullFraim.Services.API_JwtServices
             {
                 new Claim(ClaimTypes.Name, userName),
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
+                new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
             };
             
             var tokenHandler = new JwtSecurityTokenHandler();
@@ -64,7 +65,7 @@ namespace FullFraim.Services.API_JwtServices
 
             var jwt = tokenHandler.WriteToken(token);
 
-            return new OutputLoginModel_API() { Username = userName, JwtToken = jwt };
+            return new OutputLoginModel_API() { Username = userName, JwtToken = jwt, Id = user.Id };
         }
 
         public async Task<bool> Register(RegisterInputModel_API model)

@@ -8,6 +8,7 @@ using FullFraim.Services.JuryServices;
 using FullFraim.Services.PhaseServices;
 using FullFraim.Services.PhotoJunkieServices;
 using FullFraim.Services.PhotoService;
+using FullFraim.Services.SecurityServices;
 using FullFraim.Web.Configurations.StartupConfig;
 using FullFraim.Web.Filters;
 using Microsoft.AspNetCore.Builder;
@@ -62,6 +63,7 @@ namespace FullFraim.Web
             services.AddScoped<IPhaseService, PhaseService>();
             services.AddTransient<APIExceptionFilter>();
             services.AddScoped<IPhotoService, PhotoService>();
+            services.AddScoped<ISecurityService, SecurityService>();
 
             services.AddScoped<ICloudinaryService>
                 (serviceProvider => new CloudinaryService(
