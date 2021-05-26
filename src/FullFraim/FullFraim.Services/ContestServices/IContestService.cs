@@ -1,4 +1,5 @@
 ﻿using FullFraim.Models.Dto_s.Contests;
+using FullFraim.Models.Dto_s.Pagination;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -6,7 +7,7 @@ namespace FullFraim.Services.ContestServices
 {
     public interface IContestService
     {
-        Task<ICollection<OutputContestDto>> GetAllAsync(int userId);
+        Task<PaginatedModel<OutputContestDto>> GetAllAsync(int userId, PaginationFilter paginationFilter);
         Task<OutputContestDto> GetByIdAsync(int id);
         Task CreateAsync(InputContestDto model);
         Task UpdateAsync(int id, InputContestDto model);
