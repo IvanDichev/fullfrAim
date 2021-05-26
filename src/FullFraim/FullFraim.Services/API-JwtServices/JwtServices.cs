@@ -65,7 +65,7 @@ namespace FullFraim.Services.API_JwtServices
 
             var jwt = tokenHandler.WriteToken(token);
 
-            return new OutputLoginModel_API() { Username = userName, JwtToken = jwt };
+            return new OutputLoginModel_API() { Username = userName, JwtToken = jwt, Id = user.Id };
         }
 
         public async Task<bool> Register(RegisterInputModel_API model)

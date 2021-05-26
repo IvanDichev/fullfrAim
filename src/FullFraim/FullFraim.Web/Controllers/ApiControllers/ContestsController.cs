@@ -1,6 +1,7 @@
 ﻿using FullFraim.Models.Dto_s.Contests;
 using FullFraim.Models.Dto_s.Pagination;
 using FullFraim.Services.ContestServices;
+using FullFraim.Services.SecurityServices;
 using FullFraim.Web.Filters;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -17,7 +18,9 @@ namespace FullFraim.Web.Controllers.ApiControllers
     {
         private readonly IContestService contestService;
 
-        public ContestsController(IContestService contestService)
+        public ContestsController(IContestService contestService, 
+            ISecurityService securityService) :
+            base(securityService)
         {
             this.contestService = contestService;
         }
@@ -36,7 +39,7 @@ namespace FullFraim.Web.Controllers.ApiControllers
             return this.Ok(contests);
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("{contestId}")]
         [APIExceptionFilter]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(OutputContestDto))]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]

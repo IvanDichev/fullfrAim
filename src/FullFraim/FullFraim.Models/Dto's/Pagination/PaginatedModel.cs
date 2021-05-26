@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace FullFraim.Models.Dto_s.Pagination
 {
@@ -10,10 +9,5 @@ namespace FullFraim.Models.Dto_s.Pagination
         public int RecordsPerPage { get; set; }
 
         public int TotalPages { get; set; }
-
-        public object Where(Func<object, bool> p)
-        {
-            throw new NotImplementedException();
-        }
     }
 }
