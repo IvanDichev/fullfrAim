@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Utilities.Mapper;
+using FullFraim.Models.Dto_s.Pagination;
 
 namespace FullFraim.Services.ContestServices
 {
@@ -25,7 +26,7 @@ namespace FullFraim.Services.ContestServices
         {
             if (model == null)
             {
-                throw new NullModelException();
+                throw new NullModelException($"{DateTime.UtcNow} - ContestService.CreateAsync() received null input model.");
             }
 
             model.Phases.StartDate_PhaseI = DateTime.UtcNow;
@@ -46,7 +47,7 @@ namespace FullFraim.Services.ContestServices
         {
             if (id <= 0)
             {
-                throw new InvalidIdException();
+                throw new InvalidIdException($"{DateTime.UtcNow} - ContestService.DeleteAsync() received invalid ID.");
             }
 
             var modelToRemove = await this.context.Contests
@@ -58,7 +59,7 @@ namespace FullFraim.Services.ContestServices
             await this.context.SaveChangesAsync();
         }
 
-        public async Task<ICollection<OutputContestDto>> GetAllAsync(int userId)
+        public async Task<PaginatedModel<OutputContestDto>> GetAllAsync(int userId)
         {
             var result = await this.context.Contests
                 .Where(c => c.ParticipantContests.Any(pc => pc.UserId == userId) ||
@@ -82,7 +83,7 @@ namespace FullFraim.Services.ContestServices
         {
             if (id <= 0)
             {
-                throw new InvalidIdException();
+                throw new InvalidIdException($"{DateTime.UtcNow} - ContestService.GrtByIdAsync() received invalid ID.");
             }
 
             var result = await this.context.Contests
@@ -102,7 +103,7 @@ namespace FullFraim.Services.ContestServices
         {
             if (model == null)
             {
-                throw new NullModelException();
+                throw new NullModelException($"{DateTime.UtcNow} - ContestService.UpdateAsync() received null input model.");
             }
 
             var dbModelToUpdate = await this.context.Contests
@@ -110,7 +111,7 @@ namespace FullFraim.Services.ContestServices
 
             if (dbModelToUpdate == null)
             {
-                throw new NotFoundException();
+                throw new NotFoundException($"{DateTime.UtcNow} - ContestService.UpdateAsync() the model to update was not found.");
             }
 
             dbModelToUpdate.Name = model.Name ?? dbModelToUpdate.Name;

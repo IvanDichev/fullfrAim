@@ -1,12 +1,14 @@
 ﻿using FullFraim.Models.Dto_s.Contests;
 using FullFraim.Services.ContestServices;
 using FullFraim.Web.Filters;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System.Collections.Generic;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using static Shared.Constants;
 
 namespace FullFraim.Web.Controllers.ApiControllers
 {
@@ -54,11 +56,12 @@ namespace FullFraim.Web.Controllers.ApiControllers
         }
 
         [HttpPost]
+        [Authorize(Roles = RolesSeed.Organizer)]
         [APIExceptionFilter]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        public async Task<IActionResult> Create([FromBody] InputContestDto inputModel) // TODO: Check if the user is authorized to create
+        public async Task<IActionResult> Create([FromBody] InputContestDto inputModel) 
         {
             await this.contestService.CreateAsync(inputModel);
 
@@ -100,18 +103,17 @@ namespace FullFraim.Web.Controllers.ApiControllers
         }
 
         [HttpGet("/Covers")]
+        [Authorize(Roles = RolesSeed.Organizer)]
         [APIExceptionFilter]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ICollection<string>))]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        public async Task<IActionResult> GetCovers()                               // TODO: Check if the user is authorized to get covers
+        public async Task<IActionResult> GetCovers()                               
         {
             var result = await this.contestService.GetCoversAsync();
 
             return this.Ok(result);
         }
-
-        // TODO: AddContestPhases()
 
         [HttpGet("/Open")]
         [APIExceptionFilter]
