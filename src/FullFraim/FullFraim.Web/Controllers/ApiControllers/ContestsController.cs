@@ -5,8 +5,6 @@ using FullFraim.Web.Filters;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
-using System.Collections.Generic;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using static Shared.Constants;
@@ -18,12 +16,10 @@ namespace FullFraim.Web.Controllers.ApiControllers
     public class ContestsController : BaseApiController
     {
         private readonly IContestService contestService;
-        private readonly ILogger<PhotosController> logger;
 
-        public ContestsController(IContestService contestService, ILogger<PhotosController> logger)
+        public ContestsController(IContestService contestService)
         {
             this.contestService = contestService;
-            this.logger = logger;
         }
 
 
@@ -32,7 +28,7 @@ namespace FullFraim.Web.Controllers.ApiControllers
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(PaginatedModel<OutputContestDto>))]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        public async Task<IActionResult> GetAll([FromQuery] PaginationFilter paginationFilter)                       // TODO: Add PaginationFilter                    
+        public async Task<IActionResult> GetAll([FromQuery] PaginationFilter paginationFilter)                                           
         {
             int userId = int.Parse(HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value);
             var contests = await this.contestService.GetAllAsync(userId, paginationFilter);
@@ -45,7 +41,7 @@ namespace FullFraim.Web.Controllers.ApiControllers
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(OutputContestDto))]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        public async Task<IActionResult> GetById(int contestId)         // TODO: Add PaginationFilter
+        public async Task<IActionResult> GetById(int contestId)         
         {
             if (await IsCurrentUserJuryInContestAsync(contestId) || await IsCurrentUserParticipantInContestAsync(contestId))
             {
@@ -121,7 +117,7 @@ namespace FullFraim.Web.Controllers.ApiControllers
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(PaginatedModel<OutputContestDto>))]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        public async Task<IActionResult> GetContestsInPhaseOne([FromQuery] PaginationFilter paginationFilter)                    // TODO: Add PaginationFilter
+        public async Task<IActionResult> GetContestsInPhaseOne([FromQuery] PaginationFilter paginationFilter)                   
         { 
             int userId = int.Parse(HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value);
             var contests = await this.contestService.GetContestsInPhaseOneAsync(userId, paginationFilter);
@@ -134,7 +130,7 @@ namespace FullFraim.Web.Controllers.ApiControllers
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(PaginatedModel<OutputContestDto>))]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        public async Task<IActionResult> GetContestsInPhaseTwo([FromQuery] PaginationFilter paginationFilter)                    // TODO: Add PaginationFilter
+        public async Task<IActionResult> GetContestsInPhaseTwo([FromQuery] PaginationFilter paginationFilter)                    
         {
             int userId = int.Parse(HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value);
             var contests = await this.contestService.GetContestsInPhaseTwoAsync(userId, paginationFilter);
@@ -147,7 +143,7 @@ namespace FullFraim.Web.Controllers.ApiControllers
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(PaginatedModel<OutputContestDto>))]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        public async Task<IActionResult> GetContestsInPhaseFinished([FromQuery] PaginationFilter paginationFilter)                    // TODO: Add PaginationFilter
+        public async Task<IActionResult> GetContestsInPhaseFinished([FromQuery] PaginationFilter paginationFilter)                    
         {
             int userId = int.Parse(HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value);
             var contests = await this.contestService.GetContestsInPhaseFinishedAsync(userId, paginationFilter);
