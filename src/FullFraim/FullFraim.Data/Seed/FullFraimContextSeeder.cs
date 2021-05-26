@@ -24,7 +24,7 @@ namespace FullFraim.Data.Seed
 
             var seeders = new List<ISeeder>()
             {
-                new UsersSeeder(),
+                new UsersRolesSeeder(),
             };
 
             foreach (var seeder in seeders)

@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace FullFraim.Data.Seed
 {
-    public class UsersSeeder : ISeeder
+    public class UsersRolesSeeder : ISeeder
     {
         public async Task SeedAsync(FullFraimDbContext dbContext, IServiceProvider serviceProvider)
         {
