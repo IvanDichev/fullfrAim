@@ -9,6 +9,34 @@
     <Compile Remove="Migrations\20210519110219_AddTriggersForRanks.Designer.cs" />
     <Compile Remove="Migrations\20210524141651_AddNavigationFromPhotoToContest.cs" />
     <Compile Remove="Migrations\20210524141651_AddNavigationFromPhotoToContest.Designer.cs" />
+    <Compile Remove="Migrations\20210525204546_AddSeedingData.cs" />
+    <Compile Remove="Migrations\20210525204546_AddSeedingData.Designer.cs" />
+    <Compile Remove="Migrations\20210525204803_AddSeedingData.cs" />
+    <Compile Remove="Migrations\20210525204803_AddSeedingData.Designer.cs" />
+    <Compile Remove="Migrations\20210525210831_AddSeedingData.cs" />
+    <Compile Remove="Migrations\20210525210831_AddSeedingData.Designer.cs" />
+    <Compile Remove="Migrations\20210525210937_AddSeedingData.cs" />
+    <Compile Remove="Migrations\20210525210937_AddSeedingData.Designer.cs" />
+    <Compile Remove="Migrations\20210525211154_AddSeedingData.cs" />
+    <Compile Remove="Migrations\20210525211154_AddSeedingData.Designer.cs" />
+    <Compile Remove="Migrations\20210525211420_AddSeedingData.cs" />
+    <Compile Remove="Migrations\20210525211420_AddSeedingData.Designer.cs" />
+    <Compile Remove="Migrations\20210525211816_AddSeedingData.cs" />
+    <Compile Remove="Migrations\20210525211816_AddSeedingData.Designer.cs" />
+    <Compile Remove="Migrations\20210525212529_AddSeedingDataExtend.cs" />
+    <Compile Remove="Migrations\20210525212529_AddSeedingDataExtend.Designer.cs" />
+    <Compile Remove="Migrations\20210525213655_FixFKUsers.cs" />
+    <Compile Remove="Migrations\20210525213655_FixFKUsers.Designer.cs" />
+    <Compile Remove="Migrations\20210525213927_AddSeedingData.cs" />
+    <Compile Remove="Migrations\20210525213927_AddSeedingData.Designer.cs" />
+    <Compile Remove="Migrations\20210525215615_AddSeedingData.cs" />
+    <Compile Remove="Migrations\20210525215615_AddSeedingData.Designer.cs" />
+    <Compile Remove="Migrations\20210525221124_FixFk.cs" />
+    <Compile Remove="Migrations\20210525221124_FixFk.Designer.cs" />
+    <Compile Remove="Migrations\20210525221203_FixFk2.cs" />
+    <Compile Remove="Migrations\20210525221203_FixFk2.Designer.cs" />
+    <Compile Remove="Migrations\20210526115227_SeedingDataAltering.cs" />
+    <Compile Remove="Migrations\20210526115227_SeedingDataAltering.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

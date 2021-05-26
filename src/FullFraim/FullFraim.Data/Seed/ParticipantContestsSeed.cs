@@ -13,12 +13,12 @@ namespace FullFraim.Data.Seed
                 UserId = 2,
                 PhotoId = 1,
             },
-            new ParticipantContest()
-            {
-                ContestId = 1,
-                UserId = 3,
-                PhotoId = 2,
-            },
+            //new ParticipantContest()
+            //{
+            //    ContestId = 1,
+            //    UserId = 3,
+            //    PhotoId = 2,
+            //},
             new ParticipantContest()
             {
                 ContestId = 1,
@@ -38,12 +38,12 @@ namespace FullFraim.Data.Seed
                 UserId = 2,
                 PhotoId = 9,
             },
-            new ParticipantContest()
-            {
-                ContestId = 2,
-                UserId = 3,
-                PhotoId = 10,
-            },
+            //new ParticipantContest()
+            //{
+            //    ContestId = 2,
+            //    UserId = 3,
+            //    PhotoId = 10,
+            //},
             new ParticipantContest()
             {
                 ContestId = 2,
@@ -63,12 +63,12 @@ namespace FullFraim.Data.Seed
                 UserId = 2,
                 PhotoId = 13,
             },
-            new ParticipantContest()
-            {
-                ContestId = 3,
-                UserId = 3,
-                PhotoId = 14,
-            },
+            //new ParticipantContest()
+            //{
+            //    ContestId = 3,
+            //    UserId = 3,
+            //    PhotoId = 14,
+            //},
             new ParticipantContest()
             {
                 ContestId = 3,
@@ -82,12 +82,12 @@ namespace FullFraim.Data.Seed
                 PhotoId = 16,
             },
 
-            new ParticipantContest()
-            {
-                ContestId = 4,
-                UserId = 6,
-                PhotoId = 19,
-            },
+            //new ParticipantContest()
+            //{
+            //    ContestId = 4,
+            //    UserId = 6,
+            //    PhotoId = 19,
+            //},
         };
     }
 }

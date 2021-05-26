@@ -44,7 +44,7 @@ namespace FullFraim.Data.Seed
             //{
             //    Id = 5,
             //    ContestId = 1,
-            //    Title = "Can I have some, Please?",
+            //    Title = "Can I have some?",
             //    Story = "Hungry birds",
             //    Url = Constants.ImagesSeed.WildlifeImg5Url,
             //},
@@ -52,7 +52,7 @@ namespace FullFraim.Data.Seed
             //{
             //    Id = 6,
             //    ContestId = 1,
-            //    Title = "Who said I can't cook?",
+            //    Title = "Got it!",
             //    Story = "Got it!",
             //    Url = Constants.ImagesSeed.WildlifeImg6Url,
             //},
@@ -93,7 +93,7 @@ namespace FullFraim.Data.Seed
             {
                 Id = 11,
                 ContestId = 2,
-                Title = "Can I have some, Please?",
+                Title = "Can I have some?",
                 Story = "Hungry birds",
                 Url = Constants.ImagesSeed.WildlifeImg5Url,
             },
@@ -101,7 +101,7 @@ namespace FullFraim.Data.Seed
             {
                 Id = 12,
                 ContestId = 2,
-                Title = "Who said I can't cook?",
+                Title = "Git It!",
                 Story = "Got it!",
                 Url = Constants.ImagesSeed.WildlifeImg6Url,
             },
@@ -142,7 +142,7 @@ namespace FullFraim.Data.Seed
             //{
             //    Id = 17,
             //    ContestId = 3,
-            //    Title = "Can I have some, Please?",
+            //    Title = "Can I have some?",
             //    Story = "Hungry birds",
             //    Url = Constants.ImagesSeed.WildlifeImg5Url,
             //},
@@ -150,7 +150,7 @@ namespace FullFraim.Data.Seed
             //{
             //    Id = 18,
             //    ContestId = 3,
-            //    Title = "Who said I can't cook?",
+            //    Title = "Got it!",
             //    Story = "Got it!",
             //    Url = Constants.ImagesSeed.WildlifeImg6Url,
             //},

@@ -13,6 +13,7 @@ namespace FullFraim.Data.Seed
             {
                 Id = 1,
                 Name = "WildlifePhaseOne",
+                Description = "PhaseOne",
                 Cover_Url = Constants.ImagesSeed.WildlifeImgUrlCover,
                 ContestCategoryId = 12,
                 ContestTypeId = 1,
@@ -22,6 +23,7 @@ namespace FullFraim.Data.Seed
             {
                 Id = 2,
                 Name = "WildlifePhaseTwo",
+                Description = "PhaseTwo",
                 Cover_Url = Constants.ImagesSeed.WildlifeImgUrlCover,
                 ContestCategoryId = 12,
                 ContestTypeId = 1,
@@ -31,6 +33,7 @@ namespace FullFraim.Data.Seed
             {
                 Id = 3,
                 Name = "WildlifePhaseThree",
+                Description = "PhaseThree",
                 Cover_Url = Constants.ImagesSeed.WildlifeImgUrlCover,
                 ContestCategoryId = 12,
                 ContestTypeId = 1,
@@ -40,6 +43,7 @@ namespace FullFraim.Data.Seed
             {
                 Id = 4,
                 Name = "Portrait",
+                Description = "Portrait contest - PhaseOne",
                 Cover_Url = Constants.ImagesSeed.PortraitImgUrlCover,
                 ContestCategoryId = 10,
                 ContestTypeId = 2,
