@@ -1,17 +1,17 @@
 ﻿using FullFraim.Data;
 using FullFraim.Data.Models;
 using FullFraim.Models.Dto_s.Contests;
-using FullFraim.Models.Dto_s.User;
 using FullFraim.Models.Dto_s.Pagination;
+using FullFraim.Models.Dto_s.User;
 using FullFraim.Services.Exceptions;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Shared;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Utilities.Mapper;
-using System.Collections.Generic;
 
 namespace FullFraim.Services.ContestServices
 {
@@ -34,7 +34,6 @@ namespace FullFraim.Services.ContestServices
                 throw new NullModelException($"{DateTime.UtcNow} - ContestService.CreateAsync() received null input model.");
             }
 
-
             model.Phases.StartDate_PhaseI = DateTime.UtcNow;
             model.Phases.StartDate_PhaseII = model.Phases.EndDate_PhaseI;
             model.Phases.StartDate_PhaseIII = model.Phases.EndDate_PhaseII;
@@ -46,9 +45,11 @@ namespace FullFraim.Services.ContestServices
 
             await AddOrganizersToJuryContest(contest.Entity.Id);
 
-            await this.context.SaveChangesAsync();
+            await this
+                .AddInvitedForTheContestAsync(model.Jury, model.Participants, contest.Entity.Id);
 
-            await this.AddContestPhasesAsync(model, contest.Entity.Id);
+            await this
+                .AddContestPhasesAsync(model, contest.Entity.Id);
 
             await this.context.SaveChangesAsync();
 
@@ -152,82 +153,59 @@ namespace FullFraim.Services.ContestServices
 
         private async Task AddContestPhasesAsync(InputContestDto model, int id)
         {
-            var a = Task.Run(() => this.context.ContestPhases
+            await this.context.ContestPhases
                .AddAsync(new ContestPhase()
                {
                    ContestId = id,
                    PhaseId = 1,
                    StartDate = model.Phases.StartDate_PhaseI,
                    EndDate = model.Phases.EndDate_PhaseI,
-               }));
+               });
 
-            var b = Task.Run(() => this.context.ContestPhases
+            await this.context.ContestPhases
                 .AddAsync(new ContestPhase()
                 {
                     ContestId = id,
                     PhaseId = 2,
                     StartDate = model.Phases.StartDate_PhaseII,
                     EndDate = model.Phases.EndDate_PhaseII,
-                }));
+                });
 
-            var c = Task.Run(() => this.context.ContestPhases
+            await this.context.ContestPhases
               .AddAsync(new ContestPhase()
               {
                   ContestId = id,
                   PhaseId = 3,
                   StartDate = model.Phases.StartDate_PhaseIII,
                   EndDate = model.Phases.EndDate_PhaseIII,
-              }));
-
-            await a;
-            await b;
-            await c;
+              });
         }
 
-        public async Task<ICollection<UserDto>> GetParticipantsForInvitationAsync(int contestId)
+        public async Task<ICollection<UserDto>> GetParticipantsForInvitationAsync()
         {
-            if (contestId <= 0)
-            {
-                throw new InvalidIdException();
-            }
+            var users = await userManager.GetUsersInRoleAsync("USER");
 
-            var users = await this.context.Users
-                .Where(u => !u.JuryContests
-                .Any(jc => jc.ContestId == contestId))
-                .MapToDto()
-                .ToListAsync();
+            var usersDto = users.MapToDto();
 
-            return users;
+            return usersDto;
         }
 
-        public async Task<ICollection<UserDto>> GetJuryForInvitationAsync(int contestId)
+        public async Task<ICollection<UserDto>> GetPotentialJuryForInvitationAsync()
         {
-            if (contestId <= 0)
-            {
-                throw new InvalidIdException();
-            }
+            var users = await userManager.GetUsersInRoleAsync("USER");
 
-            var task1 = Task.Run(() => userManager.GetUsersInRoleAsync("ORGANIZER"));
-            var task2 = Task.Run(() => userManager.GetUsersInRoleAsync("ADMIN"));
-            var organisers = await task1;
-            var admins = await task2;
-
-            var users = await this.context.Users
+            users = users
                 .Where(u => u.Points >= 150)
-                .MapToDto()
-                .ToListAsync();
+                .ToList();
 
-            users.AddRange(organisers.MapToDto());
-            users.AddRange(admins.MapToDto());
-
-            return users;
+            return users.MapToDto();
         }
 
         private async Task AddOrganizersToJuryContest(int contestId)
         {
             var organisers = await userManager.GetUsersInRoleAsync("ORGANIZER");
 
-            Parallel.ForEach(organisers, organizer =>
+            foreach (var organizer in organisers)
             {
                 var juryContest = new JuryContest()
                 {
@@ -235,20 +213,19 @@ namespace FullFraim.Services.ContestServices
                     ContestId = contestId,
                 };
 
-                this.context.JuryContests.AddAsync(juryContest);
-            });
+               await this.context.JuryContests.AddAsync(juryContest);
+            }
         }
 
-        public async Task AddInvitedForTheContestAsync
-            (ICollection<UserDto> participants, ICollection<UserDto> jury, int contestId)
+        private async Task AddInvitedForTheContestAsync
+            (ICollection<int> participants, ICollection<int> jury, int contestId)
         {
-            if (participants == null || jury == null)
+            if (participants == null && jury == null)
             {
                 throw new NullModelException();
             }
 
-            if (this.context.JuryContests
-                .Any(j => participants.Any(p => p.UserId == j.UserId)))
+            if (participants.Any(p => jury.Any(j => j == p)))
             {
                 //Funny Joke :D
                 throw new CheaterException();

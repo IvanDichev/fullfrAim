@@ -1,5 +1,7 @@
-﻿using FullFraim.Models.ViewModels.Contest;
+﻿using FullFraim.Models.Dto_s.User;
+using FullFraim.Models.ViewModels.Contest;
 using System;
+using System.Collections.Generic;
 
 namespace FullFraim.Models.Dto_s.Contests
 {
@@ -16,5 +18,8 @@ namespace FullFraim.Models.Dto_s.Contests
         public int ContestCategoryId { get; set; }
                
         public int ContestTypeId { get; set; }
+
+        public ICollection<int> Jury { get; set; }
+        public ICollection<int> Participants { get; set; }
     }
 }

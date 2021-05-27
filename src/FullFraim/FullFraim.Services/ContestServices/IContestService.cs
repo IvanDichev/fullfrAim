@@ -13,10 +13,8 @@ namespace FullFraim.Services.ContestServices
         Task<OutputContestDto> CreateAsync(InputContestDto model);
         Task UpdateAsync(int id, InputContestDto model);
         Task DeleteAsync(int id);
-        Task<ICollection<UserDto>> GetParticipantsForInvitationAsync(int contestId);
-        Task<ICollection<UserDto>> GetJuryForInvitationAsync(int contestId);
-        Task AddInvitedForTheContestAsync
-            (ICollection<UserDto> jury, ICollection<UserDto> participants, int contestId);
+        Task<ICollection<UserDto>> GetParticipantsForInvitationAsync();
+        Task<ICollection<UserDto>> GetPotentialJuryForInvitationAsync();
         Task<PaginatedModel<string>> GetCoversAsync(PaginationFilter paginationFilter);
         Task<PaginatedModel<OutputContestDto>> GetContestsInPhaseOneAsync(int userId, PaginationFilter paginationFilter);
         Task<PaginatedModel<OutputContestDto>> GetContestsInPhaseTwoAsync(int userId, PaginationFilter paginationFilter);

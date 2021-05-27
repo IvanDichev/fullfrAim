@@ -9,7 +9,6 @@ using System.Threading.Tasks;
 namespace FullFraim.Web.Controllers.ApiControllers
 {
     [ApiController]
-    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     [Route("api/[Controller]")]
     public class AccountController : ControllerBase
     {

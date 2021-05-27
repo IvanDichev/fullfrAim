@@ -45,19 +45,22 @@ namespace FullFraim.Web.Controllers
             ViewBag.ContestTypes = await this.contestTypeService
                 .GetAllAsync();
 
+            ViewBag.Jury = await this.contestService.GetPotentialJuryForInvitationAsync();
+            ViewBag.Participants = await this.contestService.GetParticipantsForInvitationAsync();
+
             return View();
         }
 
         [HttpPost]
         public async Task<IActionResult> Create(CreateContestViewModel model)
         {
-            if(model.Cover_Url != null && model.Cover != null)
+            if (model.Cover_Url != null && model.Cover != null)
             {
                 ModelState
                     .AddModelError(string.Empty, "Cannot send both url and image file!");
             }
 
-            if(model.Cover == null && model.Cover_Url == null)
+            if (model.Cover == null && model.Cover_Url == null)
             {
                 ModelState
                     .AddModelError(string.Empty, "Contest cover is *Required");
@@ -74,25 +77,22 @@ namespace FullFraim.Web.Controllers
                 return View(model);
             }
 
-
             if (model.Cover != null && model.Cover_Url == null)
             {
                 model.Cover_Url = this.cloudinaryService.UploadImage(model.Cover);
-
-                await this.contestService.CreateAsync(model.MapToDto());
-
-                return RedirectToAction(nameof(HomeController.Index),
-                    nameof(HomeController).Replace("Controller", string.Empty));
             }
-            else if (model.Cover == null && model.Cover_Url != null)
+
+            if(model.ContestTypeId == 2 
+                && model.Jury == null 
+                && model.Participants == null)
             {
-                await this.contestService.CreateAsync(model.MapToDto());
-
-                return RedirectToAction(nameof(HomeController.Index),
-                    nameof(HomeController).Replace("Controller", string.Empty));
+                throw new System.Exception();
             }
 
-            return View(model);
+            var contest = await this.contestService.CreateAsync(model.MapToDto());
+
+            return RedirectToAction(nameof(HomeController.Index),
+                nameof(HomeController).Replace("Controller", string.Empty));
         }
 
         public async Task<IActionResult> ChooseCovers()

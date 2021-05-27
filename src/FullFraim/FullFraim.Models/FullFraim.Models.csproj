@@ -12,4 +12,8 @@
     <ProjectReference Include="..\FullFraim.Data\FullFraim.Data.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Dto%27s\JuryContest\" />
+  </ItemGroup>
+
 </Project>

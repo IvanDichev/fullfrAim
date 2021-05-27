@@ -22,7 +22,9 @@ namespace Utilities.Mapper
                 Description = model.Description,
                 ContestCategoryId = model.ContestCategoryId,
                 ContestTypeId = model.ContestTypeId,
-                Phases = model.Phases
+                Phases = model.Phases,
+                Jury = model.Jury,
+                Participants = model.Participants,
             };
         }
 
@@ -124,35 +126,35 @@ namespace Utilities.Mapper
         }
 
         public static ICollection<JuryContest> MapToJuryContest
-            (this ICollection<UserDto> users, int contestId)
+            (this ICollection<int> users, int contestId)
         {
-            var list = new ConcurrentBag<JuryContest>();
+            var list = new List<JuryContest>();
 
-            Parallel.ForEach(users, user =>
+            foreach (var user in users)
             {
                 var juryContest = new JuryContest()
                 {
                     ContestId = contestId,
-                    UserId = user.UserId,
+                    UserId = user,
                 };
 
                 list.Add(juryContest);
-            });
+            }
 
             return list.ToList();
         }
 
         public static ICollection<ParticipantContest> MapToParticipantContest
-            (this ICollection<UserDto> users, int contestId)
+            (this ICollection<int> users, int contestId)
         {
             var list = new List<ParticipantContest>();
 
-            foreach (var item in users)
+            foreach (var user in users)
             {
                 var participantContest = new ParticipantContest()
                 {
                     ContestId = contestId,
-                    UserId = item.UserId,
+                    UserId = user,
                 };
 
                 list.Add(participantContest);
