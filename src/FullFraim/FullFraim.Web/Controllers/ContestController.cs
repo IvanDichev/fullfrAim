@@ -36,17 +36,7 @@ namespace FullFraim.Web.Controllers
         [HttpGet]
         public async Task<IActionResult> Create()
         {
-            ViewBag.Categories = await this.contestCategoryService
-                    .GetAllAsync();
-
-            ViewBag.Phases = await this.phaseService
-                .GetAllAsync();
-
-            ViewBag.ContestTypes = await this.contestTypeService
-                .GetAllAsync();
-
-            ViewBag.Jury = await this.contestService.GetPotentialJuryForInvitationAsync();
-            ViewBag.Participants = await this.contestService.GetParticipantsForInvitationAsync();
+            await SeedDropdownsForContest();
 
             return View();
         }
@@ -68,11 +58,7 @@ namespace FullFraim.Web.Controllers
 
             if (!ModelState.IsValid)
             {
-                ViewBag.Categories = await this.contestCategoryService
-                    .GetAllAsync();
-
-                ViewBag.ContestTypes = await this.contestTypeService
-                    .GetAllAsync();
+                await SeedDropdownsForContest();
 
                 return View(model);
             }
@@ -95,6 +81,7 @@ namespace FullFraim.Web.Controllers
                 nameof(HomeController).Replace("Controller", string.Empty));
         }
 
+        [HttpGet]
         public async Task<IActionResult> ChooseCovers()
         {
             var result = await this.contestService.GetCoversAsync(new PaginationFilter());
@@ -102,6 +89,22 @@ namespace FullFraim.Web.Controllers
             ViewBag.Covers = result;
 
             return View();
+        }
+
+        [NonAction]
+        private async Task SeedDropdownsForContest()
+        {
+            ViewBag.Categories = await this.contestCategoryService
+                    .GetAllAsync();
+
+            ViewBag.Phases = await this.phaseService
+                .GetAllAsync();
+
+            ViewBag.ContestTypes = await this.contestTypeService
+                .GetAllAsync();
+
+            ViewBag.Jury = await this.contestService.GetPotentialJuryForInvitationAsync();
+            ViewBag.Participants = await this.contestService.GetParticipantsForInvitationAsync();
         }
     }
 }

@@ -218,7 +218,7 @@ namespace FullFraim.Services.ContestServices
         }
 
         private async Task AddInvitedForTheContestAsync
-            (ICollection<int> participants, ICollection<int> jury, int contestId)
+            (ICollection<int> jury, ICollection<int> participants, int contestId)
         {
             if (participants == null && jury == null)
             {

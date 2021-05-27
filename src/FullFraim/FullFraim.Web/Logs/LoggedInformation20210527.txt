@@ -148,3 +148,11 @@ FullFraim.Services.Exceptions.NullModelException: Value cannot be null.
    at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
    at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
    at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware.Invoke(HttpContext context)
+2021-05-27 23:28:50.201 +03:00 [WRN] Sensitive data logging is enabled. Log entries and exception messages may include sensitive application data, this mode should only be enabled during development.
+2021-05-27 23:28:51.103 +03:00 [WRN] User null validation failed: InvalidUserName.
+2021-05-27 23:43:24.219 +03:00 [WRN] Sensitive data logging is enabled. Log entries and exception messages may include sensitive application data, this mode should only be enabled during development.
+2021-05-27 23:43:25.084 +03:00 [WRN] User null validation failed: InvalidUserName.
+2021-05-27 23:54:17.708 +03:00 [WRN] Sensitive data logging is enabled. Log entries and exception messages may include sensitive application data, this mode should only be enabled during development.
+2021-05-27 23:54:18.550 +03:00 [WRN] User null validation failed: InvalidUserName.
+2021-05-27 23:57:33.096 +03:00 [WRN] Sensitive data logging is enabled. Log entries and exception messages may include sensitive application data, this mode should only be enabled during development.
+2021-05-27 23:57:44.975 +03:00 [WRN] User null validation failed: InvalidUserName.
