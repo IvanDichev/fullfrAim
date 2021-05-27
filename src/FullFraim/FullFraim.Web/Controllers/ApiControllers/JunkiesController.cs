@@ -5,10 +5,9 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
-using System.Linq;
-using System.Security.Claims;
 using System.Threading.Tasks;
 using Utilities.CloudinaryUtils;
+using Utilities.Mapper;
 
 namespace FullFraim.Web.Controllers.ApiControllers
 {
@@ -39,31 +38,21 @@ namespace FullFraim.Web.Controllers.ApiControllers
         }
 
         [HttpPost("enroll")]
+        [IgnoreAntiforgeryToken]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        public async Task<IActionResult> Enroll(InputEnrollForContestDto inputEnroll)
+        public async Task<IActionResult> Enroll([FromForm] InpurEnrollForContestModel inputModel)
         {
-            var userId = int.Parse(HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value);
-            inputEnroll.UserId = userId;
-
-            if (await this.photoJunkieService.CanJunkyEnroll(inputEnroll.ContestId, userId))
+            if (!await this.photoJunkieService.CanJunkyEnroll(inputModel.ContestId, inputModel.UserId))
             {
-                return BadRequest();
+                return BadRequest(error: $"User with id: {inputModel.UserId} already in contest with id: {inputModel.ContestId}!");
             }
+            var inputDto = inputModel.MapToDto();
 
-            if (string.IsNullOrWhiteSpace(inputEnroll.ImageUrl) ||
-                inputEnroll.Photo == null)
-            {
-                return BadRequest();
-            }
+            inputDto.PhotoUrl = this.cloudinaryService.UploadImage(inputModel.Photo);
 
-            if (!string.IsNullOrWhiteSpace(inputEnroll.ImageUrl))
-            {
-                inputEnroll.ImageUrl = this.cloudinaryService.UploadImage(inputEnroll.Photo);
-            }
-
-            await this.photoJunkieService.EnrollForContestAsync(inputEnroll);
+            await this.photoJunkieService.EnrollForContestAsync(inputDto);
 
             return Ok();
         }

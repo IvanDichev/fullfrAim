@@ -27,7 +27,7 @@ namespace FullFraim.Services.PhotoJunkieServices
         }
 
         // TODO: Display current points and ranking and how much until next ranking at a visible place 
-
+        // controller
         public async Task<ICollection<OutputContestDto>> GetContestsAsync(int userId) // TODO: Wrong, fix it!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         // All contests that are open or junkie currently participates or have participated
         {
@@ -53,14 +53,15 @@ namespace FullFraim.Services.PhotoJunkieServices
                 Photo = new Photo()
                 {
                     Title = inputModel.ImageTitle,
-                    Url = inputModel.ImageUrl,
+                    Url = inputModel.PhotoUrl,
                     IsDeleted = false,
+                    Story = inputModel.ImageDescription,
                     CreatedOn = DateTime.UtcNow,
-                    // TODO ADD description
+                    ContestId = inputModel.ContestId,
                 }
             };
 
-            AddPointsToUser(toAddParticipantContest);
+            await AddInitialPointsToUser(toAddParticipantContest);
 
             await this.context.ParticipantContests.AddAsync(toAddParticipantContest);
             await this.context.SaveChangesAsync();
@@ -75,13 +76,16 @@ namespace FullFraim.Services.PhotoJunkieServices
 
         public async Task<bool> CanJunkyEnroll(int contestId, int userId)
         {
-            return !await this.context.Contests
-                .Where(c => c.Id == contestId && 
-                    c.ParticipantContests.Any(p => p.UserId == userId))
-                .AnyAsync();
+            var isParticipant = !await this.context.ParticipantContests
+                .AnyAsync(p => p.UserId == userId && p.ContestId == contestId);
+
+            var isJury = !await this.context.JuryContests
+                .AnyAsync(p => p.UserId == userId && p.ContestId == contestId);
+
+            return isParticipant && isJury;
         }
 
-        public async Task<PhotoJunkieRankDto> GetPointsTillNextRankAsync(int userId)
+        public async Task<PhotoJunkieRankDto> GetPointsTillNextRankAsync(int userId) // in controller
         {
             var user = await this.userManager.FindByIdAsync(userId.ToString());
 
@@ -118,18 +122,24 @@ namespace FullFraim.Services.PhotoJunkieServices
             return 0;
         }
 
-        private static void AddPointsToUser(ParticipantContest toAddParticipantContest)
+        private async Task AddInitialPointsToUser(ParticipantContest toAddParticipantContest)
         {
-            string contestType = toAddParticipantContest.Contest.ContestType.Name;
+            string contestType = await this.context.Contests
+                .Where(c => c.Id == toAddParticipantContest.ContestId)
+                .Select(c => c.ContestType.Name)
+                .FirstOrDefaultAsync();
+
+            var userToAddPoints = await this.context.Users
+                .FirstOrDefaultAsync(u => u.Id == toAddParticipantContest.UserId);
 
             switch (contestType)
             {
                 case Constants.ContestTypeSeed.Open:
-                    toAddParticipantContest.User.Points += 1;
+                    userToAddPoints.Points += 1;
                     break;
 
                 case Constants.ContestTypeSeed.Invitational:
-                    toAddParticipantContest.User.Points += 3;
+                    userToAddPoints.Points += 3;
                     break;
             }
         } 

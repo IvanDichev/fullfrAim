@@ -30,8 +30,8 @@ namespace FullFraim.Services.PhotoService
 
         public async Task<bool> IsPhotoSubmitedByUserAsync(int userId, int photoId)
         {
-            var isPhotoSubmitedbyUser = this.context.Photos
-                .Any(p => p.Id == photoId && p.Participant.UserId == userId);
+            var isPhotoSubmitedbyUser = await this.context.Photos
+                .AnyAsync(p => p.Id == photoId && p.Participant.UserId == userId);
 
             return isPhotoSubmitedbyUser;
         }

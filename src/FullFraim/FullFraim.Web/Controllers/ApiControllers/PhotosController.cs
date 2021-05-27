@@ -17,7 +17,6 @@ using Utilities.CloudinaryUtils;
 
 namespace FullFraim.Web.Controllers.ApiControllers
 {
-    [Authorize]
     [ApiController]
     [APIExceptionFilter]
     [Route("api/[Controller]")]
@@ -39,6 +38,7 @@ namespace FullFraim.Web.Controllers.ApiControllers
         }
 
         [HttpGet]
+        [Authorize]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(PaginatedModel<PhotoDto>))]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
@@ -60,6 +60,7 @@ namespace FullFraim.Web.Controllers.ApiControllers
             return Ok(photos);
         }
 
+        [Authorize]
         [HttpGet("{id}")]
         [APIExceptionFilter]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(PhotoDto))]
@@ -94,17 +95,5 @@ namespace FullFraim.Web.Controllers.ApiControllers
 
             return Ok(photos);
         }
-
-
-        //[HttpPost]
-        //[IgnoreAntiforgeryToken]
-        //[ProducesResponseType(StatusCodes.Status200OK)]
-        //[ProducesResponseType(StatusCodes.Status400BadRequest)]
-        //public async Task<IActionResult> UploadForContest(InputEnrollForContestDto inputModel)
-        //{
-        //    var result = this.cloudinaryService.UploadImage(inputModel.Photo);
-
-        //    return Ok(new { Url = result });
-        //}
     }
 }
