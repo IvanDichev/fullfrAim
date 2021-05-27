@@ -12,13 +12,14 @@ using static Shared.Constants;
 
 namespace FullFraim.Web.Controllers.ApiControllers
 {
+    [Authorize]
     [ApiController]
     [Route("api/[controller]")]
     public class ContestsController : BaseApiController
     {
         private readonly IContestService contestService;
 
-        public ContestsController(IContestService contestService, 
+        public ContestsController(IContestService contestService,
             ISecurityService securityService) :
             base(securityService)
         {
@@ -31,7 +32,7 @@ namespace FullFraim.Web.Controllers.ApiControllers
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(PaginatedModel<OutputContestDto>))]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        public async Task<IActionResult> GetAll([FromQuery] PaginationFilter paginationFilter)                                           
+        public async Task<IActionResult> GetAll([FromQuery] PaginationFilter paginationFilter)
         {
             int userId = int.Parse(HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value);
             var contests = await this.contestService.GetAllAsync(userId, paginationFilter);
@@ -45,15 +46,16 @@ namespace FullFraim.Web.Controllers.ApiControllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> GetById(int contestId)         
+        public async Task<IActionResult> GetById(int contestId)
         {
-            if (await IsCurrentUserJuryInContestAsync(contestId) || await IsCurrentUserParticipantInContestAsync(contestId))
+            if (!(await IsCurrentUserJuryInContestAsync(contestId) || await IsCurrentUserParticipantInContestAsync(contestId)))
             {
-                var contest = await this.contestService.GetByIdAsync(contestId);
-                return this.Ok(contest);
+                return this.Unauthorized();
             }
 
-            return this.Unauthorized();
+            var contest = await this.contestService.GetByIdAsync(contestId);
+
+            return this.Ok(contest);
         }
 
         [HttpPost]
@@ -62,7 +64,7 @@ namespace FullFraim.Web.Controllers.ApiControllers
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        public async Task<IActionResult> Create([FromBody] InputContestDto inputModel) 
+        public async Task<IActionResult> Create([FromBody] InputContestDto inputModel)
         {
             var createdModel = await this.contestService.CreateAsync(inputModel);
 
@@ -109,7 +111,7 @@ namespace FullFraim.Web.Controllers.ApiControllers
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(PaginatedModel<string>))]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        public async Task<IActionResult> GetCovers([FromQuery] PaginationFilter paginationFilter)                               
+        public async Task<IActionResult> GetCovers([FromQuery] PaginationFilter paginationFilter)
         {
             var result = await this.contestService.GetCoversAsync(paginationFilter);
 
@@ -121,8 +123,8 @@ namespace FullFraim.Web.Controllers.ApiControllers
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(PaginatedModel<OutputContestDto>))]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        public async Task<IActionResult> GetContestsInPhaseOne([FromQuery] PaginationFilter paginationFilter)                   
-        { 
+        public async Task<IActionResult> GetContestsInPhaseOne([FromQuery] PaginationFilter paginationFilter)
+        {
             int userId = int.Parse(HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value);
             var contests = await this.contestService.GetContestsInPhaseOneAsync(userId, paginationFilter);
 
@@ -134,7 +136,7 @@ namespace FullFraim.Web.Controllers.ApiControllers
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(PaginatedModel<OutputContestDto>))]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        public async Task<IActionResult> GetContestsInPhaseTwo([FromQuery] PaginationFilter paginationFilter)                    
+        public async Task<IActionResult> GetContestsInPhaseTwo([FromQuery] PaginationFilter paginationFilter)
         {
             int userId = int.Parse(HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value);
             var contests = await this.contestService.GetContestsInPhaseTwoAsync(userId, paginationFilter);
@@ -147,7 +149,7 @@ namespace FullFraim.Web.Controllers.ApiControllers
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(PaginatedModel<OutputContestDto>))]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        public async Task<IActionResult> GetContestsInPhaseFinished([FromQuery] PaginationFilter paginationFilter)                    
+        public async Task<IActionResult> GetContestsInPhaseFinished([FromQuery] PaginationFilter paginationFilter)
         {
             int userId = int.Parse(HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value);
             var contests = await this.contestService.GetContestsInPhaseFinishedAsync(userId, paginationFilter);

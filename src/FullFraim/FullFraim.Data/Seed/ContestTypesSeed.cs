@@ -13,12 +13,12 @@ namespace FullFraim.Data.Seed
         {
             new ContestType()
             {
-               Name = Constants.ContestTypeSeed.Open
+               Name = Constants.ContestTypeSeed.Invitational
             },
             new ContestType()
             {
-               Name = Constants.ContestTypeSeed.Invitational
-            }
+               Name = Constants.ContestTypeSeed.Open
+            },
         };
 
         public async Task SeedAsync(FullFraimDbContext dbContext, IServiceProvider serviceProvider)
