@@ -2112,3 +2112,5 @@ Error Number:547,State:0,Class:16
 2021-05-26 19:32:07.426 +03:00 [WRN] User null validation failed: InvalidUserName.
 2021-05-26 19:32:51.075 +03:00 [WRN] Sensitive data logging is enabled. Log entries and exception messages may include sensitive application data, this mode should only be enabled during development.
 2021-05-26 19:32:52.814 +03:00 [WRN] User null validation failed: InvalidUserName.
+2021-05-26 20:27:56.821 +03:00 [WRN] Sensitive data logging is enabled. Log entries and exception messages may include sensitive application data, this mode should only be enabled during development.
+2021-05-26 20:27:57.853 +03:00 [WRN] User null validation failed: InvalidUserName.
