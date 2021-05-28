@@ -13,7 +13,7 @@ namespace FullFraim.Data.Seed
         {
             new Phase()
             {
-               Name = Constants.PhasesSeed.PhaseI
+               Name = Constants.PhasesSeed.Finished
             },
             new Phase()
             {
@@ -21,8 +21,8 @@ namespace FullFraim.Data.Seed
             },
             new Phase()
             {
-               Name = Constants.PhasesSeed.Finished
-            }
+               Name = Constants.PhasesSeed.PhaseI
+            },            
         };
 
         public async Task SeedAsync(FullFraimDbContext dbContext, IServiceProvider serviceProvider)

@@ -75,8 +75,13 @@ namespace FullFraim.Services.ContestServices
         public async Task<PaginatedModel<OutputContestDto>> GetAllAsync(int userId, PaginationFilter paginationFilter)
         {
             var contests = this.context.Contests
+                // Is participant or jury in given contest
                 .Where(c => c.ParticipantContests.Any(pc => pc.UserId == userId) ||
-                    c.JuryContests.Any(jc => jc.UserId == userId));
+                    c.JuryContests.Any(jc => jc.UserId == userId) ||
+                    // Phase one and open
+                        (c.ContestPhases.Any(cp => cp.Phase.Name == Constants.PhasesSeed.PhaseI &&
+                            cp.EndDate > DateTime.UtcNow) &&
+                            c.ContestType.Name == Constants.ContestTypeSeed.Open));
 
             var paginatedModel = new PaginatedModel<OutputContestDto>()
             {
@@ -315,6 +320,14 @@ namespace FullFraim.Services.ContestServices
                 TotalPages = (int)Math.Ceiling(await this.context.Contests
                     .CountAsync(p => p.Id == p.Id) / (double)paginationFilter.PageSize),
             };
+        }
+
+        public async Task<bool> IsContestInPhaseFinished(int contestId)
+        {
+            return await this.context.Contests
+                .Where(c => c.Id == contestId)
+                .Where(c => c.ContestPhases.Any(cp => cp.Phase.Name == Constants.PhasesSeed.Finished &&
+                    cp.StartDate < DateTime.UtcNow)).AnyAsync();
         }
     }
 }

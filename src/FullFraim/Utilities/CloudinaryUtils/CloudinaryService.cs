@@ -2,6 +2,7 @@
 using CloudinaryDotNet.Actions;
 using Microsoft.AspNetCore.Http;
 using System;
+using System.IO;
 
 namespace Utilities.CloudinaryUtils
 {
@@ -29,6 +30,31 @@ namespace Utilities.CloudinaryUtils
             var uploadParams = new ImageUploadParams()
             {
                 File = new FileDescription(filePath + extention, file.OpenReadStream()),
+                Overwrite = true,
+            };
+            
+            var uploadResult = this.cloudinary.Upload(uploadParams);
+
+            if (uploadResult.Error != null)
+            {
+                throw new ArgumentException(); // couldn't upload image
+            }
+
+            return uploadResult.SecureUrl.AbsoluteUri;
+        }
+        
+        public string UploadImage(MemoryStream file, string extention = ".png")
+        {
+            string filePath = Guid.NewGuid().ToString();
+
+            if (file == null)
+            {
+                throw new ArgumentNullException();
+            }
+
+            var uploadParams = new ImageUploadParams()
+            {
+                File = new FileDescription(filePath + extention, file),
                 Overwrite = true,
             };
             

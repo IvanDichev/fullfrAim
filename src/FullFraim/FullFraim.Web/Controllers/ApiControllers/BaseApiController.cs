@@ -1,4 +1,4 @@
-﻿using FullFraim.Services.SecurityServices;
+using FullFraim.Services.SecurityServices;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -34,6 +34,13 @@ namespace FullFraim.Web.Controllers.ApiControllers
             var userId = int.Parse(HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value);
 
             return await this.securityService.IsUserParticipantInContestAsync(userId, contestId);
+        }
+        
+        protected internal async Task<bool> IsUserAdmin()
+        {
+            var userId = int.Parse(HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value);
+
+            return await this.securityService.IsUserAdmin(userId);
         }
     }
 }

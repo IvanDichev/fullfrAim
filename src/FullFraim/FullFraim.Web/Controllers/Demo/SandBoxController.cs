@@ -33,7 +33,7 @@ namespace FullFraim.Web.Controllers.Demo
                 ContestId = 1,
                 ImageDescription = "neshto",
                 ImageTitle = "title",
-                ImageUrl = "url",
+                PhotoUrl = "url",
             };
 
             await this.photoJunkieService.EnrollForContestAsync(input);
