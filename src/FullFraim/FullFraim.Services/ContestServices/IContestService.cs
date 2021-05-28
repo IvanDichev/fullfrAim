@@ -19,5 +19,6 @@ namespace FullFraim.Services.ContestServices
         Task<PaginatedModel<OutputContestDto>> GetContestsInPhaseOneAsync(int userId, PaginationFilter paginationFilter);
         Task<PaginatedModel<OutputContestDto>> GetContestsInPhaseTwoAsync(int userId, PaginationFilter paginationFilter);
         Task<PaginatedModel<OutputContestDto>> GetContestsInPhaseFinishedAsync(int userId, PaginationFilter paginationFilter);
+        Task<bool> IsContestInPhaseFinished(int contestId);
     }
 }
