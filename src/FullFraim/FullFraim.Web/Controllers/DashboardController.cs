@@ -24,18 +24,17 @@ namespace FullFraim.Web.Controllers
             this.contestService = contestService;
             this.contestCategoryService = contestCategoryService;
         }
+
         public async Task<IActionResult> Index(int categoryId) // TODO: Shall we make it async?
         {
-            var dashboardViewModel = new DashboardViewModel()
-            {
-                Contests = await GetContestsByCategory(categoryId),
-                Categories = await this.contestCategoryService.GetAllAsync()
-            };
+            var dashboardViewModel = await GetContestsByCategoryAsync(categoryId);
+
+            ViewBag.Categories = await this.contestCategoryService.GetAllAsync();
 
             return View(dashboardViewModel);
         }
 
-        public async Task<IEnumerable<DashboardViewModel>> GetContestsByCategory(int categoryId) // Move to service layer
+        public async Task<IEnumerable<DashboardViewModel>> GetContestsByCategoryAsync(int categoryId) // Move to service layer
         {
             if(categoryId < 0)
             {
@@ -54,13 +53,8 @@ namespace FullFraim.Web.Controllers
                 return result;
             }
 
-
             return paginatedModel.Model.Select(x => x.MapToViewDashboard());
         }
-
-        
-
-
 
         //public async Task<IActionResult> ListContestsAsync(string category)
         //{

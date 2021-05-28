@@ -1,7 +1,7 @@
 ﻿@model DashboardViewModel
 
 <div class="card" style="margin-inline:1rem">
-    @if (Model.ContestCategory == "Portrait")
+    @if (Model.ContestCategory == 10)
     {
         <img class="card-img-top" src="@Model.Cover_Url" alt="Card image cap" style="width: 300px; height:400px">
     }
@@ -12,17 +12,17 @@
     <div class="card-body">
         <h5 class="card-title">@Model.Name</h5>
         <p class="card-text">@Model.Description</p>
-        @if (Model.PhaseI_Time < DateTime.UtcNow)
+        @if (Model.ActivePhase.Name == "PhaseI")
         {
-            int daysLeft = (int)(DateTime.UtcNow - Model.PhaseI_Time).TotalDays;
+            int daysLeft = (int)(Model.ActivePhase.EndDate - DateTime.UtcNow).TotalDays;
             <p>Deadline in @daysLeft days</p>
             <button class="btn btn-primary">Enroll</button>
         }
-        else if (Model.PhaseI_Time >= DateTime.UtcNow && Model.PhaseII_Time < DateTime.UtcNow)
+        else if (Model.ActivePhase.Name == "PhaseII")
         {
             <p>Closed for enrollement</p>
         }
-        else if (Model.PhaseIII_Time == DateTime.UtcNow)
+        else if (Model.ActivePhase.Name == "Finished")
         {
             <p>Finished</p>
         }
