@@ -6,15 +6,13 @@ namespace FullFraim.Services.ContestServices
 {
     public interface IContestService
     {
-        Task<PaginatedModel<OutputContestDto>> GetAllAsync(int userId, PaginationFilter paginationFilter);
+        Task<PaginatedModel<OutputContestDto>> GetAllAsync
+            (int? participantId, int? juryId, string phase, string contestType, PaginationFilter paginationFilter);
         Task<OutputContestDto> GetByIdAsync(int id);
         Task<OutputContestDto> CreateAsync(InputContestDto model);
         Task UpdateAsync(int id, InputContestDto model);
         Task DeleteAsync(int id);
         Task<PaginatedModel<string>> GetCoversAsync(PaginationFilter paginationFilter);
-        Task<PaginatedModel<OutputContestDto>> GetContestsInPhaseOneAsync(int userId, PaginationFilter paginationFilter);
-        Task<PaginatedModel<OutputContestDto>> GetContestsInPhaseTwoAsync(int userId, PaginationFilter paginationFilter);
-        Task<PaginatedModel<OutputContestDto>> GetContestsInPhaseFinishedAsync(int userId, PaginationFilter paginationFilter);
         Task<bool> IsContestInPhaseFinished(int contestId);
     }
 }

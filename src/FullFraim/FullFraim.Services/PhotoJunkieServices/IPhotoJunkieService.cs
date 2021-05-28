@@ -1,5 +1,4 @@
-﻿using FullFraim.Data.Models;
-using FullFraim.Models.Dto_s.Contests;
+﻿using FullFraim.Models.Dto_s.Contests;
 using FullFraim.Models.Dto_s.PhotoJunkies;
 using FullFraim.Models.Dto_s.Users;
 using System.Collections.Generic;
