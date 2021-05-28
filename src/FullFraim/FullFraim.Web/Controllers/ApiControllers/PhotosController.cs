@@ -6,6 +6,7 @@ using FullFraim.Services.ContestServices;
 using FullFraim.Services.PhotoService;
 using FullFraim.Services.SecurityServices;
 using FullFraim.Web.Filters;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
@@ -20,6 +21,7 @@ namespace FullFraim.Web.Controllers.ApiControllers
 {
     [ApiController]
     [APIExceptionFilter]
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     [Route("api/[Controller]")]
     public class PhotosController : BaseApiController
     {

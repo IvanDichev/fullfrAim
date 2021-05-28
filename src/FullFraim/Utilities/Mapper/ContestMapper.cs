@@ -1,10 +1,11 @@
 ﻿using FullFraim.Data.Models;
-using FullFraim.Models.Dto_s.Contests;
 using FullFraim.Models.Contest.ViewModels;
+using FullFraim.Models.Dto_s.Contests;
+using FullFraim.Models.Dto_s.Phases;
+using FullFraim.Models.Dto_s.User;
+using FullFraim.Models.ViewModels.Dashboard;
 using System.Collections.Generic;
 using System.Linq;
-using System;
-using FullFraim.Models.Dto_s.Phases;
 
 namespace Utilities.Mapper
 {
@@ -19,7 +20,9 @@ namespace Utilities.Mapper
                 Description = model.Description,
                 ContestCategoryId = model.ContestCategoryId,
                 ContestTypeId = model.ContestTypeId,
-                Phases = model.Phases
+                Phases = model.Phases,
+                Jury = model.Jury,
+                Participants = model.Participants,
             };
         }
 
@@ -60,6 +63,31 @@ namespace Utilities.Mapper
             };
         }
 
+        public static DashboardViewModel MapToViewDashboard(this OutputContestDto model)  // this ContestDto model
+        {
+            return new DashboardViewModel()
+            {
+                Name = model.Name,
+                Cover_Url = model.Cover_Url,
+                Description = model.Description,
+                ContestCategory = model.ContestCategoryId,
+                ActivePhase = model.ActivePhase,
+            };
+        }
+
+        //public static Contest MapToRaw(this ContestDto model)
+        //{
+        //    return new Contest()
+        //    {
+        //        //Id = model.Id,
+        //        Name = model.Name,
+        //        Cover_Url = model.Cover_Url,
+        //        Description = model.Description,
+        //        ContestCategoryId = model.ContestCategoryId,
+        //        ContestTypeId = model.ContestTypeId,
+        //    };
+        //}
+
         public static IQueryable<OutputContestDto> MapToDto(this IQueryable<Contest> query)
         {
             return query.Select(x =>
@@ -84,6 +112,78 @@ namespace Utilities.Mapper
         {
             return query
                 .Select(x => x.Cover_Url);
+        }
+
+        public static IQueryable<UserDto> MapToDto(this IQueryable<User> query)
+        {
+            return query.Select(q => new UserDto()
+            {
+                UserId = q.Id,
+                FirstName = q.FirstName,
+                LastName = q.LastName,
+                RankId = q.RankId,
+                Points = q.Points
+            });
+        }
+
+        public static ICollection<JuryContest> MapToJuryContest
+            (this ICollection<int> users, int contestId)
+        {
+            var list = new List<JuryContest>();
+
+            foreach (var user in users)
+            {
+                var juryContest = new JuryContest()
+                {
+                    ContestId = contestId,
+                    UserId = user,
+                };
+
+                list.Add(juryContest);
+            }
+
+            return list.ToList();
+        }
+
+        public static ICollection<ParticipantContest> MapToParticipantContest
+            (this ICollection<int> users, int contestId)
+        {
+            var list = new List<ParticipantContest>();
+
+            foreach (var user in users)
+            {
+                var participantContest = new ParticipantContest()
+                {
+                    ContestId = contestId,
+                    UserId = user,
+                };
+
+                list.Add(participantContest);
+            }
+
+            return list;
+        }
+
+        public static ICollection<UserDto> MapToDto
+            (this ICollection<User> users)
+        {
+            var list = new List<UserDto>();
+
+            foreach (var user in users)
+            {
+                var userDto = new UserDto()
+                {
+                    UserId = user.Id,
+                    FirstName = user.FirstName,
+                    LastName = user.LastName,
+                    RankId = user.RankId,
+                    Points = user.Points
+                };
+
+                list.Add(userDto);
+            }
+
+            return list.ToList();
         }
     }
 }

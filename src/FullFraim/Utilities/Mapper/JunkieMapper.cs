@@ -7,7 +7,7 @@ namespace Utilities.Mapper
 {
     public static class JunkieMapper
     {
-        public static IQueryable<PhotoJunkieDto> MapToDto(this IQueryable<User> query)
+        public static IQueryable<PhotoJunkieDto> MapToJunkieDto(this IQueryable<User> query)
         {
             return query.Select(x =>
             new PhotoJunkieDto()
@@ -18,7 +18,7 @@ namespace Utilities.Mapper
             });
         } 
         
-        public static PhotoJunkieDto MapToDto(this User model)
+        public static PhotoJunkieDto MapToJunkiDto(this User model)
         {
             return new PhotoJunkieDto()
             {
@@ -28,7 +28,7 @@ namespace Utilities.Mapper
             };
         }
         
-        public static IEnumerable<PhotoJunkieDto> MapToDto(this IEnumerable<User> model)
+        public static IEnumerable<PhotoJunkieDto> MapToJunkieDto(this IEnumerable<User> model)
         {
             return model.Select(x => new PhotoJunkieDto()
             {

@@ -2,10 +2,13 @@
 using FullFraim.Data.Models;
 using FullFraim.Models.Dto_s.Contests;
 using FullFraim.Models.Dto_s.Pagination;
+using FullFraim.Models.Dto_s.User;
 using FullFraim.Services.Exceptions;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Shared;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Utilities.Mapper;
@@ -15,10 +18,13 @@ namespace FullFraim.Services.ContestServices
     public class ContestService : IContestService
     {
         private readonly FullFraimDbContext context;
+        private readonly UserManager<User> userManager;
 
-        public ContestService(FullFraimDbContext context)
+        public ContestService(FullFraimDbContext context,
+            UserManager<User> userManager)
         {
             this.context = context;
+            this.userManager = userManager;
         }
 
         public async Task<OutputContestDto> CreateAsync(InputContestDto model)
@@ -37,7 +43,13 @@ namespace FullFraim.Services.ContestServices
 
             await this.context.SaveChangesAsync();
 
-            await this.AddContestPhasesAsync(model, contest.Entity.Id);
+            await AddOrganizersToJuryContest(contest.Entity.Id);
+
+            await this
+                .AddInvitedForTheContestAsync(model.Jury, model.Participants, contest.Entity.Id);
+
+            await this
+                .AddContestPhasesAsync(model, contest.Entity.Id);
 
             await this.context.SaveChangesAsync();
 
@@ -158,13 +170,13 @@ namespace FullFraim.Services.ContestServices
         private async Task AddContestPhasesAsync(InputContestDto model, int id)
         {
             await this.context.ContestPhases
-                .AddAsync(new ContestPhase()
-                {
-                    ContestId = id,
-                    PhaseId = 1,
-                    StartDate = model.Phases.StartDate_PhaseI,
-                    EndDate = model.Phases.EndDate_PhaseI,
-                }); ;
+               .AddAsync(new ContestPhase()
+               {
+                   ContestId = id,
+                   PhaseId = 1,
+                   StartDate = model.Phases.StartDate_PhaseI,
+                   EndDate = model.Phases.EndDate_PhaseI,
+               });
 
             await this.context.ContestPhases
                 .AddAsync(new ContestPhase()
@@ -183,6 +195,142 @@ namespace FullFraim.Services.ContestServices
                   StartDate = model.Phases.StartDate_PhaseIII,
                   EndDate = model.Phases.EndDate_PhaseIII,
               });
+        }
+
+        public async Task<ICollection<UserDto>> GetParticipantsForInvitationAsync()
+        {
+            var users = await userManager.GetUsersInRoleAsync("USER");
+
+            var usersDto = users.MapToDto();
+
+            return usersDto;
+        }
+
+        public async Task<ICollection<UserDto>> GetPotentialJuryForInvitationAsync()
+        {
+            var users = await userManager.GetUsersInRoleAsync("USER");
+
+            users = users
+                .Where(u => u.Points >= 150)
+                .ToList();
+
+            return users.MapToDto();
+        }
+
+        private async Task AddOrganizersToJuryContest(int contestId)
+        {
+            var organisers = await userManager.GetUsersInRoleAsync("ORGANIZER");
+
+            foreach (var organizer in organisers)
+            {
+                var juryContest = new JuryContest()
+                {
+                    UserId = organizer.Id,
+                    ContestId = contestId,
+                };
+
+               await this.context.JuryContests.AddAsync(juryContest);
+            }
+        }
+
+        private async Task AddInvitedForTheContestAsync
+            (ICollection<int> jury, ICollection<int> participants, int contestId)
+        {
+            if (participants == null && jury == null)
+            {
+                throw new NullModelException();
+            }
+
+            if (participants.Any(p => jury.Any(j => j == p)))
+            {
+                //Funny Joke :D
+                throw new CheaterException();
+            }
+
+            var contest = await this.context.Contests
+                .FirstOrDefaultAsync(c => c.Id == contestId);
+
+            if (contest == null)
+            {
+                throw new NotFoundException();
+            }
+
+            var juryContests = jury.MapToJuryContest(contestId);
+            var participantContests = participants.MapToParticipantContest(contestId);
+
+            foreach (var juryCont in juryContests)
+            {
+                await this.context.JuryContests.AddAsync(juryCont);
+            }
+
+            foreach (var partCont in participantContests)
+            {
+                await this.context.ParticipantContests.AddAsync(partCont);
+            }
+
+            await this.context.SaveChangesAsync();
+        }
+
+        public async Task<PaginatedModel<OutputContestDto>> GetContestsInPhaseOneAsync(int userId, PaginationFilter paginationFilter)
+        {
+            var contestsInPhaseOne = this.context.Contests
+                .Where(c => c.ContestPhases.Any(cph => cph.Phase.Name == Constants.PhasesSeed.PhaseI) &&
+                    c.ContestType.Name == Constants.ContestTypeSeed.Open);
+
+            return new PaginatedModel<OutputContestDto>()
+            {
+                Model = await contestsInPhaseOne
+                .OrderByDescending(c => c.CreatedOn)
+                    .Skip(paginationFilter.PageSize * (paginationFilter.PageNumber - 1))
+                    .Take(paginationFilter.PageSize)
+                    .MapToDto()
+                    .ToListAsync(),
+                RecordsPerPage = paginationFilter.PageSize,
+                TotalPages = (int)Math.Ceiling(await this.context.Contests
+                    .CountAsync(p => p.Id == p.Id) / (double)paginationFilter.PageSize),
+            };
+        }
+
+        public async Task<PaginatedModel<OutputContestDto>> GetContestsInPhaseTwoAsync(int userId, PaginationFilter paginationFilter) 
+        {
+            var contestsInPhaseTwo = this.context.Contests
+                .Where(c => c.ContestPhases.Any(cph => cph.Phase.Name == Constants.PhasesSeed.PhaseII) &&
+                    c.ParticipantContests.Any(pc => pc.UserId == userId) ||
+                    c.JuryContests.Any(jc => jc.UserId == userId));
+
+            return new PaginatedModel<OutputContestDto>()
+            {
+                Model = await contestsInPhaseTwo
+                .OrderByDescending(c => c.CreatedOn)
+                    .Skip(paginationFilter.PageSize * (paginationFilter.PageNumber - 1))
+                    .Take(paginationFilter.PageSize)
+                    .MapToDto()
+                    .ToListAsync(),
+                RecordsPerPage = paginationFilter.PageSize,
+                TotalPages = (int)Math.Ceiling(await this.context.Contests
+                    .CountAsync(p => p.Id == p.Id) / (double)paginationFilter.PageSize),
+            };
+        }
+
+        public async Task<PaginatedModel<OutputContestDto>> GetContestsInPhaseFinishedAsync(int userId, PaginationFilter paginationFilter) 
+        {
+            var contestsInPhaseFinished = this.context.Contests
+               .Where(c => c.ContestPhases.Any(cph => cph.Phase.Name == Constants.PhasesSeed.Finished) &&
+                   c.ParticipantContests.Any(pc => pc.UserId == userId) ||
+                   c.JuryContests.Any(jc => jc.UserId == userId));
+
+            return new PaginatedModel<OutputContestDto>()
+            {
+                Model = await contestsInPhaseFinished
+                .OrderByDescending(c => c.CreatedOn)
+                    .Skip(paginationFilter.PageSize * (paginationFilter.PageNumber - 1))
+                    .Take(paginationFilter.PageSize)
+                    .MapToDto()
+                    .ToListAsync(),
+                RecordsPerPage = paginationFilter.PageSize,
+                TotalPages = (int)Math.Ceiling(await this.context.Contests
+                    .CountAsync(p => p.Id == p.Id) / (double)paginationFilter.PageSize),
+            };
         }
 
         public async Task<bool> IsContestInPhaseFinished(int contestId)

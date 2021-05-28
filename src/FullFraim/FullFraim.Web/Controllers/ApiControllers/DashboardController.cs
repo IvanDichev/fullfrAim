@@ -1,4 +1,6 @@
 ﻿using FullFraim.Services.PhotoService;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -7,6 +9,7 @@ using System.Threading.Tasks;
 namespace FullFraim.Web.Controllers.ApiControllers
 {
     [ApiController]
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     [Route("api/[Controller]")]
     public class DashboardController : ControllerBase
     {

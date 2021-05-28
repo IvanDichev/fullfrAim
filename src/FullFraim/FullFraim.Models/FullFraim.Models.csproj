@@ -9,4 +9,12 @@
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.2.5" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\FullFraim.Data\FullFraim.Data.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Dto%27s\JuryContest\" />
+  </ItemGroup>
+
 </Project>

@@ -2,6 +2,7 @@
 using FullFraim.Models.Dto_s.PhotoJunkies;
 using FullFraim.Services.PhotoJunkieServices;
 using FullFraim.Web.Filters;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -14,6 +15,7 @@ namespace FullFraim.Web.Controllers.ApiControllers
 {
     [Authorize]
     [ApiController]
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     [APIExceptionFilter]
     [Route("api/[controller]")]
     public class JunkiesController : ControllerBase
