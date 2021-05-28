@@ -1,4 +1,5 @@
-@model DashboardViewModel
+@model IEnumerable<DashboardViewModel>
+
 <!-- Social Sidebar Area Start -->
 <div class="social-sidebar-area">
     <!-- Social Area -->
@@ -19,11 +20,11 @@
                 <li>
                     <a class="dropdown-item" asp-controller="Dashboard" asp-action="Index"
                        asp-route-categoryId="0">All</a>
-                    @foreach (var category in Model.Categories)
+                    @foreach (var category in ViewBag.Categories)
                     {
-                <a class="dropdown-item" asp-controller="Dashboard" asp-action="Index"
-                   asp-route-categoryId="@category.Id">@category.Name</a>}
-
+                        <a class="dropdown-item" asp-controller="Dashboard" asp-action="Index"
+                           asp-route-categoryId="@category.Id">@category.Name</a>
+                    }
                 </li>
             </ul>
             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
@@ -35,9 +36,10 @@
 
         <div class="row portfolio-column">
 
-            @foreach (var item in Model.Contests)
+            @foreach (var item in Model)
             {
-<partial name="~/Views/Shared/Partials/_ContestCardPartial.cshtml" model="item" />}
+                <partial name="~/Views/Shared/Partials/_ContestCardPartial.cshtml" model="item" />
+            }
 
         </div>
 

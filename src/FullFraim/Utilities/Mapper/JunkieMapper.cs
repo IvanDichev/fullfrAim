@@ -18,7 +18,7 @@ namespace Utilities.Mapper
             });
         } 
         
-        public static PhotoJunkieDto MapToJunkieDto(this User model)
+        public static PhotoJunkieDto MapToJunkiDto(this User model)
         {
             return new PhotoJunkieDto()
             {

@@ -1,24 +1,41 @@
 ﻿@model DashboardViewModel
 
-<div class="card" style="width: 18rem;">
-    <img class="card-img-top" src="@Model.Cover_Url" alt="Card image cap">
+<div class="card" style="margin-inline:1rem">
+    @if (Model.ContestCategory == 10)
+    {
+        <img class="card-img-top" src="@Model.Cover_Url" alt="Card image cap" style="width: 300px; height:400px">
+    }
+    else
+    {
+        <img class="card-img-top" src="@Model.Cover_Url" alt="Card image cap" style="width: 300px; height:200px">
+    }
     <div class="card-body">
         <h5 class="card-title">@Model.Name</h5>
         <p class="card-text">@Model.Description</p>
-        @if (Model.PhaseI_Time < DateTime.UtcNow)
+        @if (Model.ActivePhase.Name == "PhaseI")
         {
-            int daysLeft = (int)(DateTime.UtcNow - Model.PhaseI_Time).TotalDays;
-            <p>Deadline in @daysLeft days</p>
+            <div>Deadline in <p style="color: blue" id="demo"></p> </div>
             <button class="btn btn-primary">Enroll</button>
         }
-        else if (Model.PhaseI_Time >= DateTime.UtcNow && Model.PhaseII_Time < DateTime.UtcNow)
+        else if (Model.ActivePhase.Name == "PhaseII")
         {
             <p>Closed for enrollement</p>
         }
-        else if (Model.PhaseIII_Time == DateTime.UtcNow)
+        else if (Model.ActivePhase.Name == "Finished")
         {
             <p>Finished</p>
         }
     </div>
 </div>
 
+@section Scripts{
+    <script>
+        $(document).ready(function () {
+            var start = new Date(@Model.ActivePhase.EndDate.ToString()).getTime();
+            var end = new Date(@DateTime.UtcNow.ToString()).getTime();
+
+            setInterval(function () {
+                $('demo').val((start - end) / 1000 + " Seconds");
+            }, 1000);
+        });</script>
+}

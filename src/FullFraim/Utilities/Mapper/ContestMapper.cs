@@ -4,10 +4,8 @@ using FullFraim.Models.Dto_s.Contests;
 using FullFraim.Models.Dto_s.Phases;
 using FullFraim.Models.Dto_s.User;
 using FullFraim.Models.ViewModels.Dashboard;
-using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace Utilities.Mapper
 {
@@ -72,6 +70,8 @@ namespace Utilities.Mapper
                 Name = model.Name,
                 Cover_Url = model.Cover_Url,
                 Description = model.Description,
+                ContestCategory = model.ContestCategoryId,
+                ActivePhase = model.ActivePhase,
             };
         }
 
@@ -167,9 +167,9 @@ namespace Utilities.Mapper
         public static ICollection<UserDto> MapToDto
             (this ICollection<User> users)
         {
-            var list = new ConcurrentBag<UserDto>();
+            var list = new List<UserDto>();
 
-            Parallel.ForEach(users, user =>
+            foreach (var user in users)
             {
                 var userDto = new UserDto()
                 {
@@ -181,7 +181,7 @@ namespace Utilities.Mapper
                 };
 
                 list.Add(userDto);
-            });
+            }
 
             return list.ToList();
         }
