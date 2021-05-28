@@ -14,8 +14,7 @@
         <p class="card-text">@Model.Description</p>
         @if (Model.ActivePhase.Name == "PhaseI")
         {
-            int daysLeft = (int)(Model.ActivePhase.EndDate - DateTime.UtcNow).TotalDays;
-            <p>Deadline in @daysLeft days</p>
+            <div>Deadline in <p style="color: blue" id="demo"></p> </div>
             <button class="btn btn-primary">Enroll</button>
         }
         else if (Model.ActivePhase.Name == "PhaseII")
@@ -29,3 +28,14 @@
     </div>
 </div>
 
+@section Scripts{
+    <script>
+        $(document).ready(function () {
+            var start = new Date(@Model.ActivePhase.EndDate.ToString()).getTime();
+            var end = new Date(@DateTime.UtcNow.ToString()).getTime();
+
+            setInterval(function () {
+                $('demo').val((start - end) / 1000 + " Seconds");
+            }, 1000);
+        });</script>
+}
