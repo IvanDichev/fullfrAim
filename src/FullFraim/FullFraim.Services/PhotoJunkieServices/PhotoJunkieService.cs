@@ -26,22 +26,6 @@ namespace FullFraim.Services.PhotoJunkieServices
             this.userManager = userManager;
         }
 
-        // TODO: Display current points and ranking and how much until next ranking at a visible place 
-        // controller
-        public async Task<ICollection<OutputContestDto>> GetContestsAsync(int userId) // TODO: Wrong, fix it!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-        // All contests that are open or junkie currently participates or have participated
-        {
-            var contests = await this.context.Contests
-                .Where(c => c.ParticipantContests.Any(pc => pc.UserId == userId) ||
-                        (c.ContestPhases.Any(cph => cph.PhaseId == this.context.Phases
-                            .FirstOrDefault(ph => ph.Name == Constants.PhasesSeed.PhaseI).Id) &&
-                            c.ContestType.Name == Constants.ContestTypeSeed.Open))
-                .MapToDto()
-                .ToListAsync();
-
-            return contests;
-        }
-
         public async Task EnrollForContestAsync(InputEnrollForContestDto inputModel)
         {
             var toAddParticipantContest = new ParticipantContest()
@@ -85,7 +69,7 @@ namespace FullFraim.Services.PhotoJunkieServices
             return isParticipant && isJury;
         }
 
-        public async Task<PhotoJunkieRankDto> GetPointsTillNextRankAsync(int userId) // in controller
+        public async Task<PhotoJunkieRankDto> GetPointsTillNextRankAsync(int userId) 
         {
             var user = await this.userManager.FindByIdAsync(userId.ToString());
 
@@ -97,7 +81,7 @@ namespace FullFraim.Services.PhotoJunkieServices
             var junkieTillNextRankDto = new PhotoJunkieRankDto()
             {
                 RankPoints = (int)user.Points,
-                Rank = user.Rank.Name,
+                Rank = (await this.context.Ranks.Where(r => r.Id == user.RankId).FirstOrDefaultAsync()).Name,
                 PointsTillNextRank = TillNextRankPoints((int)user.Points),
             };
 
@@ -116,7 +100,7 @@ namespace FullFraim.Services.PhotoJunkieServices
             }
             else if (currentPoints <= 1000)
             {
-                return currentPoints - 1001;
+                return 1001 - currentPoints;
             }
 
             return 0;

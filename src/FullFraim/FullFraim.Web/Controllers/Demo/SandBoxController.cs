@@ -18,13 +18,7 @@ namespace FullFraim.Web.Controllers.Demo
             this.juryService = juryService;
         }
 
-        public async Task<IActionResult> JunkieContests()
-        {
-            var contests = await this.photoJunkieService.GetContestsAsync(8);
-
-            return View(contests);
-        }
-
+        
         public async Task<IActionResult> EnrollJunkie()
         {
             var input = new InputEnrollForContestDto()

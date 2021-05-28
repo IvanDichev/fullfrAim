@@ -8,7 +8,6 @@ namespace FullFraim.Services.PhotoJunkieServices
 {
     public interface IPhotoJunkieService
     {
-        Task<ICollection<OutputContestDto>> GetContestsAsync(int userId);
         Task EnrollForContestAsync(InputEnrollForContestDto inputModel);
         Task<ICollection<PhotoJunkieDto>> GetAllAsync();
         Task<PhotoJunkieRankDto> GetPointsTillNextRankAsync(int userId);

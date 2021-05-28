@@ -118,7 +118,7 @@ namespace FullFraim.Services.ContestServices
         {
             if (id <= 0)
             {
-                throw new InvalidIdException($"{DateTime.UtcNow} - ContestService.GrtByIdAsync() received invalid ID.");
+                throw new InvalidIdException($"{DateTime.UtcNow} - ContestService.GetByIdAsync() received invalid ID.");
             }
 
             var result = await this.context.Contests

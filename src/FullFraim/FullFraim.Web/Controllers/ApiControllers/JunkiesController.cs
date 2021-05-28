@@ -56,5 +56,21 @@ namespace FullFraim.Web.Controllers.ApiControllers
 
             return Ok();
         }
+
+        [HttpGet("nextrank")]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(PhotoJunkyDto))]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> GetPointsTillNextRank([FromQuery] int userId)
+        {
+            if (userId < 0)
+            {
+                return BadRequest();
+            }
+
+            var junkieTillNextRankDto = await this.photoJunkieService.GetPointsTillNextRankAsync(userId);
+
+            return Ok(junkieTillNextRankDto);
+        }
     }
 }
