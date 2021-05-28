@@ -24,6 +24,7 @@ namespace FullFraim.Web.Configurations.StartupConfig
                         Email = "DreamTeam@gmail.com",
                     },
                 });
+
                 c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
                 {
                     Type = SecuritySchemeType.Http,
@@ -32,6 +33,7 @@ namespace FullFraim.Web.Configurations.StartupConfig
                     Scheme = "bearer",
                     Description = "Please insert JWT token into field"
                 });
+
                 c.AddSecurityRequirement(new OpenApiSecurityRequirement {
                     {
                         new OpenApiSecurityScheme

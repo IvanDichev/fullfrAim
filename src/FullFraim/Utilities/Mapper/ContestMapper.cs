@@ -65,6 +65,7 @@ namespace Utilities.Mapper
             return query.Select(x =>
             new OutputContestDto()
             {
+                Id = x.Id,
                 Name = x.Name,
                 Cover_Url = x.Cover_Url,
                 Description = x.Description,

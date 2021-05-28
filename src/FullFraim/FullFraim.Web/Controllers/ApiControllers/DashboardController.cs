@@ -1,5 +1,8 @@
 ﻿using FullFraim.Services.PhotoService;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Threading.Tasks;
 
 namespace FullFraim.Web.Controllers.ApiControllers
 {
@@ -13,11 +16,12 @@ namespace FullFraim.Web.Controllers.ApiControllers
         {
             this.photoService = photoService;
         }
-
+        
         [HttpGet]
-        public IActionResult Get()
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public async Task<IActionResult> GetAll()
         {
-            return Ok();
+            throw new NotImplementedException();
         }
     }
 }

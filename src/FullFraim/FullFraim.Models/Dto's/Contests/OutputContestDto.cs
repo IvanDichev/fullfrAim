@@ -1,7 +1,5 @@
 ﻿using FullFraim.Models.Dto_s.Phases;
-using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace FullFraim.Models.Dto_s.Contests
 {
