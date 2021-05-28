@@ -69,7 +69,7 @@ namespace FullFraim.Services.PhotoJunkieServices
                 _ => users
             };
 
-            return await users.MapToDto().ToListAsync();
+            return await users.MapToJunkieDto().ToListAsync();
         }
 
         public async Task<bool> CanJunkyEnroll(int contestId, int userId)
