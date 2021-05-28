@@ -71,7 +71,7 @@ namespace FullFraim.Services.PhotoJunkieServices
         {
             var users = await this.userManager.GetUsersInRoleAsync("User");
 
-            return users.MapToDto().ToList();
+            return users.MapToJunkieDto().ToList();
         }
 
         public async Task<bool> CanJunkyEnroll(int contestId, int userId)

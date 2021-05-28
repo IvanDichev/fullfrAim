@@ -1,6 +1,8 @@
 ﻿using FullFraim.Models.Dto_s.AccountAPI;
 using FullFraim.Services.API_JwtServices;
 using FullFraim.Web.Filters;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 

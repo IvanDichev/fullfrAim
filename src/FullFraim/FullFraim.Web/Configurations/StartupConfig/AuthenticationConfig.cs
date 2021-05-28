@@ -1,7 +1,6 @@
 ﻿using FullFraim.Data;
 using FullFraim.Data.Models;
 using FullFraim.Services.API_JwtServices;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -12,7 +11,7 @@ namespace FullFraim.Web.Configurations.StartupConfig
 {
     public static class AuthenticationConfig
     {
-        public static void ConfigureWith_Jwt(IServiceCollection services, 
+        public static void ConfigureWith_JwtAndMVC(IServiceCollection services, 
             IConfiguration configuration)
         {
             var jwtSettingsSection = configuration
@@ -24,12 +23,9 @@ namespace FullFraim.Web.Configurations.StartupConfig
 
             var key = Encoding.UTF8.GetBytes(settings.Secret);
 
-            services.AddAuthentication(options =>
-            {
-                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-            }
-            ).AddJwtBearer(options =>
+            services.AddAuthentication()
+                .AddCookie(cfg => cfg.SlidingExpiration = true)
+                .AddJwtBearer(options =>
             {
                 options.RequireHttpsMetadata = false;
                 options.SaveToken = true;
@@ -43,7 +39,7 @@ namespace FullFraim.Web.Configurations.StartupConfig
             });
         }
 
-        public static void SingInConfiguration(IServiceCollection services)
+        public static void IdentityConfiguration(IServiceCollection services)
         {
             services.AddIdentity<User, IdentityRole<int>>(options =>
             {
