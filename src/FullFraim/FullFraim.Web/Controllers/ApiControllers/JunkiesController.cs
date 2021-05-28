@@ -1,4 +1,5 @@
-﻿using FullFraim.Models.Dto_s.PhotoJunkies;
+﻿using FullFraim.Models.Dto_s.Pagination;
+using FullFraim.Models.Dto_s.PhotoJunkies;
 using FullFraim.Services.PhotoJunkieServices;
 using FullFraim.Web.Filters;
 using Microsoft.AspNetCore.Authorization;
@@ -30,9 +31,9 @@ namespace FullFraim.Web.Controllers.ApiControllers
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ICollection<PhotoJunkyDto>))]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        public async Task<IActionResult> GetAll()
+        public async Task<IActionResult> GetAll([FromQuery] SortingModel sortingModel, [FromQuery] PaginationFilter paginationFilter)
         {
-            var junkies = await this.photoJunkieService.GetAllAsync();
+            var junkies = await this.photoJunkieService.GetAllAsync(sortingModel, paginationFilter);
 
             return Ok(junkies);
         }

@@ -1,6 +1,6 @@
 ﻿using FullFraim.Data;
 using FullFraim.Data.Models;
-using FullFraim.Models.Dto_s.Contests;
+using FullFraim.Models.Dto_s.Pagination;
 using FullFraim.Models.Dto_s.PhotoJunkies;
 using FullFraim.Models.Dto_s.Users;
 using FullFraim.Services.Exceptions;
@@ -51,11 +51,25 @@ namespace FullFraim.Services.PhotoJunkieServices
             await this.context.SaveChangesAsync();
         }
 
-        public async Task<ICollection<PhotoJunkieDto>> GetAllAsync()
+        public async Task<ICollection<PhotoJunkieDto>> GetAllAsync(SortingModel sortingModel, PaginationFilter paginationFilter)
         {
-            var users = await this.userManager.GetUsersInRoleAsync("User");
+            var users = this.context.Users.AsQueryable();
 
-            return users.MapToDto().ToList();
+            users = sortingModel.OrderBy.ToLower() switch
+            {
+                Constants.Sorting.RankAsc => users.OrderBy(u => u.Rank),
+                Constants.Sorting.RankDesc => users.OrderByDescending(u => u.Rank),
+                Constants.Sorting.PointsAsc => users.OrderBy(u => u.Points),
+                Constants.Sorting.PointsDesc => users.OrderByDescending(u => u.Points),
+                Constants.Sorting.FirstNameAsc => users.OrderBy(u => u.FirstName),
+                Constants.Sorting.FirstNameDesc => users.OrderByDescending(u => u.FirstName),
+                Constants.Sorting.LastNameAsc => users.OrderBy(u => u.LastName),
+                Constants.Sorting.LastNameDesc => users.OrderByDescending(u => u.LastName),
+
+                _ => users
+            };
+
+            return await users.MapToDto().ToListAsync();
         }
 
         public async Task<bool> CanJunkyEnroll(int contestId, int userId)
@@ -126,6 +140,6 @@ namespace FullFraim.Services.PhotoJunkieServices
                     userToAddPoints.Points += 3;
                     break;
             }
-        } 
+        }
     }
 }
