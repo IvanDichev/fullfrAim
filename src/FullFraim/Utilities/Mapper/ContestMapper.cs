@@ -72,6 +72,8 @@ namespace Utilities.Mapper
                 Name = model.Name,
                 Cover_Url = model.Cover_Url,
                 Description = model.Description,
+                ContestCategory = model.ContestCategoryId,
+                ActivePhase = model.ActivePhase,
             };
         }
 
