@@ -88,6 +88,18 @@ namespace Shared
             public const string Invitational = "Invitational";
         }
 
+        public static class Sorting
+        {
+            public const string RankAsc = "rankasc";
+            public const string RankDesc = "rankdesc";
+            public const string PointsAsc = "pointsasc";
+            public const string PointsDesc = "pointsdesc";
+            public const string FirstNameAsc = "firstnameasc";
+            public const string FirstNameDesc = "firstnamedesc";
+            public const string LastNameAsc = "lastnameasc";
+            public const string LastNameDesc = "lastnamedesc";
+        }
+
         //Exception constants
         public class Exceptions
         {

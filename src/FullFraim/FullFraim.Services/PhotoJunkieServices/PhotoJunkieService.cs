@@ -1,6 +1,6 @@
 ﻿using FullFraim.Data;
 using FullFraim.Data.Models;
-using FullFraim.Models.Dto_s.Contests;
+using FullFraim.Models.Dto_s.Pagination;
 using FullFraim.Models.Dto_s.PhotoJunkies;
 using FullFraim.Models.Dto_s.Users;
 using FullFraim.Services.Exceptions;
@@ -24,22 +24,6 @@ namespace FullFraim.Services.PhotoJunkieServices
         {
             this.context = context;
             this.userManager = userManager;
-        }
-
-        // TODO: Display current points and ranking and how much until next ranking at a visible place 
-        // controller
-        public async Task<ICollection<OutputContestDto>> GetContestsAsync(int userId) // TODO: Wrong, fix it!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-        // All contests that are open or junkie currently participates or have participated
-        {
-            var contests = await this.context.Contests
-                .Where(c => c.ParticipantContests.Any(pc => pc.UserId == userId) ||
-                        (c.ContestPhases.Any(cph => cph.PhaseId == this.context.Phases
-                            .FirstOrDefault(ph => ph.Name == Constants.PhasesSeed.PhaseI).Id) &&
-                            c.ContestType.Name == Constants.ContestTypeSeed.Open))
-                .MapToDto()
-                .ToListAsync();
-
-            return contests;
         }
 
         public async Task EnrollForContestAsync(InputEnrollForContestDto inputModel)
@@ -67,11 +51,25 @@ namespace FullFraim.Services.PhotoJunkieServices
             await this.context.SaveChangesAsync();
         }
 
-        public async Task<ICollection<PhotoJunkieDto>> GetAllAsync()
+        public async Task<ICollection<PhotoJunkieDto>> GetAllAsync(SortingModel sortingModel, PaginationFilter paginationFilter)
         {
-            var users = await this.userManager.GetUsersInRoleAsync("User");
+            var users = this.context.Users.AsQueryable();
 
-            return users.MapToJunkieDto().ToList();
+            users = sortingModel.OrderBy.ToLower() switch
+            {
+                Constants.Sorting.RankAsc => users.OrderBy(u => u.Rank),
+                Constants.Sorting.RankDesc => users.OrderByDescending(u => u.Rank),
+                Constants.Sorting.PointsAsc => users.OrderBy(u => u.Points),
+                Constants.Sorting.PointsDesc => users.OrderByDescending(u => u.Points),
+                Constants.Sorting.FirstNameAsc => users.OrderBy(u => u.FirstName),
+                Constants.Sorting.FirstNameDesc => users.OrderByDescending(u => u.FirstName),
+                Constants.Sorting.LastNameAsc => users.OrderBy(u => u.LastName),
+                Constants.Sorting.LastNameDesc => users.OrderByDescending(u => u.LastName),
+
+                _ => users
+            };
+
+            return await users.MapToJunkieDto().ToListAsync();
         }
 
         public async Task<bool> CanJunkyEnroll(int contestId, int userId)
@@ -85,7 +83,7 @@ namespace FullFraim.Services.PhotoJunkieServices
             return isParticipant && isJury;
         }
 
-        public async Task<PhotoJunkieRankDto> GetPointsTillNextRankAsync(int userId) // in controller
+        public async Task<PhotoJunkieRankDto> GetPointsTillNextRankAsync(int userId) 
         {
             var user = await this.userManager.FindByIdAsync(userId.ToString());
 
@@ -97,7 +95,7 @@ namespace FullFraim.Services.PhotoJunkieServices
             var junkieTillNextRankDto = new PhotoJunkieRankDto()
             {
                 RankPoints = (int)user.Points,
-                Rank = user.Rank.Name,
+                Rank = (await this.context.Ranks.Where(r => r.Id == user.RankId).FirstOrDefaultAsync()).Name,
                 PointsTillNextRank = TillNextRankPoints((int)user.Points),
             };
 
@@ -116,7 +114,7 @@ namespace FullFraim.Services.PhotoJunkieServices
             }
             else if (currentPoints <= 1000)
             {
-                return currentPoints - 1001;
+                return 1001 - currentPoints;
             }
 
             return 0;
@@ -142,6 +140,6 @@ namespace FullFraim.Services.PhotoJunkieServices
                     userToAddPoints.Points += 3;
                     break;
             }
-        } 
+        }
     }
 }

@@ -1,5 +1,4 @@
-﻿using FullFraim.Data.Models;
-using FullFraim.Models.Dto_s.Contests;
+﻿using FullFraim.Models.Dto_s.Pagination;
 using FullFraim.Models.Dto_s.PhotoJunkies;
 using FullFraim.Models.Dto_s.Users;
 using System.Collections.Generic;
@@ -9,9 +8,8 @@ namespace FullFraim.Services.PhotoJunkieServices
 {
     public interface IPhotoJunkieService
     {
-        Task<ICollection<OutputContestDto>> GetContestsAsync(int userId);
         Task EnrollForContestAsync(InputEnrollForContestDto inputModel);
-        Task<ICollection<PhotoJunkieDto>> GetAllAsync();
+        Task<ICollection<PhotoJunkieDto>> GetAllAsync(SortingModel sortingModel, PaginationFilter paginationFilter);
         Task<PhotoJunkieRankDto> GetPointsTillNextRankAsync(int userId);
         Task<bool> CanJunkyEnroll(int contestId, int userId);
     }
