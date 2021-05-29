@@ -207,6 +207,20 @@ namespace Utilities.TestingUtils
                 },
             };
         }
+        public static ICollection<ContestType> GetContestTypes()
+        {
+            return new List<ContestType>()
+            {
+                new ContestType()
+                {
+                    Name = Constants.ContestTypeSeed.Invitational
+                },
+                new ContestType()
+                {
+                   Name = Constants.ContestTypeSeed.Open
+                },
+            };
+        }
         public static ICollection<Photo> GetPhotos()
         {
             return new List<Photo>()
