@@ -280,5 +280,25 @@ namespace FullFraim.Services.ContestServices
                 .Where(c => c.ContestPhases.Any(cp => cp.Phase.Name == Constants.PhasesSeed.Finished &&
                     cp.StartDate < DateTime.UtcNow)).AnyAsync();
         }
+
+        public async Task<IEnumerable<DashboardViewModel>> GetContestsByCategoryAsync(int userId, int categoryId) 
+        {
+            if (categoryId < 0)
+            {
+                throw new InvalidIdException("User Id must be positive!");
+            }
+
+            var paginatedModel = await GetAllAsync(userId, userId, null, null, new PaginationFilter());
+
+            if (categoryId != 0)
+            {
+                var categories = paginatedModel.Model.Where(c => c.ContestCategoryId == categoryId).ToList();
+                var result = categories.Select(x => x.MapToViewDashboard());
+
+                return result;
+            }
+
+            return paginatedModel.Model.Select(x => x.MapToViewDashboard());
+        }
     }
 }

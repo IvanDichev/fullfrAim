@@ -1,4 +1,5 @@
-﻿using FullFraim.Models.Dto_s.Pagination;
+﻿using FullFraim.Models.Contest.ViewModels;
+using FullFraim.Models.Dto_s.Pagination;
 using FullFraim.Models.ViewModels.Dashboard;
 using FullFraim.Services.ContestCatgeoryServices;
 using FullFraim.Services.ContestServices;
@@ -23,49 +24,17 @@ namespace FullFraim.Web.Controllers
             this.contestCategoryService = contestCategoryService;
         }
 
-        //public async Task<IActionResult> Index(int categoryId) // TODO: Shall we make it async?
-        //{
-        //    var dashboardViewModel = await GetContestsByCategoryAsync(categoryId);
+        public async Task<IActionResult> Index(int categoryId)
+        {
+            int userId = int.Parse(HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value);
 
-        //    ViewBag.Categories = await this.contestCategoryService.GetAllAsync();
+            var dashboardViewModel = await this.contestService
+                .GetContestsByCategoryAsync(userId, categoryId);
 
-        //    return View(dashboardViewModel);
-        //}
+            ViewBag.Categories = await this.contestCategoryService.GetAllAsync();
 
-        //public async Task<IEnumerable<DashboardViewModel>> GetContestsByCategoryAsync(int categoryId)       // Move to service layer
-        //{
-        //    if (categoryId < 0)
-        //    {
-        //        throw new InvalidIdException();
-        //    }
-
-        //    int userId = int.Parse(HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value);
-
-        //    var paginatedModel = await this.contestService.GetAllAsync(userId, new PaginationFilter());
-
-        //    if (categoryId != 0)
-        //    {
-        //        var categories = paginatedModel.Model.Where(c => c.ContestCategoryId == categoryId).ToList();
-        //        var result = categories.Select(x => x.MapToViewDashboard());
-
-        //        return result;
-        //    }
-
-        //    return paginatedModel.Model.Select(x => x.MapToViewDashboard());
-        //}
-
-        //public async Task<IActionResult> ListContestsAsync(string category)
-        //{
-        //    string selectedCategory = category;
-        //    ICollection<ContestViewModel> contestViewModels;
-
-        //    string currentCategory = string.Empty;
-
-        //    if (string.IsNullOrEmpty(category))
-        //    {
-        //        contestViewModels = await this.contestService.GetAllAsync()
-        //    }
-        //}
+            return View(dashboardViewModel);
+        }
 
         public IActionResult TestPartialInController()
         {

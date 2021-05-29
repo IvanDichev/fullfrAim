@@ -19,5 +19,6 @@ namespace FullFraim.Services.ContestServices
         Task<ICollection<UserDto>> GetPotentialJuryForInvitationAsync();
         Task<PaginatedModel<string>> GetCoversAsync(PaginationFilter paginationFilter);
         Task<bool> IsContestInPhaseFinished(int contestId);
+        Task<IEnumerable<DashboardViewModel>> GetContestsByCategoryAsync(int userId, int categoryId);
     }
 }

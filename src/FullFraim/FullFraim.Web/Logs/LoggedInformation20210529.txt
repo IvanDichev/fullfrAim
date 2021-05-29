@@ -320,3 +320,4 @@ C:\Users\User\source\repos\photocontest\src\FullFraim\FullFraim.Web\Views\Dashbo
 2021-05-29 17:13:47.889 +03:00 [WRN] Sensitive data logging is enabled. Log entries and exception messages may include sensitive application data, this mode should only be enabled during development.
 2021-05-29 17:14:21.485 +03:00 [WRN] Sensitive data logging is enabled. Log entries and exception messages may include sensitive application data, this mode should only be enabled during development.
 >>>>>>> a4363c2b06b70636c3becb64b080472309485d66
+2021-05-29 18:34:43.196 +03:00 [WRN] Sensitive data logging is enabled. Log entries and exception messages may include sensitive application data, this mode should only be enabled during development.
