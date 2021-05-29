@@ -221,6 +221,32 @@ namespace Utilities.TestingUtils
                 },
             };
         }
+        public static ICollection<JuryContest> GetJuryContests()
+        {
+            return new List<JuryContest>()
+            {
+                new JuryContest()
+                {
+                    ContestId = 1,
+                    UserId = 1,
+                },
+                new JuryContest()
+                {
+                    ContestId = 2,
+                    UserId = 1,
+                },
+                new JuryContest()
+                {
+                    ContestId = 3,
+                    UserId = 1,
+                },
+                new JuryContest()
+                {
+                    ContestId = 4,
+                    UserId = 1,
+                },
+            };
+        }
         public static ICollection<Photo> GetPhotos()
         {
             return new List<Photo>()
