@@ -173,3 +173,4 @@ C:\Programming\Repos\Telerik\photocontest\src\FullFraim\FullFraim.Web\Views\Home
 2021-05-29 13:33:25.398 +03:00 [WRN] Invalid password for user 1.
 2021-05-29 13:33:25.400 +03:00 [WRN] User 1 failed to provide the correct password.
 2021-05-29 13:44:44.779 +03:00 [WRN] Sensitive data logging is enabled. Log entries and exception messages may include sensitive application data, this mode should only be enabled during development.
+2021-05-29 14:42:13.978 +03:00 [WRN] Sensitive data logging is enabled. Log entries and exception messages may include sensitive application data, this mode should only be enabled during development.
