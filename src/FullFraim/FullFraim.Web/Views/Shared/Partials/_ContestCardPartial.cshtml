@@ -30,12 +30,17 @@
 
 @section Scripts{
     <script>
-        $(document).ready(function () {
+        @*$(document).ready(function () {
             var start = new Date(@Model.ActivePhase.EndDate.ToString()).getTime();
             var end = new Date(@DateTime.UtcNow.ToString()).getTime();
 
             setInterval(function () {
                 $('demo').val((start - end) / 1000 + " Seconds");
             }, 1000);
-        });</script>
+            console.log('start', start)
+            console.log('start1', end)
+        });*@
+
+        console.log('dasdasd')
+    </script>
 }

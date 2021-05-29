@@ -14,7 +14,7 @@ namespace FullFraim.Services.Delegates
         public static Func<ContestPhase, bool> IsPhaseTwo =>
             cp => cp.Phase.Name == Constants.PhasesSeed.PhaseII &&
                     cp.EndDate > DateTime.UtcNow && cp.StartDate < DateTime.UtcNow;
-
+        
         public static Func<ContestPhase, bool> IsPhaseOne =>
             cp => cp.Phase.Name == Constants.PhasesSeed.PhaseI &&
                     cp.EndDate > DateTime.UtcNow;
