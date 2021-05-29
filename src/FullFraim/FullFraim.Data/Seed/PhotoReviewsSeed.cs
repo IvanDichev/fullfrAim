@@ -76,7 +76,6 @@ namespace FullFraim.Data.Seed
                 Comment = "nice",
                 Checkbox = false,
             },
-
             new PhotoReview()
             {
                 JuryContestId = 1,

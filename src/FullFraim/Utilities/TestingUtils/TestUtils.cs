@@ -353,6 +353,76 @@ namespace Utilities.TestingUtils
                 },
             };
         }
+        public static ICollection<PhotoReview> GetPhotoReviews()
+        {
+            return new List<PhotoReview>()
+            {
+                new PhotoReview()
+                {
+                    JuryContestId = 1,
+                    PhotoId = 1,
+                    Score = 4,
+                    Checkbox = false,
+                    Comment = "nice",
+                },
+                new PhotoReview()
+                {
+                    JuryContestId = 1,
+                    PhotoId = 2,
+                    Score = 10,
+                    Comment = "Extraordinary",
+                    Checkbox = false,
+                },
+                new PhotoReview()
+                {
+                    JuryContestId = 1,
+                    PhotoId = 3,
+                    Score = 6,
+                    Comment = "nice",
+                    Checkbox = false,
+                },
+                new PhotoReview()
+                {
+                    JuryContestId = 1,
+                    PhotoId = 4,
+                    Score = 6,
+                    Comment = "nice",
+                    Checkbox = false,
+                },
+                new PhotoReview()
+                {
+                    JuryContestId = 1,
+                    PhotoId = 5,
+                    Score = 8,
+                    Comment = "nice",
+                    Checkbox = false,
+                },
+                new PhotoReview()
+                {
+                    JuryContestId = 1,
+                    PhotoId = 6,
+                    Score = 4,
+                    Comment = "nice",
+                    Checkbox = false,
+                },
+                new PhotoReview()
+                {
+                    JuryContestId = 1,
+                    PhotoId = 7,
+                    Score = 8,
+                    Comment = "nice",
+                    Checkbox = false,
+                },
+                new PhotoReview()
+                {
+                    JuryContestId = 1,
+                    PhotoId = 8,
+                    Score = 5,
+                    Comment = "nice",
+                    Checkbox = false,
+                },
+            };
+        }
         public static ICollection<Photo> GetPhotos()
         {
             return new List<Photo>()
