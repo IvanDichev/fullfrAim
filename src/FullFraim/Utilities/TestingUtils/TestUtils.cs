@@ -335,6 +335,24 @@ namespace Utilities.TestingUtils
                 },
             };
         }
+        public static ICollection<Phase> GetPhases()
+        {
+            return new List<Phase>()
+            {
+                new Phase()
+                {
+                   Name = Constants.PhasesSeed.Finished
+                },
+                new Phase()
+                {
+                   Name = Constants.PhasesSeed.PhaseII
+                },
+                new Phase()
+                {
+                   Name = Constants.PhasesSeed.PhaseI
+                },
+            };
+        }
         public static ICollection<Photo> GetPhotos()
         {
             return new List<Photo>()
