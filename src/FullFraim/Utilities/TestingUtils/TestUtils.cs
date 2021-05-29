@@ -72,7 +72,6 @@ namespace Utilities.TestingUtils
                 }
             };
         }
-
         public static ICollection<ContestPhase> GetContestPhases()
         {
             return new List<ContestPhase>()
@@ -163,6 +162,48 @@ namespace Utilities.TestingUtils
                     PhaseId = 3,
                     StartDate = DateTime.UtcNow.AddDays(60),
                     EndDate = DateTime.MaxValue,
+                },
+            };
+        }
+        public static ICollection<Contest> GetContests()
+        {
+            return new List<Contest>()
+            {
+                new Contest()
+                {
+                    Name = "Portrait",
+                    Description = "Portrait contest - PhaseOne",
+                    Cover_Url = Constants.ImagesSeed.PortraitImgUrlCover,
+                    ContestCategoryId = 10,
+                    ContestTypeId = 2,
+                    CreatedOn = DateTime.UtcNow,
+                },
+                new Contest()
+                {
+                    Name = "WildlifePhaseThree",
+                    Description = "PhaseThree",
+                    Cover_Url = Constants.ImagesSeed.WildlifeImgUrlCover,
+                    ContestCategoryId = 12,
+                    ContestTypeId = 1,
+                    CreatedOn = DateTime.UtcNow.AddDays(-2),
+                },
+                new Contest()
+                {
+                    Name = "WildlifePhaseTwo",
+                    Description = "PhaseTwo",
+                    Cover_Url = Constants.ImagesSeed.WildlifeImgUrlCover,
+                    ContestCategoryId = 12,
+                    ContestTypeId = 1,
+                    CreatedOn = DateTime.UtcNow.AddDays(-30),
+                },
+                new Contest()
+                {
+                    Name = "WildlifePhaseOne",
+                    Description = "PhaseOne",
+                    Cover_Url = Constants.ImagesSeed.WildlifeImgUrlCover,
+                    ContestCategoryId = 12,
+                    ContestTypeId = 1,
+                    CreatedOn = DateTime.UtcNow,
                 },
             };
         }
