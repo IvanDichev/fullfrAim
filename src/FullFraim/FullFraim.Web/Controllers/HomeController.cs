@@ -23,8 +23,6 @@ namespace FullFraim.Web.Controllers
         public async Task<IActionResult> Index()
         {
             var photos = await this.photoService.GetTopRecentPhotosAsync();
-            var images = new List<string>();
-            images.Add("11");
 
             return View(photos);
         }
