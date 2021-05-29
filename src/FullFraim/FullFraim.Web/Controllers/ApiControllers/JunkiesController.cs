@@ -40,6 +40,11 @@ namespace FullFraim.Web.Controllers.ApiControllers
             return Ok(junkies);
         }
 
+        /// <summary>
+        /// Any data cannot be changed after submission.
+        /// </summary>
+        /// <param name="inputModel"></param>
+        /// <returns></returns>
         [HttpPost("enroll")]
         [IgnoreAntiforgeryToken]
         [ProducesResponseType(StatusCodes.Status200OK)]

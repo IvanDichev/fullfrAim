@@ -3,7 +3,9 @@ using FullFraim.Data.Models;
 using FullFraim.Models.Dto_s.Contests;
 using FullFraim.Models.Dto_s.Pagination;
 using FullFraim.Models.Dto_s.User;
+using FullFraim.Models.ViewModels.Dashboard;
 using FullFraim.Services.Exceptions;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Shared;
@@ -269,68 +271,6 @@ namespace FullFraim.Services.ContestServices
             }
 
             await this.context.SaveChangesAsync();
-        }
-
-        public async Task<PaginatedModel<OutputContestDto>> GetContestsInPhaseOneAsync(int userId, PaginationFilter paginationFilter)
-        {
-            var contestsInPhaseOne = this.context.Contests
-                .Where(c => c.ContestPhases.Any(cph => cph.Phase.Name == Constants.PhasesSeed.PhaseI) &&
-                    c.ContestType.Name == Constants.ContestTypeSeed.Open);
-
-            return new PaginatedModel<OutputContestDto>()
-            {
-                Model = await contestsInPhaseOne
-                .OrderByDescending(c => c.CreatedOn)
-                    .Skip(paginationFilter.PageSize * (paginationFilter.PageNumber - 1))
-                    .Take(paginationFilter.PageSize)
-                    .MapToDto()
-                    .ToListAsync(),
-                RecordsPerPage = paginationFilter.PageSize,
-                TotalPages = (int)Math.Ceiling(await this.context.Contests
-                    .CountAsync(p => p.Id == p.Id) / (double)paginationFilter.PageSize),
-            };
-        }
-
-        public async Task<PaginatedModel<OutputContestDto>> GetContestsInPhaseTwoAsync(int userId, PaginationFilter paginationFilter) 
-        {
-            var contestsInPhaseTwo = this.context.Contests
-                .Where(c => c.ContestPhases.Any(cph => cph.Phase.Name == Constants.PhasesSeed.PhaseII) &&
-                    c.ParticipantContests.Any(pc => pc.UserId == userId) ||
-                    c.JuryContests.Any(jc => jc.UserId == userId));
-
-            return new PaginatedModel<OutputContestDto>()
-            {
-                Model = await contestsInPhaseTwo
-                .OrderByDescending(c => c.CreatedOn)
-                    .Skip(paginationFilter.PageSize * (paginationFilter.PageNumber - 1))
-                    .Take(paginationFilter.PageSize)
-                    .MapToDto()
-                    .ToListAsync(),
-                RecordsPerPage = paginationFilter.PageSize,
-                TotalPages = (int)Math.Ceiling(await this.context.Contests
-                    .CountAsync(p => p.Id == p.Id) / (double)paginationFilter.PageSize),
-            };
-        }
-
-        public async Task<PaginatedModel<OutputContestDto>> GetContestsInPhaseFinishedAsync(int userId, PaginationFilter paginationFilter) 
-        {
-            var contestsInPhaseFinished = this.context.Contests
-               .Where(c => c.ContestPhases.Any(cph => cph.Phase.Name == Constants.PhasesSeed.Finished) &&
-                   c.ParticipantContests.Any(pc => pc.UserId == userId) ||
-                   c.JuryContests.Any(jc => jc.UserId == userId));
-
-            return new PaginatedModel<OutputContestDto>()
-            {
-                Model = await contestsInPhaseFinished
-                .OrderByDescending(c => c.CreatedOn)
-                    .Skip(paginationFilter.PageSize * (paginationFilter.PageNumber - 1))
-                    .Take(paginationFilter.PageSize)
-                    .MapToDto()
-                    .ToListAsync(),
-                RecordsPerPage = paginationFilter.PageSize,
-                TotalPages = (int)Math.Ceiling(await this.context.Contests
-                    .CountAsync(p => p.Id == p.Id) / (double)paginationFilter.PageSize),
-            };
         }
 
         public async Task<bool> IsContestInPhaseFinished(int contestId)
