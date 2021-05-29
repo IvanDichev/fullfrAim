@@ -1,6 +1,6 @@
 ﻿using FullFraim.Data;
 using FullFraim.Data.Models;
-using FullFraim.Models.Dto_s.Juries;
+using FullFraim.Models.Dto_s.Reviews;
 using Microsoft.EntityFrameworkCore;
 using Shared;
 using System;

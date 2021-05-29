@@ -1,4 +1,4 @@
-﻿using FullFraim.Models.Dto_s.Juries;
+﻿using FullFraim.Models.Dto_s.Reviews;
 using System.Threading.Tasks;
 
 namespace FullFraim.Services.JuryServices

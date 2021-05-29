@@ -1,4 +1,4 @@
-﻿namespace FullFraim.Models.Dto_s.Juries
+﻿namespace FullFraim.Models.Dto_s.Reviews
 {
     public class OutputGiveReviewDto
     {
