@@ -1,5 +1,5 @@
 ﻿using FullFraim.Data.Models;
-using FullFraim.Models.Dto_s.Juries;
+using FullFraim.Models.Dto_s.Reviews;
 
 namespace Utilities.Mapper
 {

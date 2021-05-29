@@ -1,4 +1,4 @@
-﻿using FullFraim.Models.Dto_s.Juries;
+﻿using FullFraim.Models.Dto_s.Reviews;
 using FullFraim.Services.JuryServices;
 using FullFraim.Web.Filters;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
