@@ -17,6 +17,61 @@ namespace Utilities.TestingUtils
             return options;
         }
 
+        public static ICollection<ContestCategory> GetContestCategories()
+        {
+            return new List<ContestCategory>()
+            {
+                new ContestCategory()
+                {
+                    Name = Constants.ConstestCategorySeed.Abstract
+                },
+                new ContestCategory()
+                {
+                    Name = Constants.ConstestCategorySeed.Architecture
+                },
+                new ContestCategory()
+                {
+                    Name = Constants.ConstestCategorySeed.Conceptual
+                },
+                new ContestCategory()
+                {
+                    Name = Constants.ConstestCategorySeed.Fashion_Beauty
+                },
+                new ContestCategory()
+                {
+                    Name = Constants.ConstestCategorySeed.Fine_Art
+                },
+                new ContestCategory()
+                {
+                    Name = Constants.ConstestCategorySeed.Landscapes
+                },
+                new ContestCategory()
+                {
+                    Name = Constants.ConstestCategorySeed.Nature
+                },
+                new ContestCategory()
+                {
+                    Name = Constants.ConstestCategorySeed.Boudoir
+                },
+                new ContestCategory()
+                {
+                    Name = Constants.ConstestCategorySeed.Photojournalism
+                },
+                new ContestCategory()
+                {
+                    Name = Constants.ConstestCategorySeed.Portrait
+                },
+                new ContestCategory()
+                {
+                    Name = Constants.ConstestCategorySeed.Street
+                },
+                new ContestCategory()
+                {
+                    Name = Constants.ConstestCategorySeed.Wildlife
+                }
+            };
+        }
+
         public static ICollection<Photo> GetPhotos()
         {
             return new List<Photo>()
@@ -115,5 +170,7 @@ namespace Utilities.TestingUtils
                 }
             };
         }
+
+       
     }
 }
