@@ -14,7 +14,7 @@ namespace Utilities.Mapper
                 Id = p.Id,
                 Title = p.Title,
                 Description = p.Story,
-                SubmitterName = p.Participant.User.FirstName + p.Participant.User.LastName,
+                SubmitterName = $"{p.Participant.User.FirstName} {p.Participant.User.LastName}",
                 Url = p.Url,
             });
         }

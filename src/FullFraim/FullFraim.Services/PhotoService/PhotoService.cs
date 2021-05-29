@@ -94,7 +94,7 @@ namespace FullFraim.Services.PhotoService
             return paginatedModel;
         }
 
-        public async Task<ICollection<PhotoDto>> GetTopRecentPhotos()
+        public async Task<ICollection<PhotoDto>> GetTopRecentPhotosAsync()
         {
             var TopTenPhotos = await this.context.Photos
                 .Where(p => p.Contest.ContestPhases.Where(cp => cp.Phase.Name == "Finished")

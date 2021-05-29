@@ -129,7 +129,7 @@ namespace FullFraim.Web.Controllers.ApiControllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> GetTopRecent()
         {
-            var photos = await this.photoService.GetTopRecentPhotos();
+            var photos = await this.photoService.GetTopRecentPhotosAsync();
 
             return Ok(photos);
         }

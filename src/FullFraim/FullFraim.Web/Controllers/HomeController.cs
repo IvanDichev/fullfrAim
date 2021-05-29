@@ -3,6 +3,7 @@ using FullFraim.Web.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading.Tasks;
 
@@ -21,7 +22,11 @@ namespace FullFraim.Web.Controllers
 
         public async Task<IActionResult> Index()
         {
-            return View();
+            var photos = await this.photoService.GetTopRecentPhotosAsync();
+            var images = new List<string>();
+            images.Add("11");
+
+            return View(photos);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
