@@ -266,6 +266,11 @@ C:\Users\User\source\repos\photocontest\src\FullFraim\FullFraim.Web\Views\Dashbo
 =======
 =======
 2021-05-28 10:44:54.910 +03:00 [WRN] Sensitive data logging is enabled. Log entries and exception messages may include sensitive application data, this mode should only be enabled during development.
+<<<<<<< HEAD
+>>>>>>> 8ccdc465ae0731e504794e6066ea2808967beeae
+>>>>>>> e8813763abb637918cb9afa1ea042fe642d1220d
+2021-05-28 17:14:42.341 +03:00 [WRN] Sensitive data logging is enabled. Log entries and exception messages may include sensitive application data, this mode should only be enabled during development.
+=======
 2021-05-28 11:15:58.011 +03:00 [WRN] Sensitive data logging is enabled. Log entries and exception messages may include sensitive application data, this mode should only be enabled during development.
 2021-05-28 11:17:53.978 +03:00 [WRN] Invalid password for user 1.
 2021-05-28 11:30:05.415 +03:00 [WRN] Sensitive data logging is enabled. Log entries and exception messages may include sensitive application data, this mode should only be enabled during development.
@@ -298,3 +303,4 @@ C:\Users\User\source\repos\photocontest\src\FullFraim\FullFraim.Web\Views\Dashbo
 2021-05-28 13:25:40.623 +03:00 [WRN] Sensitive data logging is enabled. Log entries and exception messages may include sensitive application data, this mode should only be enabled during development.
 2021-05-28 13:33:31.234 +03:00 [WRN] Sensitive data logging is enabled. Log entries and exception messages may include sensitive application data, this mode should only be enabled during development.
 2021-05-28 21:32:24.358 +03:00 [WRN] Sensitive data logging is enabled. Log entries and exception messages may include sensitive application data, this mode should only be enabled during development.
+>>>>>>> a4363c2b06b70636c3becb64b080472309485d66

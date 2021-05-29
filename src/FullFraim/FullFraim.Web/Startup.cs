@@ -43,6 +43,7 @@ namespace FullFraim.Web
             services.AddControllers();
             services.AddRazorPages();
 
+            services.AddMemoryCache();
             services.AddScoped<IJwtServices, JwtServices>();
             services.AddScoped<IContestService, ContestService>();
             services.AddScoped<IContestCategoryService, ContestCategoryService>();
