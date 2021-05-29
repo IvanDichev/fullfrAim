@@ -1,16 +1,14 @@
-﻿using FullFraim.Models.Dto_s.Contests;
-using FullFraim.Models.ViewModels;
+﻿using FullFraim.Models.Dto_s.Pagination;
+using FullFraim.Models.ViewModels.Dashboard;
 using FullFraim.Services.ContestCatgeoryServices;
 using FullFraim.Services.ContestServices;
+using FullFraim.Services.Exceptions;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 using System.Linq;
-using Utilities.Mapper;
-using FullFraim.Models.ViewModels.Dashboard;
 using System.Security.Claims;
-using FullFraim.Models.Dto_s.Pagination;
-using FullFraim.Services.Exceptions;
+using System.Threading.Tasks;
+using Utilities.Mapper;
 
 namespace FullFraim.Web.Controllers
 {
@@ -25,36 +23,36 @@ namespace FullFraim.Web.Controllers
             this.contestCategoryService = contestCategoryService;
         }
 
-        public async Task<IActionResult> Index(int categoryId) // TODO: Shall we make it async?
-        {
-            var dashboardViewModel = await GetContestsByCategoryAsync(categoryId);
+        //public async Task<IActionResult> Index(int categoryId) // TODO: Shall we make it async?
+        //{
+        //    var dashboardViewModel = await GetContestsByCategoryAsync(categoryId);
 
-            ViewBag.Categories = await this.contestCategoryService.GetAllAsync();
+        //    ViewBag.Categories = await this.contestCategoryService.GetAllAsync();
 
-            return View(dashboardViewModel);
-        }
+        //    return View(dashboardViewModel);
+        //}
 
-        public async Task<IEnumerable<DashboardViewModel>> GetContestsByCategoryAsync(int categoryId) // Move to service layer
-        {
-            if(categoryId < 0)
-            {
-                throw new InvalidIdException();
-            }
+        //public async Task<IEnumerable<DashboardViewModel>> GetContestsByCategoryAsync(int categoryId)       // Move to service layer
+        //{
+        //    if (categoryId < 0)
+        //    {
+        //        throw new InvalidIdException();
+        //    }
 
-            int userId = int.Parse(HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value);
+        //    int userId = int.Parse(HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value);
 
-            var paginatedModel = await this.contestService.GetAllAsync(userId, new PaginationFilter());
+        //    var paginatedModel = await this.contestService.GetAllAsync(userId, new PaginationFilter());
 
-            if (categoryId != 0)
-            {
-                var categories = paginatedModel.Model.Where(c => c.ContestCategoryId == categoryId).ToList();
-                var result = categories.Select(x => x.MapToViewDashboard());
+        //    if (categoryId != 0)
+        //    {
+        //        var categories = paginatedModel.Model.Where(c => c.ContestCategoryId == categoryId).ToList();
+        //        var result = categories.Select(x => x.MapToViewDashboard());
 
-                return result;
-            }
+        //        return result;
+        //    }
 
-            return paginatedModel.Model.Select(x => x.MapToViewDashboard());
-        }
+        //    return paginatedModel.Model.Select(x => x.MapToViewDashboard());
+        //}
 
         //public async Task<IActionResult> ListContestsAsync(string category)
         //{

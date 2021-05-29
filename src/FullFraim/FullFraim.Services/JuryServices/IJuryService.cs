@@ -1,13 +1,12 @@
-﻿using FullFraim.Models.Dto_s.Contests;
-using FullFraim.Models.Dto_s.Juries;
-using System.Collections.Generic;
+﻿using FullFraim.Models.Dto_s.Juries;
 using System.Threading.Tasks;
 
 namespace FullFraim.Services.JuryServices
 {
     public interface IJuryService
     {
-        Task<ICollection<OutputContestDto>> GetContestsAsync(int userId);
-        Task GiveReviewAsync(InputGiveReviewDto inputModel);
+        Task<OutputGiveReviewDto> GiveReviewAsync(InputGiveReviewDto inputModel);
+        Task<bool> IsContestInPhaseTwoAsync(int photoId);
+        Task<bool> HasJuryAlreadyGivenReviewAsync(int juryId, int photoId);
     }
 }

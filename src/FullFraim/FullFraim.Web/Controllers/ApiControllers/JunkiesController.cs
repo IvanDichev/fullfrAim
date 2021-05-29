@@ -1,4 +1,5 @@
-﻿using FullFraim.Models.Dto_s.PhotoJunkies;
+﻿using FullFraim.Models.Dto_s.Pagination;
+using FullFraim.Models.Dto_s.PhotoJunkies;
 using FullFraim.Services.PhotoJunkieServices;
 using FullFraim.Web.Filters;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -32,13 +33,18 @@ namespace FullFraim.Web.Controllers.ApiControllers
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ICollection<PhotoJunkyDto>))]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        public async Task<IActionResult> GetAll()
+        public async Task<IActionResult> GetAll([FromQuery] SortingModel sortingModel, [FromQuery] PaginationFilter paginationFilter)
         {
-            var junkies = await this.photoJunkieService.GetAllAsync();
+            var junkies = await this.photoJunkieService.GetAllAsync(sortingModel, paginationFilter);
 
             return Ok(junkies);
         }
 
+        /// <summary>
+        /// Any data cannot be changed after submission.
+        /// </summary>
+        /// <param name="inputModel"></param>
+        /// <returns></returns>
         [HttpPost("enroll")]
         [IgnoreAntiforgeryToken]
         [ProducesResponseType(StatusCodes.Status200OK)]
@@ -57,6 +63,22 @@ namespace FullFraim.Web.Controllers.ApiControllers
             await this.photoJunkieService.EnrollForContestAsync(inputDto);
 
             return Ok();
+        }
+
+        [HttpGet("nextrank")]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(PhotoJunkyDto))]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> GetPointsTillNextRank([FromQuery] int userId)
+        {
+            if (userId < 0)
+            {
+                return BadRequest();
+            }
+
+            var junkieTillNextRankDto = await this.photoJunkieService.GetPointsTillNextRankAsync(userId);
+
+            return Ok(junkieTillNextRankDto);
         }
     }
 }
