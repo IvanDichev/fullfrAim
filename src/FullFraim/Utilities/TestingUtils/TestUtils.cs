@@ -521,7 +521,28 @@ namespace Utilities.TestingUtils
                 }
             };
         }
-
+        public static ICollection<Rank> GetRanks()
+        {
+            return new List<Rank>()
+            {
+                new Rank()
+                {
+                    Name = Constants.RanksSeed.Junkie,
+                },
+                new Rank()
+                {
+                    Name = Constants.RanksSeed.Enthusiast,
+                },
+                new Rank()
+                {
+                    Name = Constants.RanksSeed.Master,
+                },
+                new Rank()
+                {
+                    Name = Constants.RanksSeed.WiseAndBenevolentPhotoDictator,
+                },
+            };
+        }
 
     }
 }
