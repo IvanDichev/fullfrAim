@@ -1,8 +1,10 @@
-﻿using FullFraim.Data.Models;
+using FullFraim.Data;
+using FullFraim.Data.Models;
 using Microsoft.EntityFrameworkCore;
 using Shared;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Utilities.TestingUtils
 {
@@ -175,6 +177,13 @@ namespace Utilities.TestingUtils
                     StartDate = DateTime.UtcNow.AddDays(60),
                     EndDate = DateTime.MaxValue,
                 },
+                new ContestPhase()
+                {
+                    ContestId = 5, // No participants
+                    PhaseId = 3,
+                    StartDate = DateTime.UtcNow,
+                    EndDate = DateTime.MaxValue,
+                },
             };
         }
         public static ICollection<Contest> GetContests()
@@ -220,6 +229,26 @@ namespace Utilities.TestingUtils
                     ContestTypeId = 1,
                     CreatedOn = DateTime.UtcNow,
                 },
+                new Contest() // No participants
+                {
+                    Id = 5,
+                    Name = "GlobalWarmingPhaseTwo",
+                    Description = "PhaseTwo",
+                    Cover_Url = Constants.ImagesSeed.WildlifeImgUrlCover,
+                    ContestCategoryId = 12,
+                    ContestTypeId = 1,
+                    CreatedOn = DateTime.UtcNow,
+                },
+                 new Contest() // No reviews
+                {
+                    Id = 6,
+                    Name = "OnTheRoadPhaseTwo",
+                    Description = "PhaseTwo",
+                    Cover_Url = Constants.ImagesSeed.WildlifeImgUrlCover,
+                    ContestCategoryId = 12,
+                    ContestTypeId = 1,
+                    CreatedOn = DateTime.UtcNow,
+                },
             };
         }
         public static ICollection<ContestType> GetContestTypes()
@@ -244,23 +273,39 @@ namespace Utilities.TestingUtils
             {
                 new JuryContest()
                 {
+                    Id = 1,
                     ContestId = 1,
                     UserId = 1,
                 },
                 new JuryContest()
                 {
+                    Id = 2,
                     ContestId = 2,
                     UserId = 1,
                 },
                 new JuryContest()
                 {
+                    Id = 3,
                     ContestId = 3,
                     UserId = 1,
                 },
                 new JuryContest()
                 {
+                    Id = 4,
                     ContestId = 4,
                     UserId = 1,
+                },
+                new JuryContest()
+                {
+                    Id = 5,
+                    ContestId = 1,
+                    UserId = 2,
+                },
+                new JuryContest()
+                {
+                    Id = 6,
+                    ContestId = 2,
+                    UserId = 3,
                 },
             };
         }
@@ -349,6 +394,30 @@ namespace Utilities.TestingUtils
                     ContestId = 4,
                     UserId = 6,
                     PhotoId = 13,
+                },
+                new ParticipantContest()
+                {
+                    ContestId = 6,
+                    UserId = 2,
+                    PhotoId = 14,
+                },
+                new ParticipantContest()
+                {
+                    ContestId = 6,
+                    UserId = 3,
+                    PhotoId = 15,
+                },
+                new ParticipantContest()
+                {
+                    ContestId = 6,
+                    UserId = 4,
+                    PhotoId = 16,
+                },
+                new ParticipantContest()
+                {
+                    ContestId = 6,
+                    UserId = 5,
+                    PhotoId = 17,
                 },
             };
         }
@@ -445,6 +514,24 @@ namespace Utilities.TestingUtils
                     Id = 8,
                     JuryContestId = 1,
                     PhotoId = 8,
+                    Score = 5,
+                    Comment = "nice",
+                    Checkbox = false,
+                },
+                new PhotoReview()
+                {
+                    Id = 9,
+                    JuryContestId = 4,
+                    PhotoId = 1,
+                    Score = 5,
+                    Comment = "nice",
+                    Checkbox = false,
+                },
+                new PhotoReview()
+                {
+                    Id = 10,
+                    JuryContestId = 5,
+                    PhotoId = 2,
                     Score = 5,
                     Comment = "nice",
                     Checkbox = false,
@@ -559,7 +646,39 @@ namespace Utilities.TestingUtils
                     Title = "Smile",
                     Story = "Just a nice picture",
                     Url = Constants.ImagesSeed.PortraitImgUrlCover,
-                }
+                },
+                new Photo()
+                {
+                    Id = 14,
+                    ContestId = 6,
+                    Title = "Sonrisa",
+                    Story = "Just a nice picture",
+                    Url = Constants.ImagesSeed.PortraitImgUrlCover,
+                },
+                new Photo()
+                {
+                    Id = 15,
+                    ContestId = 6,
+                    Title = "Paisaje",
+                    Story = "Just a nice picture",
+                    Url = Constants.ImagesSeed.PortraitImgUrlCover,
+                },
+                new Photo()
+                {
+                    Id = 16,
+                    ContestId = 6,
+                    Title = "Maravilla",
+                    Story = "Just a nice picture",
+                    Url = Constants.ImagesSeed.PortraitImgUrlCover,
+                },
+                new Photo()
+                {
+                    Id = 17,
+                    ContestId = 6,
+                    Title = "De camino",
+                    Story = "Just a nice picture",
+                    Url = Constants.ImagesSeed.PortraitImgUrlCover,
+                },
             };
         }
         public static ICollection<Rank> GetRanks()
@@ -588,6 +707,18 @@ namespace Utilities.TestingUtils
                 },
             };
         }
+        public async static Task DatabaseFullSeed(FullFraimDbContext context)
+        {
+            await context.ContestCategories.AddRangeAsync(GetContestCategories());
+            await context.ContestPhases.AddRangeAsync(GetContestPhases());
+            await context.Contests.AddRangeAsync(GetContests());
+            await context.ContestTypes.AddRangeAsync(GetContestTypes());
+            await context.Phases.AddRangeAsync(GetPhases());
+            await context.PhotoReviews.AddRangeAsync(GetPhotoReviews());
+            await context.Photos.AddRangeAsync(GetPhotos());
+            await context.Ranks.AddRangeAsync(GetRanks());
+            await context.Users.AddRangeAsync(GetUsers());
+        }
         public static ICollection<User> GetUsers()
         {
             return new List<User>()
@@ -603,6 +734,11 @@ namespace Utilities.TestingUtils
                     NormalizedEmail = Constants.UserSeed.VShikovEmail.ToUpper(),
                     EmailConfirmed = true,
                     Points = 0,
+                    Rank = new Rank()
+                {
+                    Id = 5,
+                    Name = Constants.RanksSeed.Junkie,
+                },
                 },
                 new User()
                 {
@@ -615,6 +751,11 @@ namespace Utilities.TestingUtils
                     NormalizedEmail = Constants.UserSeed.IDichevEmail.ToUpper(),
                     EmailConfirmed = true,
                     Points = 0,
+                    Rank = new Rank()
+                {
+                    Id = 6,
+                    Name = Constants.RanksSeed.Junkie,
+                },
                 },
                 new User()
                 {
@@ -627,6 +768,11 @@ namespace Utilities.TestingUtils
                     NormalizedEmail = Constants.UserSeed.BMihaylovaEmail.ToUpper(),
                     EmailConfirmed = true,
                     Points = 0,
+                    Rank = new Rank()
+                {
+                    Id = 7,
+                    Name = Constants.RanksSeed.Junkie,
+                },
                 },
                 new User()
                 {
@@ -639,6 +785,11 @@ namespace Utilities.TestingUtils
                     NormalizedEmail = Constants.UserSeed.DDimitrovEmail.ToUpper(),
                     EmailConfirmed = true,
                     Points = 0,
+                    Rank = new Rank()
+                {
+                    Id = 8,
+                    Name = Constants.RanksSeed.Junkie,
+                },
                 },
                 new User()
                 {
@@ -651,6 +802,11 @@ namespace Utilities.TestingUtils
                     NormalizedEmail = Constants.UserSeed.EIvanovaEmail.ToUpper(),
                     EmailConfirmed = true,
                     Points = 0,
+                    Rank = new Rank()
+                {
+                    Id = 9,
+                    Name = Constants.RanksSeed.Junkie,
+                },
                 },
             };
         }

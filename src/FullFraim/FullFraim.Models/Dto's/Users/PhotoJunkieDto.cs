@@ -5,5 +5,6 @@
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public int Points { get; set; }
+        public string Rank { get; set; }
     }
 }

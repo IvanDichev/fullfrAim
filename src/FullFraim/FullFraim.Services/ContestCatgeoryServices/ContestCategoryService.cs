@@ -85,8 +85,13 @@ namespace FullFraim.Services.ContestCatgeoryServices
                 throw new NullModelException();
             }
 
+            if (id <= 0)
+            {
+                throw new InvalidIdException();
+            }
+
             var dbModelToUpdate = await this.context.ContestCategories
-                .FirstOrDefaultAsync(CC => CC.Id == id);
+                .FirstOrDefaultAsync(cc => cc.Id == id);
 
             if(dbModelToUpdate == null)
             {
