@@ -239,6 +239,16 @@ namespace Utilities.TestingUtils
                     ContestTypeId = 1,
                     CreatedOn = DateTime.UtcNow,
                 },
+                 new Contest() // No reviews
+                {
+                    Id = 6,
+                    Name = "OnTheRoadPhaseTwo",
+                    Description = "PhaseTwo",
+                    Cover_Url = Constants.ImagesSeed.WildlifeImgUrlCover,
+                    ContestCategoryId = 12,
+                    ContestTypeId = 1,
+                    CreatedOn = DateTime.UtcNow,
+                },
             };
         }
         public static ICollection<ContestType> GetContestTypes()
@@ -384,6 +394,30 @@ namespace Utilities.TestingUtils
                     ContestId = 4,
                     UserId = 6,
                     PhotoId = 13,
+                },
+                new ParticipantContest()
+                {
+                    ContestId = 6,
+                    UserId = 2,
+                    PhotoId = 14,
+                },
+                new ParticipantContest()
+                {
+                    ContestId = 6,
+                    UserId = 3,
+                    PhotoId = 15,
+                },
+                new ParticipantContest()
+                {
+                    ContestId = 6,
+                    UserId = 4,
+                    PhotoId = 16,
+                },
+                new ParticipantContest()
+                {
+                    ContestId = 6,
+                    UserId = 5,
+                    PhotoId = 17,
                 },
             };
         }
@@ -612,7 +646,39 @@ namespace Utilities.TestingUtils
                     Title = "Smile",
                     Story = "Just a nice picture",
                     Url = Constants.ImagesSeed.PortraitImgUrlCover,
-                }
+                },
+                new Photo()
+                {
+                    Id = 14,
+                    ContestId = 6,
+                    Title = "Sonrisa",
+                    Story = "Just a nice picture",
+                    Url = Constants.ImagesSeed.PortraitImgUrlCover,
+                },
+                new Photo()
+                {
+                    Id = 15,
+                    ContestId = 6,
+                    Title = "Paisaje",
+                    Story = "Just a nice picture",
+                    Url = Constants.ImagesSeed.PortraitImgUrlCover,
+                },
+                new Photo()
+                {
+                    Id = 16,
+                    ContestId = 6,
+                    Title = "Maravilla",
+                    Story = "Just a nice picture",
+                    Url = Constants.ImagesSeed.PortraitImgUrlCover,
+                },
+                new Photo()
+                {
+                    Id = 17,
+                    ContestId = 6,
+                    Title = "De camino",
+                    Story = "Just a nice picture",
+                    Url = Constants.ImagesSeed.PortraitImgUrlCover,
+                },
             };
         }
         public static ICollection<Rank> GetRanks()
@@ -641,7 +707,6 @@ namespace Utilities.TestingUtils
                 },
             };
         }
-
         public async static Task DatabaseFullSeed(FullFraimDbContext context)
         {
             await context.ContestCategories.AddRangeAsync(GetContestCategories());
@@ -653,7 +718,6 @@ namespace Utilities.TestingUtils
             await context.Photos.AddRangeAsync(GetPhotos());
             await context.Ranks.AddRangeAsync(GetRanks());
         }
-
         public static ICollection<User> GetUsers()
         {
             return new List<User>()
