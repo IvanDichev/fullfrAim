@@ -26,50 +26,62 @@ namespace Utilities.TestingUtils
             {
                 new ContestCategory()
                 {
+                    Id = 1,
                     Name = Constants.ConstestCategorySeed.Abstract
                 },
                 new ContestCategory()
                 {
+                    Id = 2,
                     Name = Constants.ConstestCategorySeed.Architecture
                 },
                 new ContestCategory()
                 {
+                    Id = 3,
                     Name = Constants.ConstestCategorySeed.Conceptual
                 },
                 new ContestCategory()
                 {
+                    Id = 4,
                     Name = Constants.ConstestCategorySeed.Fashion_Beauty
                 },
                 new ContestCategory()
                 {
+                    Id = 5,
                     Name = Constants.ConstestCategorySeed.Fine_Art
                 },
                 new ContestCategory()
                 {
+                    Id = 6,
                     Name = Constants.ConstestCategorySeed.Landscapes
                 },
                 new ContestCategory()
                 {
+                    Id = 7,
                     Name = Constants.ConstestCategorySeed.Nature
                 },
                 new ContestCategory()
                 {
+                    Id = 8,
                     Name = Constants.ConstestCategorySeed.Boudoir
                 },
                 new ContestCategory()
                 {
+                    Id = 9,
                     Name = Constants.ConstestCategorySeed.Photojournalism
                 },
                 new ContestCategory()
                 {
+                    Id = 10,
                     Name = Constants.ConstestCategorySeed.Portrait
                 },
                 new ContestCategory()
                 {
+                    Id = 11,
                     Name = Constants.ConstestCategorySeed.Street
                 },
                 new ContestCategory()
                 {
+                    Id = 12,
                     Name = Constants.ConstestCategorySeed.Wildlife
                 }
             };
@@ -190,8 +202,7 @@ namespace Utilities.TestingUtils
                     ContestCategoryId = 12,
                     ContestTypeId = 1,
                     CreatedOn = DateTime.UtcNow.AddDays(-30),
-                },
-                new Contest()
+                }, new Contest()
                 {
                     Id = 3,
                     Name = "WildlifePhaseThree",
@@ -219,10 +230,12 @@ namespace Utilities.TestingUtils
             {
                 new ContestType()
                 {
+                    Id = 1,
                     Name = Constants.ContestTypeSeed.Invitational
                 },
                 new ContestType()
                 {
+                    Id = 2,
                    Name = Constants.ContestTypeSeed.Open
                 },
             };
@@ -363,18 +376,18 @@ namespace Utilities.TestingUtils
             {
                 new Phase()
                 {
-                    Id = 3,
-                   Name = Constants.PhasesSeed.Finished
+                   Id = 1,
+                   Name = Constants.PhasesSeed.PhaseI
                 },
                 new Phase()
                 {
-                    Id = 2,
+                   Id = 2,
                    Name = Constants.PhasesSeed.PhaseII
                 },
                 new Phase()
                 {
-                    Id = 1,
-                   Name = Constants.PhasesSeed.PhaseI
+                   Id = 3,
+                   Name = Constants.PhasesSeed.Finished
                 },
             };
         }
@@ -591,24 +604,28 @@ namespace Utilities.TestingUtils
             {
                 new Rank()
                 {
+                    Id = 1,
                     Name = Constants.RanksSeed.Junkie,
                 },
                 new Rank()
                 {
+                    Id = 2,
                     Name = Constants.RanksSeed.Enthusiast,
                 },
                 new Rank()
                 {
+                    Id = 3,
                     Name = Constants.RanksSeed.Master,
                 },
                 new Rank()
                 {
+                    Id = 4,
                     Name = Constants.RanksSeed.WiseAndBenevolentPhotoDictator,
                 },
             };
         }
 
-        public async static Task DatabaseILikeYou(FullFraimDbContext context)
+        public async static Task DatabaseFullSeed(FullFraimDbContext context)
         {
             await context.ContestCategories.AddRangeAsync(GetContestCategories());
             await context.ContestPhases.AddRangeAsync(GetContestPhases());
@@ -618,6 +635,73 @@ namespace Utilities.TestingUtils
             await context.PhotoReviews.AddRangeAsync(GetPhotoReviews());
             await context.Photos.AddRangeAsync(GetPhotos());
             await context.Ranks.AddRangeAsync(GetRanks());
+        }
+
+        public static ICollection<User> GetUsers()
+        {
+            return new List<User>()
+            {
+                new User()
+                {
+                    Id = 2,
+                    FirstName = Constants.UserSeed.Valentin,
+                    LastName = Constants.UserSeed.Shikov,
+                    UserName = Constants.UserSeed.VShikovEmail,
+                    NormalizedUserName = Constants.UserSeed.VShikovEmail.ToUpper(),
+                    Email = Constants.UserSeed.VShikovEmail,
+                    NormalizedEmail = Constants.UserSeed.VShikovEmail.ToUpper(),
+                    EmailConfirmed = true,
+                    Points = 0,
+                },
+                new User()
+                {
+                    Id = 3,
+                    FirstName = Constants.UserSeed.Ivan,
+                    LastName = Constants.UserSeed.Dichev,
+                    UserName = Constants.UserSeed.IDichevEmail,
+                    NormalizedUserName = Constants.UserSeed.IDichevEmail.ToUpper(),
+                    Email = Constants.UserSeed.IDichevEmail,
+                    NormalizedEmail = Constants.UserSeed.IDichevEmail.ToUpper(),
+                    EmailConfirmed = true,
+                    Points = 0,
+                },
+                new User()
+                {
+                    Id = 4,
+                    FirstName = Constants.UserSeed.Boryana,
+                    LastName = Constants.UserSeed.Mihaylova,
+                    UserName = Constants.UserSeed.BMihaylovaEmail,
+                    NormalizedUserName = Constants.UserSeed.BMihaylovaEmail.ToUpper(),
+                    Email = Constants.UserSeed.BMihaylovaEmail,
+                    NormalizedEmail = Constants.UserSeed.BMihaylovaEmail.ToUpper(),
+                    EmailConfirmed = true,
+                    Points = 0,
+                },
+                new User()
+                {
+                    Id = 5,
+                    FirstName = Constants.UserSeed.Dimitar,
+                    LastName = Constants.UserSeed.Dimitrov,
+                    UserName = Constants.UserSeed.DDimitrovEmail,
+                    NormalizedUserName = Constants.UserSeed.DDimitrovEmail.ToUpper(),
+                    Email = Constants.UserSeed.DDimitrovEmail,
+                    NormalizedEmail = Constants.UserSeed.DDimitrovEmail.ToUpper(),
+                    EmailConfirmed = true,
+                    Points = 0,
+                },
+                new User()
+                {
+                    Id = 6,
+                    FirstName = Constants.UserSeed.Emily,
+                    LastName = Constants.UserSeed.Ivanova,
+                    UserName = Constants.UserSeed.EIvanovaEmail,
+                    NormalizedUserName = Constants.UserSeed.EIvanovaEmail.ToUpper(),
+                    Email = Constants.UserSeed.EIvanovaEmail,
+                    NormalizedEmail = Constants.UserSeed.EIvanovaEmail.ToUpper(),
+                    EmailConfirmed = true,
+                    Points = 0,
+                },
+            };
         }
     }
 }

@@ -141,7 +141,7 @@ namespace FullFraim.Tests.JuryServices
 
             using (var dbContext = new FullFraimDbContext(options))
             {
-                await TestUtils.DatabaseILikeYou(dbContext);
+                await TestUtils.DatabaseFullSeed(dbContext);
 
                 await dbContext.SaveChangesAsync();
             }
@@ -173,7 +173,7 @@ namespace FullFraim.Tests.JuryServices
 
             using (var dbContext = new FullFraimDbContext(options))
             {
-                await TestUtils.DatabaseILikeYou(dbContext);
+                await TestUtils.DatabaseFullSeed(dbContext);
 
                 await dbContext.SaveChangesAsync();
             }
@@ -202,7 +202,7 @@ namespace FullFraim.Tests.JuryServices
 
             using (var dbContext = new FullFraimDbContext(options))
             {
-                await TestUtils.DatabaseILikeYou(dbContext);
+                await TestUtils.DatabaseFullSeed(dbContext);
 
                 await dbContext.SaveChangesAsync();
             }
@@ -243,7 +243,7 @@ namespace FullFraim.Tests.JuryServices
 
             using (var dbContext = new FullFraimDbContext(options))
             {
-                await TestUtils.DatabaseILikeYou(dbContext);
+                await TestUtils.DatabaseFullSeed(dbContext);
 
                 await dbContext.SaveChangesAsync();
             }
@@ -286,7 +286,7 @@ namespace FullFraim.Tests.JuryServices
 
             using (var dbContext = new FullFraimDbContext(options))
             {
-                await TestUtils.DatabaseILikeYou(dbContext);
+                await TestUtils.DatabaseFullSeed(dbContext);
 
                 await dbContext.SaveChangesAsync();
             }
@@ -315,7 +315,7 @@ namespace FullFraim.Tests.JuryServices
 
             using (var dbContext = new FullFraimDbContext(options))
             {
-                await TestUtils.DatabaseILikeYou(dbContext);
+                await TestUtils.DatabaseFullSeed(dbContext);
 
                 await dbContext.SaveChangesAsync();
             }
@@ -352,7 +352,7 @@ namespace FullFraim.Tests.JuryServices
 
             using (var dbContext = new FullFraimDbContext(options))
             {
-                await TestUtils.DatabaseILikeYou(dbContext);
+                await TestUtils.DatabaseFullSeed(dbContext);
 
                 await dbContext.SaveChangesAsync();
             }
@@ -391,7 +391,7 @@ namespace FullFraim.Tests.JuryServices
 
             using (var dbContext = new FullFraimDbContext(options))
             {
-                await TestUtils.DatabaseILikeYou(dbContext);
+                await TestUtils.DatabaseFullSeed(dbContext);
 
                 await dbContext.SaveChangesAsync();
             }
