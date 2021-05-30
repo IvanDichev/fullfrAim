@@ -378,6 +378,37 @@ namespace FullFraim.Tests.ContestCategoryServices
         [TestMethod]
         [DataRow(0)]
         [DataRow(-1)]
+        [DataRow(-10)]
+        public async Task Update_ShouldThrowException_WhenIdIsZeroOrInvalid(int id)
+        {
+            //Arrange
+            var options = TestUtils
+                .GetInMemoryDatabaseOptions<FullFraimDbContext>
+                (nameof(Update_ShouldThrowException_WhenIdIsZeroOrInvalid));
+
+            using (var dbContext = new FullFraimDbContext(options))
+            {
+                await TestUtils.DatabaseFullSeed(dbContext);
+
+                await dbContext.SaveChangesAsync();
+            }
+
+            using (var context = new FullFraimDbContext(options))
+            {
+                var contestCategoryService = new ContestCategoryService(context);
+
+                //Act
+                //Assert
+                await Assert.ThrowsExceptionAsync<InvalidIdException>
+                    (async () => await contestCategoryService.UpdateAsync(id, new ContestCategoryDto()));
+
+                context.Database.EnsureDeleted();
+            }
+        }
+
+        [TestMethod]
+        [DataRow(0)]
+        [DataRow(-1)]
         [DataRow(-2)]
         public async Task Update_ShouldThrowException_WhenIdAndModelAreInvalid(int id)
         {
