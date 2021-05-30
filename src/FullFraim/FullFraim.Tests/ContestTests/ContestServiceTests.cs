@@ -1570,7 +1570,7 @@ namespace FullFraim.Tests.ContestTests
 
                 await assertContext.Database.EnsureDeletedAsync();
             }
-            #endregion
         }
+        #endregion
     }
 }

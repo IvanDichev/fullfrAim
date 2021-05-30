@@ -36,6 +36,7 @@ namespace FullFraim.Services.ContestServices
                 throw new NullModelException($"{DateTime.UtcNow} - ContestService.CreateAsync() received null input model.");
             }
 
+            // Extract in method to validate in controller!
             if (this.context.Contests.Any(c => c.Name == model.Name))
             {
                 throw new UniqueNameException($"{DateTime.UtcNow} - ContestService.CreateAsync() input name: {model.Name} is already used. Unique name is required!");
@@ -310,7 +311,7 @@ namespace FullFraim.Services.ContestServices
 
         public async Task<IEnumerable<DashboardViewModel>> GetContestsByCategoryAsync(int userId, int categoryId) 
         {
-            if (categoryId <= 0)
+            if (categoryId < 0)
             {
                 throw new InvalidIdException($"{DateTime.UtcNow} - ContestService.GetContestsByCategoryAsync() received invalid categoryId: {categoryId}.");
             }
