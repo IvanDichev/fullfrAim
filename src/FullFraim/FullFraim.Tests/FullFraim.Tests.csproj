@@ -16,6 +16,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\FullFraim.Services\FullFraim.Services.csproj" />
+    <ProjectReference Include="..\Shared\Shared.csproj" />
     <ProjectReference Include="..\Utilities\Utilities.csproj" />
   </ItemGroup>
 
