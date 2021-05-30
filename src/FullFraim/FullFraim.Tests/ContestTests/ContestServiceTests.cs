@@ -876,7 +876,7 @@ namespace FullFraim.Tests.ContestTests
                 var contests = await contestService.GetAllAsync(null, null, null, null, paginatedFilter);
 
                 // Assert 
-                Assert.AreEqual(4, contests.Model.Count);
+                Assert.AreEqual(6, contests.Model.Count);
 
                 await assertContext.Database.EnsureDeletedAsync();
             }
@@ -950,7 +950,7 @@ namespace FullFraim.Tests.ContestTests
                 var contests = await contestService.GetAllAsync(null, null, null, null, paginatedFilter);
 
                 // Assert 
-                Assert.AreEqual(4, contests.Model.Count);
+                Assert.AreEqual(6, contests.Model.Count);
                 Assert.AreEqual(50, contests.RecordsPerPage);
                 Assert.AreEqual(1, contests.TotalPages);
 
@@ -976,7 +976,8 @@ namespace FullFraim.Tests.ContestTests
                     {
                         new JuryContest()
                         {
-                            UserId = 8,
+                            Id = 10,
+                            UserId = 9,
                         }
                     }
                 });
@@ -987,21 +988,18 @@ namespace FullFraim.Tests.ContestTests
 
             using (var assertContext = new FullFraimDbContext(options))
             {
-                var userStore = new Mock<IUserStore<User>>();
-                var userManagerMock = new UserManager<User>
-                    (userStore.Object, It.IsAny<IOptions<IdentityOptions>>(), It.IsAny<IPasswordHasher<User>>(),
-                    It.IsAny<IEnumerable<IUserValidator<User>>>(), It.IsAny<IEnumerable<IPasswordValidator<User>>>(),
-                    It.IsAny<ILookupNormalizer>(), It.IsAny<IdentityErrorDescriber>(),
-                    It.IsAny<IServiceProvider>(), It.IsAny<ILogger<UserManager<User>>>());
+                var userStoreMock = new Mock<IUserStore<User>>();
+                var userManagerMock = new Mock<UserManager<User>>(
+                    userStoreMock.Object, null, null, null, null, null, null, null, null);
 
-                var contestService = new ContestService(assertContext, userManagerMock);
+                var contestService = new ContestService(assertContext, userManagerMock.Object);
                 var paginatedFilter = new PaginationFilter();
 
                 var v = assertContext.Contests.Include(x => x.JuryContests).ToList();
                 var vv = assertContext.Contests.Include(x => x.ParticipantContests).ToList();
 
                 // Act
-                var contests = await contestService.GetAllAsync(null, 8, null, null, paginatedFilter);
+                var contests = await contestService.GetAllAsync(null, 9, null, null, paginatedFilter);
 
                 // Assert 
                 Assert.AreEqual(1, contests.Model.Count);
@@ -1095,7 +1093,7 @@ namespace FullFraim.Tests.ContestTests
                 // Assert 
                 Assert.AreEqual(2, contests.Model.Count);
                 Assert.AreEqual(1, contestsPhaseTwo.Model.Count);
-                Assert.AreEqual(1, contestsPhaseFinished.Model.Count);
+                Assert.AreEqual(2, contestsPhaseFinished.Model.Count);
 
                 await assertContext.Database.EnsureDeletedAsync();
             }
@@ -1137,7 +1135,7 @@ namespace FullFraim.Tests.ContestTests
                 var contestsInvitational = await contestService.GetAllAsync(null, null, null, "Invitational", paginatedFilter);
 
                 // Assert 
-                Assert.AreEqual(3, contestsOpen.Model.Count);
+                Assert.AreEqual(5, contestsOpen.Model.Count);
                 Assert.AreEqual(1, contestsInvitational.Model.Count);
 
                 await assertContext.Database.EnsureDeletedAsync();
@@ -1222,7 +1220,7 @@ namespace FullFraim.Tests.ContestTests
                 var contestsCovers = await contestService.GetCoversAsync(paginatedFilter);
 
                 // Assert
-                Assert.AreEqual(4, contestsCovers.Model.Count);
+                Assert.AreEqual(6, contestsCovers.Model.Count);
 
                 await assertContext.Database.EnsureDeletedAsync();
             }
