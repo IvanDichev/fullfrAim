@@ -30,7 +30,6 @@ namespace FullFraim.Data.Seed
                 ContestId = 4,
                 UserId = 1,
             },
-
         };
 
         public async Task SeedAsync(FullFraimDbContext dbContext, IServiceProvider serviceProvider)

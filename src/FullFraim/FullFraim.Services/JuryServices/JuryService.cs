@@ -19,7 +19,6 @@ namespace FullFraim.Services.JuryServices
             this.context = context;
         }
 
-
         public async Task<OutputGiveReviewDto> GiveReviewAsync(InputGiveReviewDto inputModel)
         {
             var toAddReview = new PhotoReview()

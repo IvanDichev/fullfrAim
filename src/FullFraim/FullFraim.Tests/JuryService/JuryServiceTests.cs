@@ -12,16 +12,15 @@ namespace FullFraim.Tests.JuryService
     public class JuryServiceTests
     {
         [TestMethod]
-        public async Task GetAll_ShouldReturnAllJuries()
+        public async Task HasJuryAlreadyGivenReview_ShouldReturnTrue()
         {
             //Arrange
             var options = TestUtils
-                .GetInMemoryDatabaseOptions<FullFraimDbContext>(nameof(GetAll_ShouldReturnAllJuries));
+                .GetInMemoryDatabaseOptions<FullFraimDbContext>
+                (nameof(HasJuryAlreadyGivenReview_ShouldReturnTrue));
 
-            using (var dbContext = new DeliverITContext(options))
+            using (var dbContext = new FullFraimDbContext(options))
             {
-                dbContext.Countries.AddRange(Util.GetCountries());
-                dbContext.Cities.AddRange(Util.GetCities());
 
                 await dbContext.SaveChangesAsync();
             }
