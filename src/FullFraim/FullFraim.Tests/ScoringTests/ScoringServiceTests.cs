@@ -566,5 +566,44 @@ namespace FullFraim.Tests.ScoringTests
                 await assertContext.Database.EnsureDeletedAsync();
             }
         }
+
+        [TestMethod]
+        public async Task AwardWinnersAsync_ShouldUpdateWinnersPointsInDatabase_WhenThereAreFourParticipantsWithoutReviews()
+        {
+            //Arrange
+            var options = TestUtils
+                .GetInMemoryDatabaseOptions<FullFraimDbContext>
+                (nameof(AwardWinnersAsync_ShouldUpdateWinnersPointsInDatabase_WhenThereAreFourParticipantsWithoutReviews));
+
+            using (var arrangeContext = new FullFraimDbContext(options))
+            {
+                arrangeContext.Photos.AddRange(TestUtils.GetPhotos());
+                arrangeContext.ParticipantContests.AddRange(TestUtils.GetParticipantContests());
+                arrangeContext.Contests.AddRange(TestUtils.GetContests());
+                arrangeContext.Users.AddRange(TestUtils.GetUsers());
+
+                await arrangeContext.SaveChangesAsync();
+            }
+
+            using (var assertContext = new FullFraimDbContext(options))
+            {
+                var sut = new ScoringService(assertContext);
+                // Act
+                await sut.AwardWinnersAsync(3);
+
+                // Assert
+                var firstUserPoints = assertContext.Users.FirstOrDefault(u => u.Id == 2).Points;
+                var secondUserPoints = assertContext.Users.FirstOrDefault(u => u.Id == 3).Points;
+                var thirdUserPoints = assertContext.Users.FirstOrDefault(u => u.Id == 4).Points;
+                var fourthUserPoints = assertContext.Users.FirstOrDefault(u => u.Id == 5).Points;
+
+                Assert.AreEqual((uint)40, firstUserPoints);
+                Assert.AreEqual((uint)40, secondUserPoints);
+                Assert.AreEqual((uint)40, thirdUserPoints);
+                Assert.AreEqual((uint)40, fourthUserPoints);
+
+                await assertContext.Database.EnsureDeletedAsync();
+            }
+        }
     }
 }
