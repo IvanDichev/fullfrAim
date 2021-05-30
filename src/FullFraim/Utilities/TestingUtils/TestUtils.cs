@@ -1,8 +1,10 @@
-﻿using FullFraim.Data.Models;
+using FullFraim.Data;
+using FullFraim.Data.Models;
 using Microsoft.EntityFrameworkCore;
 using Shared;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Utilities.TestingUtils
 {
@@ -261,23 +263,39 @@ namespace Utilities.TestingUtils
             {
                 new JuryContest()
                 {
+                    Id = 1,
                     ContestId = 1,
                     UserId = 1,
                 },
                 new JuryContest()
                 {
+                    Id = 2,
                     ContestId = 2,
                     UserId = 1,
                 },
                 new JuryContest()
                 {
+                    Id = 3,
                     ContestId = 3,
                     UserId = 1,
                 },
                 new JuryContest()
                 {
+                    Id = 4,
                     ContestId = 4,
                     UserId = 1,
+                },
+                new JuryContest()
+                {
+                    Id = 5,
+                    ContestId = 1,
+                    UserId = 2,
+                },
+                new JuryContest()
+                {
+                    Id = 6,
+                    ContestId = 2,
+                    UserId = 3,
                 },
             };
         }
@@ -466,6 +484,24 @@ namespace Utilities.TestingUtils
                     Comment = "nice",
                     Checkbox = false,
                 },
+                new PhotoReview()
+                {
+                    Id = 9,
+                    JuryContestId = 4,
+                    PhotoId = 1,
+                    Score = 5,
+                    Comment = "nice",
+                    Checkbox = false,
+                },
+                new PhotoReview()
+                {
+                    Id = 10,
+                    JuryContestId = 5,
+                    PhotoId = 2,
+                    Score = 5,
+                    Comment = "nice",
+                    Checkbox = false,
+                },
             };
         }
         public static ICollection<Photo> GetPhotos()
@@ -605,6 +641,19 @@ namespace Utilities.TestingUtils
                 },
             };
         }
+
+        public async static Task DatabaseFullSeed(FullFraimDbContext context)
+        {
+            await context.ContestCategories.AddRangeAsync(GetContestCategories());
+            await context.ContestPhases.AddRangeAsync(GetContestPhases());
+            await context.Contests.AddRangeAsync(GetContests());
+            await context.ContestTypes.AddRangeAsync(GetContestTypes());
+            await context.Phases.AddRangeAsync(GetPhases());
+            await context.PhotoReviews.AddRangeAsync(GetPhotoReviews());
+            await context.Photos.AddRangeAsync(GetPhotos());
+            await context.Ranks.AddRangeAsync(GetRanks());
+        }
+
         public static ICollection<User> GetUsers()
         {
             return new List<User>()
