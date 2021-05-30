@@ -6,7 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Utilities.TestingUtils;
 
-namespace FullFraim.Tests.ScoringTests
+namespace FullFraim.Tests.ScoringServices
 {
     [TestClass]
     public class ScoringServiceTests
