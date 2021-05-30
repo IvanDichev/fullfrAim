@@ -4,6 +4,6 @@ namespace FullFraim.Services.ScoringServices
 {
     public interface IScoringService
     {
-        Task AwardWinners(int userId, int contestId);
+        Task AwardWinnersAsync(int contestId);
     }
 }

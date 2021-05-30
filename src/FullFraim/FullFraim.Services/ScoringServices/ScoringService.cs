@@ -20,7 +20,7 @@ namespace FullFraim.Services.ScoringServices
             this.context = context;
         }
 
-        public async Task AwardWinners(int userId, int contestId)                 // Once in Phase III
+        public async Task AwardWinnersAsync(int contestId)                 // Once in Phase III
         {
             var currentContest = await this.context.Contests
                 .Include(c => c.ParticipantContests)
@@ -80,7 +80,7 @@ namespace FullFraim.Services.ScoringServices
                 {
                     foreach (var winner in kvp.Value)  // Finds all the first winners and updates their points
                     {
-                        var firstWinner = this.context.ParticipantContests.FirstOrDefault(pc => pc.UserId == winner.UserId);
+                        var firstWinner = this.context.ParticipantContests.Include(pc => pc.User).FirstOrDefault(pc => pc.UserId == winner.UserId);
 
                         if (kvp.Value.Count == 1)
                         {
@@ -139,7 +139,7 @@ namespace FullFraim.Services.ScoringServices
 
         private bool FirstScoreDoublesTheSecond(List<double> topThreeScores)
         {
-            if (topThreeScores[0] >= 2 * topThreeScores[1])
+            if (topThreeScores.Count > 1 && topThreeScores[0] >= 2 * topThreeScores[1])
             {
                 return true;
             }
