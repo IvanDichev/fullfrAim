@@ -175,6 +175,13 @@ namespace Utilities.TestingUtils
                     StartDate = DateTime.UtcNow.AddDays(60),
                     EndDate = DateTime.MaxValue,
                 },
+                new ContestPhase()
+                {
+                    ContestId = 5, // No participants
+                    PhaseId = 3,
+                    StartDate = DateTime.UtcNow,
+                    EndDate = DateTime.MaxValue,
+                },
             };
         }
         public static ICollection<Contest> GetContests()
@@ -215,6 +222,16 @@ namespace Utilities.TestingUtils
                     Id = 4,
                     Name = "WildlifePhaseOne",
                     Description = "PhaseOne",
+                    Cover_Url = Constants.ImagesSeed.WildlifeImgUrlCover,
+                    ContestCategoryId = 12,
+                    ContestTypeId = 1,
+                    CreatedOn = DateTime.UtcNow,
+                },
+                new Contest() // No participants
+                {
+                    Id = 5,
+                    Name = "GlobalWarmingPhaseTwo",
+                    Description = "PhaseTwo",
                     Cover_Url = Constants.ImagesSeed.WildlifeImgUrlCover,
                     ContestCategoryId = 12,
                     ContestTypeId = 1,
