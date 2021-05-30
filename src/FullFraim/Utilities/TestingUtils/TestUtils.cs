@@ -1,8 +1,10 @@
+using FullFraim.Data;
 using FullFraim.Data.Models;
 using Microsoft.EntityFrameworkCore;
 using Shared;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Utilities.TestingUtils
 {
@@ -171,6 +173,7 @@ namespace Utilities.TestingUtils
             {
                 new Contest()
                 {
+                    Id = 1,
                     Name = "Portrait",
                     Description = "Portrait contest - PhaseOne",
                     Cover_Url = Constants.ImagesSeed.PortraitImgUrlCover,
@@ -180,15 +183,7 @@ namespace Utilities.TestingUtils
                 },
                 new Contest()
                 {
-                    Name = "WildlifePhaseThree",
-                    Description = "PhaseThree",
-                    Cover_Url = Constants.ImagesSeed.WildlifeImgUrlCover,
-                    ContestCategoryId = 12,
-                    ContestTypeId = 1,
-                    CreatedOn = DateTime.UtcNow.AddDays(-2),
-                },
-                new Contest()
-                {
+                    Id = 2,
                     Name = "WildlifePhaseTwo",
                     Description = "PhaseTwo",
                     Cover_Url = Constants.ImagesSeed.WildlifeImgUrlCover,
@@ -198,6 +193,17 @@ namespace Utilities.TestingUtils
                 },
                 new Contest()
                 {
+                    Id = 3,
+                    Name = "WildlifePhaseThree",
+                    Description = "PhaseThree",
+                    Cover_Url = Constants.ImagesSeed.WildlifeImgUrlCover,
+                    ContestCategoryId = 12,
+                    ContestTypeId = 1,
+                    CreatedOn = DateTime.UtcNow.AddDays(-2),
+                },
+                new Contest()
+                {
+                    Id = 4,
                     Name = "WildlifePhaseOne",
                     Description = "PhaseOne",
                     Cover_Url = Constants.ImagesSeed.WildlifeImgUrlCover,
@@ -227,23 +233,39 @@ namespace Utilities.TestingUtils
             {
                 new JuryContest()
                 {
+                    Id = 1,
                     ContestId = 1,
                     UserId = 1,
                 },
                 new JuryContest()
                 {
+                    Id = 2,
                     ContestId = 2,
                     UserId = 1,
                 },
                 new JuryContest()
                 {
+                    Id = 3,
                     ContestId = 3,
                     UserId = 1,
                 },
                 new JuryContest()
                 {
+                    Id = 4,
                     ContestId = 4,
                     UserId = 1,
+                },
+                new JuryContest()
+                {
+                    Id = 5,
+                    ContestId = 1,
+                    UserId = 2,
+                },
+                new JuryContest()
+                {
+                    Id = 6,
+                    ContestId = 2,
+                    UserId = 3,
                 },
             };
         }
@@ -341,14 +363,17 @@ namespace Utilities.TestingUtils
             {
                 new Phase()
                 {
+                    Id = 3,
                    Name = Constants.PhasesSeed.Finished
                 },
                 new Phase()
                 {
+                    Id = 2,
                    Name = Constants.PhasesSeed.PhaseII
                 },
                 new Phase()
                 {
+                    Id = 1,
                    Name = Constants.PhasesSeed.PhaseI
                 },
             };
@@ -359,6 +384,7 @@ namespace Utilities.TestingUtils
             {
                 new PhotoReview()
                 {
+                    Id = 1,
                     JuryContestId = 1,
                     PhotoId = 1,
                     Score = 4,
@@ -367,6 +393,7 @@ namespace Utilities.TestingUtils
                 },
                 new PhotoReview()
                 {
+                    Id = 2,
                     JuryContestId = 1,
                     PhotoId = 2,
                     Score = 10,
@@ -375,6 +402,7 @@ namespace Utilities.TestingUtils
                 },
                 new PhotoReview()
                 {
+                    Id = 3,
                     JuryContestId = 1,
                     PhotoId = 3,
                     Score = 6,
@@ -383,6 +411,7 @@ namespace Utilities.TestingUtils
                 },
                 new PhotoReview()
                 {
+                    Id = 4,
                     JuryContestId = 1,
                     PhotoId = 4,
                     Score = 6,
@@ -391,6 +420,7 @@ namespace Utilities.TestingUtils
                 },
                 new PhotoReview()
                 {
+                    Id = 5,
                     JuryContestId = 1,
                     PhotoId = 5,
                     Score = 8,
@@ -399,6 +429,7 @@ namespace Utilities.TestingUtils
                 },
                 new PhotoReview()
                 {
+                    Id = 6,
                     JuryContestId = 1,
                     PhotoId = 6,
                     Score = 4,
@@ -407,6 +438,7 @@ namespace Utilities.TestingUtils
                 },
                 new PhotoReview()
                 {
+                    Id = 7,
                     JuryContestId = 1,
                     PhotoId = 7,
                     Score = 8,
@@ -415,8 +447,27 @@ namespace Utilities.TestingUtils
                 },
                 new PhotoReview()
                 {
+                    Id = 8,
                     JuryContestId = 1,
                     PhotoId = 8,
+                    Score = 5,
+                    Comment = "nice",
+                    Checkbox = false,
+                },
+                new PhotoReview()
+                {
+                    Id = 9,
+                    JuryContestId = 4,
+                    PhotoId = 1,
+                    Score = 5,
+                    Comment = "nice",
+                    Checkbox = false,
+                },
+                new PhotoReview()
+                {
+                    Id = 10,
+                    JuryContestId = 5,
+                    PhotoId = 2,
                     Score = 5,
                     Comment = "nice",
                     Checkbox = false,
@@ -429,6 +480,7 @@ namespace Utilities.TestingUtils
             {
                 new Photo()
                 {
+                    Id = 1,
                     ContestId = 1,
                     Title = "Squirrel",
                     Story = "Looking down",
@@ -436,6 +488,7 @@ namespace Utilities.TestingUtils
                 },
                 new Photo()
                 {
+                    Id = 2,
                     ContestId = 1,
                     Title = "Bath time",
                     Story = "On my way",
@@ -443,6 +496,7 @@ namespace Utilities.TestingUtils
                 },
                 new Photo()
                 {
+                    Id = 3,
                     ContestId = 1,
                     Title = "Fight in the night",
                     Story = "Subway fighters",
@@ -450,6 +504,7 @@ namespace Utilities.TestingUtils
                 },
                 new Photo()
                 {
+                    Id = 4,
                     ContestId = 1,
                     Title = "I can climb it",
                     Story = "Not a long way, we can climb it",
@@ -457,6 +512,7 @@ namespace Utilities.TestingUtils
                 },
                 new Photo()
                 {
+                    Id = 5,
                     ContestId = 2,
                     Title = "Fight in the night",
                     Story = "Subway fighters",
@@ -464,6 +520,7 @@ namespace Utilities.TestingUtils
                 },
                 new Photo()
                 {
+                    Id = 6,
                     ContestId = 2,
                     Title = "I can climb it",
                     Story = "Not a long way, we can climb it",
@@ -471,6 +528,7 @@ namespace Utilities.TestingUtils
                 },
                 new Photo()
                 {
+                    Id = 7,
                     ContestId = 2,
                     Title = "Can I have some?",
                     Story = "Hungry birds",
@@ -478,6 +536,7 @@ namespace Utilities.TestingUtils
                 },
                 new Photo()
                 {
+                    Id = 8,
                     ContestId = 2,
                     Title = "Git It!",
                     Story = "Got it!",
@@ -486,6 +545,7 @@ namespace Utilities.TestingUtils
 
                 new Photo()
                 {
+                    Id = 9,
                     ContestId = 3,
                     Title = "Squirrel",
                     Story = "Looking down",
@@ -493,6 +553,7 @@ namespace Utilities.TestingUtils
                 },
                 new Photo()
                 {
+                    Id = 10,
                     ContestId = 3,
                     Title = "Bath time",
                     Story = "On my way",
@@ -500,6 +561,7 @@ namespace Utilities.TestingUtils
                 },
                 new Photo()
                 {
+                    Id = 11,
                     ContestId = 3,
                     Title = "Fight in the night",
                     Story = "Subway fighters",
@@ -507,6 +569,7 @@ namespace Utilities.TestingUtils
                 },
                 new Photo()
                 {
+                    Id = 12,
                     ContestId = 3,
                     Title = "I can climb it",
                     Story = "Not a long way, we can climb it",
@@ -514,6 +577,7 @@ namespace Utilities.TestingUtils
                 },
                 new Photo()
                 {
+                    Id = 13,
                     ContestId = 4,
                     Title = "Smile",
                     Story = "Just a nice picture",
@@ -542,6 +606,18 @@ namespace Utilities.TestingUtils
                     Name = Constants.RanksSeed.WiseAndBenevolentPhotoDictator,
                 },
             };
+        }
+
+        public async static Task DatabaseILikeYou(FullFraimDbContext context)
+        {
+            await context.ContestCategories.AddRangeAsync(GetContestCategories());
+            await context.ContestPhases.AddRangeAsync(GetContestPhases());
+            await context.Contests.AddRangeAsync(GetContests());
+            await context.ContestTypes.AddRangeAsync(GetContestTypes());
+            await context.Phases.AddRangeAsync(GetPhases());
+            await context.PhotoReviews.AddRangeAsync(GetPhotoReviews());
+            await context.Photos.AddRangeAsync(GetPhotos());
+            await context.Ranks.AddRangeAsync(GetRanks());
         }
     }
 }

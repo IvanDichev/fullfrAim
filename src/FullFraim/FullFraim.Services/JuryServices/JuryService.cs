@@ -1,6 +1,7 @@
 ﻿using FullFraim.Data;
 using FullFraim.Data.Models;
 using FullFraim.Models.Dto_s.Reviews;
+using FullFraim.Services.Exceptions;
 using Microsoft.EntityFrameworkCore;
 using Shared;
 using System;
@@ -21,6 +22,11 @@ namespace FullFraim.Services.JuryServices
 
         public async Task<OutputGiveReviewDto> GiveReviewAsync(InputGiveReviewDto inputModel)
         {
+            if(inputModel == null)
+            {
+                throw new NullModelException();
+            }
+
             var toAddReview = new PhotoReview()
             {
                 Comment = inputModel.Comment,
