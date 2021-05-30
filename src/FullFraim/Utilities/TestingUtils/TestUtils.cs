@@ -24,50 +24,62 @@ namespace Utilities.TestingUtils
             {
                 new ContestCategory()
                 {
+                    Id = 1,
                     Name = Constants.ConstestCategorySeed.Abstract
                 },
                 new ContestCategory()
                 {
+                    Id = 2,
                     Name = Constants.ConstestCategorySeed.Architecture
                 },
                 new ContestCategory()
                 {
+                    Id = 3,
                     Name = Constants.ConstestCategorySeed.Conceptual
                 },
                 new ContestCategory()
                 {
+                    Id = 4,
                     Name = Constants.ConstestCategorySeed.Fashion_Beauty
                 },
                 new ContestCategory()
                 {
+                    Id = 5,
                     Name = Constants.ConstestCategorySeed.Fine_Art
                 },
                 new ContestCategory()
                 {
+                    Id = 6,
                     Name = Constants.ConstestCategorySeed.Landscapes
                 },
                 new ContestCategory()
                 {
+                    Id = 7,
                     Name = Constants.ConstestCategorySeed.Nature
                 },
                 new ContestCategory()
                 {
+                    Id = 8,
                     Name = Constants.ConstestCategorySeed.Boudoir
                 },
                 new ContestCategory()
                 {
+                    Id = 9,
                     Name = Constants.ConstestCategorySeed.Photojournalism
                 },
                 new ContestCategory()
                 {
+                    Id = 10,
                     Name = Constants.ConstestCategorySeed.Portrait
                 },
                 new ContestCategory()
                 {
+                    Id = 11,
                     Name = Constants.ConstestCategorySeed.Street
                 },
                 new ContestCategory()
                 {
+                    Id = 12,
                     Name = Constants.ConstestCategorySeed.Wildlife
                 }
             };
@@ -182,22 +194,21 @@ namespace Utilities.TestingUtils
                 new Contest()
                 {
                     Id = 2,
-                    Name = "WildlifePhaseThree",
-                    Description = "PhaseThree",
-                    Cover_Url = Constants.ImagesSeed.WildlifeImgUrlCover,
-                    ContestCategoryId = 12,
-                    ContestTypeId = 1,
-                    CreatedOn = DateTime.UtcNow.AddDays(-2),
-                },
-                new Contest()
-                {
-                    Id = 3,
                     Name = "WildlifePhaseTwo",
                     Description = "PhaseTwo",
                     Cover_Url = Constants.ImagesSeed.WildlifeImgUrlCover,
                     ContestCategoryId = 12,
                     ContestTypeId = 1,
                     CreatedOn = DateTime.UtcNow.AddDays(-30),
+                }, new Contest()
+                {
+                    Id = 3,
+                    Name = "WildlifePhaseThree",
+                    Description = "PhaseThree",
+                    Cover_Url = Constants.ImagesSeed.WildlifeImgUrlCover,
+                    ContestCategoryId = 12,
+                    ContestTypeId = 1,
+                    CreatedOn = DateTime.UtcNow.AddDays(-2),
                 },
                 new Contest()
                 {
@@ -217,10 +228,12 @@ namespace Utilities.TestingUtils
             {
                 new ContestType()
                 {
+                    Id = 1,
                     Name = Constants.ContestTypeSeed.Invitational
                 },
                 new ContestType()
                 {
+                    Id = 2,
                    Name = Constants.ContestTypeSeed.Open
                 },
             };
@@ -345,15 +358,18 @@ namespace Utilities.TestingUtils
             {
                 new Phase()
                 {
-                   Name = Constants.PhasesSeed.Finished
+                   Id = 1,
+                   Name = Constants.PhasesSeed.PhaseI
                 },
                 new Phase()
                 {
+                   Id = 2,
                    Name = Constants.PhasesSeed.PhaseII
                 },
                 new Phase()
                 {
-                   Name = Constants.PhasesSeed.PhaseI
+                   Id = 3,
+                   Name = Constants.PhasesSeed.Finished
                 },
             };
         }
@@ -363,6 +379,7 @@ namespace Utilities.TestingUtils
             {
                 new PhotoReview()
                 {
+                    Id = 1,
                     JuryContestId = 1,
                     PhotoId = 1,
                     Score = 4,
@@ -371,6 +388,7 @@ namespace Utilities.TestingUtils
                 },
                 new PhotoReview()
                 {
+                    Id = 2,
                     JuryContestId = 1,
                     PhotoId = 2,
                     Score = 10,
@@ -379,6 +397,7 @@ namespace Utilities.TestingUtils
                 },
                 new PhotoReview()
                 {
+                    Id = 3,
                     JuryContestId = 1,
                     PhotoId = 3,
                     Score = 6,
@@ -387,6 +406,7 @@ namespace Utilities.TestingUtils
                 },
                 new PhotoReview()
                 {
+                    Id = 4,
                     JuryContestId = 1,
                     PhotoId = 4,
                     Score = 6,
@@ -395,6 +415,7 @@ namespace Utilities.TestingUtils
                 },
                 new PhotoReview()
                 {
+                    Id = 5,
                     JuryContestId = 1,
                     PhotoId = 5,
                     Score = 8,
@@ -403,6 +424,7 @@ namespace Utilities.TestingUtils
                 },
                 new PhotoReview()
                 {
+                    Id = 6,
                     JuryContestId = 1,
                     PhotoId = 6,
                     Score = 4,
@@ -411,6 +433,7 @@ namespace Utilities.TestingUtils
                 },
                 new PhotoReview()
                 {
+                    Id = 7,
                     JuryContestId = 1,
                     PhotoId = 7,
                     Score = 8,
@@ -419,6 +442,7 @@ namespace Utilities.TestingUtils
                 },
                 new PhotoReview()
                 {
+                    Id = 8,
                     JuryContestId = 1,
                     PhotoId = 8,
                     Score = 5,
@@ -544,18 +568,22 @@ namespace Utilities.TestingUtils
             {
                 new Rank()
                 {
+                    Id = 1,
                     Name = Constants.RanksSeed.Junkie,
                 },
                 new Rank()
                 {
+                    Id = 2,
                     Name = Constants.RanksSeed.Enthusiast,
                 },
                 new Rank()
                 {
+                    Id = 3,
                     Name = Constants.RanksSeed.Master,
                 },
                 new Rank()
                 {
+                    Id = 4,
                     Name = Constants.RanksSeed.WiseAndBenevolentPhotoDictator,
                 },
             };

@@ -105,10 +105,10 @@ namespace FullFraim.Tests.ScoringTests
                 await sut.AwardWinnersAsync(3);
 
                 // Assert
-                int firstUserPoints = (int)assertContext.Users.FirstOrDefault(u => u.Id == 2).Points;
-                int secondUserPoints = (int)assertContext.Users.FirstOrDefault(u => u.Id == 3).Points;
-                Assert.AreEqual(40, firstUserPoints);
-                Assert.AreEqual(40, secondUserPoints);
+                var firstUserPoints = assertContext.Users.FirstOrDefault(u => u.Id == 2).Points;
+                var secondUserPoints = assertContext.Users.FirstOrDefault(u => u.Id == 3).Points;
+                Assert.AreEqual((uint)40, firstUserPoints);
+                Assert.AreEqual((uint)40, secondUserPoints);
 
                 await assertContext.Database.EnsureDeletedAsync();
             }
@@ -124,28 +124,80 @@ namespace FullFraim.Tests.ScoringTests
 
             using (var arrangeContext = new FullFraimDbContext(options))
             {
-                arrangeContext.PhotoReviews.Add(new PhotoReview() // 1
+                arrangeContext.PhotoReviews.Add(new PhotoReview() 
                 {
                     Score = (uint)3,
-                    PhotoId = 1,
+                    PhotoId = 9,
                 });
 
-                arrangeContext.PhotoReviews.Add(new PhotoReview() // 1
+                arrangeContext.PhotoReviews.Add(new PhotoReview() 
                 {
                     Score = (uint)4,
-                    PhotoId = 1,
+                    PhotoId = 9,
                 });
 
-                arrangeContext.PhotoReviews.Add(new PhotoReview() // 2
+                arrangeContext.PhotoReviews.Add(new PhotoReview() 
                 {
                     Score = (uint)2,
-                    PhotoId = 2,
+                    PhotoId = 10,
                 });
 
-                arrangeContext.PhotoReviews.Add(new PhotoReview() // 2
+                arrangeContext.PhotoReviews.Add(new PhotoReview() 
                 {
                     Score = (uint)5,
-                    PhotoId = 2,
+                    PhotoId = 10,
+                });
+
+                arrangeContext.Users.AddRange(TestUtils.GetUsers());
+                arrangeContext.Contests.AddRange(TestUtils.GetContests());
+                arrangeContext.ParticipantContests.AddRange(TestUtils.GetParticipantContests());
+                arrangeContext.Photos.AddRange(TestUtils.GetPhotos());
+
+                await arrangeContext.SaveChangesAsync();
+            }
+
+            using (var assertContext = new FullFraimDbContext(options))
+            {
+                var sut = new ScoringService(assertContext);
+                // Act
+                await sut.AwardWinnersAsync(3);
+
+                // Assert
+                var firstUserPoints = assertContext.Users.FirstOrDefault(u => u.Id == 2).Points;
+                var secondUserPoints = assertContext.Users.FirstOrDefault(u => u.Id == 3).Points;
+                Assert.AreEqual((uint)40, firstUserPoints);
+                Assert.AreEqual((uint)40, secondUserPoints);
+
+                await assertContext.Database.EnsureDeletedAsync();
+            }
+        }
+
+        [TestMethod]
+        public async Task AwardWinnersAsync_ShouldUpdateWinnersPointsInDatabase_WhenThereAreThreeWinnersWithDifferentScoreAndTheyDontShare()
+        {
+            //Arrange
+            var options = TestUtils
+                .GetInMemoryDatabaseOptions<FullFraimDbContext>
+                (nameof(AwardWinnersAsync_ShouldUpdateWinnersPointsInDatabase_WhenThereAreThreeWinnersWithDifferentScoreAndTheyDontShare));
+
+            using (var arrangeContext = new FullFraimDbContext(options))
+            {
+                arrangeContext.PhotoReviews.Add(new PhotoReview() // userId 2
+                {
+                    Score = (uint)5,
+                    PhotoId = 9,
+                });
+
+                arrangeContext.PhotoReviews.Add(new PhotoReview() // userId 3
+                {
+                    Score = (uint)6,
+                    PhotoId = 10,
+                });
+
+                arrangeContext.PhotoReviews.Add(new PhotoReview() // userId 4
+                {
+                    Score = (uint)7,
+                    PhotoId = 11,
                 });
 
                 arrangeContext.Photos.AddRange(TestUtils.GetPhotos());
@@ -163,10 +215,13 @@ namespace FullFraim.Tests.ScoringTests
                 await sut.AwardWinnersAsync(3);
 
                 // Assert
-                int firstUserPoints = (int)assertContext.Users.FirstOrDefault(u => u.Id == 2).Points;
-                int secondUserPoints = (int)assertContext.Users.FirstOrDefault(u => u.Id == 3).Points;
-                Assert.AreEqual(40, firstUserPoints);
-                Assert.AreEqual(40, secondUserPoints);
+                var firstUserPoints = assertContext.Users.FirstOrDefault(u => u.Id == 2).Points;
+                var secondUserPoints = assertContext.Users.FirstOrDefault(u => u.Id == 3).Points;
+                var thirdUserPoints = assertContext.Users.FirstOrDefault(u => u.Id == 4).Points;
+
+                Assert.AreEqual((uint)20, firstUserPoints);
+                Assert.AreEqual((uint)35, secondUserPoints);
+                Assert.AreEqual((uint)50, thirdUserPoints);
 
                 await assertContext.Database.EnsureDeletedAsync();
             }

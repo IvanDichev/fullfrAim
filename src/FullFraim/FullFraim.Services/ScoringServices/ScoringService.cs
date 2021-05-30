@@ -20,11 +20,15 @@ namespace FullFraim.Services.ScoringServices
             this.context = context;
         }
 
-        public async Task AwardWinnersAsync(int contestId)                 // Once in Phase III
+        public async Task AwardWinnersAsync(int contestId)                       // Once in Phase III
         {
             var currentContest = await this.context.Contests
                 .Include(c => c.ParticipantContests)
                 .FirstOrDefaultAsync(c => c.Id == contestId);
+
+            var photoReviews = await this.context.PhotoReviews.ToListAsync();
+            var photos = await this.context.Photos.Include(x => x.Participant).ToListAsync();
+            var users = await this.context.Users.ToListAsync();
 
             var allParticipants = currentContest.ParticipantContests;
 
@@ -151,7 +155,7 @@ namespace FullFraim.Services.ScoringServices
         {
             var userReviews = this.context.PhotoReviews                      // Finds all the reviews for the current user' photo
                 .Where(pr => pr.Photo.Participant.UserId == userId &&
-                pr.Photo.Participant.ContestId == contestId);
+                pr.Photo.Participant.ContestId == contestId).ToList();
 
             int userReviewsCount = userReviews.Count();
 
@@ -160,7 +164,7 @@ namespace FullFraim.Services.ScoringServices
             if (userReviewsCount > 0)
             {
                 var userScoreSum = userReviews.Sum(pr => pr.Score);
-                userFinalScore = userScoreSum / userReviewsCount;
+                userFinalScore = userScoreSum / (double)userReviewsCount;
             }
             else
             {
