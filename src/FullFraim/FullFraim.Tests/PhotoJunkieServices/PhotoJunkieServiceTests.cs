@@ -287,7 +287,7 @@ namespace FullFraim.Tests.PhotoJunkieServices
                 //Act
                 await photoJunkieService.EnrollForContestAsync(inputModel);
                 var result = await context.Photos
-                    .FirstOrDefaultAsync(ph => ph.Id == 14);
+                    .FirstOrDefaultAsync(ph => ph.Id == 18);
 
                 //Assert
                 Assert.IsTrue(result != null);
