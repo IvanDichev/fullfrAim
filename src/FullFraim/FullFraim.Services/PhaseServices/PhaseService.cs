@@ -85,6 +85,11 @@ namespace FullFraim.Services.PhaseServices
                 throw new NullModelException();
             }
 
+            if(id <= 0)
+            {
+                throw new InvalidIdException();
+            }
+
             var dbModelToUpdate = await this.context.Phases
                 .FirstOrDefaultAsync(CC => CC.Id == id);
 
