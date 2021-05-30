@@ -258,12 +258,12 @@ namespace Utilities.TestingUtils
                 new ContestType()
                 {
                     Id = 1,
-                    Name = Constants.ContestTypeSeed.Invitational
+                   Name = Constants.ContestTypeSeed.Open
                 },
                 new ContestType()
                 {
                     Id = 2,
-                   Name = Constants.ContestTypeSeed.Open
+                    Name = Constants.ContestTypeSeed.Invitational
                 },
             };
         }

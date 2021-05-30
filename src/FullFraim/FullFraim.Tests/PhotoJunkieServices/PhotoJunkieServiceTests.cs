@@ -165,7 +165,7 @@ namespace FullFraim.Tests.PhotoJunkieServices
                 await photoJunkieService.EnrollForContestAsync(inputModel);
                 var result = await context.Users.FirstOrDefaultAsync(pc => pc.Id == 2);
                 //Assert
-                Assert.AreEqual((uint)1, result.Points);
+                Assert.AreEqual((uint)3, result.Points);
 
                 context.Database.EnsureDeleted();
             }
@@ -205,7 +205,7 @@ namespace FullFraim.Tests.PhotoJunkieServices
                 await photoJunkieService.EnrollForContestAsync(inputModel);
                 var result = await context.Users.FirstOrDefaultAsync(pc => pc.Id == 2);
                 //Assert
-                Assert.AreEqual((uint)3, result.Points);
+                Assert.AreEqual((uint)1, result.Points);
 
                 context.Database.EnsureDeleted();
             }
