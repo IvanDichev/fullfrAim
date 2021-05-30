@@ -718,6 +718,8 @@ namespace Utilities.TestingUtils
             await context.Photos.AddRangeAsync(GetPhotos());
             await context.Ranks.AddRangeAsync(GetRanks());
             await context.Users.AddRangeAsync(GetUsers());
+            await context.ParticipantContests.AddRangeAsync(GetParticipantContests());
+            await context.JuryContests.AddRangeAsync(GetJuryContests());
         }
         public static ICollection<User> GetUsers()
         {

@@ -155,17 +155,17 @@ namespace FullFraim.Tests.PhotoJunkieServices
                 var photoJunkieService = new PhotoJunkieService(context, userMocked.Object);
                 var inputModel = new InputEnrollForContestDto()
                 {
-                    UserId = 2,
-                    ContestId = 1,
+                    UserId = 6,
+                    ContestId = 2,
                     PhotoUrl = "some",
                     ImageDescription = "helloWorld"
                 };
 
                 //Act
                 await photoJunkieService.EnrollForContestAsync(inputModel);
-                var result = await context.Users.FirstOrDefaultAsync(pc => pc.Id == 2);
+                var result = await context.Users.FirstOrDefaultAsync(u => u.Id == 6);
                 //Assert
-                Assert.AreEqual((uint)3, result.Points);
+                Assert.AreEqual((uint)1, result.Points);
 
                 context.Database.EnsureDeleted();
             }
@@ -195,17 +195,17 @@ namespace FullFraim.Tests.PhotoJunkieServices
                 var photoJunkieService = new PhotoJunkieService(context, userMocked.Object);
                 var inputModel = new InputEnrollForContestDto()
                 {
-                    UserId = 2,
-                    ContestId = 2,
+                    UserId = 6,
+                    ContestId = 1,
                     PhotoUrl = "some",
                     ImageDescription = "helloWorld"
                 };
 
                 //Act
                 await photoJunkieService.EnrollForContestAsync(inputModel);
-                var result = await context.Users.FirstOrDefaultAsync(pc => pc.Id == 2);
+                var result = await context.Users.FirstOrDefaultAsync(u => u.Id == 6);
                 //Assert
-                Assert.AreEqual((uint)1, result.Points);
+                Assert.AreEqual((uint)3, result.Points);
 
                 context.Database.EnsureDeleted();
             }
@@ -235,7 +235,7 @@ namespace FullFraim.Tests.PhotoJunkieServices
                 var photoJunkieService = new PhotoJunkieService(context, userMocked.Object);
                 var inputModel = new InputEnrollForContestDto()
                 {
-                    UserId = 2,
+                    UserId = 6,
                     ContestId = 1,
                     PhotoUrl = "some",
                     ImageDescription = "helloWorld",
@@ -277,7 +277,7 @@ namespace FullFraim.Tests.PhotoJunkieServices
                 var photoJunkieService = new PhotoJunkieService(context, userMocked.Object);
                 var inputModel = new InputEnrollForContestDto()
                 {
-                    UserId = 2,
+                    UserId = 6,
                     ContestId = 1,
                     PhotoUrl = "some",
                     ImageDescription = "helloWorld",
@@ -673,11 +673,7 @@ namespace FullFraim.Tests.PhotoJunkieServices
             using (var dbContext = new FullFraimDbContext(options))
             {
                 await TestUtils.DatabaseFullSeed(dbContext);
-                await dbContext.ParticipantContests
-                    .AddRangeAsync(TestUtils.GetParticipantContests());
-                await dbContext.JuryContests
-                    .AddRangeAsync(TestUtils.GetJuryContests());
-
+                
                 await dbContext.SaveChangesAsync();
             }
 
