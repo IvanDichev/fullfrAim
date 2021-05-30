@@ -36,6 +36,11 @@ namespace FullFraim.Services.ContestServices
                 throw new NullModelException($"{DateTime.UtcNow} - ContestService.CreateAsync() received null input model.");
             }
 
+            if (this.context.Contests.Any(c => c.Name == model.Name))
+            {
+                throw new UniqueNameException($"{DateTime.UtcNow} - ContestService.CreateAsync() input name: {model.Name} is already used. Unique name is required!");
+            }
+
             model.Phases.StartDate_PhaseI = DateTime.UtcNow;
             model.Phases.StartDate_PhaseII = model.Phases.EndDate_PhaseI;
             model.Phases.StartDate_PhaseIII = model.Phases.EndDate_PhaseII;
@@ -47,26 +52,33 @@ namespace FullFraim.Services.ContestServices
 
             await AddOrganizersToJuryContest(contest.Entity.Id);
 
-            await this
-                .AddInvitedForTheContestAsync(model.Jury, model.Participants, contest.Entity.Id);
+            // If contest is invitational there will be no one invited
+            if (model.ContestTypeId == (await this.context.ContestTypes.FirstOrDefaultAsync(ct => ct.Name == Constants.ContestTypeSeed.Invitational)).Id)
+            {
+                await this.AddInvitedForTheContestAsync(model.Jury, model.Participants, contest.Entity.Id);
+            }
 
-            await this
-                .AddContestPhasesAsync(model, contest.Entity.Id);
+            await this.AddContestPhasesAsync(model, contest.Entity.Id);
 
             await this.context.SaveChangesAsync();
 
-            return contest.Entity.MapToDto();
+            return this.context.Contests.Where(c => c.Id == contest.Entity.Id).MapToDto().FirstOrDefault();
         }
 
         public async Task DeleteAsync(int id)
         {
             if (id <= 0)
             {
-                throw new InvalidIdException($"{DateTime.UtcNow} - ContestService.DeleteAsync() received invalid ID.");
+                throw new InvalidIdException($"{DateTime.UtcNow} - ContestService.DeleteAsync() received invalid Id: {id}.");
             }
 
             var modelToRemove = await this.context.Contests
                 .FirstOrDefaultAsync(CC => CC.Id == id);
+
+            if (modelToRemove == null)
+            {
+                throw new NotFoundException($"{DateTime.UtcNow} - ContestService.DeleteAsync() didn't find contest with Id: {id}.");
+            }
 
             modelToRemove.DeletedOn = DateTime.UtcNow;
             modelToRemove.IsDeleted = true;
@@ -132,7 +144,7 @@ namespace FullFraim.Services.ContestServices
         {
             if (id <= 0)
             {
-                throw new InvalidIdException($"{DateTime.UtcNow} - ContestService.GetByIdAsync() received invalid ID.");
+                throw new InvalidIdException($"{DateTime.UtcNow} - ContestService.GetByIdAsync() received invalid Id: {id}.");
             }
 
             var result = await this.context.Contests
@@ -142,7 +154,7 @@ namespace FullFraim.Services.ContestServices
 
             if (result == null)
             {
-                throw new NotFoundException();
+                throw new NotFoundException($"{DateTime.UtcNow} - ContestService.GetByIdAsync() didn't find entity with Id: {id}.");
             }
 
             return result;
@@ -160,13 +172,38 @@ namespace FullFraim.Services.ContestServices
 
             if (dbModelToUpdate == null)
             {
-                throw new NotFoundException($"{DateTime.UtcNow} - ContestService.UpdateAsync() the model to update was not found.");
+                throw new NotFoundException($"{DateTime.UtcNow} - ContestService.UpdateAsync() didn't find entity with Id: {id}.");
+            }
+
+            if (this.context.Contests.Any(c => c.Name == model.Name))
+            {
+                throw new UniqueNameException($"{DateTime.UtcNow} - ContestService.UpdateAsync() input name: {model.Name} is already used. Unique name is required!");
             }
 
             dbModelToUpdate.Name = model.Name ?? dbModelToUpdate.Name;
             dbModelToUpdate.ModifiedOn = DateTime.UtcNow;
 
             await this.context.SaveChangesAsync();
+        }
+
+        public async Task<ICollection<UserDto>> GetParticipantsForInvitationAsync()
+        {
+            var users = await userManager.GetUsersInRoleAsync(Constants.RolesSeed.User);
+
+            var usersDto = users.MapToDto();
+
+            return usersDto;
+        }
+
+        public async Task<ICollection<UserDto>> GetPotentialJuryForInvitationAsync()
+        {
+            var users = await userManager.GetUsersInRoleAsync(Constants.RolesSeed.User);
+
+            users = users
+                .Where(u => u.Points >= 150)
+                .ToList();
+
+            return users.MapToDto();
         }
 
         private async Task AddContestPhasesAsync(InputContestDto model, int id)
@@ -199,29 +236,14 @@ namespace FullFraim.Services.ContestServices
               });
         }
 
-        public async Task<ICollection<UserDto>> GetParticipantsForInvitationAsync()
-        {
-            var users = await userManager.GetUsersInRoleAsync("USER");
-
-            var usersDto = users.MapToDto();
-
-            return usersDto;
-        }
-
-        public async Task<ICollection<UserDto>> GetPotentialJuryForInvitationAsync()
-        {
-            var users = await userManager.GetUsersInRoleAsync("USER");
-
-            users = users
-                .Where(u => u.Points >= 150)
-                .ToList();
-
-            return users.MapToDto();
-        }
-
         private async Task AddOrganizersToJuryContest(int contestId)
         {
-            var organisers = await userManager.GetUsersInRoleAsync("ORGANIZER");
+            var organisers = await userManager.GetUsersInRoleAsync(Constants.RolesSeed.Organizer);
+
+            if (organisers.Count == 0)
+            {
+                throw new NoOrganizersException($"{DateTime.UtcNow} - No organizers found in database!");
+            }
 
             foreach (var organizer in organisers)
             {
@@ -238,15 +260,15 @@ namespace FullFraim.Services.ContestServices
         private async Task AddInvitedForTheContestAsync
             (ICollection<int> jury, ICollection<int> participants, int contestId)
         {
-            if (participants == null && jury == null)
+            if (participants == null || jury == null)
             {
-                throw new NullModelException();
+                throw new NullModelException($"{DateTime.UtcNow} null models was passed to ContestService.AddInvitedForTheContestAsync().");
             }
 
             if (participants.Any(p => jury.Any(j => j == p)))
             {
                 //Funny Joke :D
-                throw new CheaterException();
+                throw new CheaterException($"{DateTime.UtcNow} Cannot invite participant to be jury!");
             }
 
             var contest = await this.context.Contests
@@ -254,7 +276,7 @@ namespace FullFraim.Services.ContestServices
 
             if (contest == null)
             {
-                throw new NotFoundException();
+                throw new NotFoundException($"{DateTime.UtcNow} ContestService.AddInvitedForTheContestAsync() didn't find contest with id: {contestId}.");
             }
 
             var juryContests = jury.MapToJuryContest(contestId);
@@ -275,17 +297,22 @@ namespace FullFraim.Services.ContestServices
 
         public async Task<bool> IsContestInPhaseFinished(int contestId)
         {
+            if (contestId <= 0)
+            {
+                throw new InvalidIdException($"{DateTime.UtcNow} - ContestService.IsContestInPhaseFinished() received invalid contestId: {contestId}.");
+            }
+
             return await this.context.Contests
                 .Where(c => c.Id == contestId)
                 .Where(c => c.ContestPhases.Any(cp => cp.Phase.Name == Constants.PhasesSeed.Finished &&
-                    cp.StartDate < DateTime.UtcNow)).AnyAsync();
+                    cp.StartDate < DateTime.UtcNow && cp.EndDate > DateTime.UtcNow)).AnyAsync();
         }
 
         public async Task<IEnumerable<DashboardViewModel>> GetContestsByCategoryAsync(int userId, int categoryId) 
         {
-            if (categoryId < 0)
+            if (categoryId <= 0)
             {
-                throw new InvalidIdException("User Id must be positive!");
+                throw new InvalidIdException($"{DateTime.UtcNow} - ContestService.GetContestsByCategoryAsync() received invalid categoryId: {categoryId}.");
             }
 
             var paginatedModel = await GetAllAsync(userId, userId, null, null, new PaginationFilter());
