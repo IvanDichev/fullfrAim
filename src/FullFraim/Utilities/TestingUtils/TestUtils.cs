@@ -635,6 +635,7 @@ namespace Utilities.TestingUtils
             await context.PhotoReviews.AddRangeAsync(GetPhotoReviews());
             await context.Photos.AddRangeAsync(GetPhotos());
             await context.Ranks.AddRangeAsync(GetRanks());
+            await context.Users.AddRangeAsync(GetUsers());
         }
 
         public static ICollection<User> GetUsers()
@@ -652,6 +653,11 @@ namespace Utilities.TestingUtils
                     NormalizedEmail = Constants.UserSeed.VShikovEmail.ToUpper(),
                     EmailConfirmed = true,
                     Points = 0,
+                    Rank = new Rank()
+                {
+                    Id = 5,
+                    Name = Constants.RanksSeed.Junkie,
+                },
                 },
                 new User()
                 {
@@ -664,6 +670,11 @@ namespace Utilities.TestingUtils
                     NormalizedEmail = Constants.UserSeed.IDichevEmail.ToUpper(),
                     EmailConfirmed = true,
                     Points = 0,
+                    Rank = new Rank()
+                {
+                    Id = 6,
+                    Name = Constants.RanksSeed.Junkie,
+                },
                 },
                 new User()
                 {
@@ -676,6 +687,11 @@ namespace Utilities.TestingUtils
                     NormalizedEmail = Constants.UserSeed.BMihaylovaEmail.ToUpper(),
                     EmailConfirmed = true,
                     Points = 0,
+                    Rank = new Rank()
+                {
+                    Id = 7,
+                    Name = Constants.RanksSeed.Junkie,
+                },
                 },
                 new User()
                 {
@@ -688,6 +704,11 @@ namespace Utilities.TestingUtils
                     NormalizedEmail = Constants.UserSeed.DDimitrovEmail.ToUpper(),
                     EmailConfirmed = true,
                     Points = 0,
+                    Rank = new Rank()
+                {
+                    Id = 8,
+                    Name = Constants.RanksSeed.Junkie,
+                },
                 },
                 new User()
                 {
@@ -700,6 +721,11 @@ namespace Utilities.TestingUtils
                     NormalizedEmail = Constants.UserSeed.EIvanovaEmail.ToUpper(),
                     EmailConfirmed = true,
                     Points = 0,
+                    Rank = new Rank()
+                {
+                    Id = 9,
+                    Name = Constants.RanksSeed.Junkie,
+                },
                 },
             };
         }

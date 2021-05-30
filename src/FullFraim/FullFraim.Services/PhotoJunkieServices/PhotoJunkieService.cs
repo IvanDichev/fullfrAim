@@ -28,6 +28,11 @@ namespace FullFraim.Services.PhotoJunkieServices
 
         public async Task EnrollForContestAsync(InputEnrollForContestDto inputModel)
         {
+            if(inputModel == null)
+            {
+                throw new NullModelException();
+            }
+
             var toAddParticipantContest = new ParticipantContest()
             {
                 ContestId = inputModel.ContestId,
@@ -74,6 +79,11 @@ namespace FullFraim.Services.PhotoJunkieServices
 
         public async Task<bool> CanJunkyEnroll(int contestId, int userId)
         {
+            if(contestId <= 0 || userId <= 0)
+            {
+                throw new InvalidIdException();
+            }
+
             var isParticipant = !await this.context.ParticipantContests
                 .AnyAsync(p => p.UserId == userId && p.ContestId == contestId);
 
@@ -130,6 +140,11 @@ namespace FullFraim.Services.PhotoJunkieServices
             var userToAddPoints = await this.context.Users
                 .FirstOrDefaultAsync(u => u.Id == toAddParticipantContest.UserId);
 
+            if(userToAddPoints == null)
+            {
+                throw new NotFoundException();
+            }
+
             switch (contestType)
             {
                 case Constants.ContestTypeSeed.Open:
@@ -139,6 +154,8 @@ namespace FullFraim.Services.PhotoJunkieServices
                 case Constants.ContestTypeSeed.Invitational:
                     userToAddPoints.Points += 3;
                     break;
+                default:
+                    throw new Exception();
             }
         }
     }
