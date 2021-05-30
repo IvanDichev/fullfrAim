@@ -15,6 +15,7 @@ namespace Utilities.Mapper
                FirstName = x.FirstName,
                LastName = x.LastName,
                Points = (int)x.Points,
+               Rank = x.Rank.Name
             });
         } 
         
