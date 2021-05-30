@@ -20,7 +20,7 @@ namespace FullFraim.Services.ScoringServices
             this.context = context;
         }
 
-        public async Task AwardWinnersAsync(int contestId)                       // Once in Phase III
+        public async Task AwardWinnersAsync(int contestId)                        // Once in Phase III
         {
             var currentContest = await this.context.Contests
                 .Include(c => c.ParticipantContests)
