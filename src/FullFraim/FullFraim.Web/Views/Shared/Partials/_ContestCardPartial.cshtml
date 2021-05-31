@@ -1,32 +1,35 @@
 ﻿@model DashboardViewModel
 
 <div class="card" style="margin-inline:1rem">
-    @if (Model.ContestCategory == 10)
+@if (Model.ContestCategory == 10)
     {
-        <img class="card-img-top" src="@Model.Cover_Url" alt="Card image cap" style="width: 300px; height:400px">
+    <img class="card-img-top" src="@Model.Cover_Url" alt="Card image cap" style="width: 300px; height:400px">
     }
     else
     {
-        <img class="card-img-top" src="@Model.Cover_Url" alt="Card image cap" style="width: 300px; height:200px">
-    }
-    <div class="card-body">
-        <h5 class="card-title">@Model.Name</h5>
-        <p class="card-text">@Model.Description</p>
-        @if (Model.ActivePhase.Name == "PhaseI")
+    <img class="card-img-top" src="@Model.Cover_Url" alt="Card image cap" style="width: 300px; height:200px">
+}
+<div class="card-body">
+    <h5 class="card-title">e</h5>
+    <p class="card-text">n</p>
+    <p>isParticipant: @Model.IsCurrentUserParticipant</p>
+    <p>isJury: @Model.IsCurrentUserJury</p>
+@if (Model.ActivePhase.Name == "PhaseI")
         {
-            <div>Deadline in <p style="color: blue" id="demo"></p> </div>
-            <button class="btn btn-primary">Enroll</button>
+    <div>Deadline in <p style="color: blue" id="demo"></p> </div>
+    <button class="btn btn-primary">Enroll</button>
         }
         else if (Model.ActivePhase.Name == "PhaseII")
         {
-            <p>Closed for enrollement</p>
+    <p>Closed for enrollement</p>
         }
         else if (Model.ActivePhase.Name == "Finished")
         {
-            <p>Finished</p>
-        }
-    </div>
+    <p>Finished</p>
+}
 </div>
+</div>
+
 
 @section Scripts{
     <script>
@@ -43,4 +46,5 @@
 
         console.log('dasdasd')
     </script>
+
 }

@@ -10,6 +10,7 @@ namespace FullFraim.Models.Dto_s.Photos
         public string PhotoTitle { get; set; }
         public string PhotoUrl { get; set; }
         public string Description { get; set; }
+        public double Score { get; set; }
         public ICollection<ReviewDto> Reviews { get; set; }
     }
 }

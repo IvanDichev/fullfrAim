@@ -27,6 +27,7 @@ namespace Utilities.Mapper
                 AuthorName = $"{p.Participant.User.FirstName} {p.Participant.User.LastName}",
                 PhotoTitle = p.Title,
                 PhotoUrl = p.Url,
+                Score = p.PhotoReviews.Sum(pr => pr.Score) / p.PhotoReviews.Count(),
                 Description = p.Story,
                 Reviews = p.PhotoReviews.Select(pr => new ReviewDto()
                 {

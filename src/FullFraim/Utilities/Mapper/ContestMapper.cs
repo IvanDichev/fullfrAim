@@ -2,7 +2,9 @@
 using FullFraim.Models.Contest.ViewModels;
 using FullFraim.Models.Dto_s.Contests;
 using FullFraim.Models.Dto_s.Phases;
+using FullFraim.Models.Dto_s.Photos;
 using FullFraim.Models.Dto_s.User;
+using FullFraim.Models.ViewModels.Contest;
 using FullFraim.Models.ViewModels.Dashboard;
 using System.Collections.Generic;
 using System.Linq;
@@ -72,6 +74,18 @@ namespace Utilities.Mapper
                 Description = model.Description,
                 ContestCategory = model.ContestCategoryId,
                 ActivePhase = model.ActivePhase,
+            };
+        }
+
+        public static ContestSubmissionViewModel MapToContestSubmissionView(this ContestSubmissionOutputDto model)
+        {
+            return new ContestSubmissionViewModel()
+            { 
+                AuthorName = model.AuthorName,
+                Image_Url = model.PhotoUrl,
+                Description = model.Description,
+                Score = model.Score,
+                Reviews = model.Reviews,
             };
         }
 

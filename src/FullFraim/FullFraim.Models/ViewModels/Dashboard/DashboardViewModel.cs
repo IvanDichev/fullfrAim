@@ -1,5 +1,4 @@
-﻿using FullFraim.Data.Models;
-using FullFraim.Models.Dto_s.ContestCategories;
+﻿using FullFraim.Models.Dto_s.ContestCategories;
 using FullFraim.Models.Dto_s.Phases;
 using System;
 using System.Collections.Generic;
@@ -15,6 +14,8 @@ namespace FullFraim.Models.ViewModels.Dashboard
         public PhaseDto ActivePhase { get; set; }
         public int ContestCategory { get; set; }
         public DateTime EndDate { get; set; }
+        public bool IsCurrentUserParticipant { get; set; }
+        public bool IsCurrentUserJury { get; set; }
         public IEnumerable<DashboardViewModel> Contests { get; set; }
         public IEnumerable<ContestCategoryDto> Categories { get; set; }
     }

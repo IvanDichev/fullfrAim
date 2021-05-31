@@ -1,0 +1,20 @@
+﻿@model PaginatedModel<ContestSubmissionViewModel>
+
+
+<div class="gallery_area clearfix">
+    <div class="container-fluid clearfix">
+        <div class="row portfolio-column">
+
+            @foreach (var item in Model.Model)
+            {
+                <partial name="~/Views/Shared/Partials/_ContestSubmissionPartial.cshtml" model="item" />
+            }
+
+        </div>
+        <div class="row">
+            <div class="col-12 text-center mt-70">
+                <a href="#" class="btn studio-btn"><img src="/img/core-img/logo-icon.png" alt=""> Load More</a>
+            </div>
+        </div>
+    </div>
+</div>

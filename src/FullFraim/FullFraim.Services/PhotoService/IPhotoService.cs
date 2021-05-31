@@ -12,7 +12,7 @@ namespace FullFraim.Services.PhotoService
             (int userid, int contestId, PaginationFilter paginationFilter);
         Task<ICollection<PhotoDto>> GetTopRecentPhotosAsync();
         Task<bool> IsPhotoSubmitedByUserAsync(int userId, int photoId);
-        Task<PaginatedModel<ContestSubmissionOutputDto>> GetDetailedSubmissionsFromContest
+        Task<PaginatedModel<ContestSubmissionOutputDto>> GetDetailedSubmissionsFromContestAsync
             (int contestId, PaginationFilter paginationFilter);
         Task<PhotoDto> GetUserSubmissionForContestAsync(int userid, int contestId);
     }

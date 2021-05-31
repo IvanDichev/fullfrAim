@@ -1,0 +1,24 @@
+﻿@model ContestSubmissionViewModel
+
+<div class="card" style="margin-inline:1rem">
+    <img class="card-img-top" src="@Model.Image_Url" alt="Card image cap" style="width: 300px; height:200px">
+    <div class="card-body">
+        <h5 class="card-title">@Model.AuthorName</h5>
+        <p class="card-text">@Model.Description</p>
+
+        <div>Score @Model.Score<p style="color: blue" id="demo"></p> </div>
+        <button class="btn btn-primary">See Reviews</button>
+        @if (Model.ActivePhase.Name == "Finished")
+            {
+
+            }
+        @*else if (Model.ActivePhase.Name == "PhaseII")
+            {
+                <p>Closed for enrollement</p>
+            }
+            else if (Model.ActivePhase.Name == "Finished")
+            {
+                <p>Finished</p>
+            }*@
+    </div>
+</div>

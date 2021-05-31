@@ -93,7 +93,7 @@ namespace FullFraim.Web.Controllers.ApiControllers
             }
 
             var photos = await this.photoService
-                .GetDetailedSubmissionsFromContest(contestId, paginationFilter);
+                .GetDetailedSubmissionsFromContestAsync(contestId, paginationFilter);
 
             return Ok(photos);
         }
