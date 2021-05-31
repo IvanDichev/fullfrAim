@@ -139,7 +139,7 @@ namespace FullFraim.Services.ContestServices
                 Model = await contests.OrderByDescending(c => c.CreatedOn)
                     .Skip(paginationFilter.PageSize * (paginationFilter.PageNumber - 1))
                     .Take(paginationFilter.PageSize)
-                    .MapToDto()
+                    .MapToDto(userId)
                     .ToListAsync(),
                 RecordsPerPage = paginationFilter.PageSize,
                 TotalPages = (int)Math.Ceiling(await this.context.Contests

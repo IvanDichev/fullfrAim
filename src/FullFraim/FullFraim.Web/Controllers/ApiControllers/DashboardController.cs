@@ -1,9 +1,11 @@
-﻿using FullFraim.Services.PhotoService;
+﻿using FullFraim.Models.Dto_s.Contests;
+using FullFraim.Models.Dto_s.Pagination;
+using FullFraim.Services.ContestServices;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace FullFraim.Web.Controllers.ApiControllers
@@ -13,18 +15,27 @@ namespace FullFraim.Web.Controllers.ApiControllers
     [Route("api/[Controller]")]
     public class DashboardController : ControllerBase
     {
-        private readonly IPhotoService photoService;
+        private readonly IContestService contestService;
 
-        public DashboardController(IPhotoService photoService)
+        public DashboardController(IContestService contestService)
         {
-            this.photoService = photoService;
+            this.contestService = contestService;
         }
         
         [HttpGet]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<IActionResult> GetAll()
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ICollection<OutputContestDto>))]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        public async Task<IActionResult> GetAll([FromQuery] int userId, [FromQuery] PaginationFilter paginationFilter)
         {
-            throw new NotImplementedException();
+            if (userId <= 0)
+            {
+                return BadRequest();
+            }
+
+            var allForUser = await this.contestService.GetAllForUserAsync(userId, paginationFilter);
+
+            return Ok(allForUser);
         }
     }
 }
