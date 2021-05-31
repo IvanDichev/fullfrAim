@@ -7,14 +7,14 @@
     }
     else
     {
-    <img class="card-img-top" src="@Model.Cover_Url" alt="Card image cap" style="width: 300px; height:200px">
-}
-<div class="card-body">
-    <h5 class="card-title">e</h5>
-    <p class="card-text">n</p>
-    <p>isParticipant: @Model.IsCurrentUserParticipant</p>
-    <p>isJury: @Model.IsCurrentUserJury</p>
-@if (Model.ActivePhase.Name == "PhaseI")
+        <img class="card-img-top" src="@Model.Cover_Url" alt="Card image cap" style="width: 300px; height:200px">
+    }
+    <div class="card-body">
+        <h5 class="card-title">@Model.Name</h5>
+        <p class="card-text">@Model.Description</p>
+        <p>isParticipant: @Model.IsCurrentUserParticipant</p>
+        <p>isJury: @Model.IsCurrentUserJury</p>
+        @if (Model.ActivePhase.Name == "PhaseI")
         {
     <div>Deadline in <p style="color: blue" id="demo"></p> </div>
     <button class="btn btn-primary">Enroll</button>

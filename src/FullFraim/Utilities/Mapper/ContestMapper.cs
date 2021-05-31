@@ -1,6 +1,7 @@
 ﻿using FullFraim.Data.Models;
 using FullFraim.Models.Contest.ViewModels;
 using FullFraim.Models.Dto_s.Contests;
+using FullFraim.Models.Dto_s.Dashboard;
 using FullFraim.Models.Dto_s.Phases;
 using FullFraim.Models.Dto_s.Photos;
 using FullFraim.Models.Dto_s.User;
@@ -74,6 +75,8 @@ namespace Utilities.Mapper
                 Description = model.Description,
                 ContestCategory = model.ContestCategoryId,
                 ActivePhase = model.ActivePhase,
+                IsCurrentUserParticipant = model.IsCurrentUserParticipant,
+                IsCurrentUserJury = model.IsCurrentUserJury,
             };
         }
 
@@ -113,6 +116,28 @@ namespace Utilities.Mapper
                 Description = x.Description,
                 ContestCategoryId = x.ContestCategoryId,
                 ContestTypeId = x.ContestTypeId,
+                PhasesInfo = x.ContestPhases.Select(y => new PhaseDto()
+                {
+                    Name = y.Phase.Name,
+                    StartDate = y.StartDate,
+                    EndDate = y.EndDate
+                }).ToList()
+            });
+        }
+        
+        public static IQueryable<OutputContestDto> MapToDto(this IQueryable<Contest> query, int userId)
+        {
+            return query.Select(x =>
+            new OutputContestDto()
+            {
+                Id = x.Id,
+                Name = x.Name,
+                Cover_Url = x.Cover_Url,
+                Description = x.Description,
+                ContestCategoryId = x.ContestCategoryId,
+                ContestTypeId = x.ContestTypeId,
+                IsCurrentUserJury = x.JuryContests.Any(x => x.UserId == userId),
+                IsCurrentUserParticipant = x.ParticipantContests.Any(x => x.UserId == userId),
                 PhasesInfo = x.ContestPhases.Select(y => new PhaseDto()
                 {
                     Name = y.Phase.Name,

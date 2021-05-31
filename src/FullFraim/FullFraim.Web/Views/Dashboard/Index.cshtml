@@ -35,19 +35,22 @@
         <div class="row portfolio-column">
             @foreach (var item in Model.Where(x => x.ActivePhase.Name == "PhaseI").ToList())
             {
-<partial name="~/Views/Shared/Partials/_ContestCardPartial.cshtml" model="item" />            }
+                <partial name="~/Views/Shared/Partials/_ContestCardPartial.cshtml" model="item" />
+            }
         </div>
         <div style="margin-bottom: 1rem;margin-top: 4rem;">Reviewing</div>
         <div class="row portfolio-column">
             @foreach (var item in Model.Where(x => x.ActivePhase.Name == "PhaseII").ToList())
             {
-<partial name="~/Views/Shared/Partials/_ContestCardPartial.cshtml" model="item" />            }
+                <partial name="~/Views/Shared/Partials/_ContestCardPartial.cshtml" model="item" />
+            }
         </div>
         <div style="margin-bottom:1rem;margin-top: 4rem;">Closed</div>
         <div class="row portfolio-column">
             @foreach (var item in Model.Where(x => x.ActivePhase.Name == "Finished").ToList())
             {
-<partial name="~/Views/Shared/Partials/_ContestCardPartial.cshtml" model="item" />            }
+                <partial name="~/Views/Shared/Partials/_ContestCardPartial.cshtml" model="item" />
+            }
         </div>
 
         <div class="row">

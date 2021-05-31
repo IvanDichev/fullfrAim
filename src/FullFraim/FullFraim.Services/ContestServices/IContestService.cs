@@ -20,5 +20,6 @@ namespace FullFraim.Services.ContestServices
         Task<PaginatedModel<string>> GetCoversAsync(PaginationFilter paginationFilter);
         Task<bool> IsContestInPhaseFinished(int contestId);
         Task<IEnumerable<DashboardViewModel>> GetContestsByCategoryAsync(int userId, int categoryId);
+        Task<PaginatedModel<OutputContestDto>> GetAllForUserAsync(int userId, PaginationFilter paginationFilter);
     }
 }
