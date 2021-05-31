@@ -1,24 +1,28 @@
 ﻿@model ContestSubmissionViewModel
 
+
 <div class="card" style="margin-inline:1rem">
-    <img class="card-img-top" src="@Model.Image_Url" alt="Card image cap" style="width: 300px; height:200px">
-    <div class="card-body">
-        <h5 class="card-title">@Model.AuthorName</h5>
-        <p class="card-text">@Model.Description</p>
+    <a href="#">
+        <img class="card-img-top" src="@Model.Image_Url" alt="Card image cap" style="width: 300px; height:200px">
+        <div class="card-body">
+            <h5 class="card-title">@Model.AuthorName</h5>
+            <p class="card-text">@Model.Description</p>
 
-        <div>Score @Model.Score<p style="color: blue" id="demo"></p> </div>
-        <button class="btn btn-primary">See Reviews</button>
-        @if (Model.ActivePhase.Name == "Finished")
+            <div>Score @Model.Score<p style="color: blue" id="demo"></p> </div>
+            @*<button class="btn btn-primary">See Reviews</button>*@
+            @if (Model.ActivePhase.Name == "PhaseI")
             {
-
+                <div>Deadline in <p style="color: blue" id="demo"></p> </div>
+                @*<button class="btn btn-primary">Enroll</button>*@ 
             }
-        @*else if (Model.ActivePhase.Name == "PhaseII")
+            else if (Model.ActivePhase.Name == "PhaseII")
             {
-                <p>Closed for enrollement</p>
+                 <p>test</p>
             }
             else if (Model.ActivePhase.Name == "Finished")
             {
-                <p>Finished</p>
-            }*@
-    </div>
+                 <p>test</p>
+            }
+        </div>
+    </a>
 </div>

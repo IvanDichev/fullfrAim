@@ -88,6 +88,7 @@ namespace Utilities.Mapper
                 Image_Url = model.PhotoUrl,
                 Description = model.Description,
                 Score = model.Score,
+                ActivePhase = model.ActivePhase,
                 Reviews = model.Reviews,
             };
         }

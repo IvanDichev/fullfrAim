@@ -21,3 +21,4 @@ System.IO.IOException: Failed to bind to address https://127.0.0.1:5001: address
    at Microsoft.AspNetCore.Server.Kestrel.Core.KestrelServer.StartAsync[TContext](IHttpApplication`1 application, CancellationToken cancellationToken)
 2021-05-31 19:00:16.100 +03:00 [FTL] Failed to bind to address https://127.0.0.1:5001: address already in use.
 2021-05-31 20:43:38.587 +03:00 [WRN] Sensitive data logging is enabled. Log entries and exception messages may include sensitive application data, this mode should only be enabled during development.
+2021-05-31 21:16:45.169 +03:00 [WRN] Sensitive data logging is enabled. Log entries and exception messages may include sensitive application data, this mode should only be enabled during development.
