@@ -3,14 +3,15 @@
 <div class="social-sidebar-area bg-white" style="height: 11.8%">
     <!-- Social Area -->
     @*<div class="social-info-area">
-        <a href="#" data-toggle="tooltip" data-placement="right" title="Facebook"><i class="fa fa-facebook" aria-hidden="true"></i> <span>Facebook</span></a>
-        <a href="#" data-toggle="tooltip" data-placement="right" title="Twitter"><i class="fa fa-twitter" aria-hidden="true"></i> <span>Twitter</span></a>
-        <a href="#" data-toggle="tooltip" data-placement="right" title="Pinterest"><i class="fa fa-pinterest" aria-hidden="true"></i> <span>Pinterest</span></a>
-        <a href="#" data-toggle="tooltip" data-placement="right" title="Behance"><i class="fa fa-behance" aria-hidden="true"></i> <span>Behance</span></a>
-    </div>*@
+            <a href="#" data-toggle="tooltip" data-placement="right" title="Facebook"><i class="fa fa-facebook" aria-hidden="true"></i> <span>Facebook</span></a>
+            <a href="#" data-toggle="tooltip" data-placement="right" title="Twitter"><i class="fa fa-twitter" aria-hidden="true"></i> <span>Twitter</span></a>
+            <a href="#" data-toggle="tooltip" data-placement="right" title="Pinterest"><i class="fa fa-pinterest" aria-hidden="true"></i> <span>Pinterest</span></a>
+            <a href="#" data-toggle="tooltip" data-placement="right" title="Behance"><i class="fa fa-behance" aria-hidden="true"></i> <span>Behance</span></a>
+        </div>*@
     <!-- Message Box -->
     <div class="message-box">
-        <a href="#" data-toggle="modal" data-target=".contact-modal-lg"><img src="/img/core-img/envelope.png" alt=""></a>
+        <a id="contact" onclick="showInPopup('@Url.Action("ContactUs","Home", null, Context.Request.Scheme)','Please get in touch')"
+           data-toggle="modal" data-target=".contact-modal-lg"><img src="/img/core-img/envelope.png" alt=""></a>
     </div>
 </div>
 <!-- Social Sidebar Area End -->
@@ -21,74 +22,29 @@
         <div class="carousel-inner h-100">
             @for (int i = 0; i < Model.Count; i++)
             {
-<div class="carousel-item h-100 bg-img" id="should-be-active" style="background-image: url(@Model[i].Url);">
-    <div class="carousel-content h-100">
-        <div class="slide-text">
-            <span>@(i + 1). </span>
-            <h2><span style="font-size: 2.5vh;">@Model[i].Title</span> <sub>by</sub> @Model[i].SubmitterName</h2>
-        </div>
-    </div>
-</div>            }
+                <div class="carousel-item h-100 bg-img" id="should-be-active" style="background-image: url(@Model[i].Url);">
+                    <div class="carousel-content h-100">
+                        <div class="slide-text">
+                            <span>@(i + 1). </span>
+                            <h2><span style="font-size: 2.5vh;">@Model[i].Title</span> <sub>by</sub> @Model[i].SubmitterName</h2>
+                        </div>
+                    </div>
+                </div>      }
         </div>
         <!-- Carousel Indicators -->
         <ol class="carousel-indicators">
             @for (int i = 0; i < Model.Count; i++)
             {
-<li data-target="#welcomeSlider" data-slide-to="@i" class="bg-img" id="should-be-active1" style=" background-image: url(@Model[i].Url);"></li>
+                <li data-target="#welcomeSlider" data-slide-to="@i" class="bg-img" id="should-be-active1" style=" background-image: url(@Model[i].Url);"></li>
             }
         </ol>
     </div>
 </section>
-<!-- ***** Welcome Area End ***** -->
-<!-- ***** Contact Area Start ***** -->
-<div class="contact-popup-form" id="contact-modal-lg">
-    <div class="modal fade contact-modal-lg" tabindex="-1" role="dialog" aria-labelledby="contact-modal-lg" aria-hidden="true">
-        <div class="modal-dialog modal-lg modal-dialog-centered">
-            <div class="modal-content">
-                <div class="container-fluid">
-                    <div class="row">
-                        <div class="col-12">
-                            <div class="contact-heading-text text-center mb-30">
-                                <span></span>
-                                <h2>Please get in touch</h2>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- Contact Form Area -->
-                <div class="contact-form-area">
-                    <div class="container-fluid">
-                        <form action="#" method="post">
-                            <div class="row">
-                                <div class="col-12 col-md-4">
-                                    <input type="text" class="form-control" name="name" id="name" placeholder="Your Name">
-                                </div>
-                                <div class="col-12 col-md-4">
-                                    <input type="email" class="form-control" name="email" id="email" placeholder="Your Email">
-                                </div>
-                                <div class="col-12 col-md-4">
-                                    <input type="text" class="form-control" name="subject" id="subject" placeholder="Subject">
-                                </div>
-                                <div class="col-12">
-                                    <textarea name="message" class="form-control" id="message" cols="30" rows="10" placeholder="Message"></textarea>
-                                </div>
-                                <div class="col-12 text-center">
-                                    <button type="submit" class="btn studio-btn mt-3">
-                                        <img src="~/img/core-img/logo-icon.png" alt=""> Send
-                                    </button>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
 
 @section Scripts{
     <script>
         $('#should-be-active').addClass('active');
         $('#should-be-active1').addClass('active');
     </script>
+    <script src="~/js/ContactUs.js" asp-append-version="true"></script>
 }

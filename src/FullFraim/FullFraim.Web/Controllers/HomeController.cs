@@ -1,14 +1,18 @@
 ﻿using FullFraim.Models.Dto_s.Photos;
+using FullFraim.Models.ViewModels.ContactUs;
 using FullFraim.Services.PhotoService;
 using FullFraim.Web.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Memory;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
+using Shared;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Threading.Tasks;
+using Utilities.Mailing;
 
 namespace FullFraim.Web.Controllers
 {
@@ -17,14 +21,20 @@ namespace FullFraim.Web.Controllers
         private readonly ILogger<HomeController> logger;
         private readonly IPhotoService photoService;
         private readonly IMemoryCache cache;
+        private readonly IEmailSender emailSender;
+        private readonly IConfiguration configuration;
 
         public HomeController(ILogger<HomeController> logger, 
             IPhotoService photoService,
-            IMemoryCache cache)
+            IMemoryCache cache,
+            IEmailSender emailSender,
+            IConfiguration configuration)
         {
             this.logger = logger;
             this.photoService = photoService;
             this.cache = cache;
+            this.emailSender = emailSender;
+            this.configuration = configuration;
         }
 
         public async Task<IActionResult> Index()
@@ -36,6 +46,35 @@ namespace FullFraim.Web.Controllers
             }
 
             return View(photos);
+        }
+        
+        public IActionResult ContactUs()
+        {
+            return new PartialViewResult()
+            {
+                ViewName = "~/Views/Shared/Partials/_ContactFormPartial.cshtml",
+            };
+        }
+        
+        [HttpPost]
+        public async Task<IActionResult> ContactUs(ContactUsInputModel inputModel)
+        {
+            if(!ModelState.IsValid)
+            {
+                return new PartialViewResult()
+                {
+                    ViewName = "~/Views/Shared/Partials/_ContactFormPartial.cshtml",
+                    Model = inputModel,
+                };
+            }
+
+            await this.emailSender.SendEmailAsync(Sender: this.configuration["SendGrid:SenderEmail"],
+                        SenderName: Constants.Email.SenderName,
+                        To: this.configuration["SendGrid:SenderEmail"],
+                        Subject: inputModel.Subject,
+                        HtmlContent: $"{inputModel.Email} contacted us with message: {inputModel.Message}");
+
+            return RedirectToAction(nameof(Index));
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
