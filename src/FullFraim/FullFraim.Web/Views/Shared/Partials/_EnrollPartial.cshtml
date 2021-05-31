@@ -1,0 +1,26 @@
+﻿@model EnrollViewModel
+
+<div class="contact-form-area">
+    <div class="container-fluid">
+        <form asp-action="Enroll" asp-controller="Dashboard" method="post" enctype="multipart/form-data">
+            <input asp-for="ContestId" value="" hidden/>
+            <div class="row">
+                <div class="col-12 col-md-4">
+                    <input asp-for="ImageTitle" type="text" class="form-control" id="name" placeholder="@Html.NameFor(x => x.ImageTitle)">
+                </div>
+                <div class="col-12 col-md-4">
+                    <input asp-for="Photo" class="form-control" id="subject" placeholder="Subject">
+                </div>
+                <div class="col-12 col-md-4">
+                    <textarea asp-for="ImageDescription" class="form-control" id="email" placeholder="@Html.NameFor(x => x.ImageDescription)">
+                    </textarea>
+                </div>
+                <div class="col-12 text-center">
+                    <button type="submit" class="btn studio-btn mt-3">
+                        <img src="~/img/core-img/logo-icon.png" alt=""> Enroll
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
