@@ -124,6 +124,31 @@ namespace FullFraim.Services.ContestServices
             return paginatedModel;
         }
 
+        public async Task<PaginatedModel<OutputContestDto>> GetAllForUserAsync (int userId, PaginationFilter paginationFilter)
+        {
+            var contests = this.context.Contests.AsQueryable();
+
+            contests = contests.Where(c => c.ParticipantContests.Any(pc => pc.UserId == userId) ||
+                c.JuryContests.Any(jc => jc.UserId == userId) || 
+                    (c.ContestPhases.Any(cp => cp.Phase.Name == Constants.PhasesSeed.PhaseI
+                && cp.EndDate > DateTime.UtcNow && cp.StartDate < DateTime.UtcNow) &&
+                c.ContestType.Name == Constants.ContestTypeSeed.Open));
+
+            var paginatedModel = new PaginatedModel<OutputContestDto>()
+            {
+                Model = await contests.OrderByDescending(c => c.CreatedOn)
+                    .Skip(paginationFilter.PageSize * (paginationFilter.PageNumber - 1))
+                    .Take(paginationFilter.PageSize)
+                    .MapToDto()
+                    .ToListAsync(),
+                RecordsPerPage = paginationFilter.PageSize,
+                TotalPages = (int)Math.Ceiling(await this.context.Contests
+                    .CountAsync(p => p.Id == p.Id) / (double)paginationFilter.PageSize),
+            };
+
+            return paginatedModel;
+        }
+
         public async Task<PaginatedModel<string>> GetCoversAsync(PaginationFilter paginationFilter)
         {
             var paginatedModel = new PaginatedModel<string>()
@@ -254,7 +279,7 @@ namespace FullFraim.Services.ContestServices
                     ContestId = contestId,
                 };
 
-               await this.context.JuryContests.AddAsync(juryContest);
+                await this.context.JuryContests.AddAsync(juryContest);
             }
         }
 
@@ -309,7 +334,7 @@ namespace FullFraim.Services.ContestServices
                     cp.StartDate < DateTime.UtcNow && cp.EndDate > DateTime.UtcNow)).AnyAsync();
         }
 
-        public async Task<IEnumerable<DashboardViewModel>> GetContestsByCategoryAsync(int userId, int categoryId) 
+        public async Task<IEnumerable<DashboardViewModel>> GetContestsByCategoryAsync(int userId, int categoryId)
         {
             if (categoryId < 0)
             {
