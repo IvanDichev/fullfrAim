@@ -210,3 +210,16 @@ System.InvalidOperationException: The view 'ContactUs' was not found. The follow
    at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
    at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
    at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware.Invoke(HttpContext context)
+2021-05-31 12:35:20.583 +03:00 [WRN] Sensitive data logging is enabled. Log entries and exception messages may include sensitive application data, this mode should only be enabled during development.
+2021-05-31 15:20:00.156 +03:00 [WRN] Sensitive data logging is enabled. Log entries and exception messages may include sensitive application data, this mode should only be enabled during development.
+2021-05-31 15:40:06.763 +03:00 [WRN] Sensitive data logging is enabled. Log entries and exception messages may include sensitive application data, this mode should only be enabled during development.
+2021-05-31 15:40:37.333 +03:00 [WRN] Invalid password for user 2.
+2021-05-31 15:40:37.336 +03:00 [WRN] User 2 failed to provide the correct password.
+2021-05-31 15:41:16.493 +03:00 [WRN] Invalid password for user 7.
+2021-05-31 15:41:16.496 +03:00 [WRN] User 7 failed to provide the correct password.
+2021-05-31 15:41:20.462 +03:00 [WRN] Invalid password for user 7.
+2021-05-31 15:41:20.469 +03:00 [WRN] User 7 failed to provide the correct password.
+2021-05-31 15:48:50.131 +03:00 [WRN] Sensitive data logging is enabled. Log entries and exception messages may include sensitive application data, this mode should only be enabled during development.
+2021-05-31 15:50:52.560 +03:00 [WRN] Sensitive data logging is enabled. Log entries and exception messages may include sensitive application data, this mode should only be enabled during development.
+2021-05-31 15:53:02.885 +03:00 [WRN] Sensitive data logging is enabled. Log entries and exception messages may include sensitive application data, this mode should only be enabled during development.
+2021-05-31 16:26:38.618 +03:00 [WRN] Sensitive data logging is enabled. Log entries and exception messages may include sensitive application data, this mode should only be enabled during development.

@@ -64,7 +64,6 @@ namespace FullFraim.Web.Controllers
                 return new PartialViewResult()
                 {
                     ViewName = "~/Views/Shared/Partials/_ContactFormPartial.cshtml",
-                    Model = inputModel,
                 };
             }
 
