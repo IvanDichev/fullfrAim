@@ -1,12 +1,15 @@
 ﻿using FullFraim.Models.Dto_s.Pagination;
+using FullFraim.Models.ViewModels.Enrolling;
 using FullFraim.Models.ViewModels.Contest;
 using FullFraim.Services.ContestCatgeoryServices;
 using FullFraim.Services.ContestServices;
+using FullFraim.Services.PhotoJunkieServices;
 using FullFraim.Services.PhotoService;
 using Microsoft.AspNetCore.Mvc;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using Utilities.CloudinaryUtils;
 using Utilities.Mapper;
 
 namespace FullFraim.Web.Controllers
@@ -15,14 +18,18 @@ namespace FullFraim.Web.Controllers
     {
         private readonly IContestService contestService;
         private readonly IContestCategoryService contestCategoryService;
-        private readonly IPhotoService photoService;
+        private readonly IPhotoJunkieService photoJunkieService;
+        private readonly ICloudinaryService cloudinaryService;
 
-        public DashboardController
-            (IContestService contestService, IContestCategoryService contestCategoryService, IPhotoService photoService)
+        public DashboardController(IContestService contestService, 
+            IContestCategoryService contestCategoryService,
+            IPhotoJunkieService photoJunkieService,
+            ICloudinaryService cloudinaryService)
         {
             this.contestService = contestService;
             this.contestCategoryService = contestCategoryService;
-            this.photoService = photoService;
+            this.photoJunkieService = photoJunkieService;
+            this.cloudinaryService = cloudinaryService;
         }
 
         public async Task<IActionResult> Index(int categoryId)
@@ -36,6 +43,43 @@ namespace FullFraim.Web.Controllers
             ViewBag.Categories = await this.contestCategoryService.GetAllAsync();
 
             return View(dashboardViewModel);
+        }
+
+        [HttpGet]
+        public IActionResult Enroll(int contestId)
+        {
+            return PartialView("~/Views/Shared/Partials/_EnrollPartial.cshtml", 
+                new EnrollViewModel() { ContestId = contestId});
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Enroll(EnrollViewModel model)
+        {
+            model.UserId = int.Parse
+                (HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value);
+
+            var canEnroll = await photoJunkieService
+                .CanJunkyEnroll(model.ContestId, model.UserId);
+
+            if(canEnroll == false)
+            {
+                ModelState
+                    .AddModelError(string.Empty,
+                    errorMessage: "You cannot enroll in this contest");
+            }
+
+            if(!ModelState.IsValid)
+            {
+                return PartialView("~/Views/Shared/Partials/_EnrollPartial.cshtml", model);
+            }
+
+            string imageUrl = this.cloudinaryService
+                .UploadImage(model.Photo);
+
+            await photoJunkieService
+                .EnrollForContestAsync(model.MapToDto(imageUrl));
+
+            return Json(new { isValid = true });
         }
 
         public IActionResult TestPartialInController()

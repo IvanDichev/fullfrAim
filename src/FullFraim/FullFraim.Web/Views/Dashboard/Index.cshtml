@@ -9,10 +9,13 @@
         <a href="#" data-toggle="tooltip" data-placement="right" title="Behance"><i class="fa fa-behance" aria-hidden="true"></i> <span>Behance</span></a>
     </div>
 </div>
+
 <!-- Social Sidebar Area End -->
 <!-- Project Area Start -->
 <div class="gallery_area clearfix">
     <div class="container-fluid clearfix">
+        <a asp-route-id="1" data-toggle="modal" data-target=".contact-modal-lg" class="btn btn-primary" 
+           onclick="OpenModal('@Url.Action("Enroll", "Dashboard", null, Context.Request.Scheme)', 'Enroll', 1)">Demo</a>
         <div class="dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Categories</a>
             <ul class="dropdown-menu">
@@ -61,3 +64,22 @@
     </div>
 </div>
 <!-- Project Area End -->
+
+@section Scripts
+{
+    <script>
+        $(document).ready(function () {
+            OpenModal = (url, title, id) => {
+                $.ajax({
+                    type: "GET",
+                    url: url,
+                    data: {contestId: id},
+                    success: function (response) {
+                        $(".modal-title").html(title);
+                        $(".modal-body").html(response);
+                    }
+                });
+            }
+        });
+    </script>
+}
