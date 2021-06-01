@@ -226,3 +226,5 @@ System.InvalidOperationException: The view 'ContactUs' was not found. The follow
 2021-05-31 16:53:01.392 +03:00 [WRN] Sensitive data logging is enabled. Log entries and exception messages may include sensitive application data, this mode should only be enabled during development.
 2021-05-31 16:54:33.364 +03:00 [WRN] Sensitive data logging is enabled. Log entries and exception messages may include sensitive application data, this mode should only be enabled during development.
 2021-05-31 18:59:52.979 +03:00 [WRN] Sensitive data logging is enabled. Log entries and exception messages may include sensitive application data, this mode should only be enabled during development.
+2021-05-31 21:03:13.738 +03:00 [WRN] Invalid password for user 6.
+2021-05-31 21:03:13.741 +03:00 [WRN] User 6 failed to provide the correct password.

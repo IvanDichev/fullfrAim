@@ -124,15 +124,20 @@ namespace FullFraim.Services.ContestServices
             return paginatedModel;
         }
 
-        public async Task<PaginatedModel<OutputContestDto>> GetAllForUserAsync (int userId, PaginationFilter paginationFilter)
+        public async Task<PaginatedModel<OutputContestDto>> GetAllForUserAsync(int userId, PaginationFilter paginationFilter, int categoryId)
         {
             var contests = this.context.Contests.AsQueryable();
 
             contests = contests.Where(c => c.ParticipantContests.Any(pc => pc.UserId == userId) ||
-                c.JuryContests.Any(jc => jc.UserId == userId) || 
+                c.JuryContests.Any(jc => jc.UserId == userId) ||
                     (c.ContestPhases.Any(cp => cp.Phase.Name == Constants.PhasesSeed.PhaseI
                 && cp.EndDate > DateTime.UtcNow && cp.StartDate < DateTime.UtcNow) &&
                 c.ContestType.Name == Constants.ContestTypeSeed.Open));
+
+            if (categoryId > 0)
+            {
+                contests = contests.Where(c => c.ContestCategoryId == categoryId);
+            }
 
             var paginatedModel = new PaginatedModel<OutputContestDto>()
             {

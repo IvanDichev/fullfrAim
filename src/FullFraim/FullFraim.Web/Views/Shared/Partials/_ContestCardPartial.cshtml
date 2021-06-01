@@ -1,4 +1,8 @@
-﻿@model DashboardViewModel
+﻿@using Microsoft.AspNetCore.Identity
+@using Shared;
+@inject SignInManager<User> SignInManager
+@inject RoleManager<User> RoleManager
+@model DashboardViewModel
 
 <div class="card" style="margin-inline:1rem">
     @if (Model.ContestCategory == 10)
@@ -14,7 +18,10 @@
         <p class="card-text">@Model.Description</p>
         <p>isParticipant: @Model.IsCurrentUserParticipant</p>
         <p>isJury: @Model.IsCurrentUserJury</p>
-        @if (Model.ActivePhase.Name == "PhaseI")
+        @if (Model.ActivePhase.Name == "PhaseI" &&
+            (User.IsInRole(Constants.RolesSeed.User) && 
+            !User.IsInRole(Constants.RolesSeed.Organizer) &&
+            !User.IsInRole(Constants.RolesSeed.Admin)))
         {
             <div>Deadline in <p style="color: blue" id="demo"></p> </div>
             <button class="btn btn-primary">Enroll</button>

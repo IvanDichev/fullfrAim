@@ -29,7 +29,7 @@ namespace FullFraim.Web.Controllers
             int userId = int.Parse(HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value);
 
             var dashboardViewModel = 
-                (await this.contestService.GetAllForUserAsync(userId, new PaginationFilter())).Model
+                (await this.contestService.GetAllForUserAsync(userId, new PaginationFilter(), categoryId)).Model
                     .Select(x => x.MapToViewDashboard()).ToList();
 
             ViewBag.Categories = await this.contestCategoryService.GetAllAsync();
