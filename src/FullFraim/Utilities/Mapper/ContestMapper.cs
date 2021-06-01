@@ -70,6 +70,7 @@ namespace Utilities.Mapper
         {
             return new DashboardViewModel()
             {
+                Id = model.Id,
                 Name = model.Name,
                 Cover_Url = model.Cover_Url,
                 Description = model.Description,

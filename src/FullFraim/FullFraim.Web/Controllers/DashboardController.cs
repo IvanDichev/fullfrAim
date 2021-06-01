@@ -19,16 +19,19 @@ namespace FullFraim.Web.Controllers
         private readonly IContestService contestService;
         private readonly IContestCategoryService contestCategoryService;
         private readonly IPhotoJunkieService photoJunkieService;
+        private readonly IPhotoService photoService;
         private readonly ICloudinaryService cloudinaryService;
 
         public DashboardController(IContestService contestService, 
             IContestCategoryService contestCategoryService,
             IPhotoJunkieService photoJunkieService,
+            IPhotoService photoService,
             ICloudinaryService cloudinaryService)
         {
             this.contestService = contestService;
             this.contestCategoryService = contestCategoryService;
             this.photoJunkieService = photoJunkieService;
+            this.photoService = photoService;
             this.cloudinaryService = cloudinaryService;
         }
 
@@ -102,9 +105,19 @@ namespace FullFraim.Web.Controllers
                 TotalPages = contestSubmissions.TotalPages,
             };
 
-            paginatedModel.Model.FirstOrDefault(m => m.AuthorId == UserId).IsCurrentUserSubmission = true; // TODO: Make validation if null!!!
+          //  paginatedModel.Model.FirstOrDefault(m => m.AuthorId == UserId).IsCurrentUserSubmission = true; // TODO: Make validation if null!!!
 
             return View(paginatedModel);
+        }
+
+        public async Task<IActionResult> GetByIdUserSubmission(int id)
+        {
+            int userId = int.Parse(HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value);
+
+            var submission = await this.photoService
+                .GetUserSubmissionForContestAsync(userId, id);
+
+            return View(submission);
         }
     }
 }
