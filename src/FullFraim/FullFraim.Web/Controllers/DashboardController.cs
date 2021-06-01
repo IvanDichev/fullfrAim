@@ -58,7 +58,7 @@ namespace FullFraim.Web.Controllers
                 TotalPages = contestSubmissions.TotalPages,
             };
 
-            paginatedModel.Model.FirstOrDefault(m => m.AuthorId == UserId).IsCurrentUserSubmission = true;
+            paginatedModel.Model.FirstOrDefault(m => m.AuthorId == UserId).IsCurrentUserSubmission = true; // TODO: Make validation if null!!!
 
             return View(paginatedModel);
         }
