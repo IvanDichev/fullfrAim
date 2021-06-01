@@ -18,6 +18,8 @@ namespace FullFraim.Web.Controllers
             this.securityService = securityService;
         }
 
+        public int UserId { get => int.Parse(HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value); }
+
         protected internal async Task<bool> IsCurrentUserJuryInContestAsync(int contestId)
         {
             var userId = int.Parse(HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value);

@@ -1,28 +1,35 @@
 ﻿@model ContestSubmissionViewModel
 
+<link href="~/css/hover-monochrome.css" rel="stylesheet" />
 
-<div class="card" style="margin-inline:1rem">
-    <a href="#">
-        <img class="card-img-top" src="@Model.Image_Url" alt="Card image cap" style="width: 300px; height:200px">
-        <div class="card-body">
-            <h5 class="card-title">@Model.AuthorName</h5>
-            <p class="card-text">@Model.Description</p>
-
-            <div>Score @Model.Score<p style="color: blue" id="demo"></p> </div>
-            @*<button class="btn btn-primary">See Reviews</button>*@
-            @if (Model.ActivePhase.Name == "PhaseI")
-            {
-                <div>Deadline in <p style="color: blue" id="demo"></p> </div>
-                @*<button class="btn btn-primary">Enroll</button>*@ 
-            }
-            else if (Model.ActivePhase.Name == "PhaseII")
-            {
-                 <p>test</p>
-            }
-            else if (Model.ActivePhase.Name == "Finished")
-            {
-                 <p>test</p>
-            }
+@if (Model.ActivePhase.Name == Constants.PhasesSeed.Finished)
+{
+    if (Model.IsCurrentUserSubmission)
+    {
+        <div class="card" style="margin-inline:1rem; opacity:0.3">
+            <div class="hovereffect">
+                <img class="img-responsive" src="@Model.Image_Url" alt="Card image cap" style="width: 300px; height:200px">
+                <div class="overlay">
+                    <h2>@Model.AuthorName</h2>
+                    <a class="info" href="#">See submission</a>
+                </div>
+            </div>
         </div>
-    </a>
-</div>
+    }
+    else
+    {
+        <div class="card" style="margin-inline:1rem">
+            <div class="hovereffect">
+                <img class="img-responsive" src="@Model.Image_Url" alt="Card image cap" style="width: 300px; height:200px">
+                <div class="overlay">
+                    <h2>@Model.AuthorName</h2>
+                    <a class="info" href="#">See submission</a>
+                </div>
+            </div>
+        </div>
+    }
+}
+
+
+
+

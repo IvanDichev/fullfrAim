@@ -4,7 +4,6 @@ using FullFraim.Services.ContestCatgeoryServices;
 using FullFraim.Services.ContestServices;
 using FullFraim.Services.PhotoService;
 using Microsoft.AspNetCore.Mvc;
-using System;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
@@ -12,7 +11,7 @@ using Utilities.Mapper;
 
 namespace FullFraim.Web.Controllers
 {
-    public class DashboardController : Controller
+    public class DashboardController : BaseMvcController
     {
         private readonly IContestService contestService;
         private readonly IContestCategoryService contestCategoryService;
@@ -30,7 +29,7 @@ namespace FullFraim.Web.Controllers
         {
             int userId = int.Parse(HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value);
 
-            var dashboardViewModel = 
+            var dashboardViewModel =
                 (await this.contestService.GetAllForUserAsync(userId, new PaginationFilter())).Model
                     .Select(x => x.MapToViewDashboard()).ToList();
 
@@ -51,13 +50,15 @@ namespace FullFraim.Web.Controllers
             var contestSubmissions = await this.photoService
                 .GetDetailedSubmissionsFromContestAsync(id, new PaginationFilter());
 
-           var paginatedModel = new PaginatedModel<ContestSubmissionViewModel>()
-           {
-               Model = contestSubmissions.Model.Select(m => m.MapToContestSubmissionView())
-                    .ToList(),
-               RecordsPerPage = contestSubmissions.RecordsPerPage,
-               TotalPages = contestSubmissions.TotalPages,
-           };
+            var paginatedModel = new PaginatedModel<ContestSubmissionViewModel>()
+            {
+                Model = contestSubmissions.Model.Select(m => m.MapToContestSubmissionView())
+                     .ToList(),
+                RecordsPerPage = contestSubmissions.RecordsPerPage,
+                TotalPages = contestSubmissions.TotalPages,
+            };
+
+            paginatedModel.Model.FirstOrDefault(m => m.AuthorId == UserId).IsCurrentUserSubmission = true;
 
             return View(paginatedModel);
         }

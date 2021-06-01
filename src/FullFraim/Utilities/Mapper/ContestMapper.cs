@@ -84,12 +84,13 @@ namespace Utilities.Mapper
         {
             return new ContestSubmissionViewModel()
             { 
+                AuthorId = model.AuthorId,
                 AuthorName = model.AuthorName,
                 Image_Url = model.PhotoUrl,
                 Description = model.Description,
                 Score = model.Score,
-                ActivePhase = model.ActivePhase,
                 Reviews = model.Reviews,
+                ActivePhase = model.ActivePhase,
             };
         }
 
