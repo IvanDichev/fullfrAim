@@ -51,10 +51,20 @@ namespace FullFraim.Web.Controllers
         }
 
         [HttpPost]
-        public IActionResult Enroll(EnrollViewModel model)
+        public async Task<IActionResult> Enroll(EnrollViewModel model)
         {
             model.UserId = int.Parse
                 (HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value);
+
+            var canEnroll = await photoJunkieService
+                .CanJunkyEnroll(model.ContestId, model.UserId);
+
+            if(canEnroll == false)
+            {
+                ModelState
+                    .AddModelError(string.Empty,
+                    errorMessage: "You cannot enroll in this contest");
+            }
 
             if(!ModelState.IsValid)
             {
@@ -64,7 +74,7 @@ namespace FullFraim.Web.Controllers
             string imageUrl = this.cloudinaryService
                 .UploadImage(model.Photo);
 
-            photoJunkieService
+            await photoJunkieService
                 .EnrollForContestAsync(model.MapToDto(imageUrl));
 
             return Json(new { isValid = true });
