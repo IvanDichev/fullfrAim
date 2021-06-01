@@ -59,8 +59,6 @@ namespace FullFraim.Web.Controllers
             if(!ModelState.IsValid)
             {
                 return PartialView("~/Views/Shared/Partials/_EnrollPartial.cshtml", model);
-                //return PartialView("~/Views/Shared/Partials/_EnrollPartial.cshtml",
-                //model);
             }
 
             string imageUrl = this.cloudinaryService
@@ -69,9 +67,7 @@ namespace FullFraim.Web.Controllers
             photoJunkieService
                 .EnrollForContestAsync(model.MapToDto(imageUrl));
 
-            return RedirectToAction
-                (nameof(Index), nameof(DashboardController)
-                .Replace("Controller", string.Empty));
+            return Json(new { isValid = true });
         }
 
         public IActionResult TestPartialInController()
