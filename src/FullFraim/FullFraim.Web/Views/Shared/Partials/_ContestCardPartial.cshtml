@@ -17,7 +17,7 @@
         @if (Model.ActivePhase.Name == "PhaseI")
         {
             <div>Deadline in <p style="color: blue" id="demo"></p> </div>
-            <button class="btn btn-primary">Enroll</button>
+            <button class="btn btn-primary contestDetail">Enroll</button>
         }
         else if (Model.ActivePhase.Name == "PhaseII")
         {
@@ -32,6 +32,8 @@
 
 @section Scripts{
     <script>
+        var contestDetailModal = $(".contestDetail");
+
         $(document).ready(function () {
             var start = new Date(@Model.ActivePhase.EndDate.ToString()).getTime();
             var end = new Date(@DateTime.UtcNow.ToString()).getTime();
@@ -39,8 +41,6 @@
             setInterval(function () {
                 $('demo').val((start - end) / 1000 + " Seconds");
             }, 1000);
-            console.log('start', start)
-            console.log('start1', end)
         });
 
         console.log('dasdasd')

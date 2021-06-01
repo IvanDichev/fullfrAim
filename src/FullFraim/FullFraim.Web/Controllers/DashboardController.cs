@@ -44,22 +44,23 @@ namespace FullFraim.Web.Controllers
         }
 
         [HttpGet]
-        public IActionResult Enroll(int id)
+        public IActionResult Enroll(int contestId)
         {
-            return new PartialViewResult()
-            {
-                ViewName = "~/Views/Shared/Partials/_EnrollPartial.cshtml",
-            };
+            return PartialView("~/Views/Shared/Partials/_EnrollPartial.cshtml", 
+                new EnrollViewModel() { ContestId = contestId});
         }
 
         [HttpPost]
         public IActionResult Enroll(EnrollViewModel model)
         {
-            bool isValid;
+            model.UserId = int.Parse
+                (HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value);
 
             if(!ModelState.IsValid)
             {
-
+                return PartialView("~/Views/Shared/Partials/_EnrollPartial.cshtml", model);
+                //return PartialView("~/Views/Shared/Partials/_EnrollPartial.cshtml",
+                //model);
             }
 
             string imageUrl = this.cloudinaryService
@@ -68,7 +69,9 @@ namespace FullFraim.Web.Controllers
             photoJunkieService
                 .EnrollForContestAsync(model.MapToDto(imageUrl));
 
-            return Ok();
+            return RedirectToAction
+                (nameof(Index), nameof(DashboardController)
+                .Replace("Controller", string.Empty));
         }
 
         public IActionResult TestPartialInController()

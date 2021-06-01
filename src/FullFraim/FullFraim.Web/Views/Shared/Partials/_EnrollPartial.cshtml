@@ -2,18 +2,21 @@
 
 <div class="contact-form-area">
     <div class="container-fluid">
-        <form asp-action="Enroll" asp-controller="Dashboard" method="post" enctype="multipart/form-data">
-            <input asp-for="ContestId" value="" hidden/>
+        <form asp-action="Enroll" asp-controller="Dashboard" method="post" enctype="multipart/form-data" onsubmit="return OpenModalPost(this);">
+            <input asp-for="ContestId" value="@Model.ContestId" hidden/>
             <div class="row">
                 <div class="col-12 col-md-4">
                     <input asp-for="ImageTitle" type="text" class="form-control" id="name" placeholder="@Html.NameFor(x => x.ImageTitle)">
+                    <span asp-validation-for="ImageTitle" class="text-danger"></span>
                 </div>
                 <div class="col-12 col-md-4">
                     <input asp-for="Photo" class="form-control" id="subject" placeholder="Subject">
+                    <span asp-validation-for="Photo" class="text-danger"></span>
                 </div>
                 <div class="col-12 col-md-4">
                     <textarea asp-for="ImageDescription" class="form-control" id="email" placeholder="@Html.NameFor(x => x.ImageDescription)">
                     </textarea>
+                    <span asp-validation-for="ImageDescription" class="text-danger"></span>
                 </div>
                 <div class="col-12 text-center">
                     <button type="submit" class="btn studio-btn mt-3">
@@ -24,3 +27,24 @@
         </form>
     </div>
 </div>
+
+@section Scripts{ 
+    <script>
+       
+        OpenModalPost = form => {
+            $.ajax({
+                type: "POST",
+                url: form.action,
+                data: new FormData(form),
+                contentType: false,
+                processData: false,
+                success: function (response) {
+                        $(".modal-title").html("Invalid");
+                        $(".modal-body").html(response);
+                    return false;
+                }
+            });
+            return false;
+        };
+    </script>
+}

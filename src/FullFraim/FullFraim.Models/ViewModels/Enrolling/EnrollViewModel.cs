@@ -6,12 +6,8 @@ namespace FullFraim.Models.ViewModels.Enrolling
 {
     public class EnrollViewModel
     {
-        [Required]
-        [Range(1, int.MaxValue)]
         public int UserId { get; set; }
 
-        [Required]
-        [Range(1, int.MaxValue)]
         public int ContestId { get; set; }
 
         [Required]
