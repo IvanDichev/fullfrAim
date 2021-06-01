@@ -1,5 +1,4 @@
 @model IEnumerable<DashboardViewModel>
- 
 <!-- Social Sidebar Area Start -->
 <div class="social-sidebar-area">
     <!-- Social Area -->
@@ -10,10 +9,13 @@
         <a href="#" data-toggle="tooltip" data-placement="right" title="Behance"><i class="fa fa-behance" aria-hidden="true"></i> <span>Behance</span></a>
     </div>
 </div>
+
 <!-- Social Sidebar Area End -->
 <!-- Project Area Start -->
 <div class="gallery_area clearfix">
     <div class="container-fluid clearfix">
+        <a asp-route-id="1" data-toggle="modal" data-target=".contact-modal-lg" class="btn btn-primary" 
+           onclick="OpenModal('@Url.Action("Enroll", "Dashboard", null, Context.Request.Scheme)', 'Enroll', 1)">Demo</a>
         <div class="dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Categories</a>
             <ul class="dropdown-menu">
@@ -33,14 +35,26 @@
                 <a class="dropdown-item" href="#">Portraits</a>
             </div>
         </div>
-
+        <div style="margin-bottom: 1rem;margin-top: 1rem;">Open</div>
         <div class="row portfolio-column">
-
-            @foreach (var item in Model)
+            @foreach (var item in Model.Where(x => x.ActivePhase.Name == "PhaseI").ToList())
             {
                 <partial name="~/Views/Shared/Partials/_ContestCardPartial.cshtml" model="item" />
             }
-
+        </div>
+        <div style="margin-bottom: 1rem;margin-top: 4rem;">Reviewing</div>
+        <div class="row portfolio-column">
+            @foreach (var item in Model.Where(x => x.ActivePhase.Name == "PhaseII").ToList())
+            {
+                <partial name="~/Views/Shared/Partials/_ContestCardPartial.cshtml" model="item" />
+            }
+        </div>
+        <div style="margin-bottom:1rem;margin-top: 4rem;">Closed</div>
+        <div class="row portfolio-column">
+            @foreach (var item in Model.Where(x => x.ActivePhase.Name == "Finished").ToList())
+            {
+                <partial name="~/Views/Shared/Partials/_ContestCardPartial.cshtml" model="item" />
+            }
         </div>
 
         <div class="row">
@@ -51,3 +65,22 @@
     </div>
 </div>
 <!-- Project Area End -->
+
+@section Scripts
+{
+    <script>
+        $(document).ready(function () {
+            OpenModal = (url, title, id) => {
+                $.ajax({
+                    type: "GET",
+                    url: url,
+                    data: {contestId: id},
+                    success: function (response) {
+                        $(".modal-title").html(title);
+                        $(".modal-body").html(response);
+                    }
+                });
+            }
+        });
+    </script>
+}

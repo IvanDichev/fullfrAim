@@ -1,9 +1,9 @@
 ﻿using FullFraim.Models.Dto_s.Phases;
 using System.Collections.Generic;
 
-namespace FullFraim.Models.Dto_s.Contests
+namespace FullFraim.Models.Dto_s.Dashboard
 {
-    public class OutputContestDto
+    public class OutputDashboardDto
     {
         public int Id { get; set; }
 
@@ -21,7 +21,7 @@ namespace FullFraim.Models.Dto_s.Contests
             {
                 foreach (var phase in PhasesInfo)
                 {
-                    if(phase.IsActive)
+                    if (phase.IsActive)
                     {
                         return phase;
                     }
@@ -31,14 +31,15 @@ namespace FullFraim.Models.Dto_s.Contests
             }
         }
 
-        public bool IsCurrentUserParticipant { get; set; }
+        public bool IsParticipant { get; set; }
 
-        public bool IsCurrentUserJury { get; set; }
+        public bool IsJury { get; set; }
 
         public ICollection<PhaseDto> PhasesInfo { get; set; }
 
         public int ContestCategoryId { get; set; }
 
         public int ContestTypeId { get; set; }
+
     }
 }
