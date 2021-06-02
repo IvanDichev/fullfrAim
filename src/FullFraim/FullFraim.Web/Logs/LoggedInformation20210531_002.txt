@@ -1,4 +1,5 @@
-2021-05-24 00:18:57.149 +03:00 [FTL] Unable to start Kestrel.
+2021-05-31 19:00:14.416 +03:00 [WRN] Sensitive data logging is enabled. Log entries and exception messages may include sensitive application data, this mode should only be enabled during development.
+2021-05-31 19:00:16.057 +03:00 [FTL] Unable to start Kestrel.
 System.IO.IOException: Failed to bind to address https://127.0.0.1:5001: address already in use.
  ---> Microsoft.AspNetCore.Connections.AddressInUseException: Only one usage of each socket address (protocol/network address/port) is normally permitted.
  ---> System.Net.Sockets.SocketException (10048): Only one usage of each socket address (protocol/network address/port) is normally permitted.
@@ -18,5 +19,6 @@ System.IO.IOException: Failed to bind to address https://127.0.0.1:5001: address
    at Microsoft.AspNetCore.Server.Kestrel.Core.Internal.AddressBinder.AddressesStrategy.BindAsync(AddressBindContext context)
    at Microsoft.AspNetCore.Server.Kestrel.Core.Internal.AddressBinder.BindAsync(IServerAddressesFeature addresses, KestrelServerOptions serverOptions, ILogger logger, Func`2 createBinding)
    at Microsoft.AspNetCore.Server.Kestrel.Core.KestrelServer.StartAsync[TContext](IHttpApplication`1 application, CancellationToken cancellationToken)
-2021-05-24 00:18:57.601 +03:00 [FTL] Failed to bind to address https://127.0.0.1:5001: address already in use.
-2021-05-24 00:20:51.153 +03:00 [WRN] VerifyUserTokenAsync() failed with purpose: ResetPassword for user 20.
+2021-05-31 19:00:16.100 +03:00 [FTL] Failed to bind to address https://127.0.0.1:5001: address already in use.
+2021-05-31 20:43:38.587 +03:00 [WRN] Sensitive data logging is enabled. Log entries and exception messages may include sensitive application data, this mode should only be enabled during development.
+2021-05-31 21:16:45.169 +03:00 [WRN] Sensitive data logging is enabled. Log entries and exception messages may include sensitive application data, this mode should only be enabled during development.
