@@ -9,44 +9,46 @@
     {
         <img class="card-img-top" src="@Model.Cover_Url" alt="Card image cap" style="width: 300px; height:200px">
     }
-    <div class="card-body">
-        <h5 class="card-title">@Model.Name</h5>
-        <p class="card-text">@Model.Description</p>
-        <p>isParticipant: @Model.IsCurrentUserParticipant</p>
-        <p>isJury: @Model.IsCurrentUserJury</p>
-        @if (Model.ActivePhase.Name == "PhaseI")
-        {
-            <div>Deadline in <p style="color: blue" id="demo"></p> </div>
+<div class="card-body">
+    <h5 class="card-title">@Model.Name</h5>
+    <p class="card-text">@Model.Description</p>
+    <p>isParticipant: @Model.IsCurrentUserParticipant</p>
+    <p>isJury: @Model.IsCurrentUserJury</p>
+    @if (Model.ActivePhase.Name == "PhaseI")
+    {
+        <div>Deadline in <p style="color: blue" id="demo"></p> </div>
 
-            @if (Model.IsCurrentUserParticipant || Model.IsCurrentUserJury)
-            {
-                <button class="btn btn-primary contestDetail">Review (Bo page)</button>
-            }
-            else
-            {
-                <button class="btn btn-primary contestDetail">Enroll (Valkata page)AJAX</button>
-            }
+        @if (Model.IsCurrentUserParticipant || Model.IsCurrentUserJury)
+        {
+            <button class="btn btn-primary contestDetail">Review (Bo page)</button>
         }
-        else if (Model.ActivePhase.Name == "PhaseII")
+        else
         {
-            <p>Closed for enrollement</p>
-
-            @if (Model.IsCurrentUserParticipant)
-            {
-                <button class="btn btn-primary contestDetail">Review</button>
-            }
-            else @*If jury*@
-            {
-                <button class="btn btn-primary contestDetail">Give Review</button>
-            }
+            <a asp-route-id="1" data-toggle="modal" data-target=".contact-modal-lg" class="btn btn-primary"
+                onclick="OpenModal('@Url.Action("Enroll", "Dashboard", null, Context.Request.Scheme)', 'Enroll', @Model.Id)">Enroll</a>
+            <button class="btn btn-primary contestDetail">Enroll (Valkata page)AJAX</button>
         }
-        else if (Model.ActivePhase.Name == "Finished")
-        {
-            <p>Finished</p>
+    }
+    else if (Model.ActivePhase.Name == "PhaseII")
+    {
+        <p>Closed for enrollement</p>
 
+        @if (Model.IsCurrentUserParticipant)
+        {
             <button class="btn btn-primary contestDetail">Review</button>
         }
-    </div>
+        else @*If jury*@
+        {
+            <button class="btn btn-primary contestDetail">Give Review</button>
+        }
+    }
+    else if (Model.ActivePhase.Name == "Finished")
+    {
+        <p>Finished</p>
+
+        <button class="btn btn-primary contestDetail">Review</button>
+    }
+</div>
 </div>
 
 @section Scripts{

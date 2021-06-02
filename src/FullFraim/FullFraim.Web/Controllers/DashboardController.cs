@@ -51,7 +51,7 @@ namespace FullFraim.Web.Controllers
         }
 
         [HttpPost]
-        public IActionResult Enroll(EnrollViewModel model)
+        public async Task<IActionResult> Enroll(EnrollViewModel model)
         {
             model.UserId = int.Parse
                 (HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value);
@@ -59,14 +59,12 @@ namespace FullFraim.Web.Controllers
             if(!ModelState.IsValid)
             {
                 return PartialView("~/Views/Shared/Partials/_EnrollPartial.cshtml", model);
-                //return PartialView("~/Views/Shared/Partials/_EnrollPartial.cshtml",
-                //model);
             }
 
             string imageUrl = this.cloudinaryService
                 .UploadImage(model.Photo);
 
-            photoJunkieService
+            await photoJunkieService
                 .EnrollForContestAsync(model.MapToDto(imageUrl));
 
             return RedirectToAction

@@ -7,7 +7,6 @@
             <div class="col-12 h-100">
                 <div class="main-menu h-100">
                     <nav class="navbar h-100 navbar-expand-lg">
-                        <!-- Logo Area  -->
                         <a class="navbar-brand" asp-action="Index" asp-controller="Home">
                             <div>
                                 <svg xmlns="http://www.w3.org/2000/svg" width="4rem" height="4rem" fill="currentColor" class="bi bi-camera2" viewBox="0 0 16 16" style="color: white; margin-bottom: -1vh;">
@@ -18,7 +17,6 @@
                                     FullFrAim
                                 </div>
                             </div>
-                            @*<img src="/img/core-img/logo.png" style="max-height:100px; border-radius: 10rem" alt="Logo">*@
                         </a>
 
                         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#studioMenu" aria-controls="studioMenu" aria-expanded="false" aria-label="Toggle navigation"><i class="fa fa-bars"></i> Menu</button>
@@ -48,7 +46,7 @@
                                     </li>
 
                                 }
-                                else if (User.IsInRole(Constants.RolesSeed.Organizer))
+                                @if (User.IsInRole(Constants.RolesSeed.Organizer))
                                 {
                                     <li class="nav-item">
                                         <a class="nav-link" asp-controller="FileUploadDemo" asp-action="Index">upload</a>
@@ -59,17 +57,6 @@
                                 }
                                 <partial name="~/Views/Shared/Partials/_LoginPartial.cshtml">
                             </ul>
-                            <!-- Search Form -->
-                            <!--<div class="header-search-form ml-auto">
-                                <form action="#">
-                                    <input type="search" class="form-control" placeholder="Input your keyword then press enter..." id="search" name="search">
-                                    <input class="d-none" type="submit" value="submit">
-                                </form>
-                            </div>-->
-                            <!-- Search btn -->
-                            @*<div id="searchbtn">
-                                    <img src="img/core-img/search.png" alt="">
-                                </div>*@
                         </div>
                     </nav>
                 </div>
