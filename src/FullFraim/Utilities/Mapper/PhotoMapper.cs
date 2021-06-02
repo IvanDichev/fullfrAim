@@ -24,6 +24,7 @@ namespace Utilities.Mapper
         {
             return query.Select(p => new ContestSubmissionOutputDto()
             {
+                contestId = p.ContestId,
                 PhotoId = p.Id,
                 AuthorName = $"{p.Participant.User.FirstName} {p.Participant.User.LastName}",
                 AuthorId = p.Participant.UserId,
@@ -31,6 +32,7 @@ namespace Utilities.Mapper
                 PhotoUrl = p.Url,
                 Score = p.PhotoReviews.Sum(pr => pr.Score) / p.PhotoReviews.Count(),
                 Description = p.Story,
+                //Review = p.PhotoReviews.FirstOrDefault(pr => pr.JuryContestId == p.),
                 PhasesInfo = p.Contest.ContestPhases.Select(y => new PhaseDto()
                 {
                     Name = y.Phase.Name,
@@ -41,11 +43,21 @@ namespace Utilities.Mapper
                 {
                     AuthorName = $"{pr.JuryContest.User.FirstName} {pr.JuryContest.User.LastName}",
                     Comment = pr.Comment,
-                    ReviewId = pr.Id,
-                    Score = (int)pr.Score,
+                    ReviewId = pr.Id, // TODO: Need to check if we need the ID
+                    Score = pr.Score,
                 }).ToList()
             });
+        }
 
+        public static PhotoReview MapToRaw(ReviewDto model)
+        {
+            return new PhotoReview()
+            { 
+               Checkbox = model.IsDisqualified,
+               Comment = model.Comment,
+               PhotoId = model.PhotoId,
+               Score = model.Score
+            };
         }
     }
 }

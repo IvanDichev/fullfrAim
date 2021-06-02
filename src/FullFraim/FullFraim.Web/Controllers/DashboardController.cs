@@ -11,6 +11,8 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using Utilities.CloudinaryUtils;
 using Utilities.Mapper;
+using FullFraim.Services.JuryServices;
+using FullFraim.Models.Dto_s.Photos;
 
 namespace FullFraim.Web.Controllers
 {
@@ -19,25 +21,28 @@ namespace FullFraim.Web.Controllers
         private readonly IContestService contestService;
         private readonly IContestCategoryService contestCategoryService;
         private readonly IPhotoJunkieService photoJunkieService;
+        private readonly IJuryService juryService;
         private readonly IPhotoService photoService;
         private readonly ICloudinaryService cloudinaryService;
 
         public DashboardController(IContestService contestService, 
             IContestCategoryService contestCategoryService,
             IPhotoJunkieService photoJunkieService,
+            IJuryService juryService,
             IPhotoService photoService,
             ICloudinaryService cloudinaryService)
         {
             this.contestService = contestService;
             this.contestCategoryService = contestCategoryService;
             this.photoJunkieService = photoJunkieService;
+            this.juryService = juryService;
             this.photoService = photoService;
             this.cloudinaryService = cloudinaryService;
         }
 
         public async Task<IActionResult> Index(int categoryId)
         {
-            int userId = int.Parse(HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value);
+            int userId = UserId;
 
             var dashboardViewModel = 
                 (await this.contestService.GetAllForUserAsync(userId, new PaginationFilter(), categoryId)).Model
@@ -58,8 +63,7 @@ namespace FullFraim.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> Enroll(EnrollViewModel model)
         {
-            model.UserId = int.Parse
-                (HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value);
+            model.UserId = UserId;
 
             var canEnroll = await photoJunkieService
                 .CanJunkyEnroll(model.ContestId, model.UserId);
@@ -92,7 +96,7 @@ namespace FullFraim.Web.Controllers
 
         public async Task<IActionResult> GetById(int id)
         {
-            int userId = int.Parse(HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value);
+            int userId = UserId;
 
             var contestSubmissions = await this.photoService
                 .GetDetailedSubmissionsFromContestAsync(id, new PaginationFilter());
@@ -112,12 +116,49 @@ namespace FullFraim.Web.Controllers
 
         public async Task<IActionResult> GetByIdUserSubmission(int id)
         {
-            int userId = int.Parse(HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value);
+            int userId = UserId;
 
             var submission = await this.photoService
                 .GetUserSubmissionForContestAsync(userId, id);
 
             return View(submission);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GiveReview(int contestId, int submitterId)
+        {
+            int userId = UserId;
+
+            var submission = await this.photoService.GetUserSubmissionForContestAsync(submitterId, contestId);
+
+            var giveReviewViewModel = new GiveReviewViewModel()
+            { 
+                PhotoUrl = submission.Url,
+                Author = submission.SubmitterName,
+                Description = submission.Description,
+                Title = submission.Title,
+            };
+            // can user open this page
+            // if not unauthorized
+
+            // Getsubmission
+
+            //return view with model
+            return View("~/Views/Dashboard/GiveReview.cshtml",
+                giveReviewViewModel);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> GiveReview(GiveReviewViewModel model)
+        {
+            // Can jury make review for given photo?
+            // Invalid? Unauthorized/
+
+            //give review
+            var review = await this.juryService.GiveReviewAsync(model.MapToInputGiveReviewDto());
+
+            return View(review);
+            //redirectTo()
         }
     }
 }

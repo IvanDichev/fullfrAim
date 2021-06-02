@@ -12,7 +12,7 @@ using Utilities.Mapper;
 namespace FullFraim.Web.Controllers
 {
     [Controller]
-    public class ContestController : Controller
+    public class ContestController : BaseMvcController
     {
         private readonly IContestService contestService;
         private readonly IContestCategoryService contestCategoryService;

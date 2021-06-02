@@ -11,8 +11,8 @@
 
 <div class="gallery_area clearfix">
     <div class="container-fluid clearfix">
-        @*<a asp-route-id="1" data-toggle="modal" data-target=".contact-modal-lg" class="btn btn-primary" 
-           onclick="OpenModal('@Url.Action("Enroll", "Dashboard", null, Context.Request.Scheme)', 'Enroll', 1)">Demo</a>*@
+        @*<a asp-route-id="1" data-toggle="modal" data-target=".contact-modal-lg" class="btn btn-primary"
+            onclick="OpenModal('@Url.Action("Enroll", "Dashboard", null, Context.Request.Scheme)', 'Enroll', 1)">Demo</a>*@
         <div class="dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Categories</a>
             <ul class="dropdown-menu">
@@ -21,8 +21,9 @@
                        asp-route-categoryId="0">All</a>
                     @foreach (var category in ViewBag.Categories)
                     {
-        <a class="dropdown-item" asp-controller="Dashboard" asp-action="Index"
-           asp-route-categoryId="@category.Id">@category.Name</a>}
+                        <a class="dropdown-item" asp-controller="Dashboard" asp-action="Index"
+                           asp-route-categoryId="@category.Id">@category.Name</a>
+                    }
                 </li>
             </ul>
             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
@@ -54,10 +55,10 @@
         </div>
 
         @*<div class="row">
-            <div class="col-12 text-center mt-70">
-                <a href="#" class="btn studio-btn"><img src="/img/core-img/logo-icon.png" alt=""> Load More</a>
-            </div>
-        </div>*@
+                <div class="col-12 text-center mt-70">
+                    <a href="#" class="btn studio-btn"><img src="/img/core-img/logo-icon.png" alt=""> Load More</a>
+                </div>
+            </div>*@
     </div>
 </div>
 
@@ -69,7 +70,7 @@
                 $.ajax({
                     type: "GET",
                     url: url,
-                    data: {contestId: id},
+                    data: { contestId: id },
                     success: function (response) {
                         $(".modal-title").html(title);
                         $(".modal-body").html(response);
