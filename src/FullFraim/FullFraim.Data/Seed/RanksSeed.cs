@@ -13,19 +13,19 @@ namespace FullFraim.Data.Seed
         {
             new Rank()
             {
-                Name = Constants.RanksSeed.Junkie,
+                Name = Constants.Ranks.Junkie,
             },
             new Rank()
             {
-                Name = Constants.RanksSeed.Enthusiast,
+                Name = Constants.Ranks.Enthusiast,
             },
             new Rank()
             {
-                Name = Constants.RanksSeed.Master,
+                Name = Constants.Ranks.Master,
             },
             new Rank()
             {
-                Name = Constants.RanksSeed.WiseAndBenevolentPhotoDictator,
+                Name = Constants.Ranks.WiseAndBenevolentPhotoDictator,
             },
         };
 

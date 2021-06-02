@@ -41,7 +41,7 @@ namespace FullFraim.Services.SecurityServices
         {
             var user = await userManager.FindByIdAsync(userId.ToString());
 
-            return await userManager.IsInRoleAsync(user, Constants.RolesSeed.Admin);
+            return await userManager.IsInRoleAsync(user, Constants.Roles.Admin);
         }
     }
 }

@@ -13,11 +13,11 @@ namespace FullFraim.Data.Seed
         {
             new ContestType()
             {
-               Name = Constants.ContestTypeSeed.Invitational
+               Name = Constants.ContestType.Invitational
             },
             new ContestType()
             {
-               Name = Constants.ContestTypeSeed.Open
+               Name = Constants.ContestType.Open
             },
         };
 

@@ -217,9 +217,9 @@ namespace FullFraim.Tests.PhaseServices
 
                 //Assert
                 Assert.AreEqual(3, result.Count());
-                Assert.AreEqual(Constants.PhasesSeed.PhaseI, result[0].Name);
-                Assert.AreEqual(Constants.PhasesSeed.PhaseII, result[1].Name);
-                Assert.AreEqual(Constants.PhasesSeed.Finished, result[2].Name);
+                Assert.AreEqual(Constants.Phases.PhaseI, result[0].Name);
+                Assert.AreEqual(Constants.Phases.PhaseII, result[1].Name);
+                Assert.AreEqual(Constants.Phases.Finished, result[2].Name);
 
                 context.Database.EnsureDeleted();
             }
@@ -254,9 +254,9 @@ namespace FullFraim.Tests.PhaseServices
                 Assert.AreEqual(2, result2.Id);
                 Assert.AreEqual(3, result3.Id);
 
-                Assert.AreEqual(Constants.PhasesSeed.PhaseI, result.Name);
-                Assert.AreEqual(Constants.PhasesSeed.PhaseII, result2.Name);
-                Assert.AreEqual(Constants.PhasesSeed.Finished, result3.Name);
+                Assert.AreEqual(Constants.Phases.PhaseI, result.Name);
+                Assert.AreEqual(Constants.Phases.PhaseII, result2.Name);
+                Assert.AreEqual(Constants.Phases.Finished, result3.Name);
 
                 context.Database.EnsureDeleted();
             }

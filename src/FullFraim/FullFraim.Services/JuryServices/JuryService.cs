@@ -52,7 +52,7 @@ namespace FullFraim.Services.JuryServices
         public async Task<bool> IsContestInPhaseTwoAsync(int photoId)
         {
             return await this.context.Contests
-                    .Where(c => c.ContestPhases.Any(cp => cp.Phase.Name == Constants.PhasesSeed.PhaseII &&
+                    .Where(c => c.ContestPhases.Any(cp => cp.Phase.Name == Constants.Phases.PhaseII &&
                         cp.EndDate > DateTime.UtcNow && cp.StartDate < DateTime.UtcNow))
                             .AnyAsync(c => c.Photos.Any(p => p.Id == photoId));
         }

@@ -54,7 +54,7 @@ namespace FullFraim.Services.ContestServices
 
             // If contest is invitational - invite users to join
             if (model.ContestTypeId == 
-                (await this.context.ContestTypes.FirstOrDefaultAsync(ct => ct.Name == Constants.ContestTypeSeed.Invitational)).Id)
+                (await this.context.ContestTypes.FirstOrDefaultAsync(ct => ct.Name == Constants.ContestType.Invitational)).Id)
             {
                 await this.AddInvitedForTheContestAsync(model.Jury, model.Participants, contest.Entity.Id);
             }
@@ -130,9 +130,9 @@ namespace FullFraim.Services.ContestServices
 
             contests = contests.Where(c => c.ParticipantContests.Any(pc => pc.UserId == userId) ||
                 c.JuryContests.Any(jc => jc.UserId == userId) ||
-                    (c.ContestPhases.Any(cp => cp.Phase.Name == Constants.PhasesSeed.PhaseI && 
+                    (c.ContestPhases.Any(cp => cp.Phase.Name == Constants.Phases.PhaseI && 
                     cp.EndDate > DateTime.UtcNow && cp.StartDate < DateTime.UtcNow) &&
-                c.ContestType.Name == Constants.ContestTypeSeed.Open));
+                c.ContestType.Name == Constants.ContestType.Open));
 
             var paginatedModel = new PaginatedModel<OutputContestDto>()
             {
@@ -214,7 +214,7 @@ namespace FullFraim.Services.ContestServices
 
         public async Task<ICollection<UserDto>> GetParticipantsForInvitationAsync()
         {
-            var users = await userManager.GetUsersInRoleAsync(Constants.RolesSeed.User);
+            var users = await userManager.GetUsersInRoleAsync(Constants.Roles.User);
 
             var usersDto = users.MapToDto();
 
@@ -223,7 +223,7 @@ namespace FullFraim.Services.ContestServices
 
         public async Task<ICollection<UserDto>> GetPotentialJuryForInvitationAsync()
         {
-            var users = await userManager.GetUsersInRoleAsync(Constants.RolesSeed.User);
+            var users = await userManager.GetUsersInRoleAsync(Constants.Roles.User);
 
             users = users
                 .Where(u => u.Points >= 150)
@@ -264,7 +264,7 @@ namespace FullFraim.Services.ContestServices
 
         private async Task AddOrganizersToJuryContest(int contestId)
         {
-            var organisers = await userManager.GetUsersInRoleAsync(Constants.RolesSeed.Organizer);
+            var organisers = await userManager.GetUsersInRoleAsync(Constants.Roles.Organizer);
 
             if (organisers.Count == 0)
             {
@@ -332,7 +332,7 @@ namespace FullFraim.Services.ContestServices
 
             return await this.context.Contests
                 .Where(c => c.Id == contestId)
-                .Where(c => c.ContestPhases.Any(cp => cp.Phase.Name == Constants.PhasesSeed.Finished &&
+                .Where(c => c.ContestPhases.Any(cp => cp.Phase.Name == Constants.Phases.Finished &&
                     cp.StartDate < DateTime.UtcNow && cp.EndDate > DateTime.UtcNow)).AnyAsync();
         }
 

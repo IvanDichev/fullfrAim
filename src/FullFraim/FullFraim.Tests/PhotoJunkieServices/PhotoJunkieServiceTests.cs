@@ -891,10 +891,10 @@ namespace FullFraim.Tests.PhotoJunkieServices
         }
 
         [TestMethod]
-        [DataRow(20, 1, Constants.RanksSeed.Junkie)]
-        [DataRow(200, 2, Constants.RanksSeed.Enthusiast)]
-        [DataRow(500, 3, Constants.RanksSeed.Master)]
-        [DataRow(1000, 4, Constants.RanksSeed.WiseAndBenevolentPhotoDictator)]
+        [DataRow(20, 1, Constants.Ranks.Junkie)]
+        [DataRow(200, 2, Constants.Ranks.Enthusiast)]
+        [DataRow(500, 3, Constants.Ranks.Master)]
+        [DataRow(1000, 4, Constants.Ranks.WiseAndBenevolentPhotoDictator)]
         public async Task GetPointsTillNextRank_ShouldMapRankNameCorrectly(int points, int rankId, string rank)
         {
             //Arrange

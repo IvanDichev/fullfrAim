@@ -6,7 +6,6 @@ using FullFraim.Web.Filters;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System.Security.Claims;
 using System.Threading.Tasks;
 using static Shared.Constants;
 
@@ -59,7 +58,7 @@ namespace FullFraim.Web.Controllers.ApiControllers
         }
 
         [HttpPost]
-        [Authorize(Roles = RolesSeed.Organizer)]
+        [Authorize(Roles = Roles.Organizer)]
         [APIExceptionFilter]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -83,14 +82,14 @@ namespace FullFraim.Web.Controllers.ApiControllers
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         public async Task<IActionResult> Update([FromHeader] int id, [FromBody] InputContestDto inputModel)
         {
-            if (await IsCurrentUserJuryInContestAsync(id))
+            if (!await IsCurrentUserJuryInContestAsync(id))
             {
-                await this.contestService.UpdateAsync(id, inputModel);
-
-                return this.Ok();
+                return this.Unauthorized();
             }
 
-            return this.Unauthorized();
+            await this.contestService.UpdateAsync(id, inputModel);
+
+            return this.Ok();
         }
 
         [HttpDelete("{id}")]
@@ -100,18 +99,17 @@ namespace FullFraim.Web.Controllers.ApiControllers
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         public async Task<IActionResult> Delete([FromHeader] int id)
         {
-            if (await IsCurrentUserJuryInContestAsync(id))
+            if (!await IsCurrentUserJuryInContestAsync(id))
             {
-                await this.contestService.DeleteAsync(id);
-
-                return this.NoContent();
+                return this.Unauthorized();
             }
+            await this.contestService.DeleteAsync(id);
 
-            return this.Unauthorized();
+            return this.NoContent();
         }
 
         [HttpGet("/Covers")]
-        [Authorize(Roles = RolesSeed.Organizer)]
+        [Authorize(Roles = Roles.Organizer)]
         [APIExceptionFilter]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(PaginatedModel<string>))]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]

@@ -209,8 +209,8 @@ namespace FullFraim.Tests.ContestTypeServices
 
                 //Assert
                 Assert.AreEqual(2, result.Count());
-                Assert.AreEqual(Constants.ContestTypeSeed.Open, result[0].Name);
-                Assert.AreEqual(Constants.ContestTypeSeed.Invitational, result[1].Name);
+                Assert.AreEqual(Constants.ContestType.Open, result[0].Name);
+                Assert.AreEqual(Constants.ContestType.Invitational, result[1].Name);
 
                 context.Database.EnsureDeleted();
             }
@@ -243,8 +243,8 @@ namespace FullFraim.Tests.ContestTypeServices
                 Assert.AreEqual(1, result.Id);
                 Assert.AreEqual(2, result2.Id);
 
-                Assert.AreEqual(Constants.ContestTypeSeed.Open, result.Name);
-                Assert.AreEqual(Constants.ContestTypeSeed.Invitational, result2.Name);
+                Assert.AreEqual(Constants.ContestType.Open, result.Name);
+                Assert.AreEqual(Constants.ContestType.Invitational, result2.Name);
 
                 context.Database.EnsureDeleted();
             }

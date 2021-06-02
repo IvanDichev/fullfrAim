@@ -153,8 +153,8 @@ namespace FullFraim.Services.PhotoJunkieServices
 
             userToAddPoints.Points += contestType switch
             {
-                Constants.ContestTypeSeed.Open => 1,
-                Constants.ContestTypeSeed.Invitational => 3,
+                Constants.ContestType.Open => 1,
+                Constants.ContestType.Invitational => 3,
                 _ => throw new ArgumentException(string.Format(LogMessages.InvalidType, "PhotoJunkieService", "AddInitialPointsToUser")),
             };
         }
