@@ -35,7 +35,6 @@ namespace FullFraim.Web.Controllers.ApiControllers
         public async Task<IActionResult> GetAll
             ([FromQuery] PaginationFilter paginationFilter, int? participantId, int? juryId, string phase, string contestType)
         {
-           // int userId = int.Parse(HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value);
             var contests = await this.contestService.GetAllAsync(participantId, juryId, phase, contestType, paginationFilter);
 
             return this.Ok(contests);
@@ -67,6 +66,11 @@ namespace FullFraim.Web.Controllers.ApiControllers
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         public async Task<IActionResult> Create([FromBody] InputContestDto inputModel)
         {
+            if (!await this.contestService.IsNameUniqueAsync(inputModel.Name))
+            {
+                return BadRequest("Name must be unique.");
+            }
+
             var createdModel = await this.contestService.CreateAsync(inputModel);
 
             return this.Created(nameof(GetById), createdModel);
@@ -114,7 +118,7 @@ namespace FullFraim.Web.Controllers.ApiControllers
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         public async Task<IActionResult> GetCovers([FromQuery] PaginationFilter paginationFilter)
         {
-            var result = await this.contestService.GetCoversAsync(paginationFilter);
+            var result = await this.contestService.GetConetstCoversAsync(paginationFilter);
 
             return this.Ok(result);
         }

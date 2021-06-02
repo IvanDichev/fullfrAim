@@ -44,6 +44,11 @@ namespace FullFraim.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(CreateContestViewModel model)
         {
+            if (!await this.contestService.IsNameUniqueAsync(model.Name))
+            {
+                ModelState.AddModelError(string.Empty, "Name must be unique!");
+            }
+
             if (model.Cover_Url != null && model.Cover != null)
             {
                 ModelState
@@ -84,7 +89,7 @@ namespace FullFraim.Web.Controllers
         [HttpGet]
         public async Task<IActionResult> ChooseCovers()
         {
-            var result = await this.contestService.GetCoversAsync(new PaginationFilter());
+            var result = await this.contestService.GetConetstCoversAsync(new PaginationFilter());
 
             ViewBag.Covers = result;
 

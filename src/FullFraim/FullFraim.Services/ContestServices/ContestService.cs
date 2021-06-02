@@ -5,10 +5,10 @@ using FullFraim.Models.Dto_s.Pagination;
 using FullFraim.Models.Dto_s.User;
 using FullFraim.Models.ViewModels.Dashboard;
 using FullFraim.Services.Exceptions;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Shared;
+using Shared.AllConstants;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -29,17 +29,16 @@ namespace FullFraim.Services.ContestServices
             this.userManager = userManager;
         }
 
+        public async Task<bool> IsNameUniqueAsync(string name)
+        {
+            return await this.context.Contests.AnyAsync(c => c.Name != name);
+        }
+
         public async Task<OutputContestDto> CreateAsync(InputContestDto model)
         {
             if (model == null)
             {
-                throw new NullModelException($"{DateTime.UtcNow} - ContestService.CreateAsync() received null input model.");
-            }
-
-            // Extract in method to validate in controller!
-            if (this.context.Contests.Any(c => c.Name == model.Name))
-            {
-                throw new UniqueNameException($"{DateTime.UtcNow} - ContestService.CreateAsync() input name: {model.Name} is already used. Unique name is required!");
+                throw new NullModelException(string.Format(LogMessages.NullModel, "ContestService", "CreateAsync()"));
             }
 
             model.Phases.StartDate_PhaseI = DateTime.UtcNow;
@@ -53,7 +52,7 @@ namespace FullFraim.Services.ContestServices
 
             await AddOrganizersToJuryContest(contest.Entity.Id);
 
-            // If contest is invitational there will be no one invited
+            // If contest is invitational - invite users to join
             if (model.ContestTypeId == (await this.context.ContestTypes.FirstOrDefaultAsync(ct => ct.Name == Constants.ContestTypeSeed.Invitational)).Id)
             {
                 await this.AddInvitedForTheContestAsync(model.Jury, model.Participants, contest.Entity.Id);
@@ -70,15 +69,15 @@ namespace FullFraim.Services.ContestServices
         {
             if (id <= 0)
             {
-                throw new InvalidIdException($"{DateTime.UtcNow} - ContestService.DeleteAsync() received invalid Id: {id}.");
+                throw new InvalidIdException(string.Format(LogMessages.InvalidId, "ContestService", "DeleteAsync()", id, "contest"));
             }
 
             var modelToRemove = await this.context.Contests
-                .FirstOrDefaultAsync(CC => CC.Id == id);
+                .FirstOrDefaultAsync(cc => cc.Id == id);
 
             if (modelToRemove == null)
             {
-                throw new NotFoundException($"{DateTime.UtcNow} - ContestService.DeleteAsync() didn't find contest with Id: {id}.");
+                throw new NotFoundException(string.Format(LogMessages.NullModel, "ContestService", "DeleteAsync()", id));
             }
 
             modelToRemove.DeletedOn = DateTime.UtcNow;
@@ -100,8 +99,8 @@ namespace FullFraim.Services.ContestServices
 
             if (!string.IsNullOrEmpty(phase))
             {
-                contests = contests.Where(c => c.ContestPhases.Any(cp => cp.Phase.Name == phase
-                && cp.EndDate > DateTime.UtcNow && cp.StartDate < DateTime.UtcNow));
+                contests = contests.Where(c => c.ContestPhases.Any(cp => cp.Phase.Name == phase &&
+                    cp.EndDate > DateTime.UtcNow && cp.StartDate < DateTime.UtcNow));
             }
 
             if (!string.IsNullOrEmpty(contestType))
@@ -124,12 +123,12 @@ namespace FullFraim.Services.ContestServices
             return paginatedModel;
         }
 
-        public async Task<PaginatedModel<OutputContestDto>> GetAllForUserAsync (int userId, PaginationFilter paginationFilter)
+        public async Task<PaginatedModel<OutputContestDto>> GetAllForUserAsync(int userId, PaginationFilter paginationFilter)
         {
             var contests = this.context.Contests.AsQueryable();
 
             contests = contests.Where(c => c.ParticipantContests.Any(pc => pc.UserId == userId) ||
-                c.JuryContests.Any(jc => jc.UserId == userId) || 
+                c.JuryContests.Any(jc => jc.UserId == userId) ||
                     (c.ContestPhases.Any(cp => cp.Phase.Name == Constants.PhasesSeed.PhaseI
                 && cp.EndDate > DateTime.UtcNow && cp.StartDate < DateTime.UtcNow) &&
                 c.ContestType.Name == Constants.ContestTypeSeed.Open));
@@ -149,7 +148,7 @@ namespace FullFraim.Services.ContestServices
             return paginatedModel;
         }
 
-        public async Task<PaginatedModel<string>> GetCoversAsync(PaginationFilter paginationFilter)
+        public async Task<PaginatedModel<string>> GetConetstCoversAsync(PaginationFilter paginationFilter)
         {
             var paginatedModel = new PaginatedModel<string>()
             {
@@ -170,7 +169,7 @@ namespace FullFraim.Services.ContestServices
         {
             if (id <= 0)
             {
-                throw new InvalidIdException($"{DateTime.UtcNow} - ContestService.GetByIdAsync() received invalid Id: {id}.");
+                throw new InvalidIdException(string.Format(LogMessages.InvalidId, "ContestService", "GetByIdAsync()", id, "contest"));
             }
 
             var result = await this.context.Contests
@@ -180,7 +179,7 @@ namespace FullFraim.Services.ContestServices
 
             if (result == null)
             {
-                throw new NotFoundException($"{DateTime.UtcNow} - ContestService.GetByIdAsync() didn't find entity with Id: {id}.");
+                throw new NotFoundException(string.Format(LogMessages.NotFound, "ContestService", "GetByIdAsync()", id));
             }
 
             return result;
@@ -190,7 +189,7 @@ namespace FullFraim.Services.ContestServices
         {
             if (model == null)
             {
-                throw new NullModelException($"{DateTime.UtcNow} - ContestService.UpdateAsync() received null input model.");
+                throw new NullModelException(string.Format(LogMessages.NullModel, "ContestService", "UpdateAsync()"));
             }
 
             var dbModelToUpdate = await this.context.Contests
@@ -198,12 +197,12 @@ namespace FullFraim.Services.ContestServices
 
             if (dbModelToUpdate == null)
             {
-                throw new NotFoundException($"{DateTime.UtcNow} - ContestService.UpdateAsync() didn't find entity with Id: {id}.");
+                throw new NotFoundException(string.Format(LogMessages.NotFound, "ContestService", "UpdateAsync()", id));
             }
 
             if (this.context.Contests.Any(c => c.Name == model.Name))
             {
-                throw new UniqueNameException($"{DateTime.UtcNow} - ContestService.UpdateAsync() input name: {model.Name} is already used. Unique name is required!");
+                throw new UniqueNameException(string.Format(LogMessages.UniqueName, "ContestService", "UpdateAsync()", model.Name));
             }
 
             dbModelToUpdate.Name = model.Name ?? dbModelToUpdate.Name;
@@ -268,7 +267,8 @@ namespace FullFraim.Services.ContestServices
 
             if (organisers.Count == 0)
             {
-                throw new NoOrganizersException($"{DateTime.UtcNow} - No organizers found in database!");
+                throw new NoOrganizersException
+                    (string.Format(LogMessages.NotFoundModel, "ContestService", "AddOrganizersToJuryContest()", "organizer"));
             }
 
             foreach (var organizer in organisers)
@@ -325,7 +325,8 @@ namespace FullFraim.Services.ContestServices
         {
             if (contestId <= 0)
             {
-                throw new InvalidIdException($"{DateTime.UtcNow} - ContestService.IsContestInPhaseFinished() received invalid contestId: {contestId}.");
+                throw new InvalidIdException
+                    (string.Format(LogMessages.InvalidId, "ContestService", "AddInvitedForTheContestAsync()", contestId, "contest"));
             }
 
             return await this.context.Contests
@@ -338,7 +339,8 @@ namespace FullFraim.Services.ContestServices
         {
             if (categoryId < 0)
             {
-                throw new InvalidIdException($"{DateTime.UtcNow} - ContestService.GetContestsByCategoryAsync() received invalid categoryId: {categoryId}.");
+                throw new InvalidIdException
+                    (string.Format(LogMessages.InvalidId, "ContestService", "GetContestsByCategoryAsync()", categoryId, "category"));
             }
 
             var paginatedModel = await GetAllAsync(userId, userId, null, null, new PaginationFilter());
