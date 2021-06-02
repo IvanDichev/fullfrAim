@@ -1,7 +1,6 @@
 ﻿using FullFraim.Data.Models;
 using FullFraim.Models.Contest.ViewModels;
 using FullFraim.Models.Dto_s.Contests;
-using FullFraim.Models.Dto_s.Dashboard;
 using FullFraim.Models.Dto_s.Phases;
 using FullFraim.Models.Dto_s.Photos;
 using FullFraim.Models.Dto_s.User;
@@ -94,19 +93,6 @@ namespace Utilities.Mapper
                 ActivePhase = model.ActivePhase,
             };
         }
-
-        //public static Contest MapToRaw(this ContestDto model)
-        //{
-        //    return new Contest()
-        //    {
-        //        //Id = model.Id,
-        //        Name = model.Name,
-        //        Cover_Url = model.Cover_Url,
-        //        Description = model.Description,
-        //        ContestCategoryId = model.ContestCategoryId,
-        //        ContestTypeId = model.ContestTypeId,
-        //    };
-        //}
 
         public static IQueryable<OutputContestDto> MapToDto(this IQueryable<Contest> query)
         {

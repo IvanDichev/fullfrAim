@@ -2,6 +2,7 @@
 using FullFraim.Models.Dto_s.Phases;
 using FullFraim.Models.Dto_s.Photos;
 using FullFraim.Models.Dto_s.Reviews;
+using FullFraim.Models.ViewModels.Home;
 using System.Linq;
 
 namespace Utilities.Mapper
@@ -46,6 +47,17 @@ namespace Utilities.Mapper
                 }).ToList()
             });
 
+        }
+
+        public static HomeIndexViewModel MapToHomeViewModel(this PhotoDto model)
+        {
+            return new HomeIndexViewModel()
+            {
+                PhotoUrl = model.Url,
+                Description = model.Description,
+                SubmitterName = model.SubmitterName,
+                Title = model.Title,
+            };
         }
     }
 }
