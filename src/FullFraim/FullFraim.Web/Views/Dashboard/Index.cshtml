@@ -24,9 +24,8 @@
                        asp-route-categoryId="0">All</a>
                     @foreach (var category in ViewBag.Categories)
                     {
-                        <a class="dropdown-item" asp-controller="Dashboard" asp-action="Index"
-                           asp-route-categoryId="@category.Id">@category.Name</a>
-                    }
+        <a class="dropdown-item" asp-controller="Dashboard" asp-action="Index"
+           asp-route-categoryId="@category.Id">@category.Name</a>}
                 </li>
             </ul>
             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">

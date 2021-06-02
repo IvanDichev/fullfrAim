@@ -103,7 +103,7 @@ namespace FullFraim.Services.PhotoService
             return photo;
         }
 
-        public async Task<PaginatedModel<ContestSubmissionOutputDto>> GetDetailedSubmissionsFromContest
+        public async Task<PaginatedModel<ContestSubmissionOutputDto>> GetDetailedSubmissionsFromContestAsync
             (int contestId, PaginationFilter paginationFilter)
         {
             if (contestId <= 0)

@@ -1,8 +1,10 @@
 ﻿using FullFraim.Models.Dto_s.Pagination;
 using FullFraim.Models.ViewModels.Enrolling;
+using FullFraim.Models.ViewModels.Contest;
 using FullFraim.Services.ContestCatgeoryServices;
 using FullFraim.Services.ContestServices;
 using FullFraim.Services.PhotoJunkieServices;
+using FullFraim.Services.PhotoService;
 using Microsoft.AspNetCore.Mvc;
 using System.Linq;
 using System.Security.Claims;
@@ -12,21 +14,24 @@ using Utilities.Mapper;
 
 namespace FullFraim.Web.Controllers
 {
-    public class DashboardController : Controller
+    public class DashboardController : BaseMvcController
     {
         private readonly IContestService contestService;
         private readonly IContestCategoryService contestCategoryService;
         private readonly IPhotoJunkieService photoJunkieService;
+        private readonly IPhotoService photoService;
         private readonly ICloudinaryService cloudinaryService;
 
         public DashboardController(IContestService contestService, 
             IContestCategoryService contestCategoryService,
             IPhotoJunkieService photoJunkieService,
+            IPhotoService photoService,
             ICloudinaryService cloudinaryService)
         {
             this.contestService = contestService;
             this.contestCategoryService = contestCategoryService;
             this.photoJunkieService = photoJunkieService;
+            this.photoService = photoService;
             this.cloudinaryService = cloudinaryService;
         }
 
@@ -83,6 +88,36 @@ namespace FullFraim.Web.Controllers
         public IActionResult TestPartialInController()
         {
             return PartialView("~/Views/Shared/Partials/_TestPartial.cshtml", 5);
+        }
+
+        public async Task<IActionResult> GetById(int id)
+        {
+            int userId = int.Parse(HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value);
+
+            var contestSubmissions = await this.photoService
+                .GetDetailedSubmissionsFromContestAsync(id, new PaginationFilter());
+
+            var paginatedModel = new PaginatedModel<ContestSubmissionViewModel>()
+            {
+                Model = contestSubmissions.Model.Select(m => m.MapToContestSubmissionView())
+                     .ToList(),
+                RecordsPerPage = contestSubmissions.RecordsPerPage,
+                TotalPages = contestSubmissions.TotalPages,
+            };
+
+          //  paginatedModel.Model.FirstOrDefault(m => m.AuthorId == UserId).IsCurrentUserSubmission = true; // TODO: Make validation if null!!!
+
+            return View(paginatedModel);
+        }
+
+        public async Task<IActionResult> GetByIdUserSubmission(int id)
+        {
+            int userId = int.Parse(HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value);
+
+            var submission = await this.photoService
+                .GetUserSubmissionForContestAsync(userId, id);
+
+            return View(submission);
         }
     }
 }
