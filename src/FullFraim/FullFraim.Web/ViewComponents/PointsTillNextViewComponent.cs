@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
+using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Utilities.Mapper;
 
@@ -24,9 +26,17 @@ namespace FullFraim.Web.ViewComponents
             this.userManager = userManager;
         }
 
-        public async Task<IViewComponentResult> Invoke()
+        public async Task<IViewComponentResult> InvokeAsync()
         {
-            var junkies = await userManager.Users.ToListAsync();
+            if(int.Parse(HttpContext.User
+                .FindFirst(ClaimTypes.NameIdentifier).Value) != 1)
+            {
+                return Content(string.Empty);
+            }
+
+            var junkies = await userManager.Users
+                .Where(x => x.Id != 1)
+                .ToListAsync();
 
             var result = new List<PointsTillNextViewModel>();
 
