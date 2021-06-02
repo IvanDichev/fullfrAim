@@ -4,6 +4,7 @@ using FullFraim.Models.Dto_s.Reviews;
 using FullFraim.Services.Exceptions;
 using Microsoft.EntityFrameworkCore;
 using Shared;
+using Shared.AllConstants;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
@@ -24,7 +25,7 @@ namespace FullFraim.Services.JuryServices
         {
             if(inputModel == null)
             {
-                throw new NullModelException();
+                throw new NullModelException(string.Format(LogMessages.NullModel, "JuryService", "GiveReviewAsync"));
             }
 
             var toAddReview = new PhotoReview()
@@ -39,7 +40,7 @@ namespace FullFraim.Services.JuryServices
             if (toAddReview.Checkbox == true)
             {
                 toAddReview.Score = 0;
-                toAddReview.Comment = "Wrong Category"; // TODO: Make it as a constant
+                toAddReview.Comment = Constants.Others.WrongCategory;
             }
 
             await this.context.PhotoReviews.AddAsync(toAddReview);

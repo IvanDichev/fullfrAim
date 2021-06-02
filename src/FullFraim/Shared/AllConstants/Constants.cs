@@ -414,5 +414,10 @@ BEGIN
 END;";
             public const string DropRankTrigger = @"DROP TRIGGER TR_AspNetUsers_UpdateRanks_AU_AI";
         }
+
+        public static class Others
+        {
+            public const string WrongCategory = "Wrong category";
+        }
     }
 }

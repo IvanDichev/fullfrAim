@@ -3,6 +3,7 @@ using FullFraim.Models.Dto_s.Pagination;
 using FullFraim.Models.Dto_s.Photos;
 using FullFraim.Services.Exceptions;
 using Microsoft.EntityFrameworkCore;
+using Shared.AllConstants;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,7 +25,7 @@ namespace FullFraim.Services.PhotoService
         {
             if (photoId <= 0)
             {
-                throw new InvalidIdException();
+                throw new InvalidIdException(string.Format(LogMessages.InvalidId, "PhotoService", "GetByIdAsync", photoId, "photo"));
             }
 
             var photo = await this.context.Photos
@@ -33,7 +34,7 @@ namespace FullFraim.Services.PhotoService
 
             if (photo == null)
             {
-                throw new NotFoundException();
+                throw new NotFoundException(string.Format(LogMessages.NotFound, "PhotoService", "GetByIdAsync", photoId));
             }
 
             return photo;
@@ -41,9 +42,14 @@ namespace FullFraim.Services.PhotoService
 
         public async Task<bool> IsPhotoSubmitedByUserAsync(int userId, int photoId)
         {
-            if (photoId <= 0 || userId <= 0)
+            if (photoId <= 0)
             {
-                throw new InvalidIdException();
+                throw new InvalidIdException(string.Format(LogMessages.InvalidId, "PhotoService", "IsPhotoSubmitedByUserAsync", photoId, "photo"));
+            }
+
+            if (userId <= 0)
+            {
+                throw new InvalidIdException(string.Format(LogMessages.InvalidId, "PhotoService", "IsPhotoSubmitedByUserAsync", userId, "user"));
             }
 
             var isPhotoSubmitedbyUser = await this.context.Photos
@@ -58,9 +64,16 @@ namespace FullFraim.Services.PhotoService
         public async Task<PaginatedModel<PhotoDto>> GetPhotosForContestAsync
             (int userId, int contestId, PaginationFilter paginationFilter)
         {
-            if (contestId <= 0 || userId <= 0)
+            if (contestId <= 0)
             {
-                throw new InvalidIdException();
+                throw new InvalidIdException
+                    (string.Format(LogMessages.InvalidId, "PhotoService", "GetPhotosForContestAsync", contestId, "contest"));
+            }
+
+            if (userId <= 0)
+            {
+                throw new InvalidIdException
+                    (string.Format(LogMessages.InvalidId, "PhotoService", "GetPhotosForContestAsync", userId, "user"));
             }
 
             var photos = this.context.Photos
@@ -84,9 +97,16 @@ namespace FullFraim.Services.PhotoService
        
         public async Task<PhotoDto> GetUserSubmissionForContestAsync(int userId, int contestId)
         {
-            if (contestId <= 0 || userId <= 0)
+            if (contestId <= 0)
             {
-                throw new InvalidIdException();
+                throw new InvalidIdException
+                    (string.Format(LogMessages.InvalidId, "PhotoService", "GetUserSubmissionForContestAsync", contestId, "contest"));
+            }
+
+            if (userId <= 0)
+            {
+                throw new InvalidIdException
+                    (string.Format(LogMessages.InvalidId, "PhotoService", "GetUserSubmissionForContestAsync", userId, "user"));
             }
 
             var photo = await this.context.Photos
@@ -97,7 +117,7 @@ namespace FullFraim.Services.PhotoService
 
             if (photo == null)
             {
-                throw new NotFoundException();
+                throw new NotFoundException(string.Format(LogMessages.NotFound, "PhotoService", "GetUserSubmissionForContestAsync", photo));
             }
 
             return photo;
@@ -108,7 +128,8 @@ namespace FullFraim.Services.PhotoService
         {
             if (contestId <= 0)
             {
-                throw new InvalidIdException();
+                throw new InvalidIdException
+                    (string.Format(LogMessages.InvalidId, "PhotoService", "GetDetailedSubmissionsFromContestAsync", contestId, "contest"));
             }
 
             var submissions = this.context.Photos.Where(x => x.ContestId == contestId);

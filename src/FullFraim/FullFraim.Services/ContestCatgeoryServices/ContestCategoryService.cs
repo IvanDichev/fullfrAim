@@ -23,7 +23,7 @@ namespace FullFraim.Services.ContestCatgeoryServices
         {
             if(model == null)
             {
-                throw new NullModelException(string.Format(LogMessages.NullModel, "ContestCategoryService", "CreateAsync()"));
+                throw new NullModelException(string.Format(LogMessages.NullModel, "ContestCategoryService", "CreateAsync"));
             }
 
             await this.context.ContestCategories
@@ -39,7 +39,7 @@ namespace FullFraim.Services.ContestCatgeoryServices
         {
             if (id <= 0)
             {
-                throw new InvalidIdException(string.Format(LogMessages.InvalidId, "ContestCategoryService", "DeleteAsync()", id, "ContestCategory"));
+                throw new InvalidIdException(string.Format(LogMessages.InvalidId, "ContestCategoryService", "DeleteAsync", id, "ContestCategory"));
             }
 
             var modelToRemove = await this.context.ContestCategories

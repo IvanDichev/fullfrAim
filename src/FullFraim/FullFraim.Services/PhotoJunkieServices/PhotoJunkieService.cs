@@ -7,6 +7,7 @@ using FullFraim.Services.Exceptions;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Shared;
+using Shared.AllConstants;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,9 +29,9 @@ namespace FullFraim.Services.PhotoJunkieServices
 
         public async Task EnrollForContestAsync(InputEnrollForContestDto inputModel)
         {
-            if(inputModel == null)
+            if (inputModel == null)
             {
-                throw new NullModelException();
+                throw new NullModelException(string.Format(LogMessages.NullModel, "PhotoJunkieService", "EnrollForContestAsync"));
             }
 
             var toAddParticipantContest = new ParticipantContest()
@@ -79,9 +80,14 @@ namespace FullFraim.Services.PhotoJunkieServices
 
         public async Task<bool> CanJunkyEnroll(int contestId, int userId)
         {
-            if(contestId <= 0 || userId <= 0)
+            if (contestId <= 0)
             {
-                throw new InvalidIdException();
+                throw new InvalidIdException(string.Format(LogMessages.InvalidId, "PhotoJunkieService", "CanJunkyEnroll", contestId, "contest"));
+            }
+
+            if (userId <= 0)
+            {
+                throw new InvalidIdException(string.Format(LogMessages.InvalidId, "PhotoJunkieService", "CanJunkyEnroll", userId, "user"));
             }
 
             var isParticipant = !await this.context.ParticipantContests
@@ -93,13 +99,13 @@ namespace FullFraim.Services.PhotoJunkieServices
             return isParticipant && isJury;
         }
 
-        public async Task<PhotoJunkieRankDto> GetPointsTillNextRankAsync(int userId) 
+        public async Task<PhotoJunkieRankDto> GetPointsTillNextRankAsync(int userId)
         {
             var user = await this.userManager.FindByIdAsync(userId.ToString());
 
             if (user == null)
             {
-                throw new NotFoundException();
+                throw new NotFoundException(string.Format(LogMessages.NotFound, "PhotoJunkieService", "GetPointsTillNextRankAsync", userId));
             }
 
             var junkieTillNextRankDto = new PhotoJunkieRankDto()
@@ -140,23 +146,17 @@ namespace FullFraim.Services.PhotoJunkieServices
             var userToAddPoints = await this.context.Users
                 .FirstOrDefaultAsync(u => u.Id == toAddParticipantContest.UserId);
 
-            if(userToAddPoints == null)
+            if (userToAddPoints == null)
             {
-                throw new NotFoundException();
+                throw new NotFoundException(string.Format(LogMessages.NotFoundModel, "PhotoJunkieService", "AddInitialPointsToUser", "User"));
             }
 
-            switch (contestType)
+            userToAddPoints.Points += contestType switch
             {
-                case Constants.ContestTypeSeed.Open:
-                    userToAddPoints.Points += 1;
-                    break;
-
-                case Constants.ContestTypeSeed.Invitational:
-                    userToAddPoints.Points += 3;
-                    break;
-                default:
-                    throw new Exception();
-            }
+                Constants.ContestTypeSeed.Open => 1,
+                Constants.ContestTypeSeed.Invitational => 3,
+                _ => throw new ArgumentException(string.Format(LogMessages.InvalidType, "PhotoJunkieService", "AddInitialPointsToUser")),
+            };
         }
     }
 }

@@ -2,6 +2,7 @@
 using FullFraim.Models.Dto_s.ContestTypes;
 using FullFraim.Services.Exceptions;
 using Microsoft.EntityFrameworkCore;
+using Shared.AllConstants;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -22,7 +23,7 @@ namespace FullFraim.Services.ContestTypeServices
         {
             if (model == null)
             {
-                throw new NullModelException();
+                throw new NullModelException(string.Format(LogMessages.NullModel, "ContestTypeService", "CreateAsync"));
             }
 
             await this.context.ContestTypes
@@ -38,7 +39,7 @@ namespace FullFraim.Services.ContestTypeServices
         {
             if (id <= 0)
             {
-                throw new InvalidIdException();
+                throw new InvalidIdException(string.Format(LogMessages.InvalidId, "ContestTypeService", "DeleteAsync", id, "contest type"));
             }
 
             var modelToRemove = await this.context.ContestTypes
@@ -63,7 +64,7 @@ namespace FullFraim.Services.ContestTypeServices
         {
             if (id <= 0)
             {
-                throw new InvalidIdException();
+                throw new InvalidIdException(string.Format(LogMessages.InvalidId, "ContestTypeService", "GetByIdAsync", id, "contest type"));
             }
 
             var result = await this.context.ContestTypes
@@ -72,7 +73,7 @@ namespace FullFraim.Services.ContestTypeServices
 
             if (result == null)
             {
-                throw new NotFoundException();
+                throw new NotFoundException(string.Format(LogMessages.NotFound, "ContestTypeService", "GetByIdAsync", id));
             }
 
             return result;
@@ -82,12 +83,12 @@ namespace FullFraim.Services.ContestTypeServices
         {
             if (model == null)
             {
-                throw new NullModelException();
+                throw new NullModelException(string.Format(LogMessages.NullModel, "ContestTypeService", "UpdateAsync"));
             }
 
             if (id <= 0)
             {
-                throw new InvalidIdException();
+                throw new InvalidIdException(string.Format(LogMessages.InvalidId, "ContestTypeService", "UpdateAsync", id, "contest type"));
             }
 
             var dbModelToUpdate = await this.context.ContestTypes
@@ -95,7 +96,7 @@ namespace FullFraim.Services.ContestTypeServices
 
             if (dbModelToUpdate == null)
             {
-                throw new NotFoundException();
+                throw new NotFoundException(string.Format(LogMessages.NotFound, "ContestTypeService", "UpdateAsync", id));
             }
 
             dbModelToUpdate.Name = model.Name ?? dbModelToUpdate.Name;

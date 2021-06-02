@@ -38,7 +38,7 @@ namespace FullFraim.Services.ContestServices
         {
             if (model == null)
             {
-                throw new NullModelException(string.Format(LogMessages.NullModel, "ContestService", "CreateAsync()"));
+                throw new NullModelException(string.Format(LogMessages.NullModel, "ContestService", "CreateAsync"));
             }
 
             model.Phases.StartDate_PhaseI = DateTime.UtcNow;
@@ -53,7 +53,8 @@ namespace FullFraim.Services.ContestServices
             await AddOrganizersToJuryContest(contest.Entity.Id);
 
             // If contest is invitational - invite users to join
-            if (model.ContestTypeId == (await this.context.ContestTypes.FirstOrDefaultAsync(ct => ct.Name == Constants.ContestTypeSeed.Invitational)).Id)
+            if (model.ContestTypeId == 
+                (await this.context.ContestTypes.FirstOrDefaultAsync(ct => ct.Name == Constants.ContestTypeSeed.Invitational)).Id)
             {
                 await this.AddInvitedForTheContestAsync(model.Jury, model.Participants, contest.Entity.Id);
             }
@@ -69,7 +70,7 @@ namespace FullFraim.Services.ContestServices
         {
             if (id <= 0)
             {
-                throw new InvalidIdException(string.Format(LogMessages.InvalidId, "ContestService", "DeleteAsync()", id, "contest"));
+                throw new InvalidIdException(string.Format(LogMessages.InvalidId, "ContestService", "DeleteAsync", id, "contest"));
             }
 
             var modelToRemove = await this.context.Contests
@@ -77,7 +78,7 @@ namespace FullFraim.Services.ContestServices
 
             if (modelToRemove == null)
             {
-                throw new NotFoundException(string.Format(LogMessages.NullModel, "ContestService", "DeleteAsync()", id));
+                throw new NotFoundException(string.Format(LogMessages.NotFound, "ContestService", "DeleteAsync", id));
             }
 
             modelToRemove.DeletedOn = DateTime.UtcNow;
@@ -129,8 +130,8 @@ namespace FullFraim.Services.ContestServices
 
             contests = contests.Where(c => c.ParticipantContests.Any(pc => pc.UserId == userId) ||
                 c.JuryContests.Any(jc => jc.UserId == userId) ||
-                    (c.ContestPhases.Any(cp => cp.Phase.Name == Constants.PhasesSeed.PhaseI
-                && cp.EndDate > DateTime.UtcNow && cp.StartDate < DateTime.UtcNow) &&
+                    (c.ContestPhases.Any(cp => cp.Phase.Name == Constants.PhasesSeed.PhaseI && 
+                    cp.EndDate > DateTime.UtcNow && cp.StartDate < DateTime.UtcNow) &&
                 c.ContestType.Name == Constants.ContestTypeSeed.Open));
 
             var paginatedModel = new PaginatedModel<OutputContestDto>()
@@ -169,7 +170,7 @@ namespace FullFraim.Services.ContestServices
         {
             if (id <= 0)
             {
-                throw new InvalidIdException(string.Format(LogMessages.InvalidId, "ContestService", "GetByIdAsync()", id, "contest"));
+                throw new InvalidIdException(string.Format(LogMessages.InvalidId, "ContestService", "GetByIdAsync", id, "contest"));
             }
 
             var result = await this.context.Contests
@@ -179,7 +180,7 @@ namespace FullFraim.Services.ContestServices
 
             if (result == null)
             {
-                throw new NotFoundException(string.Format(LogMessages.NotFound, "ContestService", "GetByIdAsync()", id));
+                throw new NotFoundException(string.Format(LogMessages.NotFound, "ContestService", "GetByIdAsync", id));
             }
 
             return result;
@@ -189,7 +190,7 @@ namespace FullFraim.Services.ContestServices
         {
             if (model == null)
             {
-                throw new NullModelException(string.Format(LogMessages.NullModel, "ContestService", "UpdateAsync()"));
+                throw new NullModelException(string.Format(LogMessages.NullModel, "ContestService", "UpdateAsync"));
             }
 
             var dbModelToUpdate = await this.context.Contests
@@ -197,12 +198,12 @@ namespace FullFraim.Services.ContestServices
 
             if (dbModelToUpdate == null)
             {
-                throw new NotFoundException(string.Format(LogMessages.NotFound, "ContestService", "UpdateAsync()", id));
+                throw new NotFoundException(string.Format(LogMessages.NotFound, "ContestService", "UpdateAsync", id));
             }
 
             if (this.context.Contests.Any(c => c.Name == model.Name))
             {
-                throw new UniqueNameException(string.Format(LogMessages.UniqueName, "ContestService", "UpdateAsync()", model.Name));
+                throw new UniqueNameException(string.Format(LogMessages.UniqueName, "ContestService", "UpdateAsync", model.Name));
             }
 
             dbModelToUpdate.Name = model.Name ?? dbModelToUpdate.Name;
@@ -268,7 +269,7 @@ namespace FullFraim.Services.ContestServices
             if (organisers.Count == 0)
             {
                 throw new NoOrganizersException
-                    (string.Format(LogMessages.NotFoundModel, "ContestService", "AddOrganizersToJuryContest()", "organizer"));
+                    (string.Format(LogMessages.NotFoundModel, "ContestService", "AddOrganizersToJuryContest", "organizer"));
             }
 
             foreach (var organizer in organisers)
@@ -288,7 +289,7 @@ namespace FullFraim.Services.ContestServices
         {
             if (participants == null || jury == null)
             {
-                throw new NullModelException($"{DateTime.UtcNow} null models was passed to ContestService.AddInvitedForTheContestAsync().");
+                throw new NullModelException(string.Format(LogMessages.NullModel, "ContestService", "AddInvitedForTheContestAsync", contestId));
             }
 
             if (participants.Any(p => jury.Any(j => j == p)))
@@ -302,7 +303,7 @@ namespace FullFraim.Services.ContestServices
 
             if (contest == null)
             {
-                throw new NotFoundException($"{DateTime.UtcNow} ContestService.AddInvitedForTheContestAsync() didn't find contest with id: {contestId}.");
+                throw new NotFoundException(string.Format(LogMessages.NotFound, "ContestService", "AddInvitedForTheContestAsync", contestId));
             }
 
             var juryContests = jury.MapToJuryContest(contestId);
@@ -326,7 +327,7 @@ namespace FullFraim.Services.ContestServices
             if (contestId <= 0)
             {
                 throw new InvalidIdException
-                    (string.Format(LogMessages.InvalidId, "ContestService", "AddInvitedForTheContestAsync()", contestId, "contest"));
+                    (string.Format(LogMessages.InvalidId, "ContestService", "AddInvitedForTheContestAsync", contestId, "contest"));
             }
 
             return await this.context.Contests
@@ -340,7 +341,7 @@ namespace FullFraim.Services.ContestServices
             if (categoryId < 0)
             {
                 throw new InvalidIdException
-                    (string.Format(LogMessages.InvalidId, "ContestService", "GetContestsByCategoryAsync()", categoryId, "category"));
+                    (string.Format(LogMessages.InvalidId, "ContestService", "GetContestsByCategoryAsync", categoryId, "category"));
             }
 
             var paginatedModel = await GetAllAsync(userId, userId, null, null, new PaginationFilter());
