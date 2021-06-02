@@ -9,3 +9,4 @@ System.InvalidOperationException: Invalid attempt to call ReadAsync when reader 
 --- End of stack trace from previous location where exception was thrown ---
    at Microsoft.EntityFrameworkCore.Query.Internal.QueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
 2021-06-02 00:26:32.677 +03:00 [WRN] Sensitive data logging is enabled. Log entries and exception messages may include sensitive application data, this mode should only be enabled during development.
+2021-06-02 01:04:17.211 +03:00 [WRN] Sensitive data logging is enabled. Log entries and exception messages may include sensitive application data, this mode should only be enabled during development.
