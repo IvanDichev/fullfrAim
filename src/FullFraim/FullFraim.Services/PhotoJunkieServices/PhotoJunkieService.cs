@@ -57,7 +57,7 @@ namespace FullFraim.Services.PhotoJunkieServices
             await this.context.SaveChangesAsync();
         }
 
-        public async Task<ICollection<PhotoJunkieDto>> GetAllAsync(SortingModel sortingModel, PaginationFilter paginationFilter)
+        public async Task<ICollection<PhotoJunkyDto>> GetAllAsync(SortingModel sortingModel, PaginationFilter paginationFilter)
         {
             var users = this.context.Users.AsQueryable();
 

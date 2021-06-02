@@ -4,6 +4,5 @@
     {
         public int UserId { get; set; }
         public double Score { get; set; }
-      //  public string ContestType { get; set; }
     }
 }

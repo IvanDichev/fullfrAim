@@ -9,7 +9,7 @@ namespace FullFraim.Services.PhotoJunkieServices
     public interface IPhotoJunkieService
     {
         Task EnrollForContestAsync(InputEnrollForContestDto inputModel);
-        Task<ICollection<PhotoJunkieDto>> GetAllAsync(SortingModel sortingModel, PaginationFilter paginationFilter);
+        Task<ICollection<PhotoJunkyDto>> GetAllAsync(SortingModel sortingModel, PaginationFilter paginationFilter);
         Task<PhotoJunkieRankDto> GetPointsTillNextRankAsync(int userId);
         Task<bool> CanJunkyEnroll(int contestId, int userId);
     }

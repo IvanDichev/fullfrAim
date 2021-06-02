@@ -1,5 +1,6 @@
 ﻿using FullFraim.Models.Dto_s.Pagination;
 using FullFraim.Models.Dto_s.PhotoJunkies;
+using FullFraim.Models.Dto_s.Users;
 using FullFraim.Services.PhotoJunkieServices;
 using FullFraim.Web.Filters;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
