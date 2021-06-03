@@ -6,13 +6,9 @@ namespace FullFraim.Models.Dto_s.Contests
     public class OutputContestDto
     {
         public int Id { get; set; }
-
         public string Name { get; set; }
-
         public string Cover_Url { get; set; }
-
         public string Description { get; set; }
-
         public int PhaseId { get; set; }
 
         public PhaseDto ActivePhase
@@ -32,13 +28,9 @@ namespace FullFraim.Models.Dto_s.Contests
         }
 
         public bool IsCurrentUserParticipant { get; set; }
-
         public bool IsCurrentUserJury { get; set; }
-
         public ICollection<PhaseDto> PhasesInfo { get; set; }
-
         public int ContestCategoryId { get; set; }
-
         public int ContestTypeId { get; set; }
     }
 }

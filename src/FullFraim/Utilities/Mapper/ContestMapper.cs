@@ -28,30 +28,6 @@ namespace Utilities.Mapper
             };
         }
 
-        public static OutputContestDto MapToDto(this Contest model)
-        {
-            return new OutputContestDto()
-            {
-                Name = model.Name,
-                Cover_Url = model.Cover_Url,
-                Description = model.Description,
-                ContestCategoryId = model.ContestCategoryId,
-                ContestTypeId = model.ContestTypeId,
-            };
-        }
-
-        public static CreateContestViewModel MapToView(this InputContestDto model)
-        {
-            return new CreateContestViewModel()
-            {
-                Name = model.Name,
-                Cover_Url = model.Cover_Url,
-                Description = model.Description,
-                ContestCategoryId = model.ContestCategoryId,
-                ContestTypeId = model.ContestTypeId,
-            };
-        }
-
         public static Contest MapToRaw(this InputContestDto model)
         {
             return new Contest()
@@ -69,7 +45,7 @@ namespace Utilities.Mapper
         {
             return new DashboardViewModel()
             {
-                Id = model.Id,
+                ContestId = model.Id,
                 Name = model.Name,
                 Cover_Url = model.Cover_Url,
                 Description = model.Description,
@@ -83,7 +59,8 @@ namespace Utilities.Mapper
         public static ContestSubmissionViewModel MapToContestSubmissionView(this ContestSubmissionOutputDto model)
         {
             return new ContestSubmissionViewModel()
-            { 
+            {
+                ContestId = model.contestId,
                 AuthorId = model.AuthorId,
                 AuthorName = model.AuthorName,
                 Image_Url = model.PhotoUrl,
@@ -113,7 +90,7 @@ namespace Utilities.Mapper
                 }).ToList()
             });
         }
-        
+
         public static IQueryable<OutputContestDto> MapToDto(this IQueryable<Contest> query, int userId)
         {
             return query.Select(x =>

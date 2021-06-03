@@ -19,7 +19,7 @@ using Utilities.Mapper;
 
 namespace FullFraim.Web.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController : BaseMvcController
     {
         private readonly ILogger<HomeController> logger;
         private readonly IPhotoService photoService;

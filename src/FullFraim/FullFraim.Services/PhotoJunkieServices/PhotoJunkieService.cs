@@ -34,13 +34,13 @@ namespace FullFraim.Services.PhotoJunkieServices
                 throw new NullModelException(string.Format(LogMessages.NullModel, "PhotoJunkieService", "EnrollForContestAsync"));
             }
 
-            var toAddParticipantContest = new ParticipantContest()
+            var participant = await this.context.ParticipantContests.FirstOrDefaultAsync(pc => pc.UserId == inputModel.UserId &&
+                    pc.ContestId == inputModel.ContestId);
+
+            // If currently participating without photo
+            if (participant != null)
             {
-                ContestId = inputModel.ContestId,
-                UserId = inputModel.UserId,
-                IsDeleted = false,
-                CreatedOn = DateTime.UtcNow,
-                Photo = new Photo()
+                var photo = new Photo()
                 {
                     Title = inputModel.ImageTitle,
                     Url = inputModel.PhotoUrl,
@@ -48,12 +48,37 @@ namespace FullFraim.Services.PhotoJunkieServices
                     Story = inputModel.ImageDescription,
                     CreatedOn = DateTime.UtcNow,
                     ContestId = inputModel.ContestId,
-                }
-            };
+                };
 
-            await AddInitialPointsToUser(toAddParticipantContest);
+                var addedPhoto = await this.context.Photos.AddAsync(photo);
+                
+                await this.context.SaveChangesAsync();
 
-            await this.context.ParticipantContests.AddAsync(toAddParticipantContest);
+                participant.PhotoId = addedPhoto.Entity.Id;
+            }
+            else
+            {
+                var toAddParticipantContest = new ParticipantContest()
+                {
+                    ContestId = inputModel.ContestId,
+                    UserId = inputModel.UserId,
+                    IsDeleted = false,
+                    CreatedOn = DateTime.UtcNow,
+                    Photo = new Photo()
+                    {
+                        Title = inputModel.ImageTitle,
+                        Url = inputModel.PhotoUrl,
+                        IsDeleted = false,
+                        Story = inputModel.ImageDescription,
+                        CreatedOn = DateTime.UtcNow,
+                        ContestId = inputModel.ContestId,
+                    }
+                };
+
+                await this.context.ParticipantContests.AddAsync(toAddParticipantContest);
+            }
+
+            await AddInitialPointsToUser(inputModel.ContestId, inputModel.UserId);
             await this.context.SaveChangesAsync();
         }
 
@@ -148,15 +173,15 @@ namespace FullFraim.Services.PhotoJunkieServices
             return 0;
         }
 
-        private async Task AddInitialPointsToUser(ParticipantContest toAddParticipantContest)
+        private async Task AddInitialPointsToUser(int contestId, int participantId)
         {
             string contestType = await this.context.Contests
-                .Where(c => c.Id == toAddParticipantContest.ContestId)
+                .Where(c => c.Id == contestId)
                 .Select(c => c.ContestType.Name)
                 .FirstOrDefaultAsync();
 
             var userToAddPoints = await this.context.Users
-                .FirstOrDefaultAsync(u => u.Id == toAddParticipantContest.UserId);
+                .FirstOrDefaultAsync(u => u.Id == participantId);
 
             if (userToAddPoints == null)
             {
@@ -169,6 +194,12 @@ namespace FullFraim.Services.PhotoJunkieServices
                 Constants.ContestType.Invitational => 3,
                 _ => throw new ArgumentException(string.Format(LogMessages.InvalidType, "PhotoJunkieService", "AddInitialPointsToUser")),
             };
+        }
+
+        public async Task<bool> HasCurrentUserSubmittedPhoto(int userId, int contestId)
+        {
+            return await this.context.ParticipantContests.AnyAsync(pc => pc.ContestId == contestId &&
+                pc.UserId == userId && pc.PhotoId != null);
         }
     }
 }

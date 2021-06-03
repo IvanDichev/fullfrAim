@@ -6,6 +6,8 @@ namespace FullFraim.Models.Dto_s.Photos
 {
     public class ContestSubmissionOutputDto
     {
+        public int contestId;
+
         public int PhotoId { get; set; }
         public string AuthorName { get; set; }
         public int AuthorId { get; set; }
@@ -28,6 +30,7 @@ namespace FullFraim.Models.Dto_s.Photos
                 return null;
             }
         }
+        public ReviewDto Review { get; set; }
         public ICollection<ReviewDto> Reviews { get; set; }
         public ICollection<PhaseDto> PhasesInfo { get; set; }
     }

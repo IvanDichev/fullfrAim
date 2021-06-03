@@ -10,63 +10,66 @@
     {
         <img class="card-img-top" src="@Model.Cover_Url" alt="Card image cap" style="width: 300px; height:200px">
     }
-    <div class="card-body">
-        <h5 class="card-title">@Model.Name</h5>
-        <p class="card-text">@Model.Description</p>
-        @*<p>isParticipant: @Model.IsCurrentUserParticipant</p>
-            <p>isJury: @Model.IsCurrentUserJury</p>*@
-        <div>
-            Deadline in <p style="color: blue" id="demo">
-                @Model.ActivePhase.EndDate.ToString("MM.dd HH:mm")
-            </p>
-        </div>
-
-        @if (Model.ActivePhase.Name == "PhaseI")
-        {
-            @if (Model.IsCurrentUserParticipant)
-            {
-                <a asp-action="GetByIdUserSubmission" asp-controller="Dashboard" asp-route-id="@Model.Id"
-                   class="btn btn-primary contestDetail">Review (Bo page)</a>
-            }
-            else if (Model.IsCurrentUserJury)
-            {
-                <a asp-action="GetById" asp-controller="Dashboard" asp-route-id="@Model.Id"
-                   class="btn btn-primary contestDetail">Review (Bo page)</a>
-            }
-            else
-            {
-                <a data-toggle="modal" data-target=".contact-modal-lg" class="btn btn-primary"
-                   onclick="OpenModal('@Url.Action("Enroll", "Dashboard", null, Context.Request.Scheme)', 'Enroll', @Model.Id)">Enroll</a>
-                <button class="btn btn-primary contestDetail">Enroll (Valkata page)AJAX</button>
-            }
-        }
-        else if (Model.ActivePhase.Name == "PhaseII")
-        {
-            <p>Closed for enrollement</p>
-
-            @if (Model.IsCurrentUserParticipant)
-            {
-                <a asp-action="GetByIdUserSubmission" asp-controller="Dashboard" asp-route-id="@Model.Id"
-                   class="btn btn-primary contestDetail">Review (Bo page)</a>
-            }
-            else if (Model.IsCurrentUserJury)@*If jury*@
-            {
-                <button class="btn btn-primary contestDetail">Give Review</button>
-                <p>Finished</p>
-                @if (Model.IsCurrentUserParticipant || Model.IsCurrentUserJury)
-                {
-                    <a asp-action="GetById" asp-controller="Dashboard" asp-route-id="@Model.Id"
-                       class="btn btn-primary contestDetail">Review (Bo page)</a>
-                }
-            }
-        }
-        else if (Model.ActivePhase.Name == "Finished")
-        {
-            <p>Finished</p>
-
-            <button class="btn btn-primary contestDetail">Review</button>
-        }
+<div class="card-body">
+    <h5 class="card-title">@Model.Name</h5>
+    <p class="card-text">@Model.Description</p>
+    @*<p>isParticipant: @Model.IsCurrentUserParticipant</p>
+        <p>isJury: @Model.IsCurrentUserJury</p>*@
+    <div>
+        Deadline in <p style="color: blue" id="demo">
+            @Model.ActivePhase.EndDate.ToString("MM.dd HH:mm")
+        </p>
     </div>
+
+    @if (Model.ActivePhase.Name == "PhaseI")
+    {
+        @if (Model.IsCurrentUserParticipant && Model.HasCurrentUserSybmittedPhoto)
+        {
+            <a asp-action="GetByIdUserSubmission" asp-controller="Dashboard" asp-route-id="@Model.ContestId"
+               class="btn btn-primary contestDetail">Review (Bo page)</a>
+        }
+        else if (Model.IsCurrentUserJury)
+        {
+            <a asp-action="GetById" asp-controller="Dashboard" asp-route-id="@Model.ContestId"
+               class="btn btn-primary contestDetail">Review (Bo page)</a>
+        }
+        else
+        {
+            <a data-toggle="modal" data-target=".contact-modal-lg" class="btn btn-primary"
+               onclick="OpenModal('@Url.Action("Enroll", "Dashboard", null, Context.Request.Scheme)', 'Enroll', @Model.ContestId)">Enroll</a>
+        }
+    }
+    else if (Model.ActivePhase.Name == "PhaseII")
+    {
+        <p>Closed for enrollement</p>
+
+        @if (Model.IsCurrentUserParticipant)
+        {
+            <a asp-action="GetByIdUserSubmission" asp-controller="Dashboard" asp-route-id="@Model.ContestId"
+               class="btn btn-primary contestDetail">Review (Bo page)</a>
+        }
+        else if (Model.IsCurrentUserJury)@*If jury*@
+        {
+            <button class="btn btn-primary contestDetail">Give Review</button>
+            <p>Finished</p>
+            @if (Model.IsCurrentUserParticipant || Model.IsCurrentUserJury)
+            {
+                <a asp-action="GetById" asp-controller="Dashboard" asp-route-id="@Model.ContestId"
+                   class="btn btn-primary contestDetail">Review (Bo page)</a>
+            }
+        }
+    }
+    else if (Model.ActivePhase.Name == "Finished")
+    {
+        <p>Finished</p>
+
+        @if (Model.IsCurrentUserParticipant || Model.IsCurrentUserJury)
+        {
+            <a asp-action="GetById" asp-controller="Dashboard" asp-route-id="@Model.ContestId"
+               class="btn btn-primary contestDetail">Review (Bo page)</a>
+        }
+    }
+</div>
 </div>
 
 
