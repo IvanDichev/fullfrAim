@@ -553,12 +553,12 @@ img {
 /* :: 5.0 Sidebar Area CSS */
 
 .social-sidebar-area {
-    width: 120px;
+    width: 18vh;
     height: 72%;
     background-color: transparent;
     position: fixed;
-    bottom: 100px;
-    left: 0;
+    bottom: -35px;
+    left: 9px;
     z-index: 100;
     overflow: hidden;
 }
@@ -567,11 +567,8 @@ img {
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
-    -webkit-transform: rotate(-90deg);
-    transform: rotate(-90deg);
     position: absolute;
-    bottom: 270px;
-    left: -110px;
+    bottom: 544px;
     z-index: 10;
     -webkit-box-pack: center;
     -ms-flex-pack: center;

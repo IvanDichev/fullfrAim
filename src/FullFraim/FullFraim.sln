@@ -15,7 +15,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FullFraim.Models", "FullFra
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Utilities", "Utilities\Utilities.csproj", "{0414C043-8768-43BA-8487-483611BDE268}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FullFraim.Tests", "FullFraim.Tests\FullFraim.Tests.csproj", "{B6DAE391-EA36-4735-95DF-618029DAFF50}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FullFraim.Tests", "FullFraim.Tests\FullFraim.Tests.csproj", "{B6DAE391-EA36-4735-95DF-618029DAFF50}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

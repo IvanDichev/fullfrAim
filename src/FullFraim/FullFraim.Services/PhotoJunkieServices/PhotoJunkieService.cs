@@ -82,7 +82,7 @@ namespace FullFraim.Services.PhotoJunkieServices
             await this.context.SaveChangesAsync();
         }
 
-        public async Task<ICollection<PhotoJunkyDto>> GetAllAsync(SortingModel sortingModel, PaginationFilter paginationFilter)
+        public async Task<PaginatedModel<PhotoJunkyDto>> GetAllAsync(SortingModel sortingModel, PaginationFilter paginationFilter)
         {
             var users = this.context.Users.AsQueryable();
 
@@ -100,7 +100,19 @@ namespace FullFraim.Services.PhotoJunkieServices
                 _ => users
             };
 
-            return await users.MapToJunkieDto().ToListAsync();
+            var paginatedModel = new PaginatedModel<PhotoJunkyDto>()
+            {
+                Model = await users
+                    .Skip(paginationFilter.PageSize * (paginationFilter.PageNumber - 1))
+                    .Take(paginationFilter.PageSize)
+                    .MapToJunkieDto()
+                    .ToListAsync(),
+                RecordsPerPage = paginationFilter.PageSize,
+                TotalPages = (int)Math.Ceiling(await this.context.Contests
+                    .CountAsync(p => p.Id == p.Id) / (double)paginationFilter.PageSize),
+            };
+
+            return paginatedModel;
         }
 
         public async Task<bool> CanJunkyEnroll(int contestId, int userId)
