@@ -328,7 +328,7 @@ namespace FullFraim.Tests.PhotoJunkieServices
                     .GetAllAsync(new SortingModel(), new PaginationFilter());
 
                 //Assert
-                Assert.AreEqual(5, result.Count());
+                Assert.AreEqual(5, result.Model.Count());
 
                 context.Database.EnsureDeleted();
             }
@@ -362,7 +362,7 @@ namespace FullFraim.Tests.PhotoJunkieServices
                 //Act
                 var result = await photoJunkieService
                     .GetAllAsync(new SortingModel() { OrderBy = "firstnameasc" }, new PaginationFilter());
-                var resultList = new List<PhotoJunkyDto>(result);
+                var resultList = new List<PhotoJunkyDto>(result.Model);
 
                 //Assert
                 Assert.IsTrue(expectedList[0].FirstName == resultList[0].FirstName);
@@ -403,7 +403,7 @@ namespace FullFraim.Tests.PhotoJunkieServices
                 //Act
                 var result = await photoJunkieService
                     .GetAllAsync(new SortingModel() { OrderBy = "lastnameasc" }, new PaginationFilter());
-                var resultList = new List<PhotoJunkyDto>(result);
+                var resultList = new List<PhotoJunkyDto>(result.Model);
 
                 //Assert
                 Assert.IsTrue(expectedList[0].LastName == resultList[0].LastName);
@@ -444,7 +444,7 @@ namespace FullFraim.Tests.PhotoJunkieServices
                 //Act
                 var result = await photoJunkieService
                     .GetAllAsync(new SortingModel() { OrderBy = "lastnamedesc" }, new PaginationFilter());
-                var resultList = new List<PhotoJunkyDto>(result);
+                var resultList = new List<PhotoJunkyDto>(result.Model);
 
                 //Assert
                 Assert.IsTrue(expectedList[0].LastName == resultList[0].LastName);
@@ -485,7 +485,7 @@ namespace FullFraim.Tests.PhotoJunkieServices
                 //Act
                 var result = await photoJunkieService
                     .GetAllAsync(new SortingModel() { OrderBy = "firstnamedesc" }, new PaginationFilter());
-                var resultList = new List<PhotoJunkyDto>(result);
+                var resultList = new List<PhotoJunkyDto>(result.Model);
 
                 //Assert
                 Assert.IsTrue(expectedList[0].FirstName == resultList[0].FirstName);
@@ -526,7 +526,7 @@ namespace FullFraim.Tests.PhotoJunkieServices
                 //Act
                 var result = await photoJunkieService
                     .GetAllAsync(new SortingModel() { OrderBy = "pointsasc" }, new PaginationFilter());
-                var resultList = new List<PhotoJunkyDto>(result);
+                var resultList = new List<PhotoJunkyDto>(result.Model);
 
                 //Assert
                 Assert.IsTrue(expectedList[0].Points == resultList[0].Points);
@@ -567,7 +567,7 @@ namespace FullFraim.Tests.PhotoJunkieServices
                 //Act
                 var result = await photoJunkieService
                     .GetAllAsync(new SortingModel() { OrderBy = "pointsdesc" }, new PaginationFilter());
-                var resultList = new List<PhotoJunkyDto>(result);
+                var resultList = new List<PhotoJunkyDto>(result.Model);
 
                 //Assert
                 Assert.IsTrue(expectedList[0].Points == resultList[0].Points);
@@ -608,7 +608,7 @@ namespace FullFraim.Tests.PhotoJunkieServices
                 //Act
                 var result = await photoJunkieService
                     .GetAllAsync(new SortingModel() { OrderBy = "rankasc" }, new PaginationFilter());
-                var resultList = new List<PhotoJunkyDto>(result);
+                var resultList = new List<PhotoJunkyDto>(result.Model);
 
                 //Assert
                 Assert.IsTrue(expectedList[0].Rank.Name == resultList[0].Rank);
@@ -649,7 +649,7 @@ namespace FullFraim.Tests.PhotoJunkieServices
                 //Act
                 var result = await photoJunkieService
                     .GetAllAsync(new SortingModel() { OrderBy = "rankdesc" }, new PaginationFilter());
-                var resultList = new List<PhotoJunkyDto>(result);
+                var resultList = new List<PhotoJunkyDto>(result.Model);
 
                 //Assert
                 Assert.IsTrue(expectedList[0].Rank.Name == resultList[0].Rank);

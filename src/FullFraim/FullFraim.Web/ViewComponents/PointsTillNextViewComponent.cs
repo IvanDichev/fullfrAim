@@ -41,7 +41,7 @@ namespace FullFraim.Web.ViewComponents
                 .Take(5)
                 .ToListAsync();
 
-            var result = new List<PointsTillNextViewModel>();
+            var result = new List<RankAndPointsViewModel>();
 
             foreach (var junkie in junkies)
             {

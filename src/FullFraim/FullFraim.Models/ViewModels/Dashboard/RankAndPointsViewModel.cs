@@ -2,10 +2,12 @@
 
 namespace FullFraim.Models.ViewModels.Dashboard
 {
-    public class PointsTillNextViewModel
+    public class RankAndPointsViewModel
     {
         public string FullUserName { get; set; }
-        public string Points { get; set; }
+        public string PointsTillNextRank { get; set; }
+        public string CurrentPoints { get; set; }
+        public string Rank { get; set; }
         public PaginationFilter Filter { get; set; }
     }
 }

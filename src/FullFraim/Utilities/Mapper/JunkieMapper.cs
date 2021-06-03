@@ -22,14 +22,17 @@ namespace Utilities.Mapper
             });
         } 
 
-        public static PointsTillNextViewModel MapToPointsViewModel
+        public static RankAndPointsViewModel MapToPointsViewModel
             (this PhotoJunkieRankDto model, string fullName)
         {
-            return new PointsTillNextViewModel()
+            return new RankAndPointsViewModel()
             {
                 FullUserName = fullName,
-                Points = model.PointsTillNextRank
+                PointsTillNextRank = model.PointsTillNextRank
                 .ToString(),
+                CurrentPoints = model.RankPoints
+                .ToString(),
+                Rank = model.Rank,
             };
         }
         

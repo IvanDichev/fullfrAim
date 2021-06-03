@@ -72,15 +72,17 @@ namespace FullFraim.Web.Controllers
             this.userManager = userManager;
         }
 
-        public async Task<IActionResult> Index(string orderBy = "" , int pageNumber = 1)
+        public async Task<IActionResult> Index([FromQuery]string orderBy = "" , [FromQuery]int pageNumber = 1)
         {
+            var paginationFilter = new PaginationFilter() { PageNumber = pageNumber };
+
             var junkies = await this.photoJunkieService
                 .GetAllAsync(new SortingModel() { OrderBy = orderBy },
-                new PaginationFilter() { PageNumber = pageNumber });
+                paginationFilter);
 
-            var result = new List<PointsTillNextViewModel>();
+            var result = new List<RankAndPointsViewModel>();
 
-            foreach (var junkie in junkies)
+            foreach (var junkie in junkies.Model)
             {
                 var photojunkieWithPoints = await photoJunkieService
                     .GetPointsTillNextRankAsync(junkie.Id);
@@ -95,8 +97,10 @@ namespace FullFraim.Web.Controllers
 
             var ViewResult = new UsersPageViewModel()
             {
-                sorting = orderBy,
+                Sorting = orderBy,
                 Model = result,
+                PaginatedModel = junkies,
+                PageFilter = paginationFilter,
             };
 
             return View(ViewResult);
