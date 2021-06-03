@@ -23,7 +23,8 @@ namespace Shared
 
         public static class SuccessMessages
         {
-            public const string GivenReviewSuccess = "Review was given successfully";
+            public const string GivenReviewSuccess = "Review was given successfully!";
+            public const string CreateContestSuccess = "Contest was created successfully!";
         }
 
         public static class UserData
