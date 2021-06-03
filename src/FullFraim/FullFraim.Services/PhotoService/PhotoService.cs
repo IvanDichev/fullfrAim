@@ -110,8 +110,9 @@ namespace FullFraim.Services.PhotoService
             }
 
             var photo = await this.context.Photos
-                .Where(p => p.Contest.Id == contestId)
-                .Where(p => p.Contest.ParticipantContests.Any(pc => pc.UserId == userId))
+                .Where(p => p.Participant.UserId == userId && 
+                        p.Contest.Id == contestId &&
+                        p.Contest.ParticipantContests.Any(pc => pc.UserId == userId && pc.ContestId == contestId))
                 .MapToDto()
                 .FirstOrDefaultAsync();
 

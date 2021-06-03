@@ -1,1 +1,5 @@
+<<<<<<< HEAD
 2021-06-04 01:50:16.282 +03:00 [WRN] Sensitive data logging is enabled. Log entries and exception messages may include sensitive application data, this mode should only be enabled during development.
+=======
+2021-06-04 00:05:35.938 +03:00 [WRN] Sensitive data logging is enabled. Log entries and exception messages may include sensitive application data, this mode should only be enabled during development.
+>>>>>>> df55af24d05370f9de51a3271bca1ff79dfc4728
