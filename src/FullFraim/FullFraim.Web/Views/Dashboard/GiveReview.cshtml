@@ -1,6 +1,7 @@
 ﻿@model GiveReviewViewModel
 
 <link rel="stylesheet" href="~/css/Identity/Login.css" />
+<link href="~/lib/twitter-bootstrap/css/bootstrap.min.css" rel="stylesheet" />
 
 <div style="margin: 15vh 0rem 0rem 0rem">
     <div class="wrapper fadeInDown">
@@ -11,6 +12,8 @@
                 <p>@Model.Description</p>
             </div>
             <form id="account" method="post" enctype="multipart/form-data">
+                <input asp-for="Review.PhotoId" hidden/>
+                <input asp-for="Review.JuryId" hidden/>
                 <div class="fadeIn first" style="margin-top: 1rem;">
                     <h5 style="display: inline-block">Give Review</h5>
                 </div>
@@ -32,7 +35,7 @@
                 </div>
 
                 <div class="custom-control custom-switch">
-                    <input type="checkbox" class="custom-control-input" id="customSwitch1">
+                    <input asp-for="Review.Checkbox" class="custom-control-input" id="customSwitch1">
                     <label class="custom-control-label" for="customSwitch1">Photo does not fit contest category</label>
                 </div>
 

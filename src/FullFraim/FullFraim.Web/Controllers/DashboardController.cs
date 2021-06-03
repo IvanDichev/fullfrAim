@@ -14,6 +14,7 @@ using Utilities.Mapper;
 using Shared.AllConstants;
 using FullFraim.Services.JuryServices;
 using FullFraim.Models.Dto_s.Photos;
+using FullFraim.Models.Dto_s.Reviews;
 
 namespace FullFraim.Web.Controllers
 {
@@ -128,8 +129,6 @@ namespace FullFraim.Web.Controllers
         [HttpGet]
         public async Task<IActionResult> GiveReview(int contestId, int submitterId)
         {
-            int userId = UserId;
-
             var submission = await this.photoService.GetUserSubmissionForContestAsync(submitterId, contestId);
 
             var giveReviewViewModel = new GiveReviewViewModel()
@@ -138,6 +137,11 @@ namespace FullFraim.Web.Controllers
                 Author = submission.SubmitterName,
                 Description = submission.Description,
                 Title = submission.Title,
+                Review = new InputGiveReviewDto()
+                {
+                    JuryId = this.UserId,
+                    PhotoId = submission.Id,
+                }
             };
             // can user open this page
             // if not unauthorized

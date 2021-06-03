@@ -22,12 +22,11 @@ namespace Utilities.Mapper
         {
             return new InputGiveReviewDto()
             {
-                //Checkbox = model.Checkbox,
-               // Comment = model.Comment,
-                JuryId = model.JuryId,
-                PhotoId = model.PhotoId,
-               // PhotoUrl = model.PhotoUrl,
-               // Score = model.Score
+                Checkbox = model.Review.Checkbox,
+                Comment = model.Review.Comment,
+                JuryId = model.Review.JuryId,
+                PhotoId = model.Review.PhotoId,
+                Score = model.Review.Score
             };
         }
     }
