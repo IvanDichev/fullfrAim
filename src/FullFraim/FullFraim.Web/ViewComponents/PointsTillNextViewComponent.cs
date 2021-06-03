@@ -1,4 +1,5 @@
 ﻿using FullFraim.Data.Models;
+using FullFraim.Models.Dto_s.Pagination;
 using FullFraim.Models.Dto_s.PhotoJunkies;
 using FullFraim.Models.ViewModels.Dashboard;
 using FullFraim.Services.PhotoJunkieServices;
@@ -26,7 +27,7 @@ namespace FullFraim.Web.ViewComponents
             this.userManager = userManager;
         }
 
-        public async Task<IViewComponentResult> InvokeAsync()
+        public async Task<IViewComponentResult> InvokeAsync(PaginationFilter pagination)
         {
             if(int.Parse(HttpContext.User
                 .FindFirst(ClaimTypes.NameIdentifier).Value) != 1)
@@ -34,7 +35,14 @@ namespace FullFraim.Web.ViewComponents
                 return Content(string.Empty);
             }
 
+            if(pagination == null)
+            {
+                pagination = new PaginationFilter();
+            }
+
             var junkies = await userManager.Users
+                .Skip(pagination.PageSize * (pagination.PageNumber - 1))
+                .Take(pagination.PageSize)
                 .Where(x => x.Id != 1)
                 .ToListAsync();
 
@@ -50,6 +58,8 @@ namespace FullFraim.Web.ViewComponents
                     .MapToPointsViewModel
                     (junkie.FirstName + junkie.LastName));
             }
+
+            TempData["pagination"] = pagination;
 
             return View(result);
         }

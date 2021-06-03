@@ -2,16 +2,15 @@
 <!-- Social Sidebar Area Start -->
 <div class="social-sidebar-area">
     <!-- Social Area -->
-    <div class="social-info-area">
-        @await Component.InvokeAsync("PointsTillNext")
-    </div>
+    @await Component.InvokeAsync("PointsTillNext")
+
 </div>
 
 <!-- Social Sidebar Area End -->
 <!-- Project Area Start -->
 <div class="gallery_area clearfix">
     <div class="container-fluid clearfix">
-        <a asp-route-id="1" data-toggle="modal" data-target=".contact-modal-lg" class="btn btn-primary" 
+        <a asp-route-id="1" data-toggle="modal" data-target=".contact-modal-lg" class="btn btn-primary"
            onclick="OpenModal('@Url.Action("Enroll", "Dashboard", null, Context.Request.Scheme)', 'Enroll', 1)">Demo</a>
         <div class="dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Categories</a>
@@ -71,7 +70,7 @@
                 $.ajax({
                     type: "GET",
                     url: url,
-                    data: {contestId: id},
+                    data: { contestId: id },
                     success: function (response) {
                         $(".modal-title").html(title);
                         $(".modal-body").html(response);
