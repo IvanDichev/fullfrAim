@@ -23,22 +23,20 @@
 
     @if (Model.ActivePhase.Name == "PhaseI")
     {
-
-        @if (Model.IsCurrentUserParticipant)
+        @if (Model.IsCurrentUserParticipant && Model.HasCurrentUserSybmittedPhoto)
         {
-            <a asp-action="GetByIdUserSubmission" asp-controller="Dashboard" asp-route-id="@Model.Id"
+            <a asp-action="GetByIdUserSubmission" asp-controller="Dashboard" asp-route-id="@Model.ContestId"
                class="btn btn-primary contestDetail">Review (Bo page)</a>
         }
         else if (Model.IsCurrentUserJury)
         {
-            <a asp-action="GetById" asp-controller="Dashboard" asp-route-id="@Model.Id"
-                class="btn btn-primary contestDetail">Review (Bo page)</a>
+            <a asp-action="GetById" asp-controller="Dashboard" asp-route-id="@Model.ContestId"
+               class="btn btn-primary contestDetail">Review (Bo page)</a>
         }
         else
         {
             <a data-toggle="modal" data-target=".contact-modal-lg" class="btn btn-primary"
-               onclick="OpenModal('@Url.Action("Enroll", "Dashboard", null, Context.Request.Scheme)', 'Enroll', @Model.Id)">Enroll</a>
-            <button class="btn btn-primary contestDetail">Enroll (Valkata page)AJAX</button>
+               onclick="OpenModal('@Url.Action("Enroll", "Dashboard", null, Context.Request.Scheme)', 'Enroll', @Model.ContestId)">Enroll</a>
         }
     }
     else if (Model.ActivePhase.Name == "PhaseII")
@@ -47,7 +45,7 @@
 
         @if (Model.IsCurrentUserParticipant)
         {
-            <a asp-action="GetByIdUserSubmission" asp-controller="Dashboard" asp-route-id="@Model.Id"
+            <a asp-action="GetByIdUserSubmission" asp-controller="Dashboard" asp-route-id="@Model.ContestId"
                class="btn btn-primary contestDetail">Review (Bo page)</a>
         }
         else if (Model.IsCurrentUserJury)@*If jury*@
@@ -56,7 +54,7 @@
             <p>Finished</p>
             @if (Model.IsCurrentUserParticipant || Model.IsCurrentUserJury)
             {
-                <a asp-action="GetById" asp-controller="Dashboard" asp-route-id="@Model.Id"
+                <a asp-action="GetById" asp-controller="Dashboard" asp-route-id="@Model.ContestId"
                    class="btn btn-primary contestDetail">Review (Bo page)</a>
             }
         }
@@ -65,7 +63,11 @@
     {
         <p>Finished</p>
 
-        <button class="btn btn-primary contestDetail">Review</button>
+        @if (Model.IsCurrentUserParticipant || Model.IsCurrentUserJury)
+        {
+            <a asp-action="GetById" asp-controller="Dashboard" asp-route-id="@Model.ContestId"
+               class="btn btn-primary contestDetail">Review (Bo page)</a>
+        }
     }
 </div>
 </div>

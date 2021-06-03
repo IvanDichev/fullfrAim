@@ -28,30 +28,6 @@ namespace Utilities.Mapper
             };
         }
 
-        public static OutputContestDto MapToDto(this Contest model)
-        {
-            return new OutputContestDto()
-            {
-                Name = model.Name,
-                Cover_Url = model.Cover_Url,
-                Description = model.Description,
-                ContestCategoryId = model.ContestCategoryId,
-                ContestTypeId = model.ContestTypeId,
-            };
-        }
-
-        public static CreateContestViewModel MapToView(this InputContestDto model)
-        {
-            return new CreateContestViewModel()
-            {
-                Name = model.Name,
-                Cover_Url = model.Cover_Url,
-                Description = model.Description,
-                ContestCategoryId = model.ContestCategoryId,
-                ContestTypeId = model.ContestTypeId,
-            };
-        }
-
         public static Contest MapToRaw(this InputContestDto model)
         {
             return new Contest()
@@ -69,7 +45,7 @@ namespace Utilities.Mapper
         {
             return new DashboardViewModel()
             {
-                Id = model.Id,
+                ContestId = model.Id,
                 Name = model.Name,
                 Cover_Url = model.Cover_Url,
                 Description = model.Description,
@@ -94,20 +70,6 @@ namespace Utilities.Mapper
                 ActivePhase = model.ActivePhase,
             };
         }
-
-
-        //public static Contest MapToRaw(this ContestDto model)
-        //{
-        //    return new Contest()
-        //    {
-        //        //Id = model.Id,
-        //        Name = model.Name,
-        //        Cover_Url = model.Cover_Url,
-        //        Description = model.Description,
-        //        ContestCategoryId = model.ContestCategoryId,
-        //        ContestTypeId = model.ContestTypeId,
-        //    };
-        //}
 
         public static IQueryable<OutputContestDto> MapToDto(this IQueryable<Contest> query)
         {

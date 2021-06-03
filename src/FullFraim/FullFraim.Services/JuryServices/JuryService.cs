@@ -49,6 +49,18 @@ namespace FullFraim.Services.JuryServices
             return toAddReview.MapToOutputGiveReviewDto();
         }
 
+        public async Task<ReviewDto> GetReviewAsync(int juryId, int photoId)
+        {
+            return await this.context.PhotoReviews
+                .Where(pr => pr.PhotoId == photoId && pr.JuryContest.UserId == juryId)
+                .MapToDto().FirstOrDefaultAsync();
+        }
+
+        public async Task<bool> IsJuryGivenReviewForPhotoAsync(int photoId, int juryId)
+        {
+            return await this.context.PhotoReviews.AnyAsync(pr => pr.PhotoId == photoId && pr.JuryContest.UserId == juryId);
+        }
+
         public async Task<bool> IsContestInPhaseTwoAsync(int photoId)
         {
             return await this.context.Contests
@@ -62,6 +74,13 @@ namespace FullFraim.Services.JuryServices
             return await this.context.JuryContests
                 .AnyAsync(jc => jc.UserId == juryId 
                     && jc.PhotoReviews.Any(pr => pr.PhotoId == photoId));
+        }
+
+        public async Task<bool> IsUserJuryForContest(int contestId, int juryId)
+        {
+            return await this.context.JuryContests
+                .Where(jc => jc.ContestId == contestId)
+                    .AnyAsync(jc => jc.UserId == juryId);
         }
     }
 }

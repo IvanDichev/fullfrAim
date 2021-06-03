@@ -1,6 +1,7 @@
 ﻿using FullFraim.Data.Models;
 using FullFraim.Models.Dto_s.Reviews;
 using FullFraim.Models.ViewModels.Contest;
+using System.Linq;
 
 namespace Utilities.Mapper
 {
@@ -18,6 +19,7 @@ namespace Utilities.Mapper
                 Score = model.Score,
             };
         }
+
         public static InputGiveReviewDto MapToInputGiveReviewDto(this GiveReviewViewModel model)
         {
             return new InputGiveReviewDto()
@@ -28,6 +30,17 @@ namespace Utilities.Mapper
                 PhotoId = model.Review.PhotoId,
                 Score = model.Review.Score
             };
+        }
+
+        public static IQueryable<ReviewDto> MapToDto(this IQueryable<PhotoReview> model)
+        {
+            return model.Select(pr => new ReviewDto() 
+            {
+                IsDisqualified = pr.Checkbox, 
+                AuthorName = pr.JuryContest.User.FirstName + " " + pr.JuryContest.User.LastName,
+                Comment = pr.Comment,
+                Score = pr.Score,
+            });
         }
     }
 }

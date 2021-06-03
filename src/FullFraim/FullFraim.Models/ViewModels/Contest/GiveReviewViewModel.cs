@@ -12,5 +12,6 @@ namespace FullFraim.Models.ViewModels.Contest
         public int JuryId { get; set; }
         public int ReviewId { get; set; }
         public InputGiveReviewDto Review { get; set; }
+        public bool HasJuryGivenReview { get; set; }
     }
 }

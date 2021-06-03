@@ -12,5 +12,6 @@ namespace FullFraim.Services.PhotoJunkieServices
         Task<ICollection<PhotoJunkyDto>> GetAllAsync(SortingModel sortingModel, PaginationFilter paginationFilter);
         Task<PhotoJunkieRankDto> GetPointsTillNextRankAsync(int userId);
         Task<bool> CanJunkyEnroll(int contestId, int userId);
+        Task<bool> HasCurrentUserSubmittedPhoto(int userId, int contestId);
     }
 }
