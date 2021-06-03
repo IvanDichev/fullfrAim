@@ -1,17 +1,29 @@
 @model IEnumerable<DashboardViewModel>
-<!-- Social Sidebar Area Start -->
+
 <div class="social-sidebar-area">
+<<<<<<< HEAD
     <!-- Social Area -->
     @await Component.InvokeAsync("PointsTillNext")
 
+=======
+    <div class="social-info-area">
+        <a href="#" data-toggle="tooltip" data-placement="right" title="Facebook"><i class="fa fa-facebook" aria-hidden="true"></i> <span>Facebook</span></a>
+        <a href="#" data-toggle="tooltip" data-placement="right" title="Twitter"><i class="fa fa-twitter" aria-hidden="true"></i> <span>Twitter</span></a>
+        <a href="#" data-toggle="tooltip" data-placement="right" title="Pinterest"><i class="fa fa-pinterest" aria-hidden="true"></i> <span>Pinterest</span></a>
+        <a href="#" data-toggle="tooltip" data-placement="right" title="Behance"><i class="fa fa-behance" aria-hidden="true"></i> <span>Behance</span></a>
+    </div>
+>>>>>>> 325352f2e7a89269e9b6431f9bd9e3705008259c
 </div>
 
-<!-- Social Sidebar Area End -->
-<!-- Project Area Start -->
 <div class="gallery_area clearfix">
     <div class="container-fluid clearfix">
+<<<<<<< HEAD
         <a asp-route-id="1" data-toggle="modal" data-target=".contact-modal-lg" class="btn btn-primary"
            onclick="OpenModal('@Url.Action("Enroll", "Dashboard", null, Context.Request.Scheme)', 'Enroll', 1)">Demo</a>
+=======
+        @*<a asp-route-id="1" data-toggle="modal" data-target=".contact-modal-lg" class="btn btn-primary" 
+           onclick="OpenModal('@Url.Action("Enroll", "Dashboard", null, Context.Request.Scheme)', 'Enroll', 1)">Demo</a>*@
+>>>>>>> 325352f2e7a89269e9b6431f9bd9e3705008259c
         <div class="dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Categories</a>
             <ul class="dropdown-menu">
@@ -20,9 +32,8 @@
                        asp-route-categoryId="0">All</a>
                     @foreach (var category in ViewBag.Categories)
                     {
-                        <a class="dropdown-item" asp-controller="Dashboard" asp-action="Index"
-                           asp-route-categoryId="@category.Id">@category.Name</a>
-                    }
+        <a class="dropdown-item" asp-controller="Dashboard" asp-action="Index"
+           asp-route-categoryId="@category.Id">@category.Name</a>}
                 </li>
             </ul>
             <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
@@ -53,14 +64,13 @@
             }
         </div>
 
-        <div class="row">
+        @*<div class="row">
             <div class="col-12 text-center mt-70">
                 <a href="#" class="btn studio-btn"><img src="/img/core-img/logo-icon.png" alt=""> Load More</a>
             </div>
-        </div>
+        </div>*@
     </div>
 </div>
-<!-- Project Area End -->
 
 @section Scripts
 {

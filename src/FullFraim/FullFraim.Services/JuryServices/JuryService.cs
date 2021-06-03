@@ -4,6 +4,7 @@ using FullFraim.Models.Dto_s.Reviews;
 using FullFraim.Services.Exceptions;
 using Microsoft.EntityFrameworkCore;
 using Shared;
+using Shared.AllConstants;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
@@ -24,7 +25,7 @@ namespace FullFraim.Services.JuryServices
         {
             if(inputModel == null)
             {
-                throw new NullModelException();
+                throw new NullModelException(string.Format(LogMessages.NullModel, "JuryService", "GiveReviewAsync"));
             }
 
             var toAddReview = new PhotoReview()
@@ -39,7 +40,7 @@ namespace FullFraim.Services.JuryServices
             if (toAddReview.Checkbox == true)
             {
                 toAddReview.Score = 0;
-                toAddReview.Comment = "Wrong Category"; // TODO: Make it as a constant
+                toAddReview.Comment = Constants.Others.WrongCategory;
             }
 
             await this.context.PhotoReviews.AddAsync(toAddReview);
@@ -51,7 +52,7 @@ namespace FullFraim.Services.JuryServices
         public async Task<bool> IsContestInPhaseTwoAsync(int photoId)
         {
             return await this.context.Contests
-                    .Where(c => c.ContestPhases.Any(cp => cp.Phase.Name == Constants.PhasesSeed.PhaseII &&
+                    .Where(c => c.ContestPhases.Any(cp => cp.Phase.Name == Constants.Phases.PhaseII &&
                         cp.EndDate > DateTime.UtcNow && cp.StartDate < DateTime.UtcNow))
                             .AnyAsync(c => c.Photos.Any(p => p.Id == photoId));
         }

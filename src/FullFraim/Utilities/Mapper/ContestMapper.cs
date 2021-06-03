@@ -1,9 +1,10 @@
 ﻿using FullFraim.Data.Models;
 using FullFraim.Models.Contest.ViewModels;
 using FullFraim.Models.Dto_s.Contests;
-using FullFraim.Models.Dto_s.Dashboard;
 using FullFraim.Models.Dto_s.Phases;
+using FullFraim.Models.Dto_s.Photos;
 using FullFraim.Models.Dto_s.User;
+using FullFraim.Models.ViewModels.Contest;
 using FullFraim.Models.ViewModels.Dashboard;
 using System.Collections.Generic;
 using System.Linq;
@@ -68,6 +69,7 @@ namespace Utilities.Mapper
         {
             return new DashboardViewModel()
             {
+                Id = model.Id,
                 Name = model.Name,
                 Cover_Url = model.Cover_Url,
                 Description = model.Description,
@@ -78,22 +80,19 @@ namespace Utilities.Mapper
             };
         }
 
-        //public static OutputDashboardDto MapToOutputDashboardDto(this Contest model)
-        //{
-
-        //}
-        //public static Contest MapToRaw(this ContestDto model)
-        //{
-        //    return new Contest()
-        //    {
-        //        //Id = model.Id,
-        //        Name = model.Name,
-        //        Cover_Url = model.Cover_Url,
-        //        Description = model.Description,
-        //        ContestCategoryId = model.ContestCategoryId,
-        //        ContestTypeId = model.ContestTypeId,
-        //    };
-        //}
+        public static ContestSubmissionViewModel MapToContestSubmissionView(this ContestSubmissionOutputDto model)
+        {
+            return new ContestSubmissionViewModel()
+            { 
+                AuthorId = model.AuthorId,
+                AuthorName = model.AuthorName,
+                Image_Url = model.PhotoUrl,
+                Description = model.Description,
+                Score = model.Score,
+                Reviews = model.Reviews,
+                ActivePhase = model.ActivePhase,
+            };
+        }
 
         public static IQueryable<OutputContestDto> MapToDto(this IQueryable<Contest> query)
         {

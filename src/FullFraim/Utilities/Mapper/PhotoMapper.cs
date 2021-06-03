@@ -1,6 +1,8 @@
 ﻿using FullFraim.Data.Models;
+using FullFraim.Models.Dto_s.Phases;
 using FullFraim.Models.Dto_s.Photos;
 using FullFraim.Models.Dto_s.Reviews;
+using FullFraim.Models.ViewModels.Home;
 using System.Linq;
 
 namespace Utilities.Mapper
@@ -25,18 +27,37 @@ namespace Utilities.Mapper
             {
                 PhotoId = p.Id,
                 AuthorName = $"{p.Participant.User.FirstName} {p.Participant.User.LastName}",
+                AuthorId = p.Participant.UserId,
                 PhotoTitle = p.Title,
                 PhotoUrl = p.Url,
+                Score = p.PhotoReviews.Sum(pr => pr.Score) / p.PhotoReviews.Count(),
                 Description = p.Story,
+                PhasesInfo = p.Contest.ContestPhases.Select(y => new PhaseDto()
+                {
+                    Name = y.Phase.Name,
+                    StartDate = y.StartDate,
+                    EndDate = y.EndDate
+                }).ToList(),
                 Reviews = p.PhotoReviews.Select(pr => new ReviewDto()
                 {
                     AuthorName = $"{pr.JuryContest.User.FirstName} {pr.JuryContest.User.LastName}",
                     Comment = pr.Comment,
                     ReviewId = pr.Id,
                     Score = (int)pr.Score,
-                }).ToList(),
+                }).ToList()
             });
 
+        }
+
+        public static HomeIndexViewModel MapToHomeViewModel(this PhotoDto model)
+        {
+            return new HomeIndexViewModel()
+            {
+                PhotoUrl = model.Url,
+                Description = model.Description,
+                SubmitterName = model.SubmitterName,
+                Title = model.Title,
+            };
         }
     }
 }

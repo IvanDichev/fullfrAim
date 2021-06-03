@@ -26,9 +26,9 @@ namespace FullFraim.Data.Seed
         {
             var roles = new List<string>()
             {
-                Constants.RolesSeed.Admin,
-                Constants.RolesSeed.Organizer,
-                Constants.RolesSeed.User,
+                Constants.Roles.Admin,
+                Constants.Roles.Organizer,
+                Constants.Roles.User,
             };
 
             foreach (var role in roles)
@@ -45,60 +45,60 @@ namespace FullFraim.Data.Seed
                 new User()
                 {
                     //Id = 2,
-                    FirstName = Constants.UserSeed.Valentin,
-                    LastName = Constants.UserSeed.Shikov,
-                    UserName = Constants.UserSeed.VShikovEmail,
-                    NormalizedUserName = Constants.UserSeed.VShikovEmail.ToUpper(),
-                    Email = Constants.UserSeed.VShikovEmail,
-                    NormalizedEmail = Constants.UserSeed.VShikovEmail.ToUpper(),
+                    FirstName = Constants.UserData.Valentin,
+                    LastName = Constants.UserData.Shikov,
+                    UserName = Constants.UserData.VShikovEmail,
+                    NormalizedUserName = Constants.UserData.VShikovEmail.ToUpper(),
+                    Email = Constants.UserData.VShikovEmail,
+                    NormalizedEmail = Constants.UserData.VShikovEmail.ToUpper(),
                     EmailConfirmed = true,
                     Points = 0,
                 },
                 new User()
                 {
                     //Id = 3,
-                    FirstName = Constants.UserSeed.Ivan,
-                    LastName = Constants.UserSeed.Dichev,
-                    UserName = Constants.UserSeed.IDichevEmail,
-                    NormalizedUserName = Constants.UserSeed.IDichevEmail.ToUpper(),
-                    Email = Constants.UserSeed.IDichevEmail,
-                    NormalizedEmail = Constants.UserSeed.IDichevEmail.ToUpper(),
+                    FirstName = Constants.UserData.Ivan,
+                    LastName = Constants.UserData.Dichev,
+                    UserName = Constants.UserData.IDichevEmail,
+                    NormalizedUserName = Constants.UserData.IDichevEmail.ToUpper(),
+                    Email = Constants.UserData.IDichevEmail,
+                    NormalizedEmail = Constants.UserData.IDichevEmail.ToUpper(),
                     EmailConfirmed = true,
                     Points = 0,
                 },
                 new User()
                 {
                     //Id = 4,
-                    FirstName = Constants.UserSeed.Boryana,
-                    LastName = Constants.UserSeed.Mihaylova,
-                    UserName = Constants.UserSeed.BMihaylovaEmail,
-                    NormalizedUserName = Constants.UserSeed.BMihaylovaEmail.ToUpper(),
-                    Email = Constants.UserSeed.BMihaylovaEmail,
-                    NormalizedEmail = Constants.UserSeed.BMihaylovaEmail.ToUpper(),
+                    FirstName = Constants.UserData.Boryana,
+                    LastName = Constants.UserData.Mihaylova,
+                    UserName = Constants.UserData.BMihaylovaEmail,
+                    NormalizedUserName = Constants.UserData.BMihaylovaEmail.ToUpper(),
+                    Email = Constants.UserData.BMihaylovaEmail,
+                    NormalizedEmail = Constants.UserData.BMihaylovaEmail.ToUpper(),
                     EmailConfirmed = true,
                     Points = 0,
                 },
                 new User()
                 {
                     //Id = 5,
-                    FirstName = Constants.UserSeed.Dimitar,
-                    LastName = Constants.UserSeed.Dimitrov,
-                    UserName = Constants.UserSeed.DDimitrovEmail,
-                    NormalizedUserName = Constants.UserSeed.DDimitrovEmail.ToUpper(),
-                    Email = Constants.UserSeed.DDimitrovEmail,
-                    NormalizedEmail = Constants.UserSeed.DDimitrovEmail.ToUpper(),
+                    FirstName = Constants.UserData.Dimitar,
+                    LastName = Constants.UserData.Dimitrov,
+                    UserName = Constants.UserData.DDimitrovEmail,
+                    NormalizedUserName = Constants.UserData.DDimitrovEmail.ToUpper(),
+                    Email = Constants.UserData.DDimitrovEmail,
+                    NormalizedEmail = Constants.UserData.DDimitrovEmail.ToUpper(),
                     EmailConfirmed = true,
                     Points = 0,
                 },
                 new User()
                 {
                     //Id = 6,
-                    FirstName = Constants.UserSeed.Emily,
-                    LastName = Constants.UserSeed.Ivanova,
-                    UserName = Constants.UserSeed.EIvanovaEmail,
-                    NormalizedUserName = Constants.UserSeed.EIvanovaEmail.ToUpper(),
-                    Email = Constants.UserSeed.EIvanovaEmail,
-                    NormalizedEmail = Constants.UserSeed.EIvanovaEmail.ToUpper(),
+                    FirstName = Constants.UserData.Emily,
+                    LastName = Constants.UserData.Ivanova,
+                    UserName = Constants.UserData.EIvanovaEmail,
+                    NormalizedUserName = Constants.UserData.EIvanovaEmail.ToUpper(),
+                    Email = Constants.UserData.EIvanovaEmail,
+                    NormalizedEmail = Constants.UserData.EIvanovaEmail.ToUpper(),
                     EmailConfirmed = true,
                     Points = 0,
                 },
@@ -114,7 +114,7 @@ namespace FullFraim.Data.Seed
                     {
                         var createdUser = await userManager.FindByEmailAsync(user.Email);
 
-                        await userManager.AddToRoleAsync(createdUser, Constants.RolesSeed.User);
+                        await userManager.AddToRoleAsync(createdUser, Constants.Roles.User);
                     }
                 }
             }
@@ -144,8 +144,8 @@ namespace FullFraim.Data.Seed
                 {
                     var createdUser = await userManager.FindByEmailAsync(admin.Email);
 
-                    await userManager.AddToRoleAsync(createdUser, Constants.RolesSeed.Organizer);
-                    await userManager.AddToRoleAsync(createdUser, Constants.RolesSeed.Admin);
+                    await userManager.AddToRoleAsync(createdUser, Constants.Roles.Organizer);
+                    await userManager.AddToRoleAsync(createdUser, Constants.Roles.Admin);
                 }
             }
         }

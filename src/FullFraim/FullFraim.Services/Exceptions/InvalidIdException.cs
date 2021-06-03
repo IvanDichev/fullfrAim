@@ -7,8 +7,6 @@ namespace FullFraim.Services.Exceptions
         public InvalidIdException()
         { }
 
-        public InvalidIdException(string message)
-            :base(message)
-        { }
+        public InvalidIdException(string message) : base(message) { }
     }
 }

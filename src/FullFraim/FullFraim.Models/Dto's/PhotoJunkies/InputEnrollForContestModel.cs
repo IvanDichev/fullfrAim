@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace FullFraim.Models.Dto_s.PhotoJunkies
 {
-    public class InpurEnrollForContestModel
+    public class InputEnrollForContestModel
     {
         [Range(0, int.MaxValue)]
         public int UserId { get; set; }

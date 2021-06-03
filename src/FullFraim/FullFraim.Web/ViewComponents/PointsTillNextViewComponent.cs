@@ -1,11 +1,10 @@
 ﻿using FullFraim.Data.Models;
-using FullFraim.Models.Dto_s.Pagination;
-using FullFraim.Models.Dto_s.PhotoJunkies;
 using FullFraim.Models.ViewModels.Dashboard;
 using FullFraim.Services.PhotoJunkieServices;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
@@ -18,16 +17,18 @@ namespace FullFraim.Web.ViewComponents
     {
         private readonly IPhotoJunkieService photoJunkieService;
         private readonly UserManager<User> userManager;
+        private readonly IConfiguration configuration;
 
         public PointsTillNextViewComponent
             (IPhotoJunkieService photoJunkieService,
-            UserManager<User> userManager)
+            UserManager<User> userManager, IConfiguration configuration)
         {
             this.photoJunkieService = photoJunkieService;
             this.userManager = userManager;
+            this.configuration = configuration;
         }
 
-        public async Task<IViewComponentResult> InvokeAsync(PaginationFilter pagination)
+        public async Task<IViewComponentResult> InvokeAsync()
         {
             if(int.Parse(HttpContext.User
                 .FindFirst(ClaimTypes.NameIdentifier).Value) != 1)
@@ -35,15 +36,9 @@ namespace FullFraim.Web.ViewComponents
                 return Content(string.Empty);
             }
 
-            if(pagination == null)
-            {
-                pagination = new PaginationFilter();
-            }
-
             var junkies = await userManager.Users
-                .Skip(pagination.PageSize * (pagination.PageNumber - 1))
-                .Take(pagination.PageSize)
-                .Where(x => x.Id != 1)
+                .Where(x => x.FirstName != configuration["AccountAdminInfo:UserName"])
+                .Take(5)
                 .ToListAsync();
 
             var result = new List<PointsTillNextViewModel>();
@@ -58,8 +53,6 @@ namespace FullFraim.Web.ViewComponents
                     .MapToPointsViewModel
                     (junkie.FirstName + junkie.LastName));
             }
-
-            TempData["pagination"] = pagination;
 
             return View(result);
         }

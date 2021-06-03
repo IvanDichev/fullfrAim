@@ -42,9 +42,9 @@ namespace FullFraim.Tests.PhotoServices
                 Assert.AreEqual(2, result2.Id);
                 Assert.AreEqual(3, result3.Id);
 
-                Assert.AreEqual(Constants.ImagesSeed.WildlifeImgUrl, result.Url);
-                Assert.AreEqual(Constants.ImagesSeed.WildlifeImg2Url, result2.Url);
-                Assert.AreEqual(Constants.ImagesSeed.WildlifeImg3Url, result3.Url);
+                Assert.AreEqual(Constants.Images.WildlifeImgUrl, result.Url);
+                Assert.AreEqual(Constants.Images.WildlifeImg2Url, result2.Url);
+                Assert.AreEqual(Constants.Images.WildlifeImg3Url, result3.Url);
 
                 context.Database.EnsureDeleted();
             }
@@ -537,7 +537,7 @@ namespace FullFraim.Tests.PhotoServices
                 //Assert
                 Assert.AreEqual(1, result.Id);
                 
-                Assert.AreEqual(Constants.ImagesSeed.WildlifeImgUrl, result.Url);
+                Assert.AreEqual(Constants.Images.WildlifeImgUrl, result.Url);
                
                 context.Database.EnsureDeleted();
             }
@@ -568,7 +568,7 @@ namespace FullFraim.Tests.PhotoServices
                 //Act
                 //Assert
                 await Assert.ThrowsExceptionAsync<InvalidIdException>
-                    (async () => await photoService.GetDetailedSubmissionsFromContest(id, new PaginationFilter()));
+                    (async () => await photoService.GetDetailedSubmissionsFromContestAsync(id, new PaginationFilter()));
 
                 context.Database.EnsureDeleted();
             }
@@ -597,7 +597,7 @@ namespace FullFraim.Tests.PhotoServices
                 var photoService = new PhotoService(context);
 
                 //Act
-                var photos = await photoService.GetDetailedSubmissionsFromContest(id, new PaginationFilter());
+                var photos = await photoService.GetDetailedSubmissionsFromContestAsync(id, new PaginationFilter());
 
                 //Assert
                 Assert.AreEqual(0, photos.Model.Count);
@@ -626,7 +626,7 @@ namespace FullFraim.Tests.PhotoServices
                 var photoService = new PhotoService(context);
 
                 //Act
-                var result = await photoService.GetDetailedSubmissionsFromContest(1, new PaginationFilter());
+                var result = await photoService.GetDetailedSubmissionsFromContestAsync(1, new PaginationFilter());
 
                 //Assert
                 Assert.AreEqual(4, result.Model.Count);

@@ -15,7 +15,7 @@ namespace FullFraim.Data.Seed
             {
                 Name = "Portrait",
                 Description = "Portrait contest - PhaseOne",
-                Cover_Url = Constants.ImagesSeed.PortraitImgUrlCover,
+                Cover_Url = Constants.Images.PortraitImgUrlCover,
                 ContestCategoryId = 10,
                 ContestTypeId = 2,
                 CreatedOn = DateTime.UtcNow,
@@ -24,7 +24,7 @@ namespace FullFraim.Data.Seed
             {
                 Name = "WildlifePhaseThree",
                 Description = "PhaseThree",
-                Cover_Url = Constants.ImagesSeed.WildlifeImgUrlCover,
+                Cover_Url = Constants.Images.WildlifeImgUrlCover,
                 ContestCategoryId = 12,
                 ContestTypeId = 1,
                 CreatedOn = DateTime.UtcNow.AddDays(-2),
@@ -33,7 +33,7 @@ namespace FullFraim.Data.Seed
             {
                 Name = "WildlifePhaseTwo",
                 Description = "PhaseTwo",
-                Cover_Url = Constants.ImagesSeed.WildlifeImgUrlCover,
+                Cover_Url = Constants.Images.WildlifeImgUrlCover,
                 ContestCategoryId = 12,
                 ContestTypeId = 1,
                 CreatedOn = DateTime.UtcNow.AddDays(-30),
@@ -42,7 +42,7 @@ namespace FullFraim.Data.Seed
             {
                 Name = "WildlifePhaseOne",
                 Description = "PhaseOne",
-                Cover_Url = Constants.ImagesSeed.WildlifeImgUrlCover,
+                Cover_Url = Constants.Images.WildlifeImgUrlCover,
                 ContestCategoryId = 12,
                 ContestTypeId = 1,
                 CreatedOn = DateTime.UtcNow,

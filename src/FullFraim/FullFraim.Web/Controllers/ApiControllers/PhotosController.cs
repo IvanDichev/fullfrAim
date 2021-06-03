@@ -1,6 +1,4 @@
-﻿using FullFraim.Data.Models;
-using FullFraim.Models.Dto_s.Pagination;
-using FullFraim.Models.Dto_s.PhotoJunkies;
+﻿using FullFraim.Models.Dto_s.Pagination;
 using FullFraim.Models.Dto_s.Photos;
 using FullFraim.Services.ContestServices;
 using FullFraim.Services.PhotoService;
@@ -9,13 +7,10 @@ using FullFraim.Web.Filters;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 using System.Collections.Generic;
 using System.Security.Claims;
 using System.Threading.Tasks;
-using Utilities.CloudinaryUtils;
 
 namespace FullFraim.Web.Controllers.ApiControllers
 {
@@ -66,7 +61,7 @@ namespace FullFraim.Web.Controllers.ApiControllers
 
         [HttpGet("submissions")]
         [Authorize]
-        //[ProducesResponseType(StatusCodes.Status200OK, Type = typeof(PaginatedModel<ContestSubmissionOutputDto>))]
+        [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(PaginatedModel<ContestSubmissionOutputDto>))]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         public async Task<IActionResult> GetAllSubmissions(int contestId, [FromQuery] PaginationFilter paginationFilter)
@@ -93,7 +88,7 @@ namespace FullFraim.Web.Controllers.ApiControllers
             }
 
             var photos = await this.photoService
-                .GetDetailedSubmissionsFromContest(contestId, paginationFilter);
+                .GetDetailedSubmissionsFromContestAsync(contestId, paginationFilter);
 
             return Ok(photos);
         }

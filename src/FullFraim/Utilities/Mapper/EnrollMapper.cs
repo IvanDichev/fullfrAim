@@ -5,7 +5,7 @@ namespace Utilities.Mapper
 {
     public static class EnrollMapper
     {
-        public static InputEnrollForContestDto MapToDto(this InpurEnrollForContestModel model)
+        public static InputEnrollForContestDto MapToDto(this InputEnrollForContestModel model)
         {
             return new InputEnrollForContestDto()
             {

@@ -1,0 +1,29 @@
+﻿@model ContestSubmissionViewModel
+
+<link href="~/css/hover-monochrome.css" rel="stylesheet" />
+
+
+@if (Model.IsCurrentUserSubmission)
+{
+    <div class="card" style="margin-inline:1rem; opacity:0.3">
+        <div class="hovereffect">
+            <img class="img-responsive" src="@Model.Image_Url" alt="Card image cap" style="width: 300px; height:200px">
+            <div class="overlay">
+                <h2>@Model.AuthorName</h2>
+                <a class="info" href="#">See submission</a>
+            </div>
+        </div>
+    </div>
+}
+else
+{
+    <div class="card" style="margin-inline:1rem">
+        <div class="hovereffect">
+            <img class="img-responsive" src="@Model.Image_Url" alt="Card image cap" style="width: 300px; height:200px">
+            <div class="overlay">
+                <h2>@Model.AuthorName</h2>
+                <a class="info" href="#">See submission</a>
+            </div>
+        </div>
+    </div>
+}

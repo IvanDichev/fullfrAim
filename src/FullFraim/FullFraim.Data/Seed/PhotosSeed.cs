@@ -16,28 +16,28 @@ namespace FullFraim.Data.Seed
                 ContestId = 1,
                 Title = "Squirrel",
                 Story = "Looking down",
-                Url = Constants.ImagesSeed.WildlifeImgUrl,
+                Url = Constants.Images.WildlifeImgUrl,
             },
             new Photo()
             {
                 ContestId = 1,
                 Title = "Bath time",
                 Story = "On my way",
-                Url = Constants.ImagesSeed.WildlifeImg2Url,
+                Url = Constants.Images.WildlifeImg2Url,
             },
             new Photo()
             {
                 ContestId = 1,
                 Title = "Fight in the night",
                 Story = "Subway fighters",
-                Url = Constants.ImagesSeed.WildlifeImg3Url,
+                Url = Constants.Images.WildlifeImg3Url,
             },
             new Photo()
             {
                 ContestId = 1,
                 Title = "I can climb it",
                 Story = "Not a long way, we can climb it",
-                Url = Constants.ImagesSeed.WildlifeImg4Url,
+                Url = Constants.Images.WildlifeImg4Url,
             },
             //new Photo()
             //{
@@ -77,28 +77,28 @@ namespace FullFraim.Data.Seed
                 ContestId = 2,
                 Title = "Fight in the night",
                 Story = "Subway fighters",
-                Url = Constants.ImagesSeed.WildlifeImg3Url,
+                Url = Constants.Images.WildlifeImg3Url,
             },
             new Photo()
             {
                 ContestId = 2,
                 Title = "I can climb it",
                 Story = "Not a long way, we can climb it",
-                Url = Constants.ImagesSeed.WildlifeImg4Url,
+                Url = Constants.Images.WildlifeImg4Url,
             },
             new Photo()
             {
                 ContestId = 2,
                 Title = "Can I have some?",
                 Story = "Hungry birds",
-                Url = Constants.ImagesSeed.WildlifeImg5Url,
+                Url = Constants.Images.WildlifeImg5Url,
             },
             new Photo()
             {
                 ContestId = 2,
                 Title = "Git It!",
                 Story = "Got it!",
-                Url = Constants.ImagesSeed.WildlifeImg6Url,
+                Url = Constants.Images.WildlifeImg6Url,
             },
             
             new Photo()
@@ -106,28 +106,28 @@ namespace FullFraim.Data.Seed
                 ContestId = 3,
                 Title = "Squirrel",
                 Story = "Looking down",
-                Url = Constants.ImagesSeed.WildlifeImgUrl,
+                Url = Constants.Images.WildlifeImgUrl,
             },
             new Photo()
             {
                 ContestId = 3,
                 Title = "Bath time",
                 Story = "On my way",
-                Url = Constants.ImagesSeed.WildlifeImg2Url,
+                Url = Constants.Images.WildlifeImg2Url,
             },
             new Photo()
             {
                 ContestId = 3,
                 Title = "Fight in the night",
                 Story = "Subway fighters",
-                Url = Constants.ImagesSeed.WildlifeImg3Url,
+                Url = Constants.Images.WildlifeImg3Url,
             },
             new Photo()
             {
                 ContestId = 3,
                 Title = "I can climb it",
                 Story = "Not a long way, we can climb it",
-                Url = Constants.ImagesSeed.WildlifeImg4Url,
+                Url = Constants.Images.WildlifeImg4Url,
             },
             //new Photo()
             //{
@@ -151,7 +151,7 @@ namespace FullFraim.Data.Seed
                 ContestId = 4,
                 Title = "Smile",
                 Story = "Just a nice picture",
-                Url = Constants.ImagesSeed.PortraitImgUrlCover,
+                Url = Constants.Images.PortraitImgUrlCover,
             }
         };
 

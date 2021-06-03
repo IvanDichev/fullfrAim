@@ -4,7 +4,7 @@ namespace Shared
 {
     public static partial class Constants
     {
-        public static class ImagesSeed
+        public static class Images
         {
             public const string AbstrctImgUrl = "https://res.cloudinary.com/fullfraim/image/upload/v1621962683/tlmnwsfoieruxk7qs3os.jpg";
             public const string ArchitectureImgUrl = "https://res.cloudinary.com/fullfraim/image/upload/v1621962698/q98fftipsjjsvzxxztd7.jpg";
@@ -21,7 +21,7 @@ namespace Shared
             public const string WildlifeImg6Url = "https://res.cloudinary.com/fullfraim/image/upload/v1621963217/rw0eyykyktcyb1ihqdkn.jpg";
         }
 
-        public static class UserSeed
+        public static class UserData
         {
             public const string Ivan = "Ivan";
             public const string Dichev = "Dichev";
@@ -44,21 +44,21 @@ namespace Shared
             public const string EIvanovaEmail = "EIvanova@fullfraim.com";
         }
 
-        public static class RolesSeed
+        public static class Roles
         {
             public const string Admin = "Admin";
             public const string Organizer = "Organizer";
             public const string User = "User";
         }
 
-        public static class PhasesSeed
+        public static class Phases
         {
             public const string PhaseI = "PhaseI";
             public const string PhaseII = "PhaseII";
             public const string Finished = "Finished";
         }
 
-        public static class RanksSeed
+        public static class Ranks
         {
             public const string Junkie = "Junkie";
             public const string Enthusiast = "Enthusiast";
@@ -66,7 +66,7 @@ namespace Shared
             public const string WiseAndBenevolentPhotoDictator = "Wise and Benevolent Photo Dictator";
         }
 
-        public static class ConstestCategorySeed
+        public static class ConstestCategory
         {
             public const string Abstract = "Abstract";
             public const string Architecture = "Architecture";
@@ -74,7 +74,7 @@ namespace Shared
             public const string Fashion_Beauty = "Fashion/Beauty";
             public const string Fine_Art = "Fine Art";
             public const string Landscapes = "Landscapes";
-            public const string Nature = "Natrue";
+            public const string Nature = "Nature";
             public const string Boudoir = "Boudoir";
             public const string Photojournalism = "Photojournalism";
             public const string Portrait = "Portrait";
@@ -82,7 +82,7 @@ namespace Shared
             public const string Wildlife = "Wildlife";
         }
 
-        public static class ContestTypeSeed
+        public static class ContestType
         {
             public const string Open = "Open";
             public const string Invitational = "Invitational";
@@ -413,6 +413,11 @@ BEGIN
 		DEALLOCATE TrigTempUpdate_Cursor;  
 END;";
             public const string DropRankTrigger = @"DROP TRIGGER TR_AspNetUsers_UpdateRanks_AU_AI";
+        }
+
+        public static class Others
+        {
+            public const string WrongCategory = "Wrong category";
         }
     }
 }

@@ -1,11 +1,13 @@
 ﻿using FullFraim.Models.Dto_s.Pagination;
 using FullFraim.Models.Dto_s.PhotoJunkies;
+using FullFraim.Models.Dto_s.Users;
 using FullFraim.Services.PhotoJunkieServices;
 using FullFraim.Web.Filters;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Shared.AllConstants;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Utilities.CloudinaryUtils;
@@ -15,9 +17,9 @@ namespace FullFraim.Web.Controllers.ApiControllers
 {
     [Authorize]
     [ApiController]
-    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     [APIExceptionFilter]
     [Route("api/[controller]")]
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public class JunkiesController : ControllerBase
     {
         private readonly IPhotoJunkieService photoJunkieService;
@@ -50,12 +52,13 @@ namespace FullFraim.Web.Controllers.ApiControllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        public async Task<IActionResult> Enroll([FromForm] InpurEnrollForContestModel inputModel)
+        public async Task<IActionResult> Enroll([FromForm] InputEnrollForContestModel inputModel)
         {
             if (!await this.photoJunkieService.CanJunkyEnroll(inputModel.ContestId, inputModel.UserId))
             {
-                return BadRequest(error: $"User with id: {inputModel.UserId} already in contest with id: {inputModel.ContestId}!");
+                return BadRequest(error:string.Format(ErrorMessages.AlreadyInContest, inputModel.UserId, inputModel.ContestId));
             }
+
             var inputDto = inputModel.MapToDto();
 
             inputDto.PhotoUrl = this.cloudinaryService.UploadImage(inputModel.Photo);

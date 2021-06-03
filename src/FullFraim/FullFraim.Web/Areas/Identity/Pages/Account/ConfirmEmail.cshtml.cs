@@ -51,8 +51,8 @@ namespace Web.Areas.Identity.Pages.Account
 
             return RedirectToPage("./Login");
 
-            StatusMessage = result.Succeeded ? "" : "";
-            return Page();
+            //StatusMessage = result.Succeeded ? "" : "";
+            //return Page();
         }
     }
 }
