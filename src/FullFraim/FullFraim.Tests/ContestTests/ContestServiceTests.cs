@@ -1217,7 +1217,7 @@ namespace FullFraim.Tests.ContestTests
                 var paginatedFilter = new PaginationFilter();
 
                 // Act
-                var contestsCovers = await contestService.GetConetstCoversAsync(paginatedFilter);
+                var contestsCovers = await contestService.GetContestCoversAsync(paginatedFilter);
 
                 // Assert
                 Assert.AreEqual(6, contestsCovers.Model.Count);

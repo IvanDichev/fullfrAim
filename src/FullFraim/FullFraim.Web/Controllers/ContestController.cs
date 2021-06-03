@@ -99,7 +99,7 @@ namespace FullFraim.Web.Controllers
         [HttpGet]
         public async Task<IActionResult> ChooseCovers()
         {
-            var result = await this.contestService.GetConetstCoversAsync(new PaginationFilter());
+            var result = await this.contestService.GetContestCoversAsync(new PaginationFilter());
 
             ViewBag.Covers = result;
 

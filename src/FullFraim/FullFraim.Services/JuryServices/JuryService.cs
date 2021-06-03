@@ -105,6 +105,18 @@ namespace FullFraim.Services.JuryServices
 
         public async Task<bool> IsUserJuryForContest(int contestId, int juryId)
         {
+            if (juryId <= 0)
+            {
+                throw new InvalidIdException
+                    (string.Format(LogMessages.InvalidId, "JuryService", "IsUserJuryForContest", juryId, "Jury"));
+            }
+
+            if (contestId <= 0)
+            {
+                throw new InvalidIdException
+                    (string.Format(LogMessages.InvalidId, "JuryService", "IsUserJuryForContest", contestId, "Contest"));
+            }
+
             return await this.context.JuryContests
                 .Where(jc => jc.ContestId == contestId)
                     .AnyAsync(jc => jc.UserId == juryId);
