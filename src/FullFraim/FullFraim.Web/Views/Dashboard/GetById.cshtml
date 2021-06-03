@@ -2,13 +2,30 @@
 
 <div class="gallery_area clearfix">
     <div class="container-fluid clearfix">
+        <h4 class="text-success">Reviewed</h4>
+        <hr>
         <div class="row portfolio-column">
 
             @foreach (var item in Model.Model)
             {
-                <partial name="~/Views/Shared/Partials/_ContestSubmissionPartial.cshtml" model="item" />
+                @if (item.HasJuryGivenSubmission)
+                {
+                    <partial name="~/Views/Shared/Partials/_ContestSubmissionPartial.cshtml" model="item" />
+                }
             }
-
+        </div>
+        <br>
+        <br>
+        <h4 class="text-danger">Not Reviewed</h4>
+        <hr>
+        <div class="row portfolio-column">
+            @foreach (var item in Model.Model)
+            {
+                @if (!item.HasJuryGivenSubmission)
+                {
+                    <partial name="~/Views/Shared/Partials/_ContestSubmissionPartial.cshtml" model="item" />
+                }
+            }
         </div>
         <div class="row">
             <div class="col-12 text-center mt-70">

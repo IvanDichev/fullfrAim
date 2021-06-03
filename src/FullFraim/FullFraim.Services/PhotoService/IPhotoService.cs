@@ -14,6 +14,8 @@ namespace FullFraim.Services.PhotoService
         Task<bool> IsPhotoSubmitedByUserAsync(int userId, int photoId);
         Task<PaginatedModel<ContestSubmissionOutputDto>> GetDetailedSubmissionsFromContestAsync
             (int contestId, PaginationFilter paginationFilter);
+        Task<PaginatedModel<ContestSubmissionOutputDto>> GetDetailedSubmissionsFromContestAsync
+            (int contestId, PaginationFilter paginationFilter, int juryContestId);
         Task<PhotoDto> GetUserSubmissionForContestAsync(int userid, int contestId);
     }
 }

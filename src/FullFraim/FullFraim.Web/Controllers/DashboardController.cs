@@ -105,7 +105,7 @@ namespace FullFraim.Web.Controllers
             int userId = UserId;
 
             var contestSubmissions = await this.photoService
-                .GetDetailedSubmissionsFromContestAsync(id, new PaginationFilter());
+                .GetDetailedSubmissionsFromContestAsync(id, new PaginationFilter(), userId);
 
             var paginatedModel = new PaginatedModel<ContestSubmissionViewModel>()
             {
