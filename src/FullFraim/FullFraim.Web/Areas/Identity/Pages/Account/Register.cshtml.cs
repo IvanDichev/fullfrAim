@@ -99,7 +99,7 @@ namespace Web.Areas.Identity.Pages.Account
                 if (result.Succeeded)
                 {
                     //TODO Add to role
-                    await _userManager.AddToRoleAsync(user, Constants.RolesSeed.User);
+                    await _userManager.AddToRoleAsync(user, Constants.Roles.User);
                     _logger.LogInformation("User created a new account with password.");
 
                     var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);

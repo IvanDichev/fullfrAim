@@ -237,9 +237,9 @@ namespace FullFraim.Tests.ContestCategoryServices
 
                 //Assert
                 Assert.AreEqual(12, result.Count());
-                Assert.AreEqual(Constants.ConstestCategorySeed.Abstract, result[0].Name);
-                Assert.AreEqual(Constants.ConstestCategorySeed.Architecture, result[1].Name);
-                Assert.AreEqual(Constants.ConstestCategorySeed.Conceptual, result[2].Name);
+                Assert.AreEqual(Constants.ConstestCategory.Abstract, result[0].Name);
+                Assert.AreEqual(Constants.ConstestCategory.Architecture, result[1].Name);
+                Assert.AreEqual(Constants.ConstestCategory.Conceptual, result[2].Name);
 
                 context.Database.EnsureDeleted();
             }
@@ -274,9 +274,9 @@ namespace FullFraim.Tests.ContestCategoryServices
                 Assert.AreEqual(2, result2.Id);
                 Assert.AreEqual(3, result3.Id);
 
-                Assert.AreEqual(Constants.ConstestCategorySeed.Abstract, result.Name);
-                Assert.AreEqual(Constants.ConstestCategorySeed.Architecture, result2.Name);
-                Assert.AreEqual(Constants.ConstestCategorySeed.Conceptual, result3.Name);
+                Assert.AreEqual(Constants.ConstestCategory.Abstract, result.Name);
+                Assert.AreEqual(Constants.ConstestCategory.Architecture, result2.Name);
+                Assert.AreEqual(Constants.ConstestCategory.Conceptual, result3.Name);
 
                 context.Database.EnsureDeleted();
             }

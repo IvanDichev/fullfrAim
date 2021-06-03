@@ -11,8 +11,8 @@ using System.Threading.Tasks;
 namespace FullFraim.Web.Controllers.ApiControllers
 {
     [ApiController]
-    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     [Route("api/[Controller]")]
+    [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public class DashboardController : ControllerBase
     {
         private readonly IContestService contestService;

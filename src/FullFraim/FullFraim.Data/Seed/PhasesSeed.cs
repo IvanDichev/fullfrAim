@@ -13,15 +13,15 @@ namespace FullFraim.Data.Seed
         {
             new Phase()
             {
-               Name = Constants.PhasesSeed.Finished
+               Name = Constants.Phases.Finished
             },
             new Phase()
             {
-               Name = Constants.PhasesSeed.PhaseII
+               Name = Constants.Phases.PhaseII
             },
             new Phase()
             {
-               Name = Constants.PhasesSeed.PhaseI
+               Name = Constants.Phases.PhaseI
             },            
         };
 
