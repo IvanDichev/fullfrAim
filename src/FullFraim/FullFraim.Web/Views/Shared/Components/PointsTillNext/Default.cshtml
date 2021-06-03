@@ -1,0 +1,11 @@
+﻿@model List<RankAndPointsViewModel>
+
+
+<div>
+    <h3>Top @Model.Count()</h3>
+    <hr>
+    @foreach (var item in Model)
+    {
+        <p>@item.FullUserName @item.PointsTillNextRank</p>
+    }
+</div>

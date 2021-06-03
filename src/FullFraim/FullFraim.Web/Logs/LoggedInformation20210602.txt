@@ -9,6 +9,19 @@ System.InvalidOperationException: Invalid attempt to call ReadAsync when reader 
 --- End of stack trace from previous location where exception was thrown ---
    at Microsoft.EntityFrameworkCore.Query.Internal.QueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
 2021-06-02 00:26:32.677 +03:00 [WRN] Sensitive data logging is enabled. Log entries and exception messages may include sensitive application data, this mode should only be enabled during development.
+<<<<<<< HEAD
+2021-06-02 01:04:17.211 +03:00 [WRN] Sensitive data logging is enabled. Log entries and exception messages may include sensitive application data, this mode should only be enabled during development.
+2021-06-02 18:55:25.082 +03:00 [WRN] Sensitive data logging is enabled. Log entries and exception messages may include sensitive application data, this mode should only be enabled during development.
+2021-06-02 19:17:48.782 +03:00 [WRN] Sensitive data logging is enabled. Log entries and exception messages may include sensitive application data, this mode should only be enabled during development.
+2021-06-02 19:20:22.903 +03:00 [WRN] Sensitive data logging is enabled. Log entries and exception messages may include sensitive application data, this mode should only be enabled during development.
+2021-06-02 19:20:25.815 +03:00 [ERR] An unhandled exception has occurred while executing the request.
+System.InvalidOperationException: A view component must return a non-null value.
+   at Microsoft.AspNetCore.Mvc.ViewComponents.DefaultViewComponentInvoker.CoerceToViewComponentResult(Object value)
+   at Microsoft.AspNetCore.Mvc.ViewComponents.DefaultViewComponentInvoker.InvokeAsyncCore(ObjectMethodExecutor executor, ViewComponentContext context)
+   at Microsoft.AspNetCore.Mvc.ViewComponents.DefaultViewComponentInvoker.InvokeAsync(ViewComponentContext context)
+   at Microsoft.AspNetCore.Mvc.ViewComponents.DefaultViewComponentHelper.InvokeCoreAsync(ViewComponentDescriptor descriptor, Object arguments)
+   at AspNetCore.Views_Dashboard_Index.ExecuteAsync() in C:\Users\User\source\repos\photocontest\src\FullFraim\FullFraim.Web\Views\Dashboard\Index.cshtml:line 6
+=======
 2021-06-02 01:01:08.801 +03:00 [WRN] Sensitive data logging is enabled. Log entries and exception messages may include sensitive application data, this mode should only be enabled during development.
 2021-06-02 01:11:09.532 +03:00 [ERR] An unhandled exception has occurred while executing the request.
 Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation.CompilationFailedException: One or more compilation failures occurred:
@@ -31,6 +44,7 @@ C:\Users\Bambi\Desktop\Telerik\Alpha 26\GitLab Repos\photocontest\src\FullFraim\
    at Microsoft.AspNetCore.Mvc.TagHelpers.PartialTagHelper.ProcessAsync(TagHelperContext context, TagHelperOutput output)
    at Microsoft.AspNetCore.Razor.Runtime.TagHelpers.TagHelperRunner.<RunAsync>g__Awaited|0_0(Task task, TagHelperExecutionContext executionContext, Int32 i, Int32 count)
    at AspNetCore.Views_Dashboard_Index.ExecuteAsync() in C:\Users\Bambi\Desktop\Telerik\Alpha 26\GitLab Repos\photocontest\src\FullFraim\FullFraim.Web\Views\Dashboard\Index.cshtml:line 41
+>>>>>>> 325352f2e7a89269e9b6431f9bd9e3705008259c
    at Microsoft.AspNetCore.Mvc.Razor.RazorView.RenderPageCoreAsync(IRazorPage page, ViewContext context)
    at Microsoft.AspNetCore.Mvc.Razor.RazorView.RenderPageAsync(IRazorPage page, ViewContext context, Boolean invokeViewStarts)
    at Microsoft.AspNetCore.Mvc.Razor.RazorView.RenderAsync(ViewContext context)
@@ -55,6 +69,229 @@ C:\Users\Bambi\Desktop\Telerik\Alpha 26\GitLab Repos\photocontest\src\FullFraim\
    at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
    at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
    at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware.Invoke(HttpContext context)
+<<<<<<< HEAD
+2021-06-02 19:21:58.147 +03:00 [WRN] Sensitive data logging is enabled. Log entries and exception messages may include sensitive application data, this mode should only be enabled during development.
+2021-06-02 20:37:33.446 +03:00 [WRN] Sensitive data logging is enabled. Log entries and exception messages may include sensitive application data, this mode should only be enabled during development.
+2021-06-02 20:39:56.988 +03:00 [WRN] Sensitive data logging is enabled. Log entries and exception messages may include sensitive application data, this mode should only be enabled during development.
+2021-06-02 20:41:07.336 +03:00 [WRN] Sensitive data logging is enabled. Log entries and exception messages may include sensitive application data, this mode should only be enabled during development.
+2021-06-02 20:41:11.535 +03:00 [ERR] An exception occurred while iterating over the results of a query for context type 'FullFraim.Data.FullFraimDbContext'.
+System.InvalidOperationException: A second operation started on this context before a previous operation completed. This is usually caused by different threads using the same instance of DbContext. For more information on how to avoid threading issues with DbContext, see https://go.microsoft.com/fwlink/?linkid=2097913.
+   at Microsoft.EntityFrameworkCore.Internal.ConcurrencyDetector.EnterCriticalSection()
+   at Microsoft.EntityFrameworkCore.Query.Internal.QueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+System.InvalidOperationException: A second operation started on this context before a previous operation completed. This is usually caused by different threads using the same instance of DbContext. For more information on how to avoid threading issues with DbContext, see https://go.microsoft.com/fwlink/?linkid=2097913.
+   at Microsoft.EntityFrameworkCore.Internal.ConcurrencyDetector.EnterCriticalSection()
+   at Microsoft.EntityFrameworkCore.Query.Internal.QueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+2021-06-02 20:41:11.535 +03:00 [ERR] An exception occurred while iterating over the results of a query for context type 'FullFraim.Data.FullFraimDbContext'.
+System.InvalidOperationException: A second operation started on this context before a previous operation completed. This is usually caused by different threads using the same instance of DbContext. For more information on how to avoid threading issues with DbContext, see https://go.microsoft.com/fwlink/?linkid=2097913.
+   at Microsoft.EntityFrameworkCore.Internal.ConcurrencyDetector.EnterCriticalSection()
+   at Microsoft.EntityFrameworkCore.Query.Internal.QueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+System.InvalidOperationException: A second operation started on this context before a previous operation completed. This is usually caused by different threads using the same instance of DbContext. For more information on how to avoid threading issues with DbContext, see https://go.microsoft.com/fwlink/?linkid=2097913.
+   at Microsoft.EntityFrameworkCore.Internal.ConcurrencyDetector.EnterCriticalSection()
+   at Microsoft.EntityFrameworkCore.Query.Internal.QueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+2021-06-02 20:41:11.671 +03:00 [ERR] An exception occurred while iterating over the results of a query for context type 'FullFraim.Data.FullFraimDbContext'.
+System.InvalidOperationException: A second operation started on this context before a previous operation completed. This is usually caused by different threads using the same instance of DbContext. For more information on how to avoid threading issues with DbContext, see https://go.microsoft.com/fwlink/?linkid=2097913.
+   at Microsoft.EntityFrameworkCore.Internal.ConcurrencyDetector.EnterCriticalSection()
+   at Microsoft.EntityFrameworkCore.Query.Internal.QueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+System.InvalidOperationException: A second operation started on this context before a previous operation completed. This is usually caused by different threads using the same instance of DbContext. For more information on how to avoid threading issues with DbContext, see https://go.microsoft.com/fwlink/?linkid=2097913.
+   at Microsoft.EntityFrameworkCore.Internal.ConcurrencyDetector.EnterCriticalSection()
+   at Microsoft.EntityFrameworkCore.Query.Internal.QueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+2021-06-02 20:41:11.738 +03:00 [ERR] An exception occurred while iterating over the results of a query for context type 'FullFraim.Data.FullFraimDbContext'.
+System.InvalidOperationException: A second operation started on this context before a previous operation completed. This is usually caused by different threads using the same instance of DbContext. For more information on how to avoid threading issues with DbContext, see https://go.microsoft.com/fwlink/?linkid=2097913.
+   at Microsoft.EntityFrameworkCore.Internal.ConcurrencyDetector.EnterCriticalSection()
+   at Microsoft.EntityFrameworkCore.Query.Internal.QueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+System.InvalidOperationException: A second operation started on this context before a previous operation completed. This is usually caused by different threads using the same instance of DbContext. For more information on how to avoid threading issues with DbContext, see https://go.microsoft.com/fwlink/?linkid=2097913.
+   at Microsoft.EntityFrameworkCore.Internal.ConcurrencyDetector.EnterCriticalSection()
+   at Microsoft.EntityFrameworkCore.Query.Internal.QueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+2021-06-02 20:41:11.800 +03:00 [ERR] An exception occurred while iterating over the results of a query for context type 'FullFraim.Data.FullFraimDbContext'.
+System.InvalidOperationException: A second operation started on this context before a previous operation completed. This is usually caused by different threads using the same instance of DbContext. For more information on how to avoid threading issues with DbContext, see https://go.microsoft.com/fwlink/?linkid=2097913.
+   at Microsoft.EntityFrameworkCore.Internal.ConcurrencyDetector.EnterCriticalSection()
+   at Microsoft.EntityFrameworkCore.Query.Internal.QueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+System.InvalidOperationException: A second operation started on this context before a previous operation completed. This is usually caused by different threads using the same instance of DbContext. For more information on how to avoid threading issues with DbContext, see https://go.microsoft.com/fwlink/?linkid=2097913.
+   at Microsoft.EntityFrameworkCore.Internal.ConcurrencyDetector.EnterCriticalSection()
+   at Microsoft.EntityFrameworkCore.Query.Internal.QueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+2021-06-02 20:41:11.864 +03:00 [ERR] An exception occurred while iterating over the results of a query for context type 'FullFraim.Data.FullFraimDbContext'.
+System.InvalidOperationException: A second operation started on this context before a previous operation completed. This is usually caused by different threads using the same instance of DbContext. For more information on how to avoid threading issues with DbContext, see https://go.microsoft.com/fwlink/?linkid=2097913.
+   at Microsoft.EntityFrameworkCore.Internal.ConcurrencyDetector.EnterCriticalSection()
+   at Microsoft.EntityFrameworkCore.Query.Internal.QueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+System.InvalidOperationException: A second operation started on this context before a previous operation completed. This is usually caused by different threads using the same instance of DbContext. For more information on how to avoid threading issues with DbContext, see https://go.microsoft.com/fwlink/?linkid=2097913.
+   at Microsoft.EntityFrameworkCore.Internal.ConcurrencyDetector.EnterCriticalSection()
+   at Microsoft.EntityFrameworkCore.Query.Internal.QueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+2021-06-02 20:41:11.931 +03:00 [ERR] An exception occurred while iterating over the results of a query for context type 'FullFraim.Data.FullFraimDbContext'.
+System.InvalidOperationException: A second operation started on this context before a previous operation completed. This is usually caused by different threads using the same instance of DbContext. For more information on how to avoid threading issues with DbContext, see https://go.microsoft.com/fwlink/?linkid=2097913.
+   at Microsoft.EntityFrameworkCore.Internal.ConcurrencyDetector.EnterCriticalSection()
+   at Microsoft.EntityFrameworkCore.Query.Internal.QueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+System.InvalidOperationException: A second operation started on this context before a previous operation completed. This is usually caused by different threads using the same instance of DbContext. For more information on how to avoid threading issues with DbContext, see https://go.microsoft.com/fwlink/?linkid=2097913.
+   at Microsoft.EntityFrameworkCore.Internal.ConcurrencyDetector.EnterCriticalSection()
+   at Microsoft.EntityFrameworkCore.Query.Internal.QueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+2021-06-02 20:41:11.995 +03:00 [ERR] An exception occurred while iterating over the results of a query for context type 'FullFraim.Data.FullFraimDbContext'.
+System.InvalidOperationException: A second operation started on this context before a previous operation completed. This is usually caused by different threads using the same instance of DbContext. For more information on how to avoid threading issues with DbContext, see https://go.microsoft.com/fwlink/?linkid=2097913.
+   at Microsoft.EntityFrameworkCore.Internal.ConcurrencyDetector.EnterCriticalSection()
+   at Microsoft.EntityFrameworkCore.Query.Internal.QueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+System.InvalidOperationException: A second operation started on this context before a previous operation completed. This is usually caused by different threads using the same instance of DbContext. For more information on how to avoid threading issues with DbContext, see https://go.microsoft.com/fwlink/?linkid=2097913.
+   at Microsoft.EntityFrameworkCore.Internal.ConcurrencyDetector.EnterCriticalSection()
+   at Microsoft.EntityFrameworkCore.Query.Internal.QueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+2021-06-02 20:41:12.061 +03:00 [ERR] An exception occurred while iterating over the results of a query for context type 'FullFraim.Data.FullFraimDbContext'.
+System.InvalidOperationException: A second operation started on this context before a previous operation completed. This is usually caused by different threads using the same instance of DbContext. For more information on how to avoid threading issues with DbContext, see https://go.microsoft.com/fwlink/?linkid=2097913.
+   at Microsoft.EntityFrameworkCore.Internal.ConcurrencyDetector.EnterCriticalSection()
+   at Microsoft.EntityFrameworkCore.Query.Internal.QueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+System.InvalidOperationException: A second operation started on this context before a previous operation completed. This is usually caused by different threads using the same instance of DbContext. For more information on how to avoid threading issues with DbContext, see https://go.microsoft.com/fwlink/?linkid=2097913.
+   at Microsoft.EntityFrameworkCore.Internal.ConcurrencyDetector.EnterCriticalSection()
+   at Microsoft.EntityFrameworkCore.Query.Internal.QueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+2021-06-02 20:41:12.123 +03:00 [ERR] An exception occurred while iterating over the results of a query for context type 'FullFraim.Data.FullFraimDbContext'.
+System.InvalidOperationException: Invalid attempt to call ReadAsync when reader is closed.
+   at Microsoft.Data.Common.ADP.ExceptionWithStackTrace(Exception e)
+--- End of stack trace from previous location where exception was thrown ---
+   at Microsoft.EntityFrameworkCore.Query.Internal.QueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+System.InvalidOperationException: Invalid attempt to call ReadAsync when reader is closed.
+   at Microsoft.Data.Common.ADP.ExceptionWithStackTrace(Exception e)
+--- End of stack trace from previous location where exception was thrown ---
+   at Microsoft.EntityFrameworkCore.Query.Internal.QueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+2021-06-02 20:41:38.991 +03:00 [ERR] An exception occurred while iterating over the results of a query for context type 'FullFraim.Data.FullFraimDbContext'.
+System.InvalidOperationException: A second operation started on this context before a previous operation completed. This is usually caused by different threads using the same instance of DbContext. For more information on how to avoid threading issues with DbContext, see https://go.microsoft.com/fwlink/?linkid=2097913.
+   at Microsoft.EntityFrameworkCore.Internal.ConcurrencyDetector.EnterCriticalSection()
+   at Microsoft.EntityFrameworkCore.Query.Internal.QueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+System.InvalidOperationException: A second operation started on this context before a previous operation completed. This is usually caused by different threads using the same instance of DbContext. For more information on how to avoid threading issues with DbContext, see https://go.microsoft.com/fwlink/?linkid=2097913.
+   at Microsoft.EntityFrameworkCore.Internal.ConcurrencyDetector.EnterCriticalSection()
+   at Microsoft.EntityFrameworkCore.Query.Internal.QueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+2021-06-02 20:41:39.068 +03:00 [ERR] An exception occurred while iterating over the results of a query for context type 'FullFraim.Data.FullFraimDbContext'.
+System.InvalidOperationException: A second operation started on this context before a previous operation completed. This is usually caused by different threads using the same instance of DbContext. For more information on how to avoid threading issues with DbContext, see https://go.microsoft.com/fwlink/?linkid=2097913.
+   at Microsoft.EntityFrameworkCore.Internal.ConcurrencyDetector.EnterCriticalSection()
+   at Microsoft.EntityFrameworkCore.Query.Internal.QueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+System.InvalidOperationException: A second operation started on this context before a previous operation completed. This is usually caused by different threads using the same instance of DbContext. For more information on how to avoid threading issues with DbContext, see https://go.microsoft.com/fwlink/?linkid=2097913.
+   at Microsoft.EntityFrameworkCore.Internal.ConcurrencyDetector.EnterCriticalSection()
+   at Microsoft.EntityFrameworkCore.Query.Internal.QueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+2021-06-02 20:41:39.117 +03:00 [ERR] An exception occurred while iterating over the results of a query for context type 'FullFraim.Data.FullFraimDbContext'.
+System.InvalidOperationException: Invalid attempt to call ReadAsync when reader is closed.
+   at Microsoft.Data.Common.ADP.ExceptionWithStackTrace(Exception e)
+--- End of stack trace from previous location where exception was thrown ---
+   at Microsoft.EntityFrameworkCore.Query.Internal.QueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+System.InvalidOperationException: Invalid attempt to call ReadAsync when reader is closed.
+   at Microsoft.Data.Common.ADP.ExceptionWithStackTrace(Exception e)
+--- End of stack trace from previous location where exception was thrown ---
+   at Microsoft.EntityFrameworkCore.Query.Internal.QueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+2021-06-02 20:41:48.209 +03:00 [ERR] An exception occurred while iterating over the results of a query for context type 'FullFraim.Data.FullFraimDbContext'.
+System.InvalidOperationException: A second operation started on this context before a previous operation completed. This is usually caused by different threads using the same instance of DbContext. For more information on how to avoid threading issues with DbContext, see https://go.microsoft.com/fwlink/?linkid=2097913.
+   at Microsoft.EntityFrameworkCore.Internal.ConcurrencyDetector.EnterCriticalSection()
+   at Microsoft.EntityFrameworkCore.Query.Internal.QueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+System.InvalidOperationException: A second operation started on this context before a previous operation completed. This is usually caused by different threads using the same instance of DbContext. For more information on how to avoid threading issues with DbContext, see https://go.microsoft.com/fwlink/?linkid=2097913.
+   at Microsoft.EntityFrameworkCore.Internal.ConcurrencyDetector.EnterCriticalSection()
+   at Microsoft.EntityFrameworkCore.Query.Internal.QueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+2021-06-02 20:41:48.273 +03:00 [ERR] An exception occurred while iterating over the results of a query for context type 'FullFraim.Data.FullFraimDbContext'.
+System.InvalidOperationException: Invalid attempt to call ReadAsync when reader is closed.
+   at Microsoft.Data.Common.ADP.ExceptionWithStackTrace(Exception e)
+--- End of stack trace from previous location where exception was thrown ---
+   at Microsoft.EntityFrameworkCore.Query.Internal.QueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+System.InvalidOperationException: Invalid attempt to call ReadAsync when reader is closed.
+   at Microsoft.Data.Common.ADP.ExceptionWithStackTrace(Exception e)
+--- End of stack trace from previous location where exception was thrown ---
+   at Microsoft.EntityFrameworkCore.Query.Internal.QueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+2021-06-02 20:42:10.453 +03:00 [ERR] An exception occurred while iterating over the results of a query for context type 'FullFraim.Data.FullFraimDbContext'.
+System.InvalidOperationException: A second operation started on this context before a previous operation completed. This is usually caused by different threads using the same instance of DbContext. For more information on how to avoid threading issues with DbContext, see https://go.microsoft.com/fwlink/?linkid=2097913.
+   at Microsoft.EntityFrameworkCore.Internal.ConcurrencyDetector.EnterCriticalSection()
+   at Microsoft.EntityFrameworkCore.Query.Internal.QueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+System.InvalidOperationException: A second operation started on this context before a previous operation completed. This is usually caused by different threads using the same instance of DbContext. For more information on how to avoid threading issues with DbContext, see https://go.microsoft.com/fwlink/?linkid=2097913.
+   at Microsoft.EntityFrameworkCore.Internal.ConcurrencyDetector.EnterCriticalSection()
+   at Microsoft.EntityFrameworkCore.Query.Internal.QueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+2021-06-02 20:42:10.522 +03:00 [ERR] An exception occurred while iterating over the results of a query for context type 'FullFraim.Data.FullFraimDbContext'.
+System.InvalidOperationException: Invalid attempt to call ReadAsync when reader is closed.
+   at Microsoft.Data.Common.ADP.ExceptionWithStackTrace(Exception e)
+--- End of stack trace from previous location where exception was thrown ---
+   at Microsoft.EntityFrameworkCore.Query.Internal.QueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+System.InvalidOperationException: Invalid attempt to call ReadAsync when reader is closed.
+   at Microsoft.Data.Common.ADP.ExceptionWithStackTrace(Exception e)
+--- End of stack trace from previous location where exception was thrown ---
+   at Microsoft.EntityFrameworkCore.Query.Internal.QueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+2021-06-02 20:53:39.659 +03:00 [ERR] An exception occurred while iterating over the results of a query for context type 'FullFraim.Data.FullFraimDbContext'.
+System.InvalidOperationException: Invalid attempt to call ReadAsync when reader is closed.
+   at Microsoft.Data.Common.ADP.ExceptionWithStackTrace(Exception e)
+--- End of stack trace from previous location where exception was thrown ---
+   at Microsoft.EntityFrameworkCore.Query.Internal.QueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+System.InvalidOperationException: Invalid attempt to call ReadAsync when reader is closed.
+   at Microsoft.Data.Common.ADP.ExceptionWithStackTrace(Exception e)
+--- End of stack trace from previous location where exception was thrown ---
+   at Microsoft.EntityFrameworkCore.Query.Internal.QueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+2021-06-02 20:54:24.038 +03:00 [ERR] An exception occurred while iterating over the results of a query for context type 'FullFraim.Data.FullFraimDbContext'.
+System.InvalidOperationException: A second operation started on this context before a previous operation completed. This is usually caused by different threads using the same instance of DbContext. For more information on how to avoid threading issues with DbContext, see https://go.microsoft.com/fwlink/?linkid=2097913.
+   at Microsoft.EntityFrameworkCore.Internal.ConcurrencyDetector.EnterCriticalSection()
+   at Microsoft.EntityFrameworkCore.Query.Internal.QueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+System.InvalidOperationException: A second operation started on this context before a previous operation completed. This is usually caused by different threads using the same instance of DbContext. For more information on how to avoid threading issues with DbContext, see https://go.microsoft.com/fwlink/?linkid=2097913.
+   at Microsoft.EntityFrameworkCore.Internal.ConcurrencyDetector.EnterCriticalSection()
+   at Microsoft.EntityFrameworkCore.Query.Internal.QueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+2021-06-02 20:54:24.096 +03:00 [ERR] An exception occurred while iterating over the results of a query for context type 'FullFraim.Data.FullFraimDbContext'.
+System.InvalidOperationException: Invalid attempt to call ReadAsync when reader is closed.
+   at Microsoft.Data.Common.ADP.ExceptionWithStackTrace(Exception e)
+--- End of stack trace from previous location where exception was thrown ---
+   at Microsoft.EntityFrameworkCore.Query.Internal.QueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+System.InvalidOperationException: Invalid attempt to call ReadAsync when reader is closed.
+   at Microsoft.Data.Common.ADP.ExceptionWithStackTrace(Exception e)
+--- End of stack trace from previous location where exception was thrown ---
+   at Microsoft.EntityFrameworkCore.Query.Internal.QueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+2021-06-02 20:54:49.120 +03:00 [ERR] An exception occurred while iterating over the results of a query for context type 'FullFraim.Data.FullFraimDbContext'.
+System.InvalidOperationException: A second operation started on this context before a previous operation completed. This is usually caused by different threads using the same instance of DbContext. For more information on how to avoid threading issues with DbContext, see https://go.microsoft.com/fwlink/?linkid=2097913.
+   at Microsoft.EntityFrameworkCore.Internal.ConcurrencyDetector.EnterCriticalSection()
+   at Microsoft.EntityFrameworkCore.Query.Internal.QueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+System.InvalidOperationException: A second operation started on this context before a previous operation completed. This is usually caused by different threads using the same instance of DbContext. For more information on how to avoid threading issues with DbContext, see https://go.microsoft.com/fwlink/?linkid=2097913.
+   at Microsoft.EntityFrameworkCore.Internal.ConcurrencyDetector.EnterCriticalSection()
+   at Microsoft.EntityFrameworkCore.Query.Internal.QueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+2021-06-02 20:54:49.183 +03:00 [ERR] An exception occurred while iterating over the results of a query for context type 'FullFraim.Data.FullFraimDbContext'.
+System.InvalidOperationException: Invalid attempt to call ReadAsync when reader is closed.
+   at Microsoft.Data.Common.ADP.ExceptionWithStackTrace(Exception e)
+--- End of stack trace from previous location where exception was thrown ---
+   at Microsoft.EntityFrameworkCore.Query.Internal.QueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+System.InvalidOperationException: Invalid attempt to call ReadAsync when reader is closed.
+   at Microsoft.Data.Common.ADP.ExceptionWithStackTrace(Exception e)
+--- End of stack trace from previous location where exception was thrown ---
+   at Microsoft.EntityFrameworkCore.Query.Internal.QueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+2021-06-02 20:55:01.614 +03:00 [ERR] An exception occurred while iterating over the results of a query for context type 'FullFraim.Data.FullFraimDbContext'.
+System.InvalidOperationException: A second operation started on this context before a previous operation completed. This is usually caused by different threads using the same instance of DbContext. For more information on how to avoid threading issues with DbContext, see https://go.microsoft.com/fwlink/?linkid=2097913.
+   at Microsoft.EntityFrameworkCore.Internal.ConcurrencyDetector.EnterCriticalSection()
+   at Microsoft.EntityFrameworkCore.Query.Internal.QueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+System.InvalidOperationException: A second operation started on this context before a previous operation completed. This is usually caused by different threads using the same instance of DbContext. For more information on how to avoid threading issues with DbContext, see https://go.microsoft.com/fwlink/?linkid=2097913.
+   at Microsoft.EntityFrameworkCore.Internal.ConcurrencyDetector.EnterCriticalSection()
+   at Microsoft.EntityFrameworkCore.Query.Internal.QueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+2021-06-02 20:55:01.676 +03:00 [ERR] An exception occurred while iterating over the results of a query for context type 'FullFraim.Data.FullFraimDbContext'.
+System.InvalidOperationException: Invalid attempt to call ReadAsync when reader is closed.
+   at Microsoft.Data.Common.ADP.ExceptionWithStackTrace(Exception e)
+--- End of stack trace from previous location where exception was thrown ---
+   at Microsoft.EntityFrameworkCore.Query.Internal.QueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+System.InvalidOperationException: Invalid attempt to call ReadAsync when reader is closed.
+   at Microsoft.Data.Common.ADP.ExceptionWithStackTrace(Exception e)
+--- End of stack trace from previous location where exception was thrown ---
+   at Microsoft.EntityFrameworkCore.Query.Internal.QueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+2021-06-02 21:00:53.053 +03:00 [ERR] An exception occurred while iterating over the results of a query for context type 'FullFraim.Data.FullFraimDbContext'.
+System.InvalidOperationException: A second operation started on this context before a previous operation completed. This is usually caused by different threads using the same instance of DbContext. For more information on how to avoid threading issues with DbContext, see https://go.microsoft.com/fwlink/?linkid=2097913.
+   at Microsoft.EntityFrameworkCore.Internal.ConcurrencyDetector.EnterCriticalSection()
+   at Microsoft.EntityFrameworkCore.Query.Internal.QueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+System.InvalidOperationException: A second operation started on this context before a previous operation completed. This is usually caused by different threads using the same instance of DbContext. For more information on how to avoid threading issues with DbContext, see https://go.microsoft.com/fwlink/?linkid=2097913.
+   at Microsoft.EntityFrameworkCore.Internal.ConcurrencyDetector.EnterCriticalSection()
+   at Microsoft.EntityFrameworkCore.Query.Internal.QueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+2021-06-02 21:00:53.136 +03:00 [ERR] An exception occurred while iterating over the results of a query for context type 'FullFraim.Data.FullFraimDbContext'.
+System.InvalidOperationException: Invalid attempt to call ReadAsync when reader is closed.
+   at Microsoft.Data.Common.ADP.ExceptionWithStackTrace(Exception e)
+--- End of stack trace from previous location where exception was thrown ---
+   at Microsoft.EntityFrameworkCore.Query.Internal.QueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+System.InvalidOperationException: Invalid attempt to call ReadAsync when reader is closed.
+   at Microsoft.Data.Common.ADP.ExceptionWithStackTrace(Exception e)
+--- End of stack trace from previous location where exception was thrown ---
+   at Microsoft.EntityFrameworkCore.Query.Internal.QueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+2021-06-02 21:01:05.867 +03:00 [ERR] An exception occurred while iterating over the results of a query for context type 'FullFraim.Data.FullFraimDbContext'.
+System.InvalidOperationException: A second operation started on this context before a previous operation completed. This is usually caused by different threads using the same instance of DbContext. For more information on how to avoid threading issues with DbContext, see https://go.microsoft.com/fwlink/?linkid=2097913.
+   at Microsoft.EntityFrameworkCore.Internal.ConcurrencyDetector.EnterCriticalSection()
+   at Microsoft.EntityFrameworkCore.Query.Internal.QueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+System.InvalidOperationException: A second operation started on this context before a previous operation completed. This is usually caused by different threads using the same instance of DbContext. For more information on how to avoid threading issues with DbContext, see https://go.microsoft.com/fwlink/?linkid=2097913.
+   at Microsoft.EntityFrameworkCore.Internal.ConcurrencyDetector.EnterCriticalSection()
+   at Microsoft.EntityFrameworkCore.Query.Internal.QueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+2021-06-02 21:01:05.926 +03:00 [ERR] An exception occurred while iterating over the results of a query for context type 'FullFraim.Data.FullFraimDbContext'.
+System.InvalidOperationException: Invalid attempt to call ReadAsync when reader is closed.
+   at Microsoft.Data.Common.ADP.ExceptionWithStackTrace(Exception e)
+--- End of stack trace from previous location where exception was thrown ---
+   at Microsoft.EntityFrameworkCore.Query.Internal.QueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+System.InvalidOperationException: Invalid attempt to call ReadAsync when reader is closed.
+   at Microsoft.Data.Common.ADP.ExceptionWithStackTrace(Exception e)
+--- End of stack trace from previous location where exception was thrown ---
+   at Microsoft.EntityFrameworkCore.Query.Internal.QueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+2021-06-02 21:08:34.060 +03:00 [WRN] Sensitive data logging is enabled. Log entries and exception messages may include sensitive application data, this mode should only be enabled during development.
+=======
 2021-06-02 01:12:36.387 +03:00 [ERR] An unhandled exception has occurred while executing the request.
 FullFraim.Services.Exceptions.InvalidIdException: Value does not fall within the expected range.
    at FullFraim.Services.PhotoService.PhotoService.GetDetailedSubmissionsFromContestAsync(Int32 contestId, PaginationFilter paginationFilter) in C:\Users\Bambi\Desktop\Telerik\Alpha 26\GitLab Repos\photocontest\src\FullFraim\FullFraim.Services\PhotoService\PhotoService.cs:line 114
@@ -835,3 +1072,4 @@ C:\Programming\Repos\Telerik\photocontest\src\FullFraim\FullFraim.Web\Views\Shar
    at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
    at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
    at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware.Invoke(HttpContext context)
+>>>>>>> 325352f2e7a89269e9b6431f9bd9e3705008259c

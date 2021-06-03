@@ -1,18 +1,14 @@
 @model IEnumerable<DashboardViewModel>
 
 <div class="social-sidebar-area">
-    <div class="social-info-area">
-        <a href="#" data-toggle="tooltip" data-placement="right" title="Facebook"><i class="fa fa-facebook" aria-hidden="true"></i> <span>Facebook</span></a>
-        <a href="#" data-toggle="tooltip" data-placement="right" title="Twitter"><i class="fa fa-twitter" aria-hidden="true"></i> <span>Twitter</span></a>
-        <a href="#" data-toggle="tooltip" data-placement="right" title="Pinterest"><i class="fa fa-pinterest" aria-hidden="true"></i> <span>Pinterest</span></a>
-        <a href="#" data-toggle="tooltip" data-placement="right" title="Behance"><i class="fa fa-behance" aria-hidden="true"></i> <span>Behance</span></a>
-    </div>
+    <!-- Social Area -->
+    @await Component.InvokeAsync("PointsTillNext")
 </div>
 
 <div class="gallery_area clearfix">
     <div class="container-fluid clearfix">
-        @*<a asp-route-id="1" data-toggle="modal" data-target=".contact-modal-lg" class="btn btn-primary" 
-           onclick="OpenModal('@Url.Action("Enroll", "Dashboard", null, Context.Request.Scheme)', 'Enroll', 1)">Demo</a>*@
+        <a asp-route-id="1" data-toggle="modal" data-target=".contact-modal-lg" class="btn btn-primary"
+           onclick="OpenModal('@Url.Action("Enroll", "Dashboard", null, Context.Request.Scheme)', 'Enroll', 1)">Demo</a>
         <div class="dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Categories</a>
             <ul class="dropdown-menu">
@@ -69,7 +65,7 @@
                 $.ajax({
                     type: "GET",
                     url: url,
-                    data: {contestId: id},
+                    data: { contestId: id },
                     success: function (response) {
                         $(".modal-title").html(title);
                         $(".modal-body").html(response);

@@ -1,5 +1,7 @@
 ﻿using FullFraim.Data.Models;
+using FullFraim.Models.Dto_s.PhotoJunkies;
 using FullFraim.Models.Dto_s.Users;
+using FullFraim.Models.ViewModels.Dashboard;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -12,12 +14,27 @@ namespace Utilities.Mapper
             return query.Select(x =>
             new PhotoJunkyDto()
             {
+               Id = x.Id,
                FirstName = x.FirstName,
                LastName = x.LastName,
                Points = (int)x.Points,
                Rank = x.Rank.Name
             });
         } 
+
+        public static RankAndPointsViewModel MapToPointsViewModel
+            (this PhotoJunkieRankDto model, string fullName)
+        {
+            return new RankAndPointsViewModel()
+            {
+                FullUserName = fullName,
+                PointsTillNextRank = model.PointsTillNextRank
+                .ToString(),
+                CurrentPoints = model.RankPoints
+                .ToString(),
+                Rank = model.Rank,
+            };
+        }
         
         public static PhotoJunkyDto MapToJunkiDto(this User model)
         {

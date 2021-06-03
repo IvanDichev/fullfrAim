@@ -23,7 +23,6 @@
 
         @if (Model.ActivePhase.Name == "PhaseI")
         {
-
             @if (Model.IsCurrentUserParticipant)
             {
                 <a asp-action="GetByIdUserSubmission" asp-controller="Dashboard" asp-route-id="@Model.Id"
@@ -69,6 +68,7 @@
         }
     </div>
 </div>
+
 
 <script>
         @*$(document).ready(function () {
