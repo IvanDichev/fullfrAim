@@ -13,17 +13,17 @@
                     <img class="card-img-top" src="@Model.PhotoUrl" alt="Card image cap" style="width: 75%; height:50%" />
                     <p>@Model.Description</p>
                 </div>
-                <form id="account" method="post" enctype="multipart/form-data">
                     <input asp-for="Review.PhotoId" hidden />
                     <input asp-for="Review.JuryId" hidden />
                     <div class="fadeIn first" style="margin-top: 1rem;">
                         <h5 style="display: inline-block">Give Review</h5>
                     </div>
                     <hr />
+
                     <div asp-validation-summary="All" class="text-danger"></div>
                     <div class="form-group">
                         <label asp-for="Review.Comment"></label>
-                        <input asp-for="Review.Comment" class="form-control fadeIn second" readonly />
+                        <textarea asp-for="Review.Comment" class="form-control fadeIn second" readonly ></textarea>
                         <span asp-validation-for="Review.Comment" class="text-danger"></span>
                     </div>
 
@@ -43,10 +43,9 @@
 
                     <div class="form-group formFooter">
                         <div class="form-group">
-                            <button type="submit" asp-controller="Dashboard" asp-action="GiveReview" formmethod="post" class="btn btn-secondary fadeIn fourth" disabled>Already submited</button>
+                            <button formmethod="post" class="btn btn-secondary fadeIn fourth" disabled>Already submited</button>
                         </div>
                     </div>
-                </form>
             </div>
         </div>
     </div>
@@ -61,17 +60,20 @@ else
                     <img class="card-img-top" src="@Model.PhotoUrl" alt="Card image cap" style="width: 75%; height:50%" />
                     <p>@Model.Description</p>
                 </div>
-                <form id="account" method="post" enctype="multipart/form-data">
+                <form id="account" asp-controller="Dashboard" asp-action="GiveReview" method="post">
                     <input asp-for="Review.PhotoId" hidden />
                     <input asp-for="Review.JuryId" hidden />
+                    <input asp-for="PhotoId" hidden />
+                    <input asp-for="Review.PhotoId" hidden />
+                    <input asp-for="PhotoUrl" hidden />
                     <div class="fadeIn first" style="margin-top: 1rem;">
                         <h5 style="display: inline-block">Give Review</h5>
                     </div>
                     <hr />
-                    <div asp-validation-summary="All" class="text-danger"></div>
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                     <div class="form-group">
                         <label asp-for="Review.Comment"></label>
-                        <input asp-for="Review.Comment" class="form-control fadeIn second" placeholder="Name" />
+                        <textarea asp-for="Review.Comment" class="form-control fadeIn second" placeholder="Comment.." ></textarea>
                         <span asp-validation-for="Review.Comment" class="text-danger"></span>
                     </div>
 
@@ -92,7 +94,7 @@ else
                     <div class="form-group formFooter">
                         <div class="form-group">
                             <p>Please note: You can give one review for this photo, once you submit it you won't be able to make changes</p>
-                            <button type="submit" asp-controller="Dashboard" asp-action="GiveReview" formmethod="post" class="btn btn-primary fadeIn fourth">Submit</button>
+                            <button type="submit"  formmethod="post" class="btn btn-primary fadeIn fourth">Submit</button>
                         </div>
                     </div>
                 </form>

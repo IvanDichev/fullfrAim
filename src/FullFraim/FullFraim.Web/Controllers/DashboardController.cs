@@ -185,11 +185,16 @@ namespace FullFraim.Web.Controllers
         {
             model.JuryId = UserId;
 
-            if (!await juryService.IsContestInPhaseTwoAsync(model.PhotoId))
+            if (!await juryService.IsContestInPhaseTwoAsync(model.Review.PhotoId))
             {
                 ModelState
                    .AddModelError(string.Empty,
                    errorMessage: ErrorMessages.ReviewOutsidePhaseTwo);
+            }
+
+            if (!ModelState.IsValid)
+            {
+                return View("~/Views/Dashboard/GiveReview.cshtml", model);
             }
 
             if (await juryService.HasJuryAlreadyGivenReviewAsync(model.JuryId, model.PhotoId))

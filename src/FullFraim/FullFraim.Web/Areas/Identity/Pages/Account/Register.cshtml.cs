@@ -132,7 +132,6 @@ namespace Web.Areas.Identity.Pages.Account
                         TempData["Success"] = "Please confirm your email with the link we sent you.";
 
                         return RedirectToPage("./Login");
-                        //return RedirectToPage("RegisterConfirmation", new { email = Input.Email, returnUrl = returnUrl });
                     }
                     else
                     {
