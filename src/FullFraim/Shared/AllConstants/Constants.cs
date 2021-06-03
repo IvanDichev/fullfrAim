@@ -74,7 +74,7 @@ namespace Shared
             public const string Fashion_Beauty = "Fashion/Beauty";
             public const string Fine_Art = "Fine Art";
             public const string Landscapes = "Landscapes";
-            public const string Nature = "Natrue";
+            public const string Nature = "Nature";
             public const string Boudoir = "Boudoir";
             public const string Photojournalism = "Photojournalism";
             public const string Portrait = "Portrait";

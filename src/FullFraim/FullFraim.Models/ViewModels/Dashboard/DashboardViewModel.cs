@@ -17,6 +17,7 @@ namespace FullFraim.Models.ViewModels.Dashboard
         public bool IsCurrentUserParticipant { get; set; }
         public bool IsCurrentUserJury { get; set; }
         public IEnumerable<DashboardViewModel> Contests { get; set; }
+        // TODO MAKE VIEW MODEL
         public IEnumerable<ContestCategoryDto> Categories { get; set; }
     }
 }
