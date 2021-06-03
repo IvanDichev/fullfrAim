@@ -2,6 +2,7 @@
 using FullFraim.Models.Dto_s.Phases;
 using FullFraim.Services.Exceptions;
 using Microsoft.EntityFrameworkCore;
+using Shared.AllConstants;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -22,7 +23,7 @@ namespace FullFraim.Services.PhaseServices
         {
             if (model == null)
             {
-                throw new NullModelException();
+                throw new NullModelException(string.Format(LogMessages.NullModel, "PhaseService", "CreateAsync"));
             }
 
             await this.context.Phases
@@ -38,7 +39,7 @@ namespace FullFraim.Services.PhaseServices
         {
             if (id <= 0)
             {
-                throw new InvalidIdException();
+                throw new InvalidIdException(string.Format(LogMessages.InvalidId, "PhaseService", "DeleteAsync", id, "phase"));
             }
 
             var modelToRemove = await this.context.Phases
@@ -63,7 +64,7 @@ namespace FullFraim.Services.PhaseServices
         {
             if (id <= 0)
             {
-                throw new InvalidIdException();
+                throw new InvalidIdException(string.Format(LogMessages.InvalidId, "PhaseService", "GetByIdAsync", id, "phase"));
             }
 
             var result = await this.context.Phases
@@ -72,7 +73,7 @@ namespace FullFraim.Services.PhaseServices
 
             if (result == null)
             {
-                throw new NotFoundException();
+                throw new NotFoundException(string.Format(LogMessages.NotFound, "PhaseService", "GetByIdAsync", id));
             }
 
             return result;
@@ -82,12 +83,12 @@ namespace FullFraim.Services.PhaseServices
         {
             if (model == null)
             {
-                throw new NullModelException();
+                throw new NullModelException(string.Format(LogMessages.NullModel, "PhaseService", "UpdateAsync"));
             }
 
             if(id <= 0)
             {
-                throw new InvalidIdException();
+                throw new InvalidIdException(string.Format(LogMessages.InvalidId, "PhaseService", "UpdateAsync", id, "phase"));
             }
 
             var dbModelToUpdate = await this.context.Phases
@@ -95,7 +96,7 @@ namespace FullFraim.Services.PhaseServices
 
             if (dbModelToUpdate == null)
             {
-                throw new NotFoundException();
+                throw new NotFoundException(string.Format(LogMessages.NotFound, "PhaseService", "UpdateAsync", id));
             }
 
             dbModelToUpdate.Name = model.Name ?? dbModelToUpdate.Name;

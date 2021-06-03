@@ -13,51 +13,51 @@ namespace FullFraim.Data.Seed
         {
            new ContestCategory()
            {
-              Name = Constants.ConstestCategorySeed.Abstract
+              Name = Constants.ConstestCategory.Abstract
            },
            new ContestCategory()
            {
-              Name = Constants.ConstestCategorySeed.Architecture
+              Name = Constants.ConstestCategory.Architecture
            },
            new ContestCategory()
            {
-               Name = Constants.ConstestCategorySeed.Conceptual
+               Name = Constants.ConstestCategory.Conceptual
            },
            new ContestCategory()
            {
-               Name = Constants.ConstestCategorySeed.Fashion_Beauty
+               Name = Constants.ConstestCategory.Fashion_Beauty
            },
            new ContestCategory()
            {
-               Name = Constants.ConstestCategorySeed.Fine_Art
+               Name = Constants.ConstestCategory.Fine_Art
            },
            new ContestCategory()
            {
-               Name = Constants.ConstestCategorySeed.Landscapes
+               Name = Constants.ConstestCategory.Landscapes
            },
            new ContestCategory()
            {
-               Name = Constants.ConstestCategorySeed.Nature
+               Name = Constants.ConstestCategory.Nature
            },
            new ContestCategory()
            {
-               Name = Constants.ConstestCategorySeed.Boudoir
+               Name = Constants.ConstestCategory.Boudoir
            },
            new ContestCategory()
            {
-               Name = Constants.ConstestCategorySeed.Photojournalism
+               Name = Constants.ConstestCategory.Photojournalism
            },
            new ContestCategory()
            {
-               Name = Constants.ConstestCategorySeed.Portrait
+               Name = Constants.ConstestCategory.Portrait
            },
            new ContestCategory()
            {
-               Name = Constants.ConstestCategorySeed.Street
+               Name = Constants.ConstestCategory.Street
            },
            new ContestCategory()
            {
-               Name = Constants.ConstestCategorySeed.Wildlife
+               Name = Constants.ConstestCategory.Wildlife
            }
         };
 

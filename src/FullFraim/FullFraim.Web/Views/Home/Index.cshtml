@@ -1,4 +1,4 @@
-﻿@model List<PhotoDto>
+﻿@model List<HomeIndexViewModel>
 
 <div class="social-sidebar-area bg-white" style="height: 11.8%">
     <!-- Social Area -->
@@ -22,7 +22,7 @@
         <div class="carousel-inner h-100">
             @for (int i = 0; i < Model.Count; i++)
             {
-                <div class="carousel-item h-100 bg-img" id="should-be-active" style="background-image: url(@Model[i].Url);">
+                <div class="carousel-item h-100 bg-img" id="should-be-active" style="background-image: url(@Model[i].PhotoUrl);">
                     <div class="carousel-content h-100">
                         <div class="slide-text">
                             <span>@(i + 1). </span>
@@ -35,7 +35,7 @@
         <ol class="carousel-indicators">
             @for (int i = 0; i < Model.Count; i++)
             {
-                <li data-target="#welcomeSlider" data-slide-to="@i" class="bg-img" id="should-be-active1" style=" background-image: url(@Model[i].Url);"></li>
+                <li data-target="#welcomeSlider" data-slide-to="@i" class="bg-img" id="should-be-active1" style=" background-image: url(@Model[i].PhotoUrl);"></li>
             }
         </ol>
     </div>

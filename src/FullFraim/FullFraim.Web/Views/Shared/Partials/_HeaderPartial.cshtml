@@ -46,7 +46,7 @@
                                     </li>
 
                                 }
-                                @if (User.IsInRole(Constants.RolesSeed.Organizer))
+                                @if (User.IsInRole(Constants.Roles.Organizer))
                                 {
                                     <li class="nav-item">
                                         <a class="nav-link" asp-controller="FileUploadDemo" asp-action="Index">upload</a>

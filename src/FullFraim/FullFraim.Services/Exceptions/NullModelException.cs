@@ -7,8 +7,6 @@ namespace FullFraim.Services.Exceptions
         public NullModelException()
         { }
 
-        public NullModelException(string message)
-            :base(message)
-        { }
+        public NullModelException(string message) : base(message) { }
     }
 }

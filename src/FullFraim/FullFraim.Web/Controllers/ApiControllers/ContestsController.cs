@@ -6,7 +6,6 @@ using FullFraim.Web.Filters;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System.Security.Claims;
 using System.Threading.Tasks;
 using static Shared.Constants;
 
@@ -35,7 +34,6 @@ namespace FullFraim.Web.Controllers.ApiControllers
         public async Task<IActionResult> GetAll
             ([FromQuery] PaginationFilter paginationFilter, int? participantId, int? juryId, string phase, string contestType)
         {
-           // int userId = int.Parse(HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value);
             var contests = await this.contestService.GetAllAsync(participantId, juryId, phase, contestType, paginationFilter);
 
             return this.Ok(contests);
@@ -60,13 +58,18 @@ namespace FullFraim.Web.Controllers.ApiControllers
         }
 
         [HttpPost]
-        [Authorize(Roles = RolesSeed.Organizer)]
+        [Authorize(Roles = Roles.Organizer)]
         [APIExceptionFilter]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         public async Task<IActionResult> Create([FromBody] InputContestDto inputModel)
         {
+            if (!await this.contestService.IsNameUniqueAsync(inputModel.Name))
+            {
+                return BadRequest("Name must be unique.");
+            }
+
             var createdModel = await this.contestService.CreateAsync(inputModel);
 
             return this.Created(nameof(GetById), createdModel);
@@ -79,14 +82,14 @@ namespace FullFraim.Web.Controllers.ApiControllers
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         public async Task<IActionResult> Update([FromHeader] int id, [FromBody] InputContestDto inputModel)
         {
-            if (await IsCurrentUserJuryInContestAsync(id))
+            if (!await IsCurrentUserJuryInContestAsync(id))
             {
-                await this.contestService.UpdateAsync(id, inputModel);
-
-                return this.Ok();
+                return this.Unauthorized();
             }
 
-            return this.Unauthorized();
+            await this.contestService.UpdateAsync(id, inputModel);
+
+            return this.Ok();
         }
 
         [HttpDelete("{id}")]
@@ -96,25 +99,24 @@ namespace FullFraim.Web.Controllers.ApiControllers
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         public async Task<IActionResult> Delete([FromHeader] int id)
         {
-            if (await IsCurrentUserJuryInContestAsync(id))
+            if (!await IsCurrentUserJuryInContestAsync(id))
             {
-                await this.contestService.DeleteAsync(id);
-
-                return this.NoContent();
+                return this.Unauthorized();
             }
+            await this.contestService.DeleteAsync(id);
 
-            return this.Unauthorized();
+            return this.NoContent();
         }
 
         [HttpGet("/Covers")]
-        [Authorize(Roles = RolesSeed.Organizer)]
+        [Authorize(Roles = Roles.Organizer)]
         [APIExceptionFilter]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(PaginatedModel<string>))]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         public async Task<IActionResult> GetCovers([FromQuery] PaginationFilter paginationFilter)
         {
-            var result = await this.contestService.GetCoversAsync(paginationFilter);
+            var result = await this.contestService.GetConetstCoversAsync(paginationFilter);
 
             return this.Ok(result);
         }

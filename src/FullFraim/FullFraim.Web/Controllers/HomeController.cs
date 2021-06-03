@@ -1,5 +1,6 @@
 ﻿using FullFraim.Models.Dto_s.Photos;
 using FullFraim.Models.ViewModels.ContactUs;
+using FullFraim.Models.ViewModels.Home;
 using FullFraim.Services.PhotoService;
 using FullFraim.Web.Models;
 using Microsoft.AspNetCore.Http;
@@ -11,8 +12,10 @@ using Shared;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using System.Threading.Tasks;
 using Utilities.Mailing;
+using Utilities.Mapper;
 
 namespace FullFraim.Web.Controllers
 {
@@ -39,9 +42,10 @@ namespace FullFraim.Web.Controllers
 
         public async Task<IActionResult> Index()
         {
-            if(!cache.TryGetValue<ICollection<PhotoDto>>("photos", out var photos))
+            if(!cache.TryGetValue<ICollection<HomeIndexViewModel>>("photos", out var photos))
             {
-                photos = await this.photoService.GetTopRecentPhotosAsync();
+                photos = (await this.photoService.GetTopRecentPhotosAsync())
+                    .Select(p => p.MapToHomeViewModel()).ToList();
                 cache.Set("photos", photos, TimeSpan.FromDays(1));
             }
 
@@ -71,7 +75,7 @@ namespace FullFraim.Web.Controllers
                         SenderName: Constants.Email.SenderName,
                         To: this.configuration["SendGrid:SenderEmail"],
                         Subject: inputModel.Subject,
-                        HtmlContent: $"{inputModel.Email} contacted us with message: {inputModel.Message}");
+                        HtmlContent: $"<b>{inputModel.Email}<b/> contacted us with message:\n {inputModel.Message}");
 
             return RedirectToAction(nameof(Index));
         }

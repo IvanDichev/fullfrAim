@@ -1,6 +1,6 @@
 ﻿namespace FullFraim.Models.Dto_s.Users
 {
-    public class PhotoJunkieDto
+    public class PhotoJunkyDto
     {
         public string FirstName { get; set; }
         public string LastName { get; set; }

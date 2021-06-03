@@ -2,12 +2,14 @@ using FullFraim.Services.SecurityServices;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Shared;
 using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace FullFraim.Web.Controllers.ApiControllers
 {
     [ApiController]
+    [Authorize(Roles = Constants.Roles.Admin)]
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public abstract class BaseApiController : ControllerBase
     {

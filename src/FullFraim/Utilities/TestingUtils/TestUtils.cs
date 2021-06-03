@@ -27,62 +27,62 @@ namespace Utilities.TestingUtils
                 new ContestCategory()
                 {
                     Id = 1,
-                    Name = Constants.ConstestCategorySeed.Abstract
+                    Name = Constants.ConstestCategory.Abstract
                 },
                 new ContestCategory()
                 {
                     Id = 2,
-                    Name = Constants.ConstestCategorySeed.Architecture
+                    Name = Constants.ConstestCategory.Architecture
                 },
                 new ContestCategory()
                 {
                     Id = 3,
-                    Name = Constants.ConstestCategorySeed.Conceptual
+                    Name = Constants.ConstestCategory.Conceptual
                 },
                 new ContestCategory()
                 {
                     Id = 4,
-                    Name = Constants.ConstestCategorySeed.Fashion_Beauty
+                    Name = Constants.ConstestCategory.Fashion_Beauty
                 },
                 new ContestCategory()
                 {
                     Id = 5,
-                    Name = Constants.ConstestCategorySeed.Fine_Art
+                    Name = Constants.ConstestCategory.Fine_Art
                 },
                 new ContestCategory()
                 {
                     Id = 6,
-                    Name = Constants.ConstestCategorySeed.Landscapes
+                    Name = Constants.ConstestCategory.Landscapes
                 },
                 new ContestCategory()
                 {
                     Id = 7,
-                    Name = Constants.ConstestCategorySeed.Nature
+                    Name = Constants.ConstestCategory.Nature
                 },
                 new ContestCategory()
                 {
                     Id = 8,
-                    Name = Constants.ConstestCategorySeed.Boudoir
+                    Name = Constants.ConstestCategory.Boudoir
                 },
                 new ContestCategory()
                 {
                     Id = 9,
-                    Name = Constants.ConstestCategorySeed.Photojournalism
+                    Name = Constants.ConstestCategory.Photojournalism
                 },
                 new ContestCategory()
                 {
                     Id = 10,
-                    Name = Constants.ConstestCategorySeed.Portrait
+                    Name = Constants.ConstestCategory.Portrait
                 },
                 new ContestCategory()
                 {
                     Id = 11,
-                    Name = Constants.ConstestCategorySeed.Street
+                    Name = Constants.ConstestCategory.Street
                 },
                 new ContestCategory()
                 {
                     Id = 12,
-                    Name = Constants.ConstestCategorySeed.Wildlife
+                    Name = Constants.ConstestCategory.Wildlife
                 }
             };
         }
@@ -195,7 +195,7 @@ namespace Utilities.TestingUtils
                     Id = 1,
                     Name = "Portrait",
                     Description = "Portrait contest - PhaseOne",
-                    Cover_Url = Constants.ImagesSeed.PortraitImgUrlCover,
+                    Cover_Url = Constants.Images.PortraitImgUrlCover,
                     ContestCategoryId = 10,
                     ContestTypeId = 2,
                     CreatedOn = DateTime.UtcNow,
@@ -205,7 +205,7 @@ namespace Utilities.TestingUtils
                     Id = 2,
                     Name = "WildlifePhaseTwo",
                     Description = "PhaseTwo",
-                    Cover_Url = Constants.ImagesSeed.WildlifeImgUrlCover,
+                    Cover_Url = Constants.Images.WildlifeImgUrlCover,
                     ContestCategoryId = 12,
                     ContestTypeId = 1,
                     CreatedOn = DateTime.UtcNow.AddDays(-30),
@@ -214,7 +214,7 @@ namespace Utilities.TestingUtils
                     Id = 3,
                     Name = "WildlifePhaseThree",
                     Description = "PhaseThree",
-                    Cover_Url = Constants.ImagesSeed.WildlifeImgUrlCover,
+                    Cover_Url = Constants.Images.WildlifeImgUrlCover,
                     ContestCategoryId = 12,
                     ContestTypeId = 1,
                     CreatedOn = DateTime.UtcNow.AddDays(-2),
@@ -224,7 +224,7 @@ namespace Utilities.TestingUtils
                     Id = 4,
                     Name = "WildlifePhaseOne",
                     Description = "PhaseOne",
-                    Cover_Url = Constants.ImagesSeed.WildlifeImgUrlCover,
+                    Cover_Url = Constants.Images.WildlifeImgUrlCover,
                     ContestCategoryId = 12,
                     ContestTypeId = 1,
                     CreatedOn = DateTime.UtcNow,
@@ -234,7 +234,7 @@ namespace Utilities.TestingUtils
                     Id = 5,
                     Name = "GlobalWarmingPhaseTwo",
                     Description = "PhaseTwo",
-                    Cover_Url = Constants.ImagesSeed.WildlifeImgUrlCover,
+                    Cover_Url = Constants.Images.WildlifeImgUrlCover,
                     ContestCategoryId = 12,
                     ContestTypeId = 1,
                     CreatedOn = DateTime.UtcNow,
@@ -244,7 +244,7 @@ namespace Utilities.TestingUtils
                     Id = 6,
                     Name = "OnTheRoadPhaseTwo",
                     Description = "PhaseTwo",
-                    Cover_Url = Constants.ImagesSeed.WildlifeImgUrlCover,
+                    Cover_Url = Constants.Images.WildlifeImgUrlCover,
                     ContestCategoryId = 12,
                     ContestTypeId = 1,
                     CreatedOn = DateTime.UtcNow,
@@ -258,12 +258,12 @@ namespace Utilities.TestingUtils
                 new ContestType()
                 {
                     Id = 1,
-                   Name = Constants.ContestTypeSeed.Open
+                   Name = Constants.ContestType.Open
                 },
                 new ContestType()
                 {
                     Id = 2,
-                    Name = Constants.ContestTypeSeed.Invitational
+                    Name = Constants.ContestType.Invitational
                 },
             };
         }
@@ -428,17 +428,17 @@ namespace Utilities.TestingUtils
                 new Phase()
                 {
                    Id = 1,
-                   Name = Constants.PhasesSeed.PhaseI
+                   Name = Constants.Phases.PhaseI
                 },
                 new Phase()
                 {
                    Id = 2,
-                   Name = Constants.PhasesSeed.PhaseII
+                   Name = Constants.Phases.PhaseII
                 },
                 new Phase()
                 {
                    Id = 3,
-                   Name = Constants.PhasesSeed.Finished
+                   Name = Constants.Phases.Finished
                 },
             };
         }
@@ -548,7 +548,7 @@ namespace Utilities.TestingUtils
                     ContestId = 1,
                     Title = "Squirrel",
                     Story = "Looking down",
-                    Url = Constants.ImagesSeed.WildlifeImgUrl,
+                    Url = Constants.Images.WildlifeImgUrl,
                 },
                 new Photo()
                 {
@@ -556,7 +556,7 @@ namespace Utilities.TestingUtils
                     ContestId = 1,
                     Title = "Bath time",
                     Story = "On my way",
-                    Url = Constants.ImagesSeed.WildlifeImg2Url,
+                    Url = Constants.Images.WildlifeImg2Url,
                 },
                 new Photo()
                 {
@@ -564,7 +564,7 @@ namespace Utilities.TestingUtils
                     ContestId = 1,
                     Title = "Fight in the night",
                     Story = "Subway fighters",
-                    Url = Constants.ImagesSeed.WildlifeImg3Url,
+                    Url = Constants.Images.WildlifeImg3Url,
                 },
                 new Photo()
                 {
@@ -572,7 +572,7 @@ namespace Utilities.TestingUtils
                     ContestId = 1,
                     Title = "I can climb it",
                     Story = "Not a long way, we can climb it",
-                    Url = Constants.ImagesSeed.WildlifeImg4Url,
+                    Url = Constants.Images.WildlifeImg4Url,
                 },
                 new Photo()
                 {
@@ -580,7 +580,7 @@ namespace Utilities.TestingUtils
                     ContestId = 2,
                     Title = "Fight in the night",
                     Story = "Subway fighters",
-                    Url = Constants.ImagesSeed.WildlifeImg3Url,
+                    Url = Constants.Images.WildlifeImg3Url,
                 },
                 new Photo()
                 {
@@ -588,7 +588,7 @@ namespace Utilities.TestingUtils
                     ContestId = 2,
                     Title = "I can climb it",
                     Story = "Not a long way, we can climb it",
-                    Url = Constants.ImagesSeed.WildlifeImg4Url,
+                    Url = Constants.Images.WildlifeImg4Url,
                 },
                 new Photo()
                 {
@@ -596,7 +596,7 @@ namespace Utilities.TestingUtils
                     ContestId = 2,
                     Title = "Can I have some?",
                     Story = "Hungry birds",
-                    Url = Constants.ImagesSeed.WildlifeImg5Url,
+                    Url = Constants.Images.WildlifeImg5Url,
                 },
                 new Photo()
                 {
@@ -604,7 +604,7 @@ namespace Utilities.TestingUtils
                     ContestId = 2,
                     Title = "Git It!",
                     Story = "Got it!",
-                    Url = Constants.ImagesSeed.WildlifeImg6Url,
+                    Url = Constants.Images.WildlifeImg6Url,
                 },
 
                 new Photo()
@@ -613,7 +613,7 @@ namespace Utilities.TestingUtils
                     ContestId = 3,
                     Title = "Squirrel",
                     Story = "Looking down",
-                    Url = Constants.ImagesSeed.WildlifeImgUrl,
+                    Url = Constants.Images.WildlifeImgUrl,
                 },
                 new Photo()
                 {
@@ -621,7 +621,7 @@ namespace Utilities.TestingUtils
                     ContestId = 3,
                     Title = "Bath time",
                     Story = "On my way",
-                    Url = Constants.ImagesSeed.WildlifeImg2Url,
+                    Url = Constants.Images.WildlifeImg2Url,
                 },
                 new Photo()
                 {
@@ -629,7 +629,7 @@ namespace Utilities.TestingUtils
                     ContestId = 3,
                     Title = "Fight in the night",
                     Story = "Subway fighters",
-                    Url = Constants.ImagesSeed.WildlifeImg3Url,
+                    Url = Constants.Images.WildlifeImg3Url,
                 },
                 new Photo()
                 {
@@ -637,7 +637,7 @@ namespace Utilities.TestingUtils
                     ContestId = 3,
                     Title = "I can climb it",
                     Story = "Not a long way, we can climb it",
-                    Url = Constants.ImagesSeed.WildlifeImg4Url,
+                    Url = Constants.Images.WildlifeImg4Url,
                 },
                 new Photo()
                 {
@@ -645,7 +645,7 @@ namespace Utilities.TestingUtils
                     ContestId = 4,
                     Title = "Smile",
                     Story = "Just a nice picture",
-                    Url = Constants.ImagesSeed.PortraitImgUrlCover,
+                    Url = Constants.Images.PortraitImgUrlCover,
                 },
                 new Photo()
                 {
@@ -653,7 +653,7 @@ namespace Utilities.TestingUtils
                     ContestId = 6,
                     Title = "Sonrisa",
                     Story = "Just a nice picture",
-                    Url = Constants.ImagesSeed.PortraitImgUrlCover,
+                    Url = Constants.Images.PortraitImgUrlCover,
                 },
                 new Photo()
                 {
@@ -661,7 +661,7 @@ namespace Utilities.TestingUtils
                     ContestId = 6,
                     Title = "Paisaje",
                     Story = "Just a nice picture",
-                    Url = Constants.ImagesSeed.PortraitImgUrlCover,
+                    Url = Constants.Images.PortraitImgUrlCover,
                 },
                 new Photo()
                 {
@@ -669,7 +669,7 @@ namespace Utilities.TestingUtils
                     ContestId = 6,
                     Title = "Maravilla",
                     Story = "Just a nice picture",
-                    Url = Constants.ImagesSeed.PortraitImgUrlCover,
+                    Url = Constants.Images.PortraitImgUrlCover,
                 },
                 new Photo()
                 {
@@ -677,7 +677,7 @@ namespace Utilities.TestingUtils
                     ContestId = 6,
                     Title = "De camino",
                     Story = "Just a nice picture",
-                    Url = Constants.ImagesSeed.PortraitImgUrlCover,
+                    Url = Constants.Images.PortraitImgUrlCover,
                 },
             };
         }
@@ -688,22 +688,22 @@ namespace Utilities.TestingUtils
                 new Rank()
                 {
                     Id = 1,
-                    Name = Constants.RanksSeed.Junkie,
+                    Name = Constants.Ranks.Junkie,
                 },
                 new Rank()
                 {
                     Id = 2,
-                    Name = Constants.RanksSeed.Enthusiast,
+                    Name = Constants.Ranks.Enthusiast,
                 },
                 new Rank()
                 {
                     Id = 3,
-                    Name = Constants.RanksSeed.Master,
+                    Name = Constants.Ranks.Master,
                 },
                 new Rank()
                 {
                     Id = 4,
-                    Name = Constants.RanksSeed.WiseAndBenevolentPhotoDictator,
+                    Name = Constants.Ranks.WiseAndBenevolentPhotoDictator,
                 },
             };
         }
@@ -728,86 +728,86 @@ namespace Utilities.TestingUtils
                 new User()
                 {
                     Id = 2,
-                    FirstName = Constants.UserSeed.Valentin,
-                    LastName = Constants.UserSeed.Shikov,
-                    UserName = Constants.UserSeed.VShikovEmail,
-                    NormalizedUserName = Constants.UserSeed.VShikovEmail.ToUpper(),
-                    Email = Constants.UserSeed.VShikovEmail,
-                    NormalizedEmail = Constants.UserSeed.VShikovEmail.ToUpper(),
+                    FirstName = Constants.UserData.Valentin,
+                    LastName = Constants.UserData.Shikov,
+                    UserName = Constants.UserData.VShikovEmail,
+                    NormalizedUserName = Constants.UserData.VShikovEmail.ToUpper(),
+                    Email = Constants.UserData.VShikovEmail,
+                    NormalizedEmail = Constants.UserData.VShikovEmail.ToUpper(),
                     EmailConfirmed = true,
                     Points = 0,
                     Rank = new Rank()
                 {
                     Id = 5,
-                    Name = Constants.RanksSeed.Junkie,
+                    Name = Constants.Ranks.Junkie,
                 },
                 },
                 new User()
                 {
                     Id = 3,
-                    FirstName = Constants.UserSeed.Ivan,
-                    LastName = Constants.UserSeed.Dichev,
-                    UserName = Constants.UserSeed.IDichevEmail,
-                    NormalizedUserName = Constants.UserSeed.IDichevEmail.ToUpper(),
-                    Email = Constants.UserSeed.IDichevEmail,
-                    NormalizedEmail = Constants.UserSeed.IDichevEmail.ToUpper(),
+                    FirstName = Constants.UserData.Ivan,
+                    LastName = Constants.UserData.Dichev,
+                    UserName = Constants.UserData.IDichevEmail,
+                    NormalizedUserName = Constants.UserData.IDichevEmail.ToUpper(),
+                    Email = Constants.UserData.IDichevEmail,
+                    NormalizedEmail = Constants.UserData.IDichevEmail.ToUpper(),
                     EmailConfirmed = true,
                     Points = 0,
                     Rank = new Rank()
                 {
                     Id = 6,
-                    Name = Constants.RanksSeed.Junkie,
+                    Name = Constants.Ranks.Junkie,
                 },
                 },
                 new User()
                 {
                     Id = 4,
-                    FirstName = Constants.UserSeed.Boryana,
-                    LastName = Constants.UserSeed.Mihaylova,
-                    UserName = Constants.UserSeed.BMihaylovaEmail,
-                    NormalizedUserName = Constants.UserSeed.BMihaylovaEmail.ToUpper(),
-                    Email = Constants.UserSeed.BMihaylovaEmail,
-                    NormalizedEmail = Constants.UserSeed.BMihaylovaEmail.ToUpper(),
+                    FirstName = Constants.UserData.Boryana,
+                    LastName = Constants.UserData.Mihaylova,
+                    UserName = Constants.UserData.BMihaylovaEmail,
+                    NormalizedUserName = Constants.UserData.BMihaylovaEmail.ToUpper(),
+                    Email = Constants.UserData.BMihaylovaEmail,
+                    NormalizedEmail = Constants.UserData.BMihaylovaEmail.ToUpper(),
                     EmailConfirmed = true,
                     Points = 0,
                     Rank = new Rank()
                 {
                     Id = 7,
-                    Name = Constants.RanksSeed.Junkie,
+                    Name = Constants.Ranks.Junkie,
                 },
                 },
                 new User()
                 {
                     Id = 5,
-                    FirstName = Constants.UserSeed.Dimitar,
-                    LastName = Constants.UserSeed.Dimitrov,
-                    UserName = Constants.UserSeed.DDimitrovEmail,
-                    NormalizedUserName = Constants.UserSeed.DDimitrovEmail.ToUpper(),
-                    Email = Constants.UserSeed.DDimitrovEmail,
-                    NormalizedEmail = Constants.UserSeed.DDimitrovEmail.ToUpper(),
+                    FirstName = Constants.UserData.Dimitar,
+                    LastName = Constants.UserData.Dimitrov,
+                    UserName = Constants.UserData.DDimitrovEmail,
+                    NormalizedUserName = Constants.UserData.DDimitrovEmail.ToUpper(),
+                    Email = Constants.UserData.DDimitrovEmail,
+                    NormalizedEmail = Constants.UserData.DDimitrovEmail.ToUpper(),
                     EmailConfirmed = true,
                     Points = 0,
                     Rank = new Rank()
                 {
                     Id = 8,
-                    Name = Constants.RanksSeed.Junkie,
+                    Name = Constants.Ranks.Junkie,
                 },
                 },
                 new User()
                 {
                     Id = 6,
-                    FirstName = Constants.UserSeed.Emily,
-                    LastName = Constants.UserSeed.Ivanova,
-                    UserName = Constants.UserSeed.EIvanovaEmail,
-                    NormalizedUserName = Constants.UserSeed.EIvanovaEmail.ToUpper(),
-                    Email = Constants.UserSeed.EIvanovaEmail,
-                    NormalizedEmail = Constants.UserSeed.EIvanovaEmail.ToUpper(),
+                    FirstName = Constants.UserData.Emily,
+                    LastName = Constants.UserData.Ivanova,
+                    UserName = Constants.UserData.EIvanovaEmail,
+                    NormalizedUserName = Constants.UserData.EIvanovaEmail.ToUpper(),
+                    Email = Constants.UserData.EIvanovaEmail,
+                    NormalizedEmail = Constants.UserData.EIvanovaEmail.ToUpper(),
                     EmailConfirmed = true,
                     Points = 0,
                     Rank = new Rank()
                 {
                     Id = 9,
-                    Name = Constants.RanksSeed.Junkie,
+                    Name = Constants.Ranks.Junkie,
                 },
                 },
             };

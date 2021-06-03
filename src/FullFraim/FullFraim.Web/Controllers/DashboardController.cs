@@ -11,6 +11,7 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using Utilities.CloudinaryUtils;
 using Utilities.Mapper;
+using Shared.AllConstants;
 using FullFraim.Services.JuryServices;
 using FullFraim.Models.Dto_s.Photos;
 
@@ -72,7 +73,7 @@ namespace FullFraim.Web.Controllers
             {
                 ModelState
                     .AddModelError(string.Empty,
-                    errorMessage: "You cannot enroll in this contest");
+                    errorMessage: ErrorMessages.CannotEnroll);
             }
 
             if(!ModelState.IsValid)
