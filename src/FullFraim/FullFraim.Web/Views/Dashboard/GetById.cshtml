@@ -1,6 +1,12 @@
 ﻿@model PaginatedModel<ContestSubmissionViewModel>
 
 <div class="gallery_area clearfix">
+    @if (TempData["success"] != null)
+    {
+    <div class="alert alert-success">
+        <strong>Success!</strong> @TempData["success"]
+    </div>
+    }
     <div class="container-fluid clearfix">
         <h4 class="text-success">Reviewed</h4>
         <hr>

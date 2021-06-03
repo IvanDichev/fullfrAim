@@ -21,6 +21,11 @@ namespace Shared
             public const string WildlifeImg6Url = "https://res.cloudinary.com/fullfraim/image/upload/v1621963217/rw0eyykyktcyb1ihqdkn.jpg";
         }
 
+        public static class SuccessMessages
+        {
+            public const string GivenReviewSuccess = "Review was given successfully";
+        }
+
         public static class UserData
         {
             public const string Ivan = "Ivan";

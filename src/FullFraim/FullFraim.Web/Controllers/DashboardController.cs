@@ -176,6 +176,7 @@ namespace FullFraim.Web.Controllers
                 };
 
             }
+
             return View("~/Views/Dashboard/GiveReview.cshtml",
                 giveReviewViewModel);
         }
@@ -203,6 +204,8 @@ namespace FullFraim.Web.Controllers
 
             var review = await this.juryService.GiveReviewAsync(model.MapToInputGiveReviewDto());
             model.HasJuryGivenReview = true;
+
+            TempData["success"] = Constants.SuccessMessages.GivenReviewSuccess;
 
             return RedirectToAction(nameof(GetById), new { id = review.ContestId });
             //redirectTo()
