@@ -98,6 +98,15 @@ namespace Shared
             public const string FirstNameDesc = "firstnamedesc";
             public const string LastNameAsc = "lastnameasc";
             public const string LastNameDesc = "lastnamedesc";
+
+            public const string RankAscView = "Rank Asc";
+            public const string RankDescView = "Rank Desc";
+            public const string PointsAscView = "Points Asc";
+            public const string PointsDescView = "Points Desc";
+            public const string FirstNameAscView = "FirstName Asc";
+            public const string FirstNameDescView = "FirstName Desc";
+            public const string LastNameAscView = "LastName Asc";
+            public const string LastNameDescView = "LastName Desc";
         }
 
         //Exception constants

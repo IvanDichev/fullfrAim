@@ -14,6 +14,7 @@ namespace Utilities.Mapper
             return query.Select(x =>
             new PhotoJunkyDto()
             {
+               Id = x.Id,
                FirstName = x.FirstName,
                LastName = x.LastName,
                Points = (int)x.Points,
