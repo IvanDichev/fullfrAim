@@ -204,7 +204,7 @@ namespace FullFraim.Web.Controllers
             var review = await this.juryService.GiveReviewAsync(model.MapToInputGiveReviewDto());
             model.HasJuryGivenReview = true;
 
-            return View(review);
+            return RedirectToAction(nameof(GetById), new { id = review.ContestId });
             //redirectTo()
         }
     }

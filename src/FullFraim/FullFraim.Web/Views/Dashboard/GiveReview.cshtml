@@ -31,7 +31,7 @@
                         <h5>Score</h5>
                         <p>Drag the slider to display the current value.</p>
                         <div class="slidecontainer">
-                            <input asp-for="Review.Score" type="range" min="1" max="10" value="@Model.Review.Score" class="slider" style="width: 100%" id="myRange" disabled>
+                            <input asp-for="Review.Score" type="range" min="0" max="10" value="@Model.Review.Score" class="slider" style="width: 100%" id="myRange" disabled>
                             <p>Score: <span id="demo"></span></p>
                         </div>
                     </div>

@@ -46,7 +46,10 @@ namespace FullFraim.Services.JuryServices
             await this.context.PhotoReviews.AddAsync(toAddReview);
             await this.context.SaveChangesAsync();
 
-            return toAddReview.MapToOutputGiveReviewDto();
+            var contestId = (await this.context.Photos.Select(p => new { id = p.Id, contestId = p.ContestId })
+                    .FirstOrDefaultAsync(c => c.id == inputModel.PhotoId)).contestId;
+
+            return toAddReview.MapToOutputGiveReviewDto(contestId);
         }
 
         public async Task<ReviewDto> GetReviewAsync(int juryId, int photoId)

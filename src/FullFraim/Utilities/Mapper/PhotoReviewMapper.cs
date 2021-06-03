@@ -7,7 +7,7 @@ namespace Utilities.Mapper
 {
     public static class PhotoReviewMapper
     {
-        public static OutputGiveReviewDto MapToOutputGiveReviewDto(this PhotoReview model)
+        public static OutputGiveReviewDto MapToOutputGiveReviewDto(this PhotoReview model, int contestId)
         {
             return new OutputGiveReviewDto()
             {
@@ -15,7 +15,7 @@ namespace Utilities.Mapper
                 Comment =model.Comment,
                 JuryId = model.JuryContestId,
                 PhotoId = model.PhotoId,
-              //  PhotoUrl = model.Photo.Url,
+                ContestId = contestId,
                 Score = model.Score,
             };
         }
