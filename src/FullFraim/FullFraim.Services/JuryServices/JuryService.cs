@@ -54,6 +54,18 @@ namespace FullFraim.Services.JuryServices
 
         public async Task<ReviewDto> GetReviewAsync(int juryId, int photoId)
         {
+            if(juryId <= 0)
+            {
+                throw new InvalidIdException
+                    (string.Format(LogMessages.InvalidId, "JuryService", "GetReviewAsync", juryId, "Jury"));
+            }
+
+            if (photoId <= 0)
+            {
+                throw new InvalidIdException
+                    (string.Format(LogMessages.InvalidId, "JuryService", "GetReviewAsync", photoId, "Photo"));
+            }
+
             return await this.context.PhotoReviews
                 .Where(pr => pr.PhotoId == photoId && pr.JuryContest.UserId == juryId)
                 .MapToDto().FirstOrDefaultAsync();
@@ -61,6 +73,18 @@ namespace FullFraim.Services.JuryServices
 
         public async Task<bool> IsJuryGivenReviewForPhotoAsync(int photoId, int juryId)
         {
+            if (juryId <= 0)
+            {
+                throw new InvalidIdException
+                    (string.Format(LogMessages.InvalidId, "JuryService", "IsJuryGivenReviewForPhotoAsync", juryId, "Jury"));
+            }
+
+            if (photoId <= 0)
+            {
+                throw new InvalidIdException
+                    (string.Format(LogMessages.InvalidId, "JuryService", "IsJuryGivenReviewForPhotoAsync", photoId, "Photo"));
+            }
+
             return await this.context.PhotoReviews.AnyAsync(pr => pr.PhotoId == photoId && pr.JuryContest.UserId == juryId);
         }
 
