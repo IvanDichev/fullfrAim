@@ -127,8 +127,14 @@ namespace FullFraim.Web.Controllers
         {
             int userId = UserId;
 
-            var submission = await this.photoService
-                .GetUserSubmissionForContestAsync(userId, id);
+            var submission = (await this.photoService
+                .GetUserSubmissionForContestAsync(userId, id)
+                ).MapToUserSubmissionViewModel();
+
+            var contest = await this.contestService.GetByIdAsync(id);
+
+            submission.ContestName = contest.Name;
+            submission.ContestCatrogry = contest.ContestCategory;
 
             return View(submission);
         }

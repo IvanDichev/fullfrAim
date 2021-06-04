@@ -72,6 +72,17 @@ namespace Utilities.Mapper
                 SubmitterName = model.SubmitterName,
                 Title = model.Title,
             };
+        } 
+        
+        public static UserSubmissionViewModel MapToUserSubmissionViewModel(this PhotoDto model)
+        {
+            return new UserSubmissionViewModel()
+            {
+                PhotoUrl = model.Url,
+                Description = model.Description,
+                SubmitterName = model.SubmitterName,
+                Title = model.Title,
+            };
         }
     }
 }
