@@ -60,6 +60,8 @@ namespace Utilities.Mapper
         {
             return new ContestSubmissionViewModel()
             {
+                ContestName = model.ContestName,
+                ContestCategory = model.ContestCategory,
                 PhotoId = model.PhotoId,
                 ContestId = model.contestId,
                 AuthorId = model.AuthorId,

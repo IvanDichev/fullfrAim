@@ -1,9 +1,18 @@
 ﻿@model PaginatedModel<ContestSubmissionViewModel>
+@{
+    var paginationModel = new PaginationPartialModel()
+    {
+        Action = "GetById",
+        Controller = "Dashboard",
+        TotalPages = Model.TotalPages,
+    };
+}
 
 <div class="gallery_area clearfix">
+    <h5 style="text-align:center; color:gray;">@Model.Model.FirstOrDefault().ContestName</h5>
+    <h5 style="text-align:center; color: cornflowerblue;">@Model.Model.FirstOrDefault().ContestCategory</h5>
     <div class="container-fluid clearfix">
         <div class="row portfolio-column">
-
             @if (Model.Model.Count == 0)
             {
                 <div>
@@ -18,6 +27,12 @@
                 <partial name="~/Views/Shared/Partials/_ContestSubmissionPartial.cshtml" model="item" />
             }
 
+        </div>
+        <div style="margin-top:2rem;">
+            @if (Model.Model.Count > 0)
+            {
+                <partial name="~/Views/Shared/Partials/_PagingPartial.cshtml" model="paginationModel" />
+            }
         </div>
     </div>
 </div>

@@ -143,7 +143,7 @@ namespace FullFraim.Services.PhotoService
                     .MapToContestSubmissionOutputDto()
                     .ToListAsync(),
                 RecordsPerPage = paginationFilter.PageSize,
-                TotalPages = (int)Math.Ceiling(await this.context.Photos
+                TotalPages = (int)Math.Ceiling(await submissions
                     .CountAsync(p => p.Id == p.Id) / (double)paginationFilter.PageSize),
             };
 

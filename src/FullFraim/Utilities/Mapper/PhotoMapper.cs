@@ -25,6 +25,8 @@ namespace Utilities.Mapper
         {
             return query.Select(p => new ContestSubmissionOutputDto()
             {
+                ContestName = p.Contest.Name,
+                ContestCategory = p.Contest.ContestCategory.Name,
                 contestId = p.ContestId,
                 PhotoId = p.Id,
                 AuthorName = $"{p.Participant.User.FirstName} {p.Participant.User.LastName}",

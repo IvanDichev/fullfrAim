@@ -13,7 +13,6 @@
 </style>
 
 <div class="top-users">
-    <!-- Social Area -->
     @await Component.InvokeAsync("PointsTillNext")
 </div>
 
@@ -32,52 +31,23 @@
                     }
                 </li>
             </ul>
-            @*<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                <a class="dropdown-item" href="#">Architecture</a>
-                <a class="dropdown-item" href="#">Photo Journalism</a>
-                <a class="dropdown-item" href="#">Portraits</a>
-            </div>*@
+
         </div>
         <div style="margin-bottom: 1rem;margin-top: 1rem;">Open</div>
         <div class="row portfolio-column">
             <partial name="~/Views/Shared/Partials/_ContestCardPartial.cshtml" model="Model.PhaseOne" />
-            @*@foreach (var item in Model.PhaseOne.Model)
-                {
-                    <partial name="~/Views/Shared/Partials/_ContestCardPartial.cshtml" model="item" />
-                }
-                <div class="paging">
-                    <partial name="~/Views/Shared/Partials/_PagingPartial.cshtml" model="paginationPhaseOneModel" />
-                </div>*@
+
         </div>
         <div style="margin-bottom: 1rem;margin-top: 4rem;">Reviewing</div>
         <div class="row portfolio-column">
             <partial name="~/Views/Shared/Partials/_ContestCardPartial.cshtml" model="Model.PhaseTwo" />
-            @*@foreach (var item in Model.PhaseTwo.Model)
-            {
-                <partial name="~/Views/Shared/Partials/_ContestCardPartial.cshtml" model="item" />
-            }
-            <div class="paging">
-                <partial name="~/Views/Shared/Partials/_PagingPartial.cshtml" model="paginationPhaseTwoModel" />
-            </div>*@
+
         </div>
         <div style="margin-bottom:1rem;margin-top: 4rem;">Closed</div>
         <div class="row portfolio-column">
             <partial name="~/Views/Shared/Partials/_ContestCardPartial.cshtml" model="Model.Finished" />
-            @*@foreach (var item in Model.Finished.Model)
-            {
-                <partial name="~/Views/Shared/Partials/_ContestCardPartial.cshtml" model="item" />
-            }
-            <div class="paging">
-                <partial name="~/Views/Shared/Partials/_PagingPartial.cshtml" model="paginationFinishedModel" />
-            </div>*@
+
         </div>
-
-
-        @*<div class="row">
-                <div class="col-12 text-center mt-70">
-                    <a href="#" class="btn studio-btn"><img src="/img/core-img/logo-icon.png" alt=""> Load More</a>
-                </div>
-            </div>*@
     </div>
 </div>
 
