@@ -19,8 +19,9 @@ namespace FullFraim.Web.Controllers
         {
             switch (statusCode)
             {
+                case 403:
+                    return View("Unauthorized", new ErrorViewModel { Message = ClientErrorMessages.Unauthorized });
                 case 404:
-                    ViewData["ErrorMessage"] = ClientErrorMessages.NotFound;
                     return View("NotFound", new ErrorViewModel { Message = ClientErrorMessages.NotFound });
             }
 

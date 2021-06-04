@@ -248,12 +248,12 @@
 
 <link href="https://fonts.googleapis.com/css?family=Encode+Sans+Semi+Condensed:100,200,300,400" rel="stylesheet">
 
-<body class="loading">
-    <a asp-controller="Home" asp-action="Index">
-        <div style="margin-top: 20vh" class="tooltipV">
-            <div style="text-align: center" class="tooltiptextV">
-                <span><text>Click To Return To HomePage</text></span>
-            </div>
+<a asp-controller="Home" asp-action="Index" class="tooltipV">
+    <div style="text-align: center" class="tooltiptextV">
+        <span><text>Click To Return To HomePage</text></span>
+    </div>
+    <body class="loading">
+        <div style="margin-top: 20vh">
             <h1>500</h1>
             <h2>Unexpected Error <b>:(</b></h2>
             <div class="gears">
@@ -280,8 +280,8 @@
             <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
             <script src="js/main.js" type="text/javascript"></script>
         </div>
-    </a>
-</body>
+    </body>
+</a>
 
 @section Scripts
 {

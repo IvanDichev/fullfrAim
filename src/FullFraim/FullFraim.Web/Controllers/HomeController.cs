@@ -85,5 +85,11 @@ namespace FullFraim.Web.Controllers
         {
             return StatusCode(500);
         }
+
+        [HttpGet]
+        public IActionResult Un()
+        {
+            return StatusCode(403);
+        }
     }
 }
