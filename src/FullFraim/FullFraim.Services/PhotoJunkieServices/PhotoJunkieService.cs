@@ -127,7 +127,7 @@ namespace FullFraim.Services.PhotoJunkieServices
                 throw new InvalidIdException(string.Format(LogMessages.InvalidId, "PhotoJunkieService", "IsUserParticipant", userId, "user"));
             }
 
-            var isParticipant = !await this.context.ParticipantContests
+            var isParticipant = await this.context.ParticipantContests
                 .AnyAsync(p => p.UserId == userId && p.ContestId == contestId);
 
             return isParticipant;
@@ -145,7 +145,7 @@ namespace FullFraim.Services.PhotoJunkieServices
                 throw new InvalidIdException(string.Format(LogMessages.InvalidId, "PhotoJunkieService", "IsUserJury", userId, "user"));
             }
 
-            var isJury = !await this.context.JuryContests
+            var isJury = await this.context.JuryContests
                 .AnyAsync(p => p.UserId == userId && p.ContestId == contestId);
 
             return isJury;
