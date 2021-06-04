@@ -14,6 +14,7 @@ namespace FullFraim.Models.ViewModels.Contest
         public bool IsCurrentUserSubmission { get; set; }
         public PhaseDto ActivePhase { get; set; }
         public int ContestId { get; set; }
+        public bool HasJuryGivenSubmission { get; set; }
         public GiveReviewViewModel Review { get; set; } = new GiveReviewViewModel();
         public IEnumerable<ReviewDto> Reviews { get; set; }
     }

@@ -124,7 +124,7 @@ namespace FullFraim.Tests.PhotoJunkieServices
                 };
                 //Act
                 //Assert
-                await Assert.ThrowsExceptionAsync<Exception>
+                await Assert.ThrowsExceptionAsync<ArgumentException>
                     (async () => await photoJunkieService.EnrollForContestAsync(inputModel));
 
                 context.Database.EnsureDeleted();

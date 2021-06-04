@@ -105,7 +105,7 @@ namespace FullFraim.Web.Controllers
             int userId = UserId;
 
             var contestSubmissions = await this.photoService
-                .GetDetailedSubmissionsFromContestAsync(id, new PaginationFilter());
+                .GetDetailedSubmissionsFromContestAsync(id, new PaginationFilter(), userId);
 
             var paginatedModel = new PaginatedModel<ContestSubmissionViewModel>()
             {
@@ -176,6 +176,7 @@ namespace FullFraim.Web.Controllers
                 };
 
             }
+
             return View("~/Views/Dashboard/GiveReview.cshtml",
                 giveReviewViewModel);
         }
@@ -203,6 +204,8 @@ namespace FullFraim.Web.Controllers
 
             var review = await this.juryService.GiveReviewAsync(model.MapToInputGiveReviewDto());
             model.HasJuryGivenReview = true;
+
+            TempData["success"] = Constants.SuccessMessages.GivenReviewSuccess;
 
             return RedirectToAction(nameof(GetById), new { id = review.ContestId });
             //redirectTo()
