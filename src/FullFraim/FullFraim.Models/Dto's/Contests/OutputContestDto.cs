@@ -32,5 +32,7 @@ namespace FullFraim.Models.Dto_s.Contests
         public ICollection<PhaseDto> PhasesInfo { get; set; }
         public int ContestCategoryId { get; set; }
         public int ContestTypeId { get; set; }
+        public string ContestTypeName { get; set; }
+
     }
 }

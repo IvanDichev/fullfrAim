@@ -18,6 +18,7 @@ namespace FullFraim.Models.Dto_s.Contests
         public int ContestCategoryId { get; set; }
                
         public int ContestTypeId { get; set; }
+        public string ContestTypeName { get; set; }
 
         public ICollection<int> Jury { get; set; }
         public ICollection<int> Participants { get; set; }

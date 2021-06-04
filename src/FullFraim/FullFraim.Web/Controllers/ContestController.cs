@@ -37,7 +37,6 @@ namespace FullFraim.Web.Controllers
             this.cloudinaryService = cloudinaryService;
         }
 
-        [HttpGet]
         public async Task<IActionResult> Create()
         {
             await SeedDropdownsForContest();
@@ -118,8 +117,8 @@ namespace FullFraim.Web.Controllers
             ViewBag.ContestTypes = await this.contestTypeService
                 .GetAllAsync();
 
-            ViewBag.Jury = await this.contestService.GetPotentialJuryForInvitationAsync();
-            ViewBag.Participants = await this.contestService.GetParticipantsForInvitationAsync();
+            ViewBag.Jury = (await this.contestService.GetPotentialJuryForInvitationAsync()).MapToDropDownView();
+            ViewBag.Participants = (await this.contestService.GetParticipantsForInvitationAsync()).MapToDropDownView();
         }
     }
 }

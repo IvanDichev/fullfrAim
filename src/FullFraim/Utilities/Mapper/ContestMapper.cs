@@ -83,6 +83,7 @@ namespace Utilities.Mapper
                 Description = x.Description,
                 ContestCategoryId = x.ContestCategoryId,
                 ContestTypeId = x.ContestTypeId,
+                ContestTypeName = x.ContestType.Name,
                 PhasesInfo = x.ContestPhases.Select(y => new PhaseDto()
                 {
                     Name = y.Phase.Name,

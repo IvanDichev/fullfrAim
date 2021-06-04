@@ -1,5 +1,4 @@
-﻿using FullFraim.Models.Dto_s.User;
-using FullFraim.Models.ViewModels.Contest;
+﻿using FullFraim.Models.ViewModels.Contest;
 using Microsoft.AspNetCore.Http;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;

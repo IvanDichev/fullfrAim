@@ -3,11 +3,13 @@
 @{
     var categories = new SelectList(ViewBag.Categories, "Id", "Name");
     var types = new SelectList(ViewBag.ContestTypes, "Id", "Name");
-    var jury = new SelectList(ViewBag.Jury, "UserId", "FirstName"+"LastName");
-    var participants = new SelectList(ViewBag.Participants, "UserId", "FirstName");
+    var jury = new SelectList(ViewBag.Jury, "UserId", "FullName" );
+    var participants = new SelectList(ViewBag.Participants, "UserId", "FullName");
 }
 
 <link rel="stylesheet" href="~/css/Identity/Login.css" />
+
+
 @*<link rel="stylesheet" href="~/css/Slider.css" />*@
 <div style="margin: 15vh 0rem 0rem 0rem">
 
@@ -81,7 +83,7 @@
                     </select>
                     <span asp-validation-for="@Model.Jury" class="text-danger"></span>
                 </div>
-                <div class="form-group fadeIn second" id="invitation-participant" >
+                <div class="form-group fadeIn second" id="invitation-participant">
                     <label asp-for="Participants"></label>
                     <select asp-for="Participants" asp-items="participants" class="form-control" multiple>
                     </select>
@@ -138,6 +140,15 @@
             })
         });
         console.log('dasdwqd')
+    </script>
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+
+            $('#multi-select-demo').multiselect();
+
+        });
+
     </script>
     <script>
         var slider = document.getElementById("myRange");
