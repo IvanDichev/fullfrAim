@@ -60,6 +60,7 @@ namespace Utilities.Mapper
         {
             return new ContestSubmissionViewModel()
             {
+                PhotoId = model.PhotoId,
                 ContestId = model.contestId,
                 AuthorId = model.AuthorId,
                 AuthorName = model.AuthorName,

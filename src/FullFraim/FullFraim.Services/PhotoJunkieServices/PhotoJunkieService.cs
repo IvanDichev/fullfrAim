@@ -115,26 +115,62 @@ namespace FullFraim.Services.PhotoJunkieServices
             return paginatedModel;
         }
 
-        public async Task<bool> CanJunkyEnroll(int contestId, int userId)
+        public async Task<bool> IsUserParticipant(int contestId, int userId)
         {
             if (contestId <= 0)
             {
-                throw new InvalidIdException(string.Format(LogMessages.InvalidId, "PhotoJunkieService", "CanJunkyEnroll", contestId, "contest"));
+                throw new InvalidIdException(string.Format(LogMessages.InvalidId, "PhotoJunkieService", "IsUserParticipant", contestId, "contest"));
             }
 
             if (userId <= 0)
             {
-                throw new InvalidIdException(string.Format(LogMessages.InvalidId, "PhotoJunkieService", "CanJunkyEnroll", userId, "user"));
+                throw new InvalidIdException(string.Format(LogMessages.InvalidId, "PhotoJunkieService", "IsUserParticipant", userId, "user"));
             }
 
             var isParticipant = !await this.context.ParticipantContests
                 .AnyAsync(p => p.UserId == userId && p.ContestId == contestId);
 
+            return isParticipant;
+        }
+
+        public async Task<bool> IsUserJury(int contestId, int userId)
+        {
+            if (contestId <= 0)
+            {
+                throw new InvalidIdException(string.Format(LogMessages.InvalidId, "PhotoJunkieService", "IsUserJury", contestId, "contest"));
+            }
+
+            if (userId <= 0)
+            {
+                throw new InvalidIdException(string.Format(LogMessages.InvalidId, "PhotoJunkieService", "IsUserJury", userId, "user"));
+            }
+
             var isJury = !await this.context.JuryContests
                 .AnyAsync(p => p.UserId == userId && p.ContestId == contestId);
 
-            return isParticipant && isJury;
+            return isJury;
         }
+
+        //public async Task<bool> CanJunkyEnroll(int contestId, int userId)
+        //{
+        //    if (contestId <= 0)
+        //    {
+        //        throw new InvalidIdException(string.Format(LogMessages.InvalidId, "PhotoJunkieService", "CanJunkyEnroll", contestId, "contest"));
+        //    }
+
+        //    if (userId <= 0)
+        //    {
+        //        throw new InvalidIdException(string.Format(LogMessages.InvalidId, "PhotoJunkieService", "CanJunkyEnroll", userId, "user"));
+        //    }
+
+        //    var isParticipant = !await this.context.ParticipantContests
+        //        .AnyAsync(p => p.UserId == userId && p.ContestId == contestId);
+
+        //    var isJury = !await this.context.JuryContests
+        //        .AnyAsync(p => p.UserId == userId && p.ContestId == contestId);
+
+        //    return isParticipant && isJury;
+        //}
 
         public async Task<PhotoJunkieRankDto> GetPointsTillNextRankAsync(int userId)
         {

@@ -150,6 +150,38 @@ namespace FullFraim.Services.PhotoService
             return paginatedModel;
         }
 
+        public async Task<PaginatedModel<ContestSubmissionOutputDto>> GetDetailedSubmissionsForPhoto
+            (int contestId, int photoId, PaginationFilter paginationFilter)
+        {
+            if (contestId <= 0)
+            {
+                throw new InvalidIdException
+                    (string.Format(LogMessages.InvalidId, "PhotoService", "GetDetailedSubmissionsFromContestAsync", contestId, "contest"));
+            }
+            
+            if (photoId <= 0)
+            {
+                throw new InvalidIdException
+                    (string.Format(LogMessages.InvalidId, "PhotoService", "GetDetailedSubmissionsFromContestAsync", photoId, "photo"));
+            }
+
+            var submissions = this.context.Photos.Where(p => p.ContestId == contestId && p.Id == photoId);
+
+            var paginatedModel = new PaginatedModel<ContestSubmissionOutputDto>()
+            {
+                Model = await submissions.OrderByDescending(p => p.CreatedOn)
+                    .Skip(paginationFilter.PageSize * (paginationFilter.PageNumber - 1))
+                    .Take(paginationFilter.PageSize)
+                    .MapToContestSubmissionOutputDto()
+                    .ToListAsync(),
+                RecordsPerPage = paginationFilter.PageSize,
+                TotalPages = (int)Math.Ceiling(await this.context.Photos
+                    .CountAsync(p => p.Id == p.Id) / (double)paginationFilter.PageSize),
+            };
+
+            return paginatedModel;
+        }
+
         public async Task<ICollection<PhotoDto>> GetTopRecentPhotosAsync()
         {
             var TopTenPhotos = await this.context.Photos

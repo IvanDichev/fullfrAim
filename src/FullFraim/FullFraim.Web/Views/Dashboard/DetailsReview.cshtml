@@ -1,0 +1,59 @@
+﻿@model PaginatedModel<ContestSubmissionOutputDto>
+
+<link rel="stylesheet" href="~/css/Identity/Login.css" />
+<link href="~/lib/twitter-bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+
+<div style="margin: 15vh 0rem 0rem 0rem">
+    <div class="wrapper fadeInDown">
+        <div id="formContent" style="max-width: 60rem !important">
+            <div style="margin-top:3rem;">
+                <p>@Model.Model.FirstOrDefault().AuthorName</p>
+                <img class="card-img-top" src="@Model.Model.FirstOrDefault().PhotoUrl" alt="Card image cap" style="width: 75%; height:50%" />
+                <p>@Model.Model.FirstOrDefault().Description</p>
+            </div>
+            <div class="fadeIn first" style="margin-top: 1rem;">
+                <h5>Avg. Score: @Model.Model.FirstOrDefault().Score </h5>
+            </div>
+            <hr />
+            <div style="overflow-y:scroll; max-height: 21rem;">
+                @foreach (var review in Model.Model)
+                {
+                    @foreach (var Review in review.Reviews)
+                    {
+                        <div>
+                            <p>Review by: @Review.AuthorName</p>
+                            <div class="form-group">
+                                <label asp-for="@Review.Comment"></label>
+                                <textarea asp-for="@Review.Comment" class="form-control fadeIn second" readonly></textarea>
+                                <span asp-validation-for="@Review.Comment" class="text-danger"></span>
+                            </div>
+
+                            <div class="form-group">
+                                
+                                <div class="slidecontainer" style="display: flex; flex-direction: row; justify-content: flex-start; flex-wrap: nowrap;">
+                                    <h5>Score: <span style="color:gray;">@Review.Score</span> </h5>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                    <hr />
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+@section Scripts{
+    <script>
+        var slider = document.getElementById("myRange");
+        var output = document.getElementById("demo");
+        output.innerHTML = slider.value;
+
+
+
+        slider.oninput = function () {
+            output.innerHTML = this.value;
+        }</script>
+}

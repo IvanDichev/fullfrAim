@@ -6,6 +6,7 @@ namespace FullFraim.Models.ViewModels.Contest
 {
     public class ContestSubmissionViewModel
     {
+        public int PhotoId { get; set; }
         public int AuthorId { get; set; }
         public string Image_Url { get; set; }
         public string Description { get; set; }

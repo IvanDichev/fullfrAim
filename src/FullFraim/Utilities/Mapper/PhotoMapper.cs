@@ -31,7 +31,7 @@ namespace Utilities.Mapper
                 AuthorId = p.Participant.UserId,
                 PhotoTitle = p.Title,
                 PhotoUrl = p.Url,
-                Score = p.PhotoReviews.Sum(pr => pr.Score) / p.PhotoReviews.Count(),
+                Score = p.PhotoReviews.Sum(pr => pr.Score) / (double) p.PhotoReviews.Count(),
                 Description = p.Story,
                 //Review = p.PhotoReviews.FirstOrDefault(pr => pr.JuryContestId == p.),
                 PhasesInfo = p.Contest.ContestPhases.Select(y => new PhaseDto()
