@@ -7,5 +7,14 @@
     @foreach (var item in Model)
     {
         <p>@item.FullUserName @item.PointsTillNextRank</p>
+        <hr>
     }
+</div>
+<hr>
+<hr>
+<div>
+    <p>@ViewBag.CurrentUser.Ranking.FullUserName</p>
+    <p>@ViewBag.CurrentUser.Rank</p>
+    <p>Points:@ViewBag.CurrentUser.CurrentPoints</p>
+    <p>Next Rank at: @ViewBag.CurrentUser.Ranking.PointsTillNextRank</p>
 </div>
