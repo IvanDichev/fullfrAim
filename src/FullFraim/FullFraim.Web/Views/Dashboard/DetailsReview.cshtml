@@ -7,12 +7,12 @@
     <div class="wrapper fadeInDown">
         <div id="formContent" style="max-width: 60rem !important">
             <div style="margin-top:3rem;">
+                <img class="card-img-top" src="@Model.Model.FirstOrDefault().PhotoUrl" alt="Card image cap" style="width: 95%; border-radius: 15px;" />
                 <p>Author: <i>@Model.Model.FirstOrDefault().AuthorName</i></p>
-                <img class="card-img-top" src="@Model.Model.FirstOrDefault().PhotoUrl" alt="Card image cap" style="width: 75%; height:50%" />
                 <p><q><i>@Model.Model.FirstOrDefault().Description</i></q></p>
             </div>
             <div class="fadeIn first" style="margin-top: 1rem;">
-                <h5>Final score: <span style="color: gray"> @Model.Model.FirstOrDefault().Score </span></h5>
+                <h6>Final score: <span style="color: gray"> @Model.Model.FirstOrDefault().Score </span></h6>
             </div>
             <hr />
             <div style="overflow-y:scroll; max-height: 21rem;">

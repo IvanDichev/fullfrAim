@@ -4,8 +4,8 @@ namespace FullFraim.Models
 {
     public class PaginationPartialModel
     {
-        public string Url { get; set; }
+        public string Action { get; set; }
+        public string Controller { get; set; }
         public int TotalPages { get; set; }
-        public string Query { get; set; }
     }
 }

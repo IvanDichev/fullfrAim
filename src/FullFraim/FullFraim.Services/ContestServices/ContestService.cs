@@ -131,7 +131,6 @@ namespace FullFraim.Services.ContestServices
 
             contests = contests.Where(c => c.ParticipantContests.Any(pc => pc.UserId == userId) ||
                 c.JuryContests.Any(jc => jc.UserId == userId) ||
-
                     (c.ContestPhases.Any(cp => cp.Phase.Name == Constants.Phases.PhaseI && 
                     cp.EndDate > DateTime.UtcNow && cp.StartDate < DateTime.UtcNow) &&
                 c.ContestType.Name == Constants.ContestType.Open));
@@ -149,7 +148,41 @@ namespace FullFraim.Services.ContestServices
                     .MapToDto(userId)
                     .ToListAsync(),
                 RecordsPerPage = paginationFilter.PageSize,
-                TotalPages = (int)Math.Ceiling(await this.context.Contests
+                TotalPages = (int)Math.Ceiling(await contests
+                    .CountAsync(p => p.Id == p.Id) / (double)paginationFilter.PageSize),
+            };
+
+            return paginatedModel;
+        }
+
+        public async Task<PaginatedModel<OutputContestDto>> GetAllForUserByPhaseAsync
+            (int userId, PaginationFilter paginationFilter, int categoryId, string phase)
+        {
+            var contests = this.context.Contests.AsQueryable();
+
+            contests = contests.Where(c => c.ParticipantContests.Any(pc => pc.UserId == userId) ||
+                c.JuryContests.Any(jc => jc.UserId == userId) ||
+                    (c.ContestPhases.Any(cp => cp.Phase.Name == Constants.Phases.PhaseI && 
+                    cp.EndDate > DateTime.UtcNow && cp.StartDate < DateTime.UtcNow) &&
+                c.ContestType.Name == Constants.ContestType.Open));
+
+            contests = contests.Where(c => c.ContestPhases.Any(cp => cp.Phase.Name == phase &&
+                    cp.EndDate > DateTime.UtcNow && cp.StartDate < DateTime.UtcNow));
+
+            if (categoryId > 0)
+            {
+                contests = contests.Where(c => c.ContestCategoryId == categoryId);
+            }
+
+            var paginatedModel = new PaginatedModel<OutputContestDto>()
+            {
+                Model = await contests.OrderByDescending(c => c.CreatedOn)
+                    .Skip(paginationFilter.PageSize * (paginationFilter.PageNumber - 1))
+                    .Take(paginationFilter.PageSize)
+                    .MapToDto(userId)
+                    .ToListAsync(),
+                RecordsPerPage = paginationFilter.PageSize,
+                TotalPages = (int)Math.Ceiling(await contests
                     .CountAsync(p => p.Id == p.Id) / (double)paginationFilter.PageSize),
             };
 

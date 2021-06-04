@@ -1,6 +1,7 @@
 ﻿using FullFraim.Models.Dto_s.Pagination;
 using FullFraim.Models.Dto_s.Reviews;
 using FullFraim.Models.ViewModels.Contest;
+using FullFraim.Models.ViewModels.Dashboard;
 using FullFraim.Models.ViewModels.Enrolling;
 using FullFraim.Services.ContestCatgeoryServices;
 using FullFraim.Services.ContestServices;
@@ -41,23 +42,28 @@ namespace FullFraim.Web.Controllers
             this.cloudinaryService = cloudinaryService;
         }
 
-        public async Task<IActionResult> Index(int categoryId)
+        public async Task<IActionResult> Index(int categoryId, PaginationFilter paginationFilter)
         {
-            int userId = UserId;
+            paginationFilter.PageSize = 12;
 
-            var dashboardViewModel =
-                (await this.contestService.GetAllForUserAsync(userId, new PaginationFilter(), categoryId)).Model
-                    .Select(x => x.MapToViewDashboard()).ToList();
-
-            foreach (var viewModel in dashboardViewModel)
+            var DashboardPaginatedViewModel = new DashboardPhasesPaginatedViewModel()
             {
-                viewModel.HasCurrentUserSybmittedPhoto = await this.photoJunkieService.HasCurrentUserSubmittedPhoto(userId, viewModel.ContestId);
-            }
+                PhaseOne = await GetContestViewModelByPhaseAsync(categoryId, paginationFilter, Constants.Phases.PhaseI),
+                PhaseTwo = await GetContestViewModelByPhaseAsync(categoryId, paginationFilter, Constants.Phases.PhaseII),
+                Finished = await GetContestViewModelByPhaseAsync(categoryId, paginationFilter, Constants.Phases.Finished),
+            };
 
             ViewBag.Categories = await this.contestCategoryService.GetAllAsync();
 
-            return View(dashboardViewModel);
+            return View(DashboardPaginatedViewModel);
         }
+
+        //public async Task<IActionResult> ContestPhaseNavigation(int categoryId, PaginationFilter paginationFilter, string phase)
+        //{
+        //    var contests = this.GetContestViewModelByPhaseAsync(categoryId, paginationFilter, phase);
+
+        //    return 
+        //}
 
         public IActionResult Enroll(int contestId)
         {
@@ -130,7 +136,7 @@ namespace FullFraim.Web.Controllers
         public async Task<IActionResult> GiveReview(int contestId, int submitterId)
         {
             // check if user is jury and if phase is phase two
-            if(!((await this.contestService.GetByIdAsync(contestId)).ActivePhase.Name == Constants.Phases.PhaseII &&
+            if (!((await this.contestService.GetByIdAsync(contestId)).ActivePhase.Name == Constants.Phases.PhaseII &&
                 await this.juryService.IsUserJuryForContest(contestId, UserId))) // is jury in contest - true
             {
                 return Unauthorized();
@@ -212,6 +218,25 @@ namespace FullFraim.Web.Controllers
             var submissions = await this.photoService.GetDetailedSubmissionsForPhoto(contestId, photoId, paginationFilter);
 
             return View(submissions);
+        }
+
+        private async Task<PaginatedModel<DashboardViewModel>> GetContestViewModelByPhaseAsync(int categoryId, PaginationFilter paginationFilter, string phase)
+        {
+            var phaseOneContests = await this.contestService.GetAllForUserByPhaseAsync(UserId, paginationFilter, categoryId, phase);
+
+            var contestByPhaseViewModel = new PaginatedModel<DashboardViewModel>()
+            {
+                Model = phaseOneContests.Model.Select(x => x.MapToViewDashboard()).ToList(),
+                RecordsPerPage = phaseOneContests.RecordsPerPage,
+                TotalPages = phaseOneContests.TotalPages,
+            };
+
+            foreach (var viewModel in contestByPhaseViewModel.Model)
+            {
+                viewModel.HasCurrentUserSybmittedPhoto = await this.photoJunkieService.HasCurrentUserSubmittedPhoto(UserId, viewModel.ContestId);
+            }
+
+            return contestByPhaseViewModel;
         }
     }
 }
