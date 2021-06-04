@@ -7,12 +7,12 @@
     <div class="wrapper fadeInDown">
         <div id="formContent" style="max-width: 60rem !important">
             <div style="margin-top:3rem;">
-                <p>@Model.Model.FirstOrDefault().AuthorName</p>
+                <p>Author: <i>@Model.Model.FirstOrDefault().AuthorName</i></p>
                 <img class="card-img-top" src="@Model.Model.FirstOrDefault().PhotoUrl" alt="Card image cap" style="width: 75%; height:50%" />
-                <p>@Model.Model.FirstOrDefault().Description</p>
+                <p><q><i>@Model.Model.FirstOrDefault().Description</i></q></p>
             </div>
             <div class="fadeIn first" style="margin-top: 1rem;">
-                <h5>Avg. Score: @Model.Model.FirstOrDefault().Score </h5>
+                <h5>Final score: <span style="color: gray"> @Model.Model.FirstOrDefault().Score </span></h5>
             </div>
             <hr />
             <div style="overflow-y:scroll; max-height: 21rem;">
@@ -21,39 +21,25 @@
                     @foreach (var Review in review.Reviews)
                     {
                         <div>
-                            <p>Review by: @Review.AuthorName</p>
+                            <p>Review by: <i>@Review.AuthorName</i></p>
                             <div class="form-group">
                                 <label asp-for="@Review.Comment"></label>
-                                <textarea asp-for="@Review.Comment" class="form-control fadeIn second" readonly></textarea>
-                                <span asp-validation-for="@Review.Comment" class="text-danger"></span>
+                                <div>
+                                    <p class="fadeIn second"><q>@Review.Comment</q></p>
+                                </div>
                             </div>
 
                             <div class="form-group">
-                                
-                                <div class="slidecontainer" style="display: flex; flex-direction: row; justify-content: flex-start; flex-wrap: nowrap;">
-                                    <h5>Score: <span style="color:gray;">@Review.Score</span> </h5>
+
+                                <div class="slidecontainer">
+                                    <h7>Score: <span style="color:gray;">@Review.Score</span> </h7>
                                 </div>
                             </div>
                         </div>
+                        <hr />
                     }
-                    <hr />
                 }
             </div>
         </div>
     </div>
 </div>
-
-
-
-@section Scripts{
-    <script>
-        var slider = document.getElementById("myRange");
-        var output = document.getElementById("demo");
-        output.innerHTML = slider.value;
-
-
-
-        slider.oninput = function () {
-            output.innerHTML = this.value;
-        }</script>
-}
