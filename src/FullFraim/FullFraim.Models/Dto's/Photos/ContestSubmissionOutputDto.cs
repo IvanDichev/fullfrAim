@@ -31,6 +31,7 @@ namespace FullFraim.Models.Dto_s.Photos
             }
         }
         public ReviewDto Review { get; set; }
+        public bool HasJuryGivenReview { get; set; }
         public ICollection<ReviewDto> Reviews { get; set; }
         public ICollection<PhaseDto> PhasesInfo { get; set; }
     }

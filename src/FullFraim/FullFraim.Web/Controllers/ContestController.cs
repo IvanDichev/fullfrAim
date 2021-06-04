@@ -90,8 +90,10 @@ namespace FullFraim.Web.Controllers
 
             var contest = await this.contestService.CreateAsync(model.MapToDto());
 
-            return RedirectToAction(nameof(HomeController.Index),
-                nameof(HomeController).Replace("Controller", string.Empty));
+            TempData["success"] = Constants.SuccessMessages.CreateContestSuccess;
+
+            return RedirectToAction(nameof(DashboardController.Index),
+                nameof(DashboardController).Replace("Controller", string.Empty));
         }
 
         [HttpGet]

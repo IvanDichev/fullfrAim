@@ -375,7 +375,7 @@ namespace FullFraim.Tests.JuryServices
 
                 //Assert
                 Assert.AreEqual((uint)0, result.Score);
-                Assert.AreEqual("Wrong Category", result.Comment);
+                Assert.AreEqual("Wrong category", result.Comment);
 
                 context.Database.EnsureDeleted();
             }
