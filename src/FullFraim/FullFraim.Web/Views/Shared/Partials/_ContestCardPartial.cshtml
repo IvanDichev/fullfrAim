@@ -9,7 +9,7 @@
         //Phase = Model?.Model?.FirstOrDefault().ActivePhase.Name,
     };
 
-    if(Model.Model.Count != 0)
+    if (Model.Model.Count != 0)
     {
         paginationModel.Phase = Model?.Model?.FirstOrDefault().ActivePhase.Name;
     }
@@ -86,14 +86,25 @@
                            class="btn-outline-primary btn-sm contestDetail">Review</a>
                     }
                 }
+
             </div>
         </div>
     }
+    @if (Model.Model.Count == 0)
+    {
+<div style="margin-left:10rem;">
+    <h5>Nothing to see here.</h5>
+    <hr />
+    <img src="https://res.cloudinary.com/fullfraim/image/upload/v1621360001/ribhr70m6z94x7t1re94.gif" style="width:20rem;height:15rem;" />
 </div>
-
-<div class="paging">
-    <partial name="~/Views/Shared/Partials/_PagingPartial.cshtml" model="paginationModel" />
+    }
 </div>
+@if (Model.Model.Count != 0)
+{
+    <div class="paging">
+        <partial name="~/Views/Shared/Partials/_PagingPartial.cshtml" model="paginationModel" />
+    </div>
+}
 
 <script>
     $(".page-link").on('click', function (event) {

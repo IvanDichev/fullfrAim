@@ -113,7 +113,6 @@ namespace FullFraim.Web.Controllers
         public async Task<IActionResult> GetById(int id, PaginationFilter paginationFilter)
         {
             int userId = UserId;
-
             var contestSubmissions = await this.photoService
                 .GetDetailedSubmissionsFromContestAsync(id, paginationFilter);
 
