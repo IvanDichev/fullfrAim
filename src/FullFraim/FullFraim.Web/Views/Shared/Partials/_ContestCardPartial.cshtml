@@ -1,14 +1,18 @@
 ﻿@model PaginatedModel<DashboardViewModel>
 @{
-    var m = Model;
     var paginationModel = new PaginationPartialModel()
     {
         TotalPages = Model.TotalPages,
         Action = "ContestPhaseNavigation",
         Controller = "Dashboard",
         PageNumber = Model.CurrentPage,
-        Phase = Model.Model.FirstOrDefault().ActivePhase.Name,
+        //Phase = Model?.Model?.FirstOrDefault().ActivePhase.Name,
     };
+
+    if(Model.Model.Count != 0)
+    {
+        paginationModel.Phase = Model?.Model?.FirstOrDefault().ActivePhase.Name;
+    }
 }
 
 <script src="~/lib/jquery/jquery.js"></script>
@@ -24,6 +28,7 @@
                 <div>
                     <h5 class="card-title">@contest.Name</h5>
                     <p class="card-text">@contest.Description</p>
+                    <p class="card-text">@contest.CategoryName</p>
                     <div>
                         Deadline in <p style="color: blue" id="demo">
                             @contest.ActivePhase.EndDate.ToString("MM.dd HH:mm")

@@ -26,12 +26,11 @@
                        asp-route-categoryId="0">All</a>
                     @foreach (var category in ViewBag.Categories)
                     {
-                        <a class="dropdown-item" asp-controller="Dashboard" asp-action="Index"
+                        <a class="dropdown-item" test="categoryId" asp-controller="Dashboard" asp-action="Index"
                            asp-route-categoryId="@category.Id">@category.Name</a>
                     }
                 </li>
             </ul>
-
         </div>
         <div style="margin-bottom: 1rem;margin-top: 1rem;">Open</div>
         <div tabindex="1" id="focus-element" hidden>
@@ -64,11 +63,28 @@
 {
     <script>
         function paginationPhase(event, url) {
-            if (event.currentTarget.classList.contains('PhaseI')) {
-                event.preventDefault();
+            event.preventDefault();
+            event.stopPropagation();
 
+            var categoryQuery = '';
+
+            var queries = location.href.split('?')[1]
+            if (queries != undefined) {
+                queries = queries.split('&');
+
+                for (var i = 0; i < queries.length; i++) {
+                    var query = queries[i].split('=');
+                    if (query[0] == 'categoryId') {
+                        categoryQuery = '&' + query[0] + '=' + query[1];
+                        break;
+                    }
+                }
+            }
+
+            if (event.currentTarget.classList.contains('PhaseI')) {
+                var phaseOneUrl = url + '&phase=PhaseI'
                 $.ajax({
-                    url: url + '&phase=PhaseI',
+                    url: phaseOneUrl + categoryQuery,
                     success: function (res) {
                         $('#ajax-pagination-phaseOne').html('');
                         $('#ajax-pagination-phaseOne').html(res);
@@ -76,13 +92,12 @@
                 });
 
                 $('#ajax-pagination-phaseOne').focus();
-                return false;
+                
             }
             if (event.currentTarget.classList.contains('PhaseII')) {
-                event.preventDefault();
 
                 $.ajax({
-                    url: url + '&phase=PhaseII',
+                    url: url + '&phase=PhaseII' + categoryQuery,
                     success: function (res) {
                         $('#ajax-pagination-phaseTwo').html('');
                         $('#ajax-pagination-phaseTwo').html(res);
@@ -90,13 +105,11 @@
                 });
 
                 $('#ajax-pagination-phaseTwo').focus();
-                return false;
             }
             if (event.currentTarget.classList.contains('finished')) {
-                event.preventDefault();
 
                 $.ajax({
-                    url: url + '&phase=finished',
+                    url: url + '&phase=finished' + categoryQuery,
                     success: function (res) {
                         $('#ajax-pagination-finished').html('');
                         $('#ajax-pagination-finished').html(res);
@@ -104,8 +117,8 @@
                 });
 
                 $('#ajax-pagination-finished').focus();
-                return false;
             }
+            return false;
         }
 
     </script>
