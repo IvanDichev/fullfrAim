@@ -94,7 +94,7 @@ namespace FullFraim.Services.PhotoService
 
             return paginatedModel;
         }
-       
+
         public async Task<PhotoDto> GetUserSubmissionForContestAsync(int userId, int contestId)
         {
             if (contestId <= 0)
@@ -110,7 +110,7 @@ namespace FullFraim.Services.PhotoService
             }
 
             var photo = await this.context.Photos
-                .Where(p => p.Participant.UserId == userId && 
+                .Where(p => p.Participant.UserId == userId &&
                         p.Contest.Id == contestId &&
                         p.Contest.ParticipantContests.Any(pc => pc.UserId == userId && pc.ContestId == contestId))
                 .MapToDto()

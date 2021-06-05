@@ -117,7 +117,10 @@ namespace FullFraim.Web.Controllers
                 RecordsPerPage = contestSubmissions.RecordsPerPage,
                 TotalPages = contestSubmissions.TotalPages,
             };
+            var contest = await this.contestService.GetByIdAsync(id);
 
+            ViewData["Title"] = contest.Name;
+            ViewData["Category"] = contest.ContestCategory;
             //  paginatedModel.Model.FirstOrDefault(m => m.AuthorId == UserId).IsCurrentUserSubmission = true; // TODO: Make validation if null!!!
 
             return View(paginatedModel);

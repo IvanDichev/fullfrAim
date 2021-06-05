@@ -6,11 +6,11 @@
         Controller = "Dashboard",
         TotalPages = Model.TotalPages,
     };
-}
+} 
 
 <div class="gallery_area clearfix">
-    <h5 style="text-align:center; color:gray;">@Model.Model.FirstOrDefault().ContestName</h5>
-    <h5 style="text-align:center; color: cornflowerblue;">@Model.Model.FirstOrDefault().ContestCategory</h5>
+    <h5 style="text-align:center; color:gray;">@ViewData["Title"]</h5>
+    <h5 style="text-align:center; color: cornflowerblue;">@ViewData["Category"]</h5>
     <div class="container-fluid clearfix">
         <div class="row portfolio-column">
             @if (Model.Model.Count == 0)
