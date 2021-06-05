@@ -9,5 +9,7 @@ namespace FullFraim.Models.Dto_s.Pagination
         public int RecordsPerPage { get; set; }
 
         public int TotalPages { get; set; }
+
+        public int CurrentPage { get; set; }
     }
 }

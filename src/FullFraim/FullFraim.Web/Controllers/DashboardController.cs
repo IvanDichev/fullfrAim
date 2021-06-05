@@ -44,26 +44,33 @@ namespace FullFraim.Web.Controllers
 
         public async Task<IActionResult> Index(int categoryId, PaginationFilter paginationFilter)
         {
-            paginationFilter.PageSize = 12;
+            paginationFilter.PageSize = 4;
 
-            var DashboardPaginatedViewModel = new DashboardPhasesPaginatedViewModel()
+            var dashboardPaginatedViewModel = new DashboardPhasesPaginatedViewModel()
             {
                 PhaseOne = await GetContestViewModelByPhaseAsync(categoryId, paginationFilter, Constants.Phases.PhaseI),
                 PhaseTwo = await GetContestViewModelByPhaseAsync(categoryId, paginationFilter, Constants.Phases.PhaseII),
                 Finished = await GetContestViewModelByPhaseAsync(categoryId, paginationFilter, Constants.Phases.Finished),
             };
 
+            dashboardPaginatedViewModel.PhaseOne.CurrentPage = paginationFilter.PageNumber;
+            dashboardPaginatedViewModel.PhaseTwo.CurrentPage = paginationFilter.PageNumber;
+            dashboardPaginatedViewModel.Finished.CurrentPage = paginationFilter.PageNumber;
+
             ViewBag.Categories = await this.contestCategoryService.GetAllAsync();
 
-            return View(DashboardPaginatedViewModel);
+            return View(dashboardPaginatedViewModel);
         }
 
-        //public async Task<IActionResult> ContestPhaseNavigation(int categoryId, PaginationFilter paginationFilter, string phase)
-        //{
-        //    var contests = this.GetContestViewModelByPhaseAsync(categoryId, paginationFilter, phase);
+        public async Task<IActionResult> ContestPhaseNavigation(int categoryId, PaginationFilter paginationFilter, string phase)
+        {
+            paginationFilter.PageSize = 4;
 
-        //    return 
-        //}
+            var contests = await this.GetContestViewModelByPhaseAsync(categoryId, paginationFilter, phase);
+            contests.CurrentPage = paginationFilter.PageNumber;
+
+            return PartialView("~/Views/Shared/Partials/_ContestCardPartial.cshtml", contests);
+        }
 
         public IActionResult Enroll(int contestId)
         {

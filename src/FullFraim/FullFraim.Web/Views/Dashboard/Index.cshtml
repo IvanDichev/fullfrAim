@@ -34,25 +34,82 @@
 
         </div>
         <div style="margin-bottom: 1rem;margin-top: 1rem;">Open</div>
-        <div class="row portfolio-column">
-            <partial name="~/Views/Shared/Partials/_ContestCardPartial.cshtml" model="Model.PhaseOne" />
+        <div tabindex="1" id="focus-element" hidden>
 
+        </div>
+        <div>
+            <div class="row portfolio-column" id="ajax-pagination-phaseOne">
+                <partial name="~/Views/Shared/Partials/_ContestCardPartial.cshtml" model="Model.PhaseOne" />
+
+            </div>
         </div>
         <div style="margin-bottom: 1rem;margin-top: 4rem;">Reviewing</div>
         <div class="row portfolio-column">
-            <partial name="~/Views/Shared/Partials/_ContestCardPartial.cshtml" model="Model.PhaseTwo" />
+            <div class="row portfolio-column" id="ajax-pagination-phaseTwo">
+                <partial name="~/Views/Shared/Partials/_ContestCardPartial.cshtml" model="Model.PhaseTwo" />
 
+            </div>
         </div>
         <div style="margin-bottom:1rem;margin-top: 4rem;">Closed</div>
         <div class="row portfolio-column">
-            <partial name="~/Views/Shared/Partials/_ContestCardPartial.cshtml" model="Model.Finished" />
+            <div class="row portfolio-column" id="ajax-pagination-finished">
+                <partial name="~/Views/Shared/Partials/_ContestCardPartial.cshtml" model="Model.Finished" />
 
+            </div>
         </div>
     </div>
 </div>
 
 @section Scripts
 {
+    <script>
+        function paginationPhase(event, url) {
+            if (event.currentTarget.classList.contains('PhaseI')) {
+                event.preventDefault();
+
+                $.ajax({
+                    url: url + '&phase=PhaseI',
+                    success: function (res) {
+                        $('#ajax-pagination-phaseOne').html('');
+                        $('#ajax-pagination-phaseOne').html(res);
+                    }
+                });
+
+                $('#ajax-pagination-phaseOne').focus();
+                return false;
+            }
+            if (event.currentTarget.classList.contains('PhaseII')) {
+                event.preventDefault();
+
+                $.ajax({
+                    url: url + '&phase=PhaseII',
+                    success: function (res) {
+                        $('#ajax-pagination-phaseTwo').html('');
+                        $('#ajax-pagination-phaseTwo').html(res);
+                    }
+                });
+
+                $('#ajax-pagination-phaseTwo').focus();
+                return false;
+            }
+            if (event.currentTarget.classList.contains('finished')) {
+                event.preventDefault();
+
+                $.ajax({
+                    url: url + '&phase=finished',
+                    success: function (res) {
+                        $('#ajax-pagination-finished').html('');
+                        $('#ajax-pagination-finished').html(res);
+                    }
+                });
+
+                $('#ajax-pagination-finished').focus();
+                return false;
+            }
+        }
+
+    </script>
+
     <script>
         $(document).ready(function () {
             OpenModal = (url, title, id) => {

@@ -6,22 +6,24 @@
         Controller = "Dashboard",
         TotalPages = Model.TotalPages,
     };
-} 
+}
 
 <div class="gallery_area clearfix">
     <h5 style="text-align:center; color:gray;">@ViewData["Title"]</h5>
     <h5 style="text-align:center; color: cornflowerblue;">@ViewData["Category"]</h5>
     <div class="container-fluid clearfix">
-        <div class="row portfolio-column">
-            @if (Model.Model.Count == 0)
-            {
+        @if (Model.Model.Count == 0)
+        {
+            <div class="row portfolio-column" style="justify-content: center;">
                 <div>
                     <h5 style="text-align:center">No image to show!</h5>
                     <div>
                         <img src="https://res.cloudinary.com/fullfraim/image/upload/v1621264858/ph35bowvd954a9jfydxe.gif" />
                     </div>
                 </div>
-            }
+            </div>
+        }
+        <div class="row portfolio-column" style="justify-content: center;">
             @foreach (var item in Model.Model)
             {
                 <partial name="~/Views/Shared/Partials/_ContestSubmissionPartial.cshtml" model="item" />

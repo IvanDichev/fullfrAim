@@ -1,108 +1,98 @@
 ﻿@model PaginatedModel<DashboardViewModel>
 @{
-    var paginationModel = new PaginationPartialModel() { TotalPages = Model.TotalPages, Action = "Index", Controller = "Dashboard" };
+    var m = Model;
+    var paginationModel = new PaginationPartialModel()
+    {
+        TotalPages = Model.TotalPages,
+        Action = "ContestPhaseNavigation",
+        Controller = "Dashboard",
+        PageNumber = Model.CurrentPage,
+        Phase = Model.Model.FirstOrDefault().ActivePhase.Name,
+    };
 }
 
 <script src="~/lib/jquery/jquery.js"></script>
 
-@foreach (var contest in Model.Model)
-{
-    <div class="card" style="margin-inline:1rem; margin-bottom:1rem;">
+<div class="row portfolio-column">
+    @foreach (var contest in Model.Model)
+    {
+        <div class="card" style="margin-inline:1rem; margin-bottom:1rem;">
 
-        <img class="card-img-top" src="@contest.Cover_Url" alt="Card image cap" style="width: 300px; height:200px">
+            <img class="card-img-top" src="@contest.Cover_Url" alt="Card image cap" style="width: 300px; height:200px">
 
-        <div class="card-body" style="text-align: center;display: flex;flex-direction: column;justify-content: space-between;align-items: center;flex-wrap: wrap;">
-            <div>
-                <h5 class="card-title">@contest.Name</h5>
-                <p class="card-text">@contest.Description</p>
+            <div class="card-body" style="text-align: center;display: flex;flex-direction: column;justify-content: space-between;align-items: center;flex-wrap: wrap;">
                 <div>
-                    Deadline in <p style="color: blue" id="demo">
-                        @contest.ActivePhase.EndDate.ToString("MM.dd HH:mm")
-                    </p>
-                </div>
-            </div>
-            @if (contest.ActivePhase.Name == "PhaseI")
-            {
-                @if (contest.IsCurrentUserParticipant && contest.HasCurrentUserSybmittedPhoto)
-                {
+                    <h5 class="card-title">@contest.Name</h5>
+                    <p class="card-text">@contest.Description</p>
                     <div>
+                        Deadline in <p style="color: blue" id="demo">
+                            @contest.ActivePhase.EndDate.ToString("MM.dd HH:mm")
+                        </p>
+                    </div>
+                </div>
+                @if (contest.ActivePhase.Name == "PhaseI")
+                {
+                    @if (contest.IsCurrentUserParticipant && contest.HasCurrentUserSybmittedPhoto)
+                    {
+                        <div>
+                            <a asp-action="GetByIdUserSubmission" asp-controller="Dashboard" asp-route-id="@contest.ContestId"
+                               class="btn-outline-primary btn-sm contestDetail">Review</a>
+                        </div>
+                    }
+                    else if (contest.IsCurrentUserJury)
+                    {
+                        <div>
+                            <a asp-action="GetById" asp-controller="Dashboard" asp-route-id="@contest.ContestId"
+                               class="btn-outline-primary btn-sm contestDetail">Review</a>
+                        </div>
+                    }
+                    else
+                    {
+                        <a data-toggle="modal" data-target=".contact-modal-lg" class="btn-sm btn-outline-primary hover-white" style="cursor: pointer;color:#408dff"
+                           onclick="OpenModal('@Url.Action("Enroll", "Dashboard", null, Context.Request.Scheme)', 'Enroll', @contest.ContestId)">Enroll</a>
+                    }
+                }
+                else if (contest.ActivePhase.Name == "PhaseII")
+                {
+                    <p>Closed for enrollement</p>
+
+                    @if (contest.IsCurrentUserParticipant)
+                    {
                         <a asp-action="GetByIdUserSubmission" asp-controller="Dashboard" asp-route-id="@contest.ContestId"
                            class="btn-outline-primary btn-sm contestDetail">Review</a>
-                    </div>
+                    }
+                    else if (contest.IsCurrentUserJury)@*If jury*@
+                    {
+                        <p>Finished</p>
+                        @if (contest.IsCurrentUserParticipant || contest.IsCurrentUserJury)
+                        {
+                            <a asp-action="GetById" asp-controller="Dashboard" asp-route-id="@contest.ContestId"
+                               class="btn-outline-primary btn-sm contestDetail">Review</a>
+                        }
+                    }
                 }
-                else if (contest.IsCurrentUserJury)
-                {
-                    <div>
-                        <a asp-action="GetById" asp-controller="Dashboard" asp-route-id="@contest.ContestId"
-                           class="btn-outline-primary btn-sm contestDetail">Review</a>
-                    </div>
-                }
-                else
-                {
-                    <a data-toggle="modal" data-target=".contact-modal-lg" class="btn-sm btn-outline-primary hover-white" style="cursor: pointer;color:#408dff"
-                       onclick="OpenModal('@Url.Action("Enroll", "Dashboard", null, Context.Request.Scheme)', 'Enroll', @contest.ContestId)">Enroll</a>
-                }
-            }
-            else if (contest.ActivePhase.Name == "PhaseII")
-            {
-                <p>Closed for enrollement</p>
-
-                @if (contest.IsCurrentUserParticipant)
-                {
-                    <a asp-action="GetByIdUserSubmission" asp-controller="Dashboard" asp-route-id="@contest.ContestId"
-                       class="btn-outline-primary btn-sm contestDetail">Review</a>
-                }
-                else if (contest.IsCurrentUserJury)@*If jury*@
+                else if (contest.ActivePhase.Name == "Finished")
                 {
                     <p>Finished</p>
+
                     @if (contest.IsCurrentUserParticipant || contest.IsCurrentUserJury)
                     {
                         <a asp-action="GetById" asp-controller="Dashboard" asp-route-id="@contest.ContestId"
                            class="btn-outline-primary btn-sm contestDetail">Review</a>
                     }
                 }
-            }
-            else if (contest.ActivePhase.Name == "Finished")
-            {
-                <p>Finished</p>
-
-                @if (contest.IsCurrentUserParticipant || contest.IsCurrentUserJury)
-                {
-                    <a asp-action="GetById" asp-controller="Dashboard" asp-route-id="@contest.ContestId"
-                       class="btn-outline-primary btn-sm contestDetail">Review</a>
-                }
-            }
+            </div>
         </div>
-    </div>
-}
+    }
+</div>
+
 <div class="paging">
     <partial name="~/Views/Shared/Partials/_PagingPartial.cshtml" model="paginationModel" />
 </div>
 
 <script>
-    $(document).ready(function () {
-        $('.page-link').onclick = function () {
-            console.log('called next page');
-        }
-    });
-
-        @*$(document).ready(function () {
-            var start = new Date('@Model.ActivePhase.EndDate.ToString()').getTime();
-            var end = new Date('@DateTime.UtcNow.ToString()').getTime();
-                var time = (start - end) / 1000;
-            //setInterval(function () {
-            //    //$('#demo').text(time + ' sec.');
-            //}, 1000);
-
-            var myVar = setInterval(time, 1000);
-            function myTimer() {
-                var d = new Date();
-                var t = d.toLocaleTimeString();
-                $("#demo").html(t);
-            }
-        });*@
+    $(".page-link").on('click', function (event) {
+        url = $(this).attr('href')
+        paginationPhase(event, url);
+    })
 </script>
-
-@section Scripts{
-
-}
