@@ -343,6 +343,246 @@ namespace FullFraim.Tests.JuryServices
         }
 
         [TestMethod]
+        [DataRow(0)]
+        [DataRow(-1)]
+        [DataRow(-5)]
+        public async Task GetReview_ShouldThrowException_WhenInvalidJuryId(int juryId)
+        {
+            //Arrange
+            var options = TestUtils
+                .GetInMemoryDatabaseOptions<FullFraimDbContext>
+                (nameof(GetReview_ShouldThrowException_WhenInvalidJuryId));
+
+            using (var dbContext = new FullFraimDbContext(options))
+            {
+                await TestUtils.DatabaseFullSeed(dbContext);
+
+                await dbContext.SaveChangesAsync();
+            }
+
+            using (var context = new FullFraimDbContext(options))
+            {
+                var juryService = new JuryService(context);
+                var inputReviewModel = new InputGiveReviewDto()
+                {
+                    PhotoId = 1,
+                    JuryId = 1,
+                    Checkbox = false,
+                    Comment = "Biva",
+                    Score = 6
+                };
+
+                //Act
+                //Assert
+                await Assert.ThrowsExceptionAsync<InvalidIdException>
+                    (async () => await juryService
+                    .GetReviewAsync(juryId, 4));
+
+                context.Database.EnsureDeleted();
+            }
+        }
+
+        [TestMethod]
+        [DataRow(0)]
+        [DataRow(-1)]
+        [DataRow(-5)]
+        public async Task GetReview_ShouldThrowException_WhenInvalidPhotoId(int photoId)
+        {
+            //Arrange
+            var options = TestUtils
+                .GetInMemoryDatabaseOptions<FullFraimDbContext>
+                (nameof(GetReview_ShouldThrowException_WhenInvalidPhotoId));
+
+            using (var dbContext = new FullFraimDbContext(options))
+            {
+                await TestUtils.DatabaseFullSeed(dbContext);
+
+                await dbContext.SaveChangesAsync();
+            }
+
+            using (var context = new FullFraimDbContext(options))
+            {
+                var juryService = new JuryService(context);
+                var inputReviewModel = new InputGiveReviewDto()
+                {
+                    PhotoId = 1,
+                    JuryId = 1,
+                    Checkbox = false,
+                    Comment = "Biva",
+                    Score = 6
+                };
+
+                //Act
+                //Assert
+                await Assert.ThrowsExceptionAsync<InvalidIdException>
+                    (async () => await juryService
+                    .GetReviewAsync(4, photoId));
+
+                context.Database.EnsureDeleted();
+            }
+        }
+
+        [TestMethod]
+        [DataRow(0)]
+        [DataRow(-1)]
+        [DataRow(-5)]
+        public async Task IsJuryGivenReviewForPhotoAsync_ShouldThrowException_WhenInvalidJuryId(int juryId)
+        {
+            //Arrange
+            var options = TestUtils
+                .GetInMemoryDatabaseOptions<FullFraimDbContext>
+                (nameof(IsJuryGivenReviewForPhotoAsync_ShouldThrowException_WhenInvalidJuryId));
+
+            using (var dbContext = new FullFraimDbContext(options))
+            {
+                await TestUtils.DatabaseFullSeed(dbContext);
+
+                await dbContext.SaveChangesAsync();
+            }
+
+            using (var context = new FullFraimDbContext(options))
+            {
+                var juryService = new JuryService(context);
+                var inputReviewModel = new InputGiveReviewDto()
+                {
+                    PhotoId = 1,
+                    JuryId = 1,
+                    Checkbox = false,
+                    Comment = "Biva",
+                    Score = 6
+                };
+
+                //Act
+                //Assert
+                await Assert.ThrowsExceptionAsync<InvalidIdException>
+                    (async () => await juryService
+                    .IsJuryGivenReviewForPhotoAsync(juryId, 4));
+
+                context.Database.EnsureDeleted();
+            }
+        }
+
+        [TestMethod]
+        [DataRow(0)]
+        [DataRow(-1)]
+        [DataRow(-5)]
+        public async Task IsJuryGivenReviewForPhotoAsync_ShouldThrowException_WhenInvalidPhotoId(int photoId)
+        {
+            //Arrange
+            var options = TestUtils
+                .GetInMemoryDatabaseOptions<FullFraimDbContext>
+                (nameof(IsJuryGivenReviewForPhotoAsync_ShouldThrowException_WhenInvalidPhotoId));
+
+            using (var dbContext = new FullFraimDbContext(options))
+            {
+                await TestUtils.DatabaseFullSeed(dbContext);
+
+                await dbContext.SaveChangesAsync();
+            }
+
+            using (var context = new FullFraimDbContext(options))
+            {
+                var juryService = new JuryService(context);
+                var inputReviewModel = new InputGiveReviewDto()
+                {
+                    PhotoId = 1,
+                    JuryId = 1,
+                    Checkbox = false,
+                    Comment = "Biva",
+                    Score = 6
+                };
+
+                //Act
+                //Assert
+                await Assert.ThrowsExceptionAsync<InvalidIdException>
+                    (async () => await juryService
+                    .IsJuryGivenReviewForPhotoAsync(4, photoId));
+
+                context.Database.EnsureDeleted();
+            }
+        }
+
+        [TestMethod]
+        [DataRow(0)]
+        [DataRow(-1)]
+        [DataRow(-5)]
+        public async Task IsUserJuryForContest_ShouldThrowException_WhenInvalidJuryId(int juryId)
+        {
+            //Arrange
+            var options = TestUtils
+                .GetInMemoryDatabaseOptions<FullFraimDbContext>
+                (nameof(IsUserJuryForContest_ShouldThrowException_WhenInvalidJuryId));
+
+            using (var dbContext = new FullFraimDbContext(options))
+            {
+                await TestUtils.DatabaseFullSeed(dbContext);
+
+                await dbContext.SaveChangesAsync();
+            }
+
+            using (var context = new FullFraimDbContext(options))
+            {
+                var juryService = new JuryService(context);
+                var inputReviewModel = new InputGiveReviewDto()
+                {
+                    PhotoId = 1,
+                    JuryId = 1,
+                    Checkbox = false,
+                    Comment = "Biva",
+                    Score = 6
+                };
+
+                //Act
+                //Assert
+                await Assert.ThrowsExceptionAsync<InvalidIdException>
+                    (async () => await juryService
+                    .IsUserJuryForContest(juryId, 4));
+
+                context.Database.EnsureDeleted();
+            }
+        }
+
+        [TestMethod]
+        [DataRow(0)]
+        [DataRow(-1)]
+        [DataRow(-5)]
+        public async Task IsUserJuryForContest_ShouldThrowException_WhenInvalidContestId(int contestId)
+        {
+            //Arrange
+            var options = TestUtils
+                .GetInMemoryDatabaseOptions<FullFraimDbContext>
+                (nameof(IsUserJuryForContest_ShouldThrowException_WhenInvalidContestId));
+
+            using (var dbContext = new FullFraimDbContext(options))
+            {
+                await TestUtils.DatabaseFullSeed(dbContext);
+
+                await dbContext.SaveChangesAsync();
+            }
+
+            using (var context = new FullFraimDbContext(options))
+            {
+                var juryService = new JuryService(context);
+                var inputReviewModel = new InputGiveReviewDto()
+                {
+                    PhotoId = 1,
+                    JuryId = 1,
+                    Checkbox = false,
+                    Comment = "Biva",
+                    Score = 6
+                };
+
+                //Act
+                //Assert
+                await Assert.ThrowsExceptionAsync<InvalidIdException>
+                    (async () => await juryService
+                    .IsUserJuryForContest(4, contestId));
+
+                context.Database.EnsureDeleted();
+            }
+        }
+
+        [TestMethod]
         public async Task GiveReview_ShouldReturnZeroScore_WhenCheckboxIsTrue()
         {
             //Arrange

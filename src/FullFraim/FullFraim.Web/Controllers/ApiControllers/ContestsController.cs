@@ -116,7 +116,7 @@ namespace FullFraim.Web.Controllers.ApiControllers
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         public async Task<IActionResult> GetCovers([FromQuery] PaginationFilter paginationFilter)
         {
-            var result = await this.contestService.GetConetstCoversAsync(paginationFilter);
+            var result = await this.contestService.GetContestCoversAsync(paginationFilter);
 
             return this.Ok(result);
         }
