@@ -44,6 +44,7 @@ namespace FullFraim.Web.Controllers
 
         public async Task<IActionResult> Index(int categoryId, PaginationFilter paginationFilter)
         {
+            // Default page size for this page
             paginationFilter.PageSize = 4;
 
             var dashboardPaginatedViewModel = new DashboardPhasesPaginatedViewModel()
@@ -105,11 +106,6 @@ namespace FullFraim.Web.Controllers
             return Json(new { isValid = true });
         }
 
-        public IActionResult TestPartialInController()
-        {
-            return PartialView("~/Views/Shared/Partials/_TestPartial.cshtml", 5);
-        }
-
         public async Task<IActionResult> GetById(int id, PaginationFilter paginationFilter)
         {
             int userId = UserId;
@@ -127,7 +123,6 @@ namespace FullFraim.Web.Controllers
 
             ViewData["Title"] = contest.Name;
             ViewData["Category"] = contest.ContestCategory;
-            //  paginatedModel.Model.FirstOrDefault(m => m.AuthorId == UserId).IsCurrentUserSubmission = true; // TODO: Make validation if null!!!
 
             return View(paginatedModel);
         }
@@ -150,9 +145,9 @@ namespace FullFraim.Web.Controllers
 
         public async Task<IActionResult> GiveReview(int contestId, int submitterId)
         {
-            // check if user is jury and if phase is phase two
+            // Checks if user is jury and if phase is phase two
             if (!((await this.contestService.GetByIdAsync(contestId)).ActivePhase.Name == Constants.Phases.PhaseII &&
-                await this.juryService.IsUserJuryForContest(contestId, UserId))) // is jury in contest - true
+                await this.juryService.IsUserJuryForContest(contestId, UserId)))
             {
                 return Unauthorized();
             }
@@ -186,6 +181,7 @@ namespace FullFraim.Web.Controllers
                     PhotoId = submission.Id,
                 };
             }
+
             return View("~/Views/Dashboard/GiveReview.cshtml",
                 giveReviewViewModel);
         }
@@ -217,12 +213,14 @@ namespace FullFraim.Web.Controllers
             var review = await this.juryService.GiveReviewAsync(model.MapToInputGiveReviewDto());
             model.HasJuryGivenReview = true;
 
+            TempData["success"] = Constants.SuccessMessages.GivenReviewSuccess;
+
             return RedirectToAction(nameof(GetById), new { id = review.ContestId });
         }
 
         public async Task<IActionResult> DetailsReview(int contestId, int photoId, PaginationFilter paginationFilter)
         {
-            //Check if user is participant / jury and if contest is in phase - Finished
+            //Checks if user is participant/jury and if contest is in phase - Finished
             if (!((await this.juryService.IsUserJuryForContest(contestId, UserId) ||
                 await this.photoJunkieService.IsUserParticipant(contestId, this.UserId)) &&
                 await this.contestService.IsContestInPhaseFinished(contestId)))

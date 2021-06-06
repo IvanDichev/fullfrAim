@@ -12,12 +12,18 @@
     }
 </style>
 
-<div class="top-users">
+<div class="top-users" style="height: 87%">
     @await Component.InvokeAsync("PointsTillNext")
 </div>
 
 <div class="gallery_area clearfix" style="border-left: solid 1px lightgray">
     <div class="container-fluid clearfix">
+        @if (TempData["success"] != null)
+        {
+            <div class="alert alert-success">
+                <strong>Success!</strong> @TempData["success"]
+            </div>
+        }
         <div class="dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Categories</a>
             <ul class="dropdown-menu">
@@ -92,7 +98,7 @@
                 });
 
                 $('#ajax-pagination-phaseOne').focus();
-                
+
             }
             if (event.currentTarget.classList.contains('PhaseII')) {
 

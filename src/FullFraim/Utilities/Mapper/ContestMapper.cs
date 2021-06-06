@@ -72,6 +72,7 @@ namespace Utilities.Mapper
                 Score = model.Score,
                 Reviews = model.Reviews,
                 ActivePhase = model.ActivePhase,
+                HasJuryGivenSubmission = model.HasJuryGivenReview
             };
         }
 

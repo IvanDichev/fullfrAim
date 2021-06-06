@@ -9,6 +9,12 @@
 }
 
 <div class="gallery_area clearfix">
+    @if (TempData["success"] != null)
+    {
+        <div class="alert alert-success">
+            <strong>Success!</strong> @TempData["success"]
+        </div>
+    }
     <h5 style="text-align:center; color:gray;">@ViewData["Title"]</h5>
     <h5 style="text-align:center; color: cornflowerblue;">@ViewData["Category"]</h5>
     <div class="container-fluid clearfix">
@@ -24,17 +30,39 @@
             </div>
         }
         <div class="row portfolio-column" style="justify-content: center;">
-            @foreach (var item in Model.Model)
-            {
-                <partial name="~/Views/Shared/Partials/_ContestSubmissionPartial.cshtml" model="item" />
-            }
 
-        </div>
-        <div style="margin-top:2rem;">
-            @if (Model.Model.Count > 0)
-            {
-                <partial name="~/Views/Shared/Partials/_PagingPartial.cshtml" model="paginationModel" />
-            }
+            <div class="container-fluid clearfix">
+                <h5 class="text-success">Reviewed</h5>
+                <hr>
+                <div class="row portfolio-column">
+                    @foreach (var item in Model.Model)
+                    {
+                        @if (item.HasJuryGivenSubmission)
+                        {
+                            <partial name="~/Views/Shared/Partials/_ContestSubmissionPartial.cshtml" model="item" />
+                        }
+                    }
+                </div>
+                <br>
+                <br>
+                <h5 class="text-danger">Not Reviewed</h5>
+                <hr>
+                <div class="row portfolio-column">
+                    @foreach (var item in Model.Model)
+                    {
+                        @if (!item.HasJuryGivenSubmission)
+                        {
+                            <partial name="~/Views/Shared/Partials/_ContestSubmissionPartial.cshtml" model="item" />
+                        }
+                    }
+                </div>
+                <div style="margin-top:2rem;">
+                    @if (Model.Model.Count > 0)
+                    {
+                        <partial name="~/Views/Shared/Partials/_PagingPartial.cshtml" model="paginationModel" />
+                    }
+                </div>
+            </div>
         </div>
     </div>
 </div>

@@ -21,7 +21,8 @@ namespace Utilities.Mapper
             });
         }
 
-        public static IQueryable<ContestSubmissionOutputDto> MapToContestSubmissionOutputDto(this IQueryable<Photo> query)
+        public static IQueryable<ContestSubmissionOutputDto> MapToContestSubmissionOutputDto
+            (this IQueryable<Photo> query)
         {
             return query.Select(p => new ContestSubmissionOutputDto()
             {
@@ -33,7 +34,39 @@ namespace Utilities.Mapper
                 AuthorId = p.Participant.UserId,
                 PhotoTitle = p.Title,
                 PhotoUrl = p.Url,
-                Score = p.PhotoReviews.Sum(pr => pr.Score) / (double) p.PhotoReviews.Count(),
+                Score = p.PhotoReviews.Sum(pr => pr.Score) / (double)p.PhotoReviews.Count(),
+                Description = p.Story,
+                HasJuryGivenReview = p.PhotoReviews.Any(),
+                //Review = p.PhotoReviews.FirstOrDefault(pr => pr.JuryContestId == p.),
+                PhasesInfo = p.Contest.ContestPhases.Select(y => new PhaseDto()
+                {
+                    Name = y.Phase.Name,
+                    StartDate = y.StartDate,
+                    EndDate = y.EndDate
+                }).ToList(),
+                Reviews = p.PhotoReviews.Select(pr => new ReviewDto()
+                {
+                    AuthorName = $"{pr.JuryContest.User.FirstName} {pr.JuryContest.User.LastName}",
+                    Comment = pr.Comment,
+                    ReviewId = pr.Id, // TODO: Need to check if we need the ID
+                    Score = pr.Score,
+                }).ToList(),
+            });
+        }
+
+        public static IQueryable<ContestSubmissionOutputDto> MapToContestSubmissionOutputDto
+            (this IQueryable<Photo> query,
+            int userId)
+        {
+            return query.Select(p => new ContestSubmissionOutputDto()
+            {
+                contestId = p.ContestId,
+                PhotoId = p.Id,
+                AuthorName = $"{p.Participant.User.FirstName} {p.Participant.User.LastName}",
+                AuthorId = p.Participant.UserId,
+                PhotoTitle = p.Title,
+                PhotoUrl = p.Url,
+                Score = p.PhotoReviews.Sum(pr => pr.Score) / p.PhotoReviews.Count(),
                 Description = p.Story,
                 //Review = p.PhotoReviews.FirstOrDefault(pr => pr.JuryContestId == p.),
                 PhasesInfo = p.Contest.ContestPhases.Select(y => new PhaseDto()
@@ -48,7 +81,9 @@ namespace Utilities.Mapper
                     Comment = pr.Comment,
                     ReviewId = pr.Id, // TODO: Need to check if we need the ID
                     Score = pr.Score,
-                }).ToList()
+                }).ToList(),
+                HasJuryGivenReview = p.PhotoReviews
+                .Any(pr => pr.JuryContest.UserId == userId && pr.PhotoId == p.Id)
             });
         }
 

@@ -80,10 +80,16 @@ namespace FullFraim.Web.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
+        [HttpGet]
+        public IActionResult Exc()
         {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            return StatusCode(500);
+        }
+
+        [HttpGet]
+        public IActionResult Un()
+        {
+            return StatusCode(403);
         }
     }
 }

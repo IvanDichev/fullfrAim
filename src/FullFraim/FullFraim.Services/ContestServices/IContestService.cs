@@ -17,9 +17,8 @@ namespace FullFraim.Services.ContestServices
         Task DeleteAsync(int id);
         Task<ICollection<UserDto>> GetParticipantsForInvitationAsync();
         Task<ICollection<UserDto>> GetPotentialJuryForInvitationAsync();
-        Task<PaginatedModel<string>> GetConetstCoversAsync(PaginationFilter paginationFilter);
+        Task<PaginatedModel<string>> GetContestCoversAsync(PaginationFilter paginationFilter);
         Task<bool> IsContestInPhaseFinished(int contestId);
-        Task<IEnumerable<DashboardViewModel>> GetContestsByCategoryAsync(int userId, int categoryId);
         Task<bool> IsNameUniqueAsync(string name);
         Task<PaginatedModel<OutputContestDto>> GetAllForUserAsync(int userId, PaginationFilter paginationFilter, int categoryId);
         Task<PaginatedModel<OutputContestDto>> GetAllForUserByPhaseAsync
