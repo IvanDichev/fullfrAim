@@ -23,7 +23,7 @@ namespace Utilities.Mapper
                 ContestCategoryId = model.ContestCategoryId,
                 ContestTypeId = model.ContestTypeId,
                 Phases = model.Phases,
-                Jury = model.Jury,
+                Jury = model.Juries,
                 Participants = model.Participants,
             };
         }

@@ -40,13 +40,21 @@ namespace FullFraim.Web.Controllers
         public async Task<IActionResult> Create()
         {
             await SeedDropdownsForContest();
-
+           
             return View();
         }
 
         [HttpPost]
         public async Task<IActionResult> Create(CreateContestViewModel model)
         {
+            foreach (var jury in model.Juries)
+            {
+                if (model.Participants.Contains(jury))
+                {
+                    ModelState.AddModelError(string.Empty, ErrorMessages.JuryCannotBeParticipant);
+                    break;
+                }
+            }
             if (!await this.contestService.IsNameUniqueAsync(model.Name))
             {
                 ModelState.AddModelError(string.Empty, ErrorMessages.NameMustBeUnique);
@@ -71,12 +79,12 @@ namespace FullFraim.Web.Controllers
                 return View(model);
             }
 
-            var invitationalContestTypeId = 
+            var invitationalContestTypeId =
                 (await this.contestTypeService.GetAllAsync())
                     .FirstOrDefault(ct => ct.Name == Constants.ContestType.Invitational).Id;
 
             if (model.ContestTypeId == invitationalContestTypeId &&
-                    model.Jury == null &&
+                    model.Juries == null &&
                     model.Participants == null)
             {
                 throw new Exception();
