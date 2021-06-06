@@ -31,7 +31,9 @@ namespace FullFraim.Services.ContestServices
 
         public async Task<bool> IsNameUniqueAsync(string name)
         {
-            return await this.context.Contests.AnyAsync(c => c.Name != name);
+            var isUnique =  (await this.context.Contests.FirstOrDefaultAsync(c => c.Name == name) == null);
+
+            return isUnique;
         }
 
         public async Task<OutputContestDto> CreateAsync(InputContestDto model)

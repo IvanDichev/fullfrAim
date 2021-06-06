@@ -55,6 +55,7 @@ namespace FullFraim.Web.Controllers
                     break;
                 }
             }
+
             if (!await this.contestService.IsNameUniqueAsync(model.Name))
             {
                 ModelState.AddModelError(string.Empty, ErrorMessages.NameMustBeUnique);
