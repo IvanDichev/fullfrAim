@@ -1,4 +1,6 @@
-﻿namespace Shared.AllConstants
+﻿using System;
+
+namespace Shared.AllConstants
 {
     public static class ErrorMessages
     {
@@ -14,6 +16,8 @@
         public static string CannotSendBothUrlAndImage = $"Cannot send both url and image file.";
         public static string ContestCoverRequired = $"Contest cover is *Required";
         public static string CannotEnroll = $"You are not allowed to enroll!";
+
+        public static string JuryCannotBeParticipant = "Jury can not be a participant.";
     }
 
     public static class ClientErrorMessages

@@ -23,7 +23,7 @@ namespace Utilities.Mapper
                 ContestCategoryId = model.ContestCategoryId,
                 ContestTypeId = model.ContestTypeId,
                 Phases = model.Phases,
-                Jury = model.Jury,
+                Jury = model.Juries,
                 Participants = model.Participants,
             };
         }
@@ -87,6 +87,7 @@ namespace Utilities.Mapper
                 Description = x.Description,
                 ContestCategoryId = x.ContestCategoryId,
                 ContestTypeId = x.ContestTypeId,
+                ContestTypeName = x.ContestType.Name,
                 ContestCategory = x.ContestCategory.Name,
                 PhasesInfo = x.ContestPhases.Select(y => new PhaseDto()
                 {
