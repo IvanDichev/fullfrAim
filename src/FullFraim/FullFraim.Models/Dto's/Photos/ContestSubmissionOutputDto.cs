@@ -7,7 +7,8 @@ namespace FullFraim.Models.Dto_s.Photos
     public class ContestSubmissionOutputDto
     {
         public int contestId;
-
+        public string ContestName { get; set; }
+        public string ContestCategory { get; set; }
         public int PhotoId { get; set; }
         public string AuthorName { get; set; }
         public int AuthorId { get; set; }

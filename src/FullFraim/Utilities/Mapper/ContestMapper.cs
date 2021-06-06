@@ -47,6 +47,7 @@ namespace Utilities.Mapper
             {
                 ContestId = model.Id,
                 Name = model.Name,
+                CategoryName = model.ContestCategory,
                 Cover_Url = model.Cover_Url,
                 Description = model.Description,
                 ContestCategory = model.ContestCategoryId,
@@ -60,6 +61,9 @@ namespace Utilities.Mapper
         {
             return new ContestSubmissionViewModel()
             {
+                ContestName = model.ContestName,
+                ContestCategory = model.ContestCategory,
+                PhotoId = model.PhotoId,
                 ContestId = model.contestId,
                 AuthorId = model.AuthorId,
                 AuthorName = model.AuthorName,
@@ -83,6 +87,7 @@ namespace Utilities.Mapper
                 Description = x.Description,
                 ContestCategoryId = x.ContestCategoryId,
                 ContestTypeId = x.ContestTypeId,
+                ContestCategory = x.ContestCategory.Name,
                 PhasesInfo = x.ContestPhases.Select(y => new PhaseDto()
                 {
                     Name = y.Phase.Name,
@@ -103,6 +108,7 @@ namespace Utilities.Mapper
                 Description = x.Description,
                 ContestCategoryId = x.ContestCategoryId,
                 ContestTypeId = x.ContestTypeId,
+                ContestCategory = x.ContestCategory.Name,
                 IsCurrentUserJury = x.JuryContests.Any(x => x.UserId == userId),
                 IsCurrentUserParticipant = x.ParticipantContests.Any(x => x.UserId == userId),
                 PhasesInfo = x.ContestPhases.Select(y => new PhaseDto()

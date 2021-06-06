@@ -21,5 +21,7 @@ namespace FullFraim.Services.ContestServices
         Task<bool> IsContestInPhaseFinished(int contestId);
         Task<bool> IsNameUniqueAsync(string name);
         Task<PaginatedModel<OutputContestDto>> GetAllForUserAsync(int userId, PaginationFilter paginationFilter, int categoryId);
+        Task<PaginatedModel<OutputContestDto>> GetAllForUserByPhaseAsync
+            (int userId, PaginationFilter paginationFilter, int categoryId, string phase);
     }
 }

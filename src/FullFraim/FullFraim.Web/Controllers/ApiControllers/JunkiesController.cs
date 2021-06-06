@@ -54,7 +54,8 @@ namespace FullFraim.Web.Controllers.ApiControllers
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         public async Task<IActionResult> Enroll([FromForm] InputEnrollForContestModel inputModel)
         {
-            if (!await this.photoJunkieService.CanJunkyEnroll(inputModel.ContestId, inputModel.UserId))
+            if (!(await this.photoJunkieService.IsUserParticipant(inputModel.ContestId, inputModel.UserId) &&
+             await this.photoJunkieService.IsUserJury(inputModel.ContestId, inputModel.UserId)))
             {
                 return BadRequest(error:string.Format(ErrorMessages.AlreadyInContest, inputModel.UserId, inputModel.ContestId));
             }

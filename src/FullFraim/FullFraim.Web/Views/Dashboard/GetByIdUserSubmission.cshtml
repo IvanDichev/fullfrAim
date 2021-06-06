@@ -1,16 +1,13 @@
-﻿@model PhotoDto
+﻿@model UserSubmissionViewModel
 
 <div class="gallery_area clearfix">
+    <h5 style="text-align:center; color:gray;">@Model.ContestName</h5>
+    <h5 style="text-align:center; color: cornflowerblue;">@Model.ContestCatrogry</h5>
     <div class="container-fluid clearfix">
         <div class="row portfolio-column">
 
-               <partial name="~/Views/Shared/Partials/_ContestUserSubmissionPartial.cshtml" model="Model" />
+            <partial name="~/Views/Shared/Partials/_ContestUserSubmissionPartial.cshtml" model="Model" />
 
-        </div>
-        <div class="row">
-            <div class="col-12 text-center mt-70">
-                <a href="#" class="btn studio-btn"><img src="/img/core-img/logo-icon.png" alt=""> Load More</a>
-            </div>
         </div>
     </div>
 </div>

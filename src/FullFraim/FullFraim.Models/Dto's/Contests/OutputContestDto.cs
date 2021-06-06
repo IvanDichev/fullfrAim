@@ -10,7 +10,7 @@ namespace FullFraim.Models.Dto_s.Contests
         public string Cover_Url { get; set; }
         public string Description { get; set; }
         public int PhaseId { get; set; }
-
+        public string ContestCategory { get; set; }
         public PhaseDto ActivePhase
         {
             get

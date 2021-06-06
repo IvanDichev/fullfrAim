@@ -26,14 +26,17 @@ namespace Utilities.Mapper
         {
             return query.Select(p => new ContestSubmissionOutputDto()
             {
+                ContestName = p.Contest.Name,
+                ContestCategory = p.Contest.ContestCategory.Name,
                 contestId = p.ContestId,
                 PhotoId = p.Id,
                 AuthorName = $"{p.Participant.User.FirstName} {p.Participant.User.LastName}",
                 AuthorId = p.Participant.UserId,
                 PhotoTitle = p.Title,
                 PhotoUrl = p.Url,
-                Score = p.PhotoReviews.Sum(pr => pr.Score) / p.PhotoReviews.Count(),
+                Score = p.PhotoReviews.Sum(pr => pr.Score) / (double)p.PhotoReviews.Count(),
                 Description = p.Story,
+                HasJuryGivenReview = p.PhotoReviews.Any(),
                 //Review = p.PhotoReviews.FirstOrDefault(pr => pr.JuryContestId == p.),
                 PhasesInfo = p.Contest.ContestPhases.Select(y => new PhaseDto()
                 {
@@ -47,7 +50,7 @@ namespace Utilities.Mapper
                     Comment = pr.Comment,
                     ReviewId = pr.Id, // TODO: Need to check if we need the ID
                     Score = pr.Score,
-                }).ToList(), 
+                }).ToList(),
             });
         }
 
@@ -98,6 +101,17 @@ namespace Utilities.Mapper
         public static HomeIndexViewModel MapToHomeViewModel(this PhotoDto model)
         {
             return new HomeIndexViewModel()
+            {
+                PhotoUrl = model.Url,
+                Description = model.Description,
+                SubmitterName = model.SubmitterName,
+                Title = model.Title,
+            };
+        } 
+        
+        public static UserSubmissionViewModel MapToUserSubmissionViewModel(this PhotoDto model)
+        {
+            return new UserSubmissionViewModel()
             {
                 PhotoUrl = model.Url,
                 Description = model.Description,
