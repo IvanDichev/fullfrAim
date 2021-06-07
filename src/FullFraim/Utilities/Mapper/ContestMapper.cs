@@ -32,7 +32,6 @@ namespace Utilities.Mapper
         {
             return new Contest()
             {
-                //Id = model.Id,
                 Name = model.Name,
                 Cover_Url = model.Cover_Url,
                 Description = model.Description,

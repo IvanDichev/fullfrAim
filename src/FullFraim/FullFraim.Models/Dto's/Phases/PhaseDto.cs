@@ -8,7 +8,8 @@ namespace FullFraim.Models.Dto_s.Phases
         public string Name { get; set; }
         public bool IsActive
         {
-            get {
+            get
+            {
                 if (DateTime.UtcNow > StartDate
                 && DateTime.UtcNow < EndDate)
                 {

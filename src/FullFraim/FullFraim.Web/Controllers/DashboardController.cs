@@ -25,14 +25,14 @@ namespace FullFraim.Web.Controllers
         private readonly IPhotoJunkieService photoJunkieService;
         private readonly IJuryService juryService;
         private readonly IPhotoService photoService;
-        private readonly ICloudinaryService cloudinaryService;
+        private readonly ICloudinaryUtils cloudinaryService;
 
         public DashboardController(IContestService contestService,
             IContestCategoryService contestCategoryService,
             IPhotoJunkieService photoJunkieService,
             IJuryService juryService,
             IPhotoService photoService,
-            ICloudinaryService cloudinaryService)
+            ICloudinaryUtils cloudinaryService)
         {
             this.contestService = contestService;
             this.contestCategoryService = contestCategoryService;
@@ -159,7 +159,7 @@ namespace FullFraim.Web.Controllers
 
             var submission = await this.photoService.GetUserSubmissionForContestAsync(submitterId, contestId);
 
-            var giveReviewViewModel = new GiveReviewViewModel 
+            var giveReviewViewModel = new GiveReviewViewModel
             {
                 PhotoUrl = submission.Url,
                 Author = submission.SubmitterName,

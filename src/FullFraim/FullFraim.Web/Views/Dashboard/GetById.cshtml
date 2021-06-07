@@ -32,8 +32,11 @@
         <div class="row portfolio-column" style="justify-content: center;">
 
             <div class="container-fluid clearfix">
-                <h5 class="text-success">Reviewed</h5>
-                <hr>
+                @if (Model.Model.FirstOrDefault().ActivePhase.Name == Constants.Phases.PhaseII)
+                {
+                    <h5 class="text-success">Reviewed</h5>
+                    <hr>
+                }
                 <div class="row portfolio-column">
                     @foreach (var item in Model.Model)
                     {
@@ -45,8 +48,11 @@
                 </div>
                 <br>
                 <br>
-                <h5 class="text-danger">Not Reviewed</h5>
-                <hr>
+                @if (Model.Model.FirstOrDefault().ActivePhase.Name == Constants.Phases.PhaseII)
+                {
+                    <h5 class="text-danger">Not Reviewed</h5>
+                    <hr>
+                }
                 <div class="row portfolio-column">
                     @foreach (var item in Model.Model)
                     {

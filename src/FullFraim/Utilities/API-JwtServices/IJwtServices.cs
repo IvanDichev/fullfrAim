@@ -1,7 +1,7 @@
 ﻿using FullFraim.Models.Dto_s.AccountAPI;
 using System.Threading.Tasks;
 
-namespace FullFraim.Services.API_JwtServices
+namespace Utilities.API_JwtService
 {
     public interface IJwtServices
     {

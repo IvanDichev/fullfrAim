@@ -1,6 +1,4 @@
-﻿using FullFraim.Models.Dto_s.User;
-using FullFraim.Models.ViewModels.Contest;
-using System;
+﻿using FullFraim.Models.ViewModels.Contest;
 using System.Collections.Generic;
 
 namespace FullFraim.Models.Dto_s.Contests
@@ -16,7 +14,7 @@ namespace FullFraim.Models.Dto_s.Contests
         public PhasesHelperModel Phases { get; set; }
 
         public int ContestCategoryId { get; set; }
-               
+
         public int ContestTypeId { get; set; }
         public string ContestTypeName { get; set; }
 

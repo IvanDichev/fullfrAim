@@ -46,24 +46,24 @@ namespace Utilities.Mapper
                 Rank = model.Rank,
             };
         }
-        
+
         public static PhotoJunkyDto MapToJunkiDto(this User model)
         {
             return new PhotoJunkyDto()
             {
-               FirstName = model.FirstName,
-               LastName = model.LastName,
-               Points = (int)model.Points,
+                FirstName = model.FirstName,
+                LastName = model.LastName,
+                Points = (int)model.Points,
             };
         }
-        
+
         public static IEnumerable<PhotoJunkyDto> MapToJunkieDto(this IEnumerable<User> model)
         {
             return model.Select(x => new PhotoJunkyDto()
             {
-               FirstName = x.FirstName,
-               LastName = x.LastName,
-               Points = (int)x.Points,
+                FirstName = x.FirstName,
+                LastName = x.LastName,
+                Points = (int)x.Points,
             });
         }
     }

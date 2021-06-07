@@ -9,7 +9,6 @@ using Microsoft.EntityFrameworkCore;
 using Shared;
 using Shared.AllConstants;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Utilities.Mapper;
@@ -51,7 +50,7 @@ namespace FullFraim.Services.PhotoJunkieServices
                 };
 
                 var addedPhoto = await this.context.Photos.AddAsync(photo);
-                
+
                 await this.context.SaveChangesAsync();
 
                 participant.PhotoId = addedPhoto.Entity.Id;
@@ -150,27 +149,6 @@ namespace FullFraim.Services.PhotoJunkieServices
 
             return isJury;
         }
-
-        //public async Task<bool> CanJunkyEnroll(int contestId, int userId)
-        //{
-        //    if (contestId <= 0)
-        //    {
-        //        throw new InvalidIdException(string.Format(LogMessages.InvalidId, "PhotoJunkieService", "CanJunkyEnroll", contestId, "contest"));
-        //    }
-
-        //    if (userId <= 0)
-        //    {
-        //        throw new InvalidIdException(string.Format(LogMessages.InvalidId, "PhotoJunkieService", "CanJunkyEnroll", userId, "user"));
-        //    }
-
-        //    var isParticipant = !await this.context.ParticipantContests
-        //        .AnyAsync(p => p.UserId == userId && p.ContestId == contestId);
-
-        //    var isJury = !await this.context.JuryContests
-        //        .AnyAsync(p => p.UserId == userId && p.ContestId == contestId);
-
-        //    return isParticipant && isJury;
-        //}
 
         public async Task<PhotoJunkieRankDto> GetPointsTillNextRankAsync(int userId)
         {

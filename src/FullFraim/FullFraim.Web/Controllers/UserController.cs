@@ -2,6 +2,7 @@
 using FullFraim.Models.Dto_s.Pagination;
 using FullFraim.Models.ViewModels.Dashboard;
 using FullFraim.Models.ViewModels.Sorting;
+using FullFraim.Models.ViewModels.User;
 using FullFraim.Services.PhotoJunkieServices;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -10,7 +11,6 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Utilities.Mapper;
 using static Shared.Constants;
-using FullFraim.Models.ViewModels.User;
 
 namespace FullFraim.Web.Controllers
 {
@@ -72,7 +72,7 @@ namespace FullFraim.Web.Controllers
             this.userManager = userManager;
         }
 
-        public async Task<IActionResult> Index([FromQuery]string orderBy = "" , [FromQuery]int pageNumber = 1)
+        public async Task<IActionResult> Index([FromQuery] string orderBy = "", [FromQuery] int pageNumber = 1)
         {
             var paginationFilter = new PaginationFilter() { PageNumber = pageNumber };
 

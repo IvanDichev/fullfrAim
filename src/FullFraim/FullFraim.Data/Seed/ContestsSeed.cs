@@ -110,7 +110,6 @@ namespace FullFraim.Data.Seed
                 {
                     await dbContext.AddAsync(contest);
                 }
-            //await dbContext.AddRangeAsync(SeedData);
         }
     }
 }
