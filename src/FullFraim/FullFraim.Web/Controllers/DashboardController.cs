@@ -112,6 +112,11 @@ namespace FullFraim.Web.Controllers
             var contestSubmissions = await this.photoService
                 .GetDetailedSubmissionsFromContestAsync(id, paginationFilter);
 
+            foreach (var item in contestSubmissions.Model)
+            {
+                item.HasJuryGivenReview = await this.juryService.HasJuryAlreadyGivenReviewAsync(UserId, item.PhotoId);
+            }
+
             var paginatedModel = new PaginatedModel<ContestSubmissionViewModel>()
             {
                 Model = contestSubmissions.Model.Select(m => m.MapToContestSubmissionView())
