@@ -9,6 +9,25 @@
 > Once a thresholed of points is surpassed the user can advance in rank until he or she can become a jury and participate as such
 > For more information on functionality, [down in the document]()
 
+---
+
+#### Dashboard Page
+![N|Solid](https://res.cloudinary.com/fullfraim/image/upload/v1623093475/For%20Documentation/LandingPage_rmesdh.png)
+### Register Page
+![N|Solid](https://res.cloudinary.com/fullfraim/image/upload/v1623093475/For%20Documentation/RegisterPage_dr3hru.png)
+### Login Page
+![N|Solid](https://res.cloudinary.com/fullfraim/image/upload/v1623093474/For%20Documentation/LoginPage_bo2rgo.png)
+### Logged user sees
+![N|Solid](https://res.cloudinary.com/fullfraim/image/upload/v1623093475/For%20Documentation/LoggedUserSees_z1et0q.png)
+### Dashboard Page
+![N|Solid](https://res.cloudinary.com/fullfraim/image/upload/v1623093475/For%20Documentation/DashBoardPage_dacz65.png)
+### Create Contest Form
+![N|Solid](https://res.cloudinary.com/fullfraim/image/upload/v1623093474/For%20Documentation/CreateContest_grqlvh.png)
+### Users Page
+![N|Solid](https://res.cloudinary.com/fullfraim/image/upload/v1623093475/For%20Documentation/UsersPage_vnp5wy.png)
+
+---
+
 ## Features - MVC
 
 > ### Landing page (visible to everyone)
@@ -164,6 +183,7 @@ FullFraim uses a number of open source projects to work properly:
  - Microsoft Entity Framework Core 3.1
  - MSSQL
  - Moq
+ - Swagger
  - EF Core InMemory
  - Serilog
  - JavaScript
@@ -173,7 +193,8 @@ FullFraim uses a number of open source projects to work properly:
  - JWT Bearer
  - ASP.NET Identity
  - Azure Deployment
-
+ - Razor Pages
+ - ViewComponents
 
 ## Contacts
 
