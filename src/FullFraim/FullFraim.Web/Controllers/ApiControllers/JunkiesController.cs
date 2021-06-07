@@ -23,10 +23,10 @@ namespace FullFraim.Web.Controllers.ApiControllers
     public class JunkiesController : ControllerBase
     {
         private readonly IPhotoJunkieService photoJunkieService;
-        private readonly ICloudinaryService cloudinaryService;
+        private readonly ICloudinaryUtils cloudinaryService;
 
         public JunkiesController(IPhotoJunkieService photoJunkieService,
-            ICloudinaryService cloudinaryService)
+            ICloudinaryUtils cloudinaryService)
         {
             this.photoJunkieService = photoJunkieService;
             this.cloudinaryService = cloudinaryService;

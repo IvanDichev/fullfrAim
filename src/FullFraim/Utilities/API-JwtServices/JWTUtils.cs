@@ -31,7 +31,6 @@ namespace Utilities.API_JwtService
             var userName = model.Username;
             var password = model.Password;
 
-            //ToDO: Implement through another service
             User user = await userManager.FindByNameAsync(userName);
 
             if (user == null ||
@@ -39,7 +38,6 @@ namespace Utilities.API_JwtService
             {
                 return null;
             }
-            ////
 
             var secret = this.options.Value.Secret;
             var key = Encoding.UTF8.GetBytes(secret);
@@ -70,8 +68,6 @@ namespace Utilities.API_JwtService
 
         public async Task<bool> Register(RegisterInputModel_API model)
         {
-            //TODO: Implement throught another service
-
             var email = model.Email;
             var password = model.Password;
 

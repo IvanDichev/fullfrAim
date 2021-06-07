@@ -6,12 +6,12 @@ using System.IO;
 
 namespace Utilities.CloudinaryUtils
 {
-    public class CloudinaryService : ICloudinaryService
+    public class CloudinaryUtils : ICloudinaryUtils
     {
         private readonly Account account;
         private readonly Cloudinary cloudinary;
 
-        public CloudinaryService(string CloudName, string ApiKey, string ApiSecret)
+        public CloudinaryUtils(string CloudName, string ApiKey, string ApiSecret)
         {
             this.account = new Account(CloudName, ApiKey, ApiSecret);
 

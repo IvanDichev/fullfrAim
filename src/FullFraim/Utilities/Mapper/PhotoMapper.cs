@@ -36,8 +36,6 @@ namespace Utilities.Mapper
                 PhotoUrl = p.Url,
                 Score = p.PhotoReviews.Sum(pr => pr.Score) / (double)p.PhotoReviews.Count(),
                 Description = p.Story,
-                //HasJuryGivenReview = p.PhotoReviews.Any(),
-                //Review = p.PhotoReviews.FirstOrDefault(pr => pr.JuryContestId == p.),
                 PhasesInfo = p.Contest.ContestPhases.Select(y => new PhaseDto()
                 {
                     Name = y.Phase.Name,
@@ -48,7 +46,7 @@ namespace Utilities.Mapper
                 {
                     AuthorName = $"{pr.JuryContest.User.FirstName} {pr.JuryContest.User.LastName}",
                     Comment = pr.Comment,
-                    ReviewId = pr.Id, // TODO: Need to check if we need the ID
+                    ReviewId = pr.Id, 
                     Score = pr.Score,
                 }).ToList(),
             });
@@ -68,7 +66,6 @@ namespace Utilities.Mapper
                 PhotoUrl = p.Url,
                 Score = p.PhotoReviews.Sum(pr => pr.Score) / p.PhotoReviews.Count(),
                 Description = p.Story,
-                //Review = p.PhotoReviews.FirstOrDefault(pr => pr.JuryContestId == p.),
                 PhasesInfo = p.Contest.ContestPhases.Select(y => new PhaseDto()
                 {
                     Name = y.Phase.Name,
@@ -79,7 +76,7 @@ namespace Utilities.Mapper
                 {
                     AuthorName = $"{pr.JuryContest.User.FirstName} {pr.JuryContest.User.LastName}",
                     Comment = pr.Comment,
-                    ReviewId = pr.Id, // TODO: Need to check if we need the ID
+                    ReviewId = pr.Id, 
                     Score = pr.Score,
                 }).ToList(),
                 HasJuryGivenReview = p.PhotoReviews

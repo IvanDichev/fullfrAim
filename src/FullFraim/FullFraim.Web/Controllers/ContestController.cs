@@ -22,13 +22,13 @@ namespace FullFraim.Web.Controllers
         private readonly IContestCategoryService contestCategoryService;
         private readonly IPhaseService phaseService;
         private readonly IContestTypeService contestTypeService;
-        private readonly ICloudinaryService cloudinaryService;
+        private readonly ICloudinaryUtils cloudinaryService;
 
         public ContestController(IContestService contestService,
             IContestCategoryService contestCategoryService,
             IPhaseService phaseService,
             IContestTypeService contestTypeService,
-            ICloudinaryService cloudinaryService)
+            ICloudinaryUtils cloudinaryService)
         {
             this.contestService = contestService;
             this.contestCategoryService = contestCategoryService;
