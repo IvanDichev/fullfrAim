@@ -100,18 +100,58 @@ only 2nd place will get the full 35 points, and the four 3rd finishers will get 
 
 ---
 
+## Features - API
+
+> API IMPLEMENTED USING SWAGGER!
+
+![N|Solid](https://res.cloudinary.com/fullfraim/image/upload/v1623091505/For%20Documentation/swaggerPresentation_z1qwgy.png)
+
+> ### Account (used for registration and login)
+```sh
+> GET: "/api/Account/Login" => used to login and receive the JWT Token
+> POST: "/api/Account/Register" => used to register in our system
+```
+> ### Contests (used to CRUD contests)
+```sh
+> GET: "/api/Contests" => used to get all contests (implements query filters and pagination)
+> POST: "/api/Contests" => used to create a contest
+> GET: "/api/Contests/{contestId}" => used to get a contest by id
+> PUT: "/api/Contests/{id}" => used to update a contest
+> DELETE: "/api/Contests/{id}" => used to delete a contests
+> GET: "Covers" => used to get all available covers
+```
+> ### Dashboard
+```sh
+> GET: "/api/Dashboard" => used to get contest without additional information
+```
+> ### Junkies
+```sh
+> GET: "/api/Junkies" => used to get all junkies
+> POST: "/api/Junkies/enroll" => used to enroll onto a given contest
+> GET: "/api/Junkies/nextrank" => used to get the points till next rank of the junkie
+```
+> ### Juries
+```sh
+> GET: "/api/Juries/review" => used to get all reviews of one jury
+```
+> ### Photos
+```sh
+> GET: "/api//Photos" => used to get all photos for a given contest
+> POST: "/api/Photos/submissions" => used to get all submissions for the given contest
+> GET: "/api/Photos/{id}" => used to get a photo by id
+> GET: "/api/Photos/TopRecent" => used to get the top recent photos out of all
+```
+---
 ## Installation
-
+> If you wish to download the app follow the steps below
+> If you find some improvements, feel free to contact us at fullfraim@gmail.com
+> HAVE FUN!
 ```sh
-> Download the app
+> Download the app from the repository
+> Add the connection string to your database
+> Run the application. The database will be automatically created
 ```
 
-For production environments...
-
-```sh
-npm install --production
-NODE_ENV=production node app
-```
 ### Database Diagram
 ---
 ![N|Solid](https://res.cloudinary.com/fullfraim/image/upload/v1623086127/For%20Documentation/fullfraimDiagran_itmphl.jpg)
