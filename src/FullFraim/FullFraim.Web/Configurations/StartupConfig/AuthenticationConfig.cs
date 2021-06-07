@@ -1,6 +1,6 @@
 ﻿using FullFraim.Data;
 using FullFraim.Data.Models;
-using FullFraim.Services.API_JwtServices;
+using Utilities.API_JwtService;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;

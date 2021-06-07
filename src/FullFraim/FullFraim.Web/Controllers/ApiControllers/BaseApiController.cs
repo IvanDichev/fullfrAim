@@ -1,4 +1,4 @@
-using FullFraim.Services.SecurityServices;
+using Utilities.Security;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -13,36 +13,36 @@ namespace FullFraim.Web.Controllers.ApiControllers
     [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
     public abstract class BaseApiController : ControllerBase
     {
-        private readonly ISecurityService securityService;
+        private readonly ISecurityUtils securityUtils;
 
         public BaseApiController()
         {
         }
 
-        public BaseApiController(ISecurityService securityService)
+        public BaseApiController(ISecurityUtils securityService)
         {
-            this.securityService = securityService;
+            this.securityUtils = securityService;
         }
 
         protected internal async Task<bool> IsCurrentUserJuryInContestAsync(int contestId)
         {
             var userId = int.Parse(HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value);
 
-            return await this.securityService.IsUserJuryInContestAsync(userId, contestId);
+            return await this.securityUtils.IsUserJuryInContestAsync(userId, contestId);
         }
 
         protected internal async Task<bool> IsCurrentUserParticipantInContestAsync(int contestId)
         {
             var userId = int.Parse(HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value);
 
-            return await this.securityService.IsUserParticipantInContestAsync(userId, contestId);
+            return await this.securityUtils.IsUserParticipantInContestAsync(userId, contestId);
         }
 
         protected internal async Task<bool> IsUserAdmin()
         {
             var userId = int.Parse(HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value);
 
-            return await this.securityService.IsUserAdmin(userId);
+            return await this.securityUtils.IsUserAdmin(userId);
         }
     }
 }

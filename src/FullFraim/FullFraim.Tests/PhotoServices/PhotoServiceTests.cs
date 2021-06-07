@@ -51,6 +51,67 @@ namespace FullFraim.Tests.PhotoServices
         }
 
         [TestMethod]
+        public async Task GetDetailedSubmissionsForPhoto_ShouldReturnCorrectCount_WhenIdIsValid()
+        {
+            //Arrange
+            var options = TestUtils
+                .GetInMemoryDatabaseOptions<FullFraimDbContext>
+                (nameof(GetDetailedSubmissionsForPhoto_ShouldReturnCorrectCount_WhenIdIsValid));
+
+            using (var dbContext = new FullFraimDbContext(options))
+            {
+                await TestUtils.DatabaseFullSeed(dbContext);
+
+                await dbContext.SaveChangesAsync();
+            }
+
+            using (var context = new FullFraimDbContext(options))
+            {
+                var photoService = new PhotoService(context);
+
+                //Act
+                var result = await photoService.GetDetailedSubmissionsForPhoto(1, 1, new PaginationFilter());
+
+                //Assert
+                Assert.AreEqual(1, result.Model.Count);
+
+                context.Database.EnsureDeleted();
+            }
+        }
+
+
+        [TestMethod]
+        public async Task GetDetailedSubmissionsForPhoto_ShouldThrowInvalidIdException_WhenIsNegative()
+        {
+            //Arrange
+            var options = TestUtils
+                .GetInMemoryDatabaseOptions<FullFraimDbContext>
+                (nameof(GetDetailedSubmissionsForPhoto_ShouldThrowInvalidIdException_WhenIsNegative));
+
+            using (var dbContext = new FullFraimDbContext(options))
+            {
+                await TestUtils.DatabaseFullSeed(dbContext);
+
+                await dbContext.SaveChangesAsync();
+            }
+
+            using (var context = new FullFraimDbContext(options))
+            {
+                var photoService = new PhotoService(context);
+
+                //Act
+                //Assert
+                await Assert.ThrowsExceptionAsync<InvalidIdException>
+                    (async () => await photoService.GetDetailedSubmissionsForPhoto(-1, 1, new PaginationFilter()));
+
+                await Assert.ThrowsExceptionAsync<InvalidIdException>
+                    (async () => await photoService.GetDetailedSubmissionsForPhoto(1, -1, new PaginationFilter()));
+
+                context.Database.EnsureDeleted();
+            }
+        }
+
+        [TestMethod]
         [DataRow(-1)]
         [DataRow(0)]
         [DataRow(-100)]

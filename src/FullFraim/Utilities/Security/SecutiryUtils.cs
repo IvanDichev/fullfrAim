@@ -5,19 +5,19 @@ using Microsoft.EntityFrameworkCore;
 using Shared;
 using System.Threading.Tasks;
 
-namespace FullFraim.Services.SecurityServices
+namespace Utilities.Security
 {
-    public class SecurityService : ISecurityService
+    public class SecutiryUtils : ISecurityUtils
     {
         private readonly FullFraimDbContext context;
         private readonly UserManager<User> userManager;
 
-        public SecurityService(FullFraimDbContext context)
+        public SecutiryUtils(FullFraimDbContext context)
         {
             this.context = context;
         }
 
-        public SecurityService(FullFraimDbContext context,
+        public SecutiryUtils(FullFraimDbContext context,
             UserManager<User> userManager)
         {
             this.context = context;

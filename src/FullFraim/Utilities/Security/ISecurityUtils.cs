@@ -1,8 +1,8 @@
 ﻿using System.Threading.Tasks;
 
-namespace FullFraim.Services.SecurityServices
+namespace Utilities.Security
 {
-    public interface ISecurityService
+    public interface ISecurityUtils
     {
         Task<bool> IsUserJuryInContestAsync(int userId, int contestId);
         Task<bool> IsUserParticipantInContestAsync(int userId, int contestId);

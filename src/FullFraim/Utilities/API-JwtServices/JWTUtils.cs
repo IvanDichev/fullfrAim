@@ -12,14 +12,14 @@ using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FullFraim.Services.API_JwtServices
+namespace Utilities.API_JwtService
 {
-    public class JwtServices : IJwtServices
+    public class JWTUtils : IJwtServices
     {
         private readonly IOptions<JwtSettings> options;
         private readonly UserManager<User> userManager;
 
-        public JwtServices(IOptions<JwtSettings> options,
+        public JWTUtils(IOptions<JwtSettings> options,
             UserManager<User> userManager)
         {
             this.options = options;

@@ -1,6 +1,6 @@
 using FullFraim.Data;
 using FullFraim.Data.Seed;
-using FullFraim.Services.API_JwtServices;
+using Utilities.API_JwtService;
 using FullFraim.Services.ContestCatgeoryServices;
 using FullFraim.Services.ContestServices;
 using FullFraim.Services.ContestTypeServices;
@@ -8,7 +8,6 @@ using FullFraim.Services.JuryServices;
 using FullFraim.Services.PhaseServices;
 using FullFraim.Services.PhotoJunkieServices;
 using FullFraim.Services.PhotoService;
-using FullFraim.Services.SecurityServices;
 using FullFraim.Web.Configurations.StartupConfig;
 using FullFraim.Web.Filters;
 using Microsoft.AspNetCore.Builder;
@@ -18,6 +17,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Utilities.Security;
 
 namespace FullFraim.Web
 {
@@ -44,7 +44,7 @@ namespace FullFraim.Web
             services.AddRazorPages();
 
             services.AddMemoryCache();
-            services.AddScoped<IJwtServices, JwtServices>();
+            services.AddScoped<IJwtServices, JWTUtils>();
             services.AddScoped<IContestService, ContestService>();
             services.AddScoped<IContestCategoryService, ContestCategoryService>();
             services.AddScoped<IContestTypeService, ContestTypeService>();
@@ -53,7 +53,7 @@ namespace FullFraim.Web
             services.AddScoped<IPhotoService, PhotoService>();
             services.AddScoped<IPhotoJunkieService, PhotoJunkieService>();
             services.AddScoped<IJuryService, JuryService>();
-            services.AddScoped<ISecurityService, SecurityService>();
+            services.AddScoped<ISecurityUtils, SecutiryUtils>();
 
             ServicesConfig.ConfigureIdentityCookiePaths(services);
             ServicesConfig.ConfigureCloudinary(services, Configuration);

@@ -1,4 +1,4 @@
-﻿namespace FullFraim.Services.API_JwtServices
+﻿namespace Utilities.API_JwtService
 {
     public class JwtSettings
     {

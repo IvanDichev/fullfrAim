@@ -1,5 +1,5 @@
 ﻿using FullFraim.Models.Dto_s.AccountAPI;
-using FullFraim.Services.API_JwtServices;
+using Utilities.API_JwtService;
 using FullFraim.Web.Filters;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;

@@ -1,21 +1,21 @@
-﻿using FullFraim.Services.SecurityServices;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using Utilities.Security;
 
 namespace FullFraim.Web.Controllers
 {
     public abstract class BaseMvcController : Controller
     {
-        private readonly ISecurityService securityService;
+        private readonly ISecurityUtils securityUtils;
 
         public BaseMvcController()
         {
         }
 
-        public BaseMvcController(ISecurityService securityService)
+        public BaseMvcController(ISecurityUtils securityService)
         {
-            this.securityService = securityService;
+            this.securityUtils = securityService;
         }
 
         public int UserId { get => int.Parse(HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value); }
@@ -24,14 +24,14 @@ namespace FullFraim.Web.Controllers
         {
             var userId = int.Parse(HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value);
 
-            return await this.securityService.IsUserJuryInContestAsync(userId, contestId);
+            return await this.securityUtils.IsUserJuryInContestAsync(userId, contestId);
         }
 
         protected internal async Task<bool> IsCurrentUserParticipantInContestAsync(int contestId)
         {
             var userId = int.Parse(HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value);
 
-            return await this.securityService.IsUserParticipantInContestAsync(userId, contestId);
+            return await this.securityUtils.IsUserParticipantInContestAsync(userId, contestId);
         }
     }
 }

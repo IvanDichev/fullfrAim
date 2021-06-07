@@ -1,7 +1,6 @@
 ﻿using FullFraim.Models.Dto_s.Contests;
 using FullFraim.Models.Dto_s.Pagination;
 using FullFraim.Services.ContestServices;
-using FullFraim.Services.SecurityServices;
 using FullFraim.Web.Filters;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -18,9 +17,7 @@ namespace FullFraim.Web.Controllers.ApiControllers
     {
         private readonly IContestService contestService;
 
-        public ContestsController(IContestService contestService,
-            ISecurityService securityService) :
-            base(securityService)
+        public ContestsController(IContestService contestService)
         {
             this.contestService = contestService;
         }
