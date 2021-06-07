@@ -6,6 +6,7 @@ namespace FullFraim.Models.ViewModels.Dashboard
     public class DashboardViewModel
     {
         public int ContestId { get; set; }
+        public string CategoryName { get; set; }
         public string Name { get; set; }
         public string Cover_Url { get; set; }
         public string Description { get; set; }

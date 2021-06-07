@@ -12,14 +12,14 @@ using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FullFraim.Services.API_JwtServices
+namespace Utilities.API_JwtService
 {
-    public class JwtServices : IJwtServices
+    public class JWTUtils : IJwtServices
     {
         private readonly IOptions<JwtSettings> options;
         private readonly UserManager<User> userManager;
 
-        public JwtServices(IOptions<JwtSettings> options,
+        public JWTUtils(IOptions<JwtSettings> options,
             UserManager<User> userManager)
         {
             this.options = options;
@@ -31,16 +31,14 @@ namespace FullFraim.Services.API_JwtServices
             var userName = model.Username;
             var password = model.Password;
 
-            //ToDO: Implement through another service
             User user = await userManager.FindByNameAsync(userName);
 
-            if( user == null || 
+            if (user == null ||
                 !await userManager.CheckPasswordAsync(user, password))
             {
                 return null;
             }
-            ////
-            
+
             var secret = this.options.Value.Secret;
             var key = Encoding.UTF8.GetBytes(secret);
 
@@ -53,7 +51,7 @@ namespace FullFraim.Services.API_JwtServices
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
                 new Claim(ClaimTypes.NameIdentifier, user.Id.ToString())
             };
-            
+
             var tokenHandler = new JwtSecurityTokenHandler();
             var token = new JwtSecurityToken(
                     expires: DateTime.Now.AddHours(24),
@@ -70,8 +68,6 @@ namespace FullFraim.Services.API_JwtServices
 
         public async Task<bool> Register(RegisterInputModel_API model)
         {
-            //TODO: Implement throught another service
-
             var email = model.Email;
             var password = model.Password;
 

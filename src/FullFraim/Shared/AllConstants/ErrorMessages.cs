@@ -14,6 +14,8 @@
         public static string CannotSendBothUrlAndImage = $"Cannot send both url and image file.";
         public static string ContestCoverRequired = $"Contest cover is *Required";
         public static string CannotEnroll = $"You are not allowed to enroll!";
+
+        public static string JuryCannotBeParticipant = "Jury can not be a participant.";
     }
 
     public static class ClientErrorMessages
@@ -21,5 +23,7 @@
         public static string NotFound = "Page was not found! Please contact Administration or check the url for mistakes!";
         public static string Unauthorized = "You are not authorized to enter this page! Please re-sign with additional permissions";
         public static string ServerError = "Something went wrong on our side! We are deeply sorry!";
+        public static string ServiceUnavailable = "Service Unavailable!";
+        public static string InvalidInput = "Bad Request!";
     }
 }

@@ -22,13 +22,13 @@ namespace FullFraim.Web.Controllers
         private readonly IContestCategoryService contestCategoryService;
         private readonly IPhaseService phaseService;
         private readonly IContestTypeService contestTypeService;
-        private readonly ICloudinaryService cloudinaryService;
+        private readonly ICloudinaryUtils cloudinaryService;
 
         public ContestController(IContestService contestService,
             IContestCategoryService contestCategoryService,
             IPhaseService phaseService,
             IContestTypeService contestTypeService,
-            ICloudinaryService cloudinaryService)
+            ICloudinaryUtils cloudinaryService)
         {
             this.contestService = contestService;
             this.contestCategoryService = contestCategoryService;
@@ -37,7 +37,6 @@ namespace FullFraim.Web.Controllers
             this.cloudinaryService = cloudinaryService;
         }
 
-        [HttpGet]
         public async Task<IActionResult> Create()
         {
             await SeedDropdownsForContest();
@@ -48,6 +47,15 @@ namespace FullFraim.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(CreateContestViewModel model)
         {
+            foreach (var jury in model.Juries)
+            {
+                if (model.Participants.Contains(jury))
+                {
+                    ModelState.AddModelError(string.Empty, ErrorMessages.JuryCannotBeParticipant);
+                    break;
+                }
+            }
+
             if (!await this.contestService.IsNameUniqueAsync(model.Name))
             {
                 ModelState.AddModelError(string.Empty, ErrorMessages.NameMustBeUnique);
@@ -72,12 +80,12 @@ namespace FullFraim.Web.Controllers
                 return View(model);
             }
 
-            var invitationalContestTypeId = 
+            var invitationalContestTypeId =
                 (await this.contestTypeService.GetAllAsync())
                     .FirstOrDefault(ct => ct.Name == Constants.ContestType.Invitational).Id;
 
             if (model.ContestTypeId == invitationalContestTypeId &&
-                    model.Jury == null &&
+                    model.Juries == null &&
                     model.Participants == null)
             {
                 throw new Exception();
@@ -118,8 +126,8 @@ namespace FullFraim.Web.Controllers
             ViewBag.ContestTypes = await this.contestTypeService
                 .GetAllAsync();
 
-            ViewBag.Jury = await this.contestService.GetPotentialJuryForInvitationAsync();
-            ViewBag.Participants = await this.contestService.GetParticipantsForInvitationAsync();
+            ViewBag.Jury = (await this.contestService.GetPotentialJuryForInvitationAsync()).MapToDropDownView();
+            ViewBag.Participants = (await this.contestService.GetParticipantsForInvitationAsync()).MapToDropDownView();
         }
     }
 }

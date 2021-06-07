@@ -1,6 +1,6 @@
 ﻿using FullFraim.Data;
 using FullFraim.Data.Models;
-using FullFraim.Services.API_JwtServices;
+using Utilities.API_JwtService;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -11,7 +11,7 @@ namespace FullFraim.Web.Configurations.StartupConfig
 {
     public static class AuthenticationConfig
     {
-        public static void ConfigureWith_JwtAndMVC(IServiceCollection services, 
+        public static void ConfigureWith_JwtAndMVC(IServiceCollection services,
             IConfiguration configuration)
         {
             var jwtSettingsSection = configuration

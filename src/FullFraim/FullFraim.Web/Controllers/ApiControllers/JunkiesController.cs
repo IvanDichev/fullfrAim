@@ -23,15 +23,21 @@ namespace FullFraim.Web.Controllers.ApiControllers
     public class JunkiesController : ControllerBase
     {
         private readonly IPhotoJunkieService photoJunkieService;
-        private readonly ICloudinaryService cloudinaryService;
+        private readonly ICloudinaryUtils cloudinaryService;
 
         public JunkiesController(IPhotoJunkieService photoJunkieService,
-            ICloudinaryService cloudinaryService)
+            ICloudinaryUtils cloudinaryService)
         {
             this.photoJunkieService = photoJunkieService;
             this.cloudinaryService = cloudinaryService;
         }
 
+        /// <summary>
+        /// used to get all junkies
+        /// </summary>
+        /// <param name="sortingModel"></param>
+        /// <param name="paginationFilter"></param>
+        /// <returns></returns>
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ICollection<PhotoJunkyDto>))]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
@@ -43,7 +49,7 @@ namespace FullFraim.Web.Controllers.ApiControllers
         }
 
         /// <summary>
-        /// Any data cannot be changed after submission.
+        /// used to enroll onto a given contest (Any data cannot be changed after submission.)
         /// </summary>
         /// <param name="inputModel"></param>
         /// <returns></returns>
@@ -54,9 +60,10 @@ namespace FullFraim.Web.Controllers.ApiControllers
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         public async Task<IActionResult> Enroll([FromForm] InputEnrollForContestModel inputModel)
         {
-            if (!await this.photoJunkieService.CanJunkyEnroll(inputModel.ContestId, inputModel.UserId))
+            if (!(await this.photoJunkieService.IsUserParticipant(inputModel.ContestId, inputModel.UserId) &&
+             await this.photoJunkieService.IsUserJury(inputModel.ContestId, inputModel.UserId)))
             {
-                return BadRequest(error:string.Format(ErrorMessages.AlreadyInContest, inputModel.UserId, inputModel.ContestId));
+                return BadRequest(error: string.Format(ErrorMessages.AlreadyInContest, inputModel.UserId, inputModel.ContestId));
             }
 
             var inputDto = inputModel.MapToDto();
@@ -68,6 +75,11 @@ namespace FullFraim.Web.Controllers.ApiControllers
             return Ok();
         }
 
+        /// <summary>
+        /// used to get the points till next rank of the junkie
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <returns></returns>
         [HttpGet("nextrank")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(PhotoJunkyDto))]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]

@@ -3,7 +3,6 @@ using FullFraim.Data.Models;
 using FullFraim.Models.Dto_s.Contests;
 using FullFraim.Models.Dto_s.Pagination;
 using FullFraim.Models.Dto_s.User;
-using FullFraim.Models.ViewModels.Dashboard;
 using FullFraim.Services.Exceptions;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -31,7 +30,9 @@ namespace FullFraim.Services.ContestServices
 
         public async Task<bool> IsNameUniqueAsync(string name)
         {
-            return await this.context.Contests.AnyAsync(c => c.Name != name);
+            var isUnique = (await this.context.Contests.FirstOrDefaultAsync(c => c.Name == name) == null);
+
+            return isUnique;
         }
 
         public async Task<OutputContestDto> CreateAsync(InputContestDto model)
@@ -53,7 +54,7 @@ namespace FullFraim.Services.ContestServices
             await AddOrganizersToJuryContest(contest.Entity.Id);
 
             // If contest is invitational - invite users to join
-            if (model.ContestTypeId == 
+            if (model.ContestTypeId ==
                 (await this.context.ContestTypes.FirstOrDefaultAsync(ct => ct.Name == Constants.ContestType.Invitational)).Id)
             {
                 await this.AddInvitedForTheContestAsync(model.Jury, model.Participants, contest.Entity.Id);
@@ -124,17 +125,19 @@ namespace FullFraim.Services.ContestServices
             return paginatedModel;
         }
 
-
-        public async Task<PaginatedModel<OutputContestDto>> GetAllForUserAsync(int userId, PaginationFilter paginationFilter, int categoryId)
+        public async Task<PaginatedModel<OutputContestDto>> GetAllForUserByPhaseAsync
+            (int userId, PaginationFilter paginationFilter, int categoryId, string phase)
         {
             var contests = this.context.Contests.AsQueryable();
 
             contests = contests.Where(c => c.ParticipantContests.Any(pc => pc.UserId == userId) ||
                 c.JuryContests.Any(jc => jc.UserId == userId) ||
-
-                    (c.ContestPhases.Any(cp => cp.Phase.Name == Constants.Phases.PhaseI && 
+                    (c.ContestPhases.Any(cp => cp.Phase.Name == Constants.Phases.PhaseI &&
                     cp.EndDate > DateTime.UtcNow && cp.StartDate < DateTime.UtcNow) &&
                 c.ContestType.Name == Constants.ContestType.Open));
+
+            contests = contests.Where(c => c.ContestPhases.Any(cp => cp.Phase.Name == phase &&
+                    cp.EndDate > DateTime.UtcNow && cp.StartDate < DateTime.UtcNow));
 
             if (categoryId > 0)
             {
@@ -149,7 +152,7 @@ namespace FullFraim.Services.ContestServices
                     .MapToDto(userId)
                     .ToListAsync(),
                 RecordsPerPage = paginationFilter.PageSize,
-                TotalPages = (int)Math.Ceiling(await this.context.Contests
+                TotalPages = (int)Math.Ceiling(await contests
                     .CountAsync(p => p.Id == p.Id) / (double)paginationFilter.PageSize),
             };
 

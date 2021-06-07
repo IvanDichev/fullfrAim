@@ -23,18 +23,28 @@ namespace FullFraim.Services.JuryServices
 
         public async Task<OutputGiveReviewDto> GiveReviewAsync(InputGiveReviewDto inputModel)
         {
-            if(inputModel == null)
+            if (inputModel == null)
             {
                 throw new NullModelException(string.Format(LogMessages.NullModel, "JuryService", "GiveReviewAsync"));
             }
 
+            var contestIdToGive = (await this.context.Photos.Where(p => p.Id == inputModel.PhotoId)
+                .Select(p => p.ContestId)
+                .FirstOrDefaultAsync());
+
+            var juryContestId = await this.context.JuryContests
+                .Where(jc => jc.ContestId == contestIdToGive && jc.UserId == inputModel.JuryId)
+                .Select(jc => jc.Id)
+                .FirstOrDefaultAsync();
+
             var toAddReview = new PhotoReview()
             {
+                CreatedOn = DateTime.UtcNow,
                 Comment = inputModel.Comment,
                 Score = inputModel.Score,
                 Checkbox = inputModel.Checkbox,
                 PhotoId = inputModel.PhotoId,
-                JuryContestId = inputModel.JuryId
+                JuryContestId = juryContestId,
             };
 
             if (toAddReview.Checkbox == true)
@@ -54,7 +64,7 @@ namespace FullFraim.Services.JuryServices
 
         public async Task<ReviewDto> GetReviewAsync(int juryId, int photoId)
         {
-            if(juryId <= 0)
+            if (juryId <= 0)
             {
                 throw new InvalidIdException
                     (string.Format(LogMessages.InvalidId, "JuryService", "GetReviewAsync", juryId, "Jury"));
@@ -99,7 +109,7 @@ namespace FullFraim.Services.JuryServices
         public async Task<bool> HasJuryAlreadyGivenReviewAsync(int juryId, int photoId)
         {
             return await this.context.JuryContests
-                .AnyAsync(jc => jc.UserId == juryId 
+                .AnyAsync(jc => jc.UserId == juryId
                     && jc.PhotoReviews.Any(pr => pr.PhotoId == photoId));
         }
 

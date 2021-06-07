@@ -6,12 +6,12 @@ using System.IO;
 
 namespace Utilities.CloudinaryUtils
 {
-    public class CloudinaryService : ICloudinaryService
+    public class CloudinaryUtils : ICloudinaryUtils
     {
         private readonly Account account;
         private readonly Cloudinary cloudinary;
 
-        public CloudinaryService(string CloudName, string ApiKey, string ApiSecret)
+        public CloudinaryUtils(string CloudName, string ApiKey, string ApiSecret)
         {
             this.account = new Account(CloudName, ApiKey, ApiSecret);
 
@@ -32,7 +32,7 @@ namespace Utilities.CloudinaryUtils
                 File = new FileDescription(filePath + extention, file.OpenReadStream()),
                 Overwrite = true,
             };
-            
+
             var uploadResult = this.cloudinary.Upload(uploadParams);
 
             if (uploadResult.Error != null)
@@ -42,7 +42,7 @@ namespace Utilities.CloudinaryUtils
 
             return uploadResult.SecureUrl.AbsoluteUri;
         }
-        
+
         public string UploadImage(MemoryStream file, string extention = ".png")
         {
             string filePath = Guid.NewGuid().ToString();
@@ -57,7 +57,7 @@ namespace Utilities.CloudinaryUtils
                 File = new FileDescription(filePath + extention, file),
                 Overwrite = true,
             };
-            
+
             var uploadResult = this.cloudinary.Upload(uploadParams);
 
             if (uploadResult.Error != null)

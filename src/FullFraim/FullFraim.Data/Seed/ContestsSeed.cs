@@ -14,7 +14,7 @@ namespace FullFraim.Data.Seed
             new Contest()
             {
                 Name = "Portrait",
-                Description = "Portrait contest - PhaseOne",
+                Description = "Portraits and photos of groups or individuals.",
                 Cover_Url = Constants.Images.PortraitImgUrlCover,
                 ContestCategoryId = 10,
                 ContestTypeId = 2,
@@ -22,8 +22,8 @@ namespace FullFraim.Data.Seed
             },
             new Contest()
             {
-                Name = "WildlifePhaseThree",
-                Description = "PhaseThree",
+                Name = "Wild life",
+                Description = "Photos of non-domestic animals.",
                 Cover_Url = Constants.Images.WildlifeImgUrlCover,
                 ContestCategoryId = 12,
                 ContestTypeId = 1,
@@ -31,8 +31,8 @@ namespace FullFraim.Data.Seed
             },
             new Contest()
             {
-                Name = "WildlifePhaseTwo",
-                Description = "PhaseTwo",
+                Name = "Dynamic fashion",
+                Description = "Photos of people of different age showing a fashion detail.",
                 Cover_Url = Constants.Images.WildlifeImgUrlCover,
                 ContestCategoryId = 12,
                 ContestTypeId = 1,
@@ -40,8 +40,62 @@ namespace FullFraim.Data.Seed
             },
             new Contest()
             {
-                Name = "WildlifePhaseOne",
-                Description = "PhaseOne",
+                Name = "Abstract",
+                Description = "Abstract photos.",
+                Cover_Url = Constants.Images.WildlifeImgUrlCover,
+                ContestCategoryId = 12,
+                ContestTypeId = 1,
+                CreatedOn = DateTime.UtcNow,
+            },
+            new Contest()
+            {
+                Name = "Architecture",
+                Description = "Photos of different kind of buildings.",
+                Cover_Url = Constants.Images.WildlifeImgUrlCover,
+                ContestCategoryId = 12,
+                ContestTypeId = 1,
+                CreatedOn = DateTime.UtcNow,
+            },
+            new Contest()
+            {
+                Name = "Conceptual",
+                Description = "Conceptual art.",
+                Cover_Url = Constants.Images.WildlifeImgUrlCover,
+                ContestCategoryId = 12,
+                ContestTypeId = 1,
+                CreatedOn = DateTime.UtcNow,
+            },
+            new Contest()
+            {
+                Name = "Fine Art",
+                Description = "Fine art photos.",
+                Cover_Url = Constants.Images.WildlifeImgUrlCover,
+                ContestCategoryId = 12,
+                ContestTypeId = 1,
+                CreatedOn = DateTime.UtcNow,
+            },
+            new Contest()
+            {
+                Name = "Nature",
+                Description = "Photos of nature..",
+                Cover_Url = Constants.Images.WildlifeImgUrlCover,
+                ContestCategoryId = 12,
+                ContestTypeId = 1,
+                CreatedOn = DateTime.UtcNow,
+            },
+             new Contest()
+            {
+                Name = "Photo Journalism",
+                Description = "Brave photo journalism photos.",
+                Cover_Url = Constants.Images.WildlifeImgUrlCover,
+                ContestCategoryId = 12,
+                ContestTypeId = 1,
+                CreatedOn = DateTime.UtcNow,
+            },
+             new Contest()
+            {
+                Name = "Street",
+                Description = "Photos from the street.",
                 Cover_Url = Constants.Images.WildlifeImgUrlCover,
                 ContestCategoryId = 12,
                 ContestTypeId = 1,
@@ -56,7 +110,6 @@ namespace FullFraim.Data.Seed
                 {
                     await dbContext.AddAsync(contest);
                 }
-            //await dbContext.AddRangeAsync(SeedData);
         }
     }
 }

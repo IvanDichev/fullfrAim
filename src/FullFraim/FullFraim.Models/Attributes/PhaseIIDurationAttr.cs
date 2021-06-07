@@ -8,7 +8,7 @@ namespace FullFraim.Models.Attributes
         {
             var valueAsInt = (int)value;
 
-            if(valueAsInt < 1 || valueAsInt > 24)
+            if (valueAsInt < 1 || valueAsInt > 24)
             {
                 return false;
             }

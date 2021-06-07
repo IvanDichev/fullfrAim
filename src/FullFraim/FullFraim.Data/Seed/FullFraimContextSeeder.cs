@@ -29,12 +29,6 @@ namespace FullFraim.Data.Seed
                 new ContestTypesSeed(),
                 new PhasesSeed(),
                 new ContestCategoriesSeed(),
-                new ContestsSeed(),
-                new ContestPhasesSeed(),
-                new JuryContestsSeed(),
-                new PhotosSeed(),
-                new ParticipantContestsSeed(),
-                new PhotoReviewsSeed(),
             };
 
             foreach (var seeder in seeders)

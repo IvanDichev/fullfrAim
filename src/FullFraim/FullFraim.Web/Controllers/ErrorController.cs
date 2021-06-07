@@ -13,6 +13,7 @@ namespace FullFraim.Web.Controllers
 
         }
 
+        [ApiExplorerSettings(IgnoreApi = true)]
         [Route("/Error/{statusCode}")]
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error(int statusCode)
@@ -29,7 +30,8 @@ namespace FullFraim.Web.Controllers
             {
                 RequestId = Activity.Current?.Id ??
                 HttpContext.TraceIdentifier,
-                Message = ClientErrorMessages.ServerError});
+                Message = ClientErrorMessages.ServerError
+            });
         }
     }
 }

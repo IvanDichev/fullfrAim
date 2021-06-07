@@ -24,7 +24,7 @@ namespace FullFraim.Tests.ScoringServices
                 .GetInMemoryDatabaseOptions<FullFraimDbContext>
                 (nameof(AwardWinnersAsync_ShouldUpdateWinnersPointsInDatabase_WhenThereAreOnlyTwoWinnersWithSameScore));
 
-            using (var arrangeContext  = new FullFraimDbContext(options))
+            using (var arrangeContext = new FullFraimDbContext(options))
             {
                 arrangeContext.PhotoReviews.Add(new PhotoReview() // userId 2
                 {
@@ -51,7 +51,7 @@ namespace FullFraim.Tests.ScoringServices
                 var sut = new ScoringService(assertContext);
                 // Act
                 await sut.AwardWinnersAsync(3);
-                
+
                 // Assert
                 var firstUserPoints = assertContext.Users.FirstOrDefault(u => u.Id == 2).Points;
                 var secondUserPoints = assertContext.Users.FirstOrDefault(u => u.Id == 3).Points;
@@ -72,19 +72,19 @@ namespace FullFraim.Tests.ScoringServices
 
             using (var arrangeContext = new FullFraimDbContext(options))
             {
-                arrangeContext.PhotoReviews.Add(new PhotoReview() 
+                arrangeContext.PhotoReviews.Add(new PhotoReview()
                 {
                     Score = (uint)1,
                     PhotoId = 1,
                 });
 
-                arrangeContext.PhotoReviews.Add(new PhotoReview() 
+                arrangeContext.PhotoReviews.Add(new PhotoReview()
                 {
                     Score = (uint)1,
                     PhotoId = 1,
                 });
 
-                arrangeContext.PhotoReviews.Add(new PhotoReview() 
+                arrangeContext.PhotoReviews.Add(new PhotoReview()
                 {
                     Score = (uint)2,
                     PhotoId = 2,
@@ -124,25 +124,25 @@ namespace FullFraim.Tests.ScoringServices
 
             using (var arrangeContext = new FullFraimDbContext(options))
             {
-                arrangeContext.PhotoReviews.Add(new PhotoReview() 
+                arrangeContext.PhotoReviews.Add(new PhotoReview()
                 {
                     Score = (uint)3,
                     PhotoId = 9,
                 });
 
-                arrangeContext.PhotoReviews.Add(new PhotoReview() 
+                arrangeContext.PhotoReviews.Add(new PhotoReview()
                 {
                     Score = (uint)4,
                     PhotoId = 9,
                 });
 
-                arrangeContext.PhotoReviews.Add(new PhotoReview() 
+                arrangeContext.PhotoReviews.Add(new PhotoReview()
                 {
                     Score = (uint)2,
                     PhotoId = 10,
                 });
 
-                arrangeContext.PhotoReviews.Add(new PhotoReview() 
+                arrangeContext.PhotoReviews.Add(new PhotoReview()
                 {
                     Score = (uint)5,
                     PhotoId = 10,

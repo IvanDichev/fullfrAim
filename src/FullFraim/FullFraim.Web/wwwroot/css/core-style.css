@@ -553,7 +553,17 @@ img {
 /* :: 5.0 Sidebar Area CSS */
 
 .social-sidebar-area {
-    width: 18vh;
+    width: 13vh;
+    height: 9.8%;
+    background-color: transparent;
+    position: fixed;
+    bottom: 100px;
+    z-index: 100;
+    overflow: hidden;
+}
+
+.top-users {
+    width: 22vh;
     height: 72%;
     background-color: transparent;
     position: fixed;
@@ -561,6 +571,12 @@ img {
     left: 9px;
     z-index: 100;
     overflow: hidden;
+}
+
+@media screen and (max-width: 1200px) {
+    .top-users {
+        display: none;
+    }
 }
 
 .social-info-area {

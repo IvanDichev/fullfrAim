@@ -2,7 +2,6 @@
 using FullFraim.Models.Dto_s.Photos;
 using FullFraim.Services.ContestServices;
 using FullFraim.Services.PhotoService;
-using FullFraim.Services.SecurityServices;
 using FullFraim.Web.Filters;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
@@ -23,17 +22,14 @@ namespace FullFraim.Web.Controllers.ApiControllers
         private readonly IPhotoService photoService;
         private readonly IContestService contestService;
 
-        public PhotosController(IPhotoService photoService,
-            IContestService contestService,
-            ISecurityService securityService)
-            : base(securityService)
+        public PhotosController(IPhotoService photoService, IContestService contestService)
         {
             this.photoService = photoService;
             this.contestService = contestService;
         }
 
         /// <summary>
-        /// Get photos for contest
+        /// used to get all photos for a given contest
         /// </summary>
         [HttpGet]
         [Authorize]
@@ -59,6 +55,12 @@ namespace FullFraim.Web.Controllers.ApiControllers
             return Ok(photos);
         }
 
+        /// <summary>
+        /// used to get all submissions for the given contest
+        /// </summary>
+        /// <param name="contestId"></param>
+        /// <param name="paginationFilter"></param>
+        /// <returns></returns>
         [HttpGet("submissions")]
         [Authorize]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(PaginatedModel<ContestSubmissionOutputDto>))]
@@ -93,6 +95,11 @@ namespace FullFraim.Web.Controllers.ApiControllers
             return Ok(photos);
         }
 
+        /// <summary>
+        /// used to get a photo by id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [Authorize]
         [HttpGet("{id}")]
         [APIExceptionFilter]
@@ -119,6 +126,10 @@ namespace FullFraim.Web.Controllers.ApiControllers
             return Ok(photos);
         }
 
+        /// <summary>
+        /// used to get the top recent photos out of all
+        /// </summary>
+        /// <returns></returns>
         [HttpGet("TopRecent")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ICollection<PhotoDto>))]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]

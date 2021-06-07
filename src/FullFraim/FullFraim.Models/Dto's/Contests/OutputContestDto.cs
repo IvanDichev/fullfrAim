@@ -10,14 +10,14 @@ namespace FullFraim.Models.Dto_s.Contests
         public string Cover_Url { get; set; }
         public string Description { get; set; }
         public int PhaseId { get; set; }
-
+        public string ContestCategory { get; set; }
         public PhaseDto ActivePhase
         {
             get
             {
                 foreach (var phase in PhasesInfo)
                 {
-                    if(phase.IsActive)
+                    if (phase.IsActive)
                     {
                         return phase;
                     }
@@ -32,5 +32,7 @@ namespace FullFraim.Models.Dto_s.Contests
         public ICollection<PhaseDto> PhasesInfo { get; set; }
         public int ContestCategoryId { get; set; }
         public int ContestTypeId { get; set; }
+        public string ContestTypeName { get; set; }
+
     }
 }

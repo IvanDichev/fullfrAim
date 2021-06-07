@@ -176,8 +176,23 @@ namespace Utilities.TestingUtils
                     PhaseId = 3,
                     StartDate = DateTime.UtcNow.AddDays(60),
                     EndDate = DateTime.MaxValue,
-                },
+                }
+                ,
                 new ContestPhase()
+                {
+                    ContestId = 5, // No participants
+                    PhaseId = 1,
+                    StartDate = DateTime.UtcNow.AddDays(-60),
+                    EndDate = DateTime.UtcNow.AddDays(-5),
+                }
+                ,new ContestPhase()
+                {
+                    ContestId = 5, // No participants
+                    PhaseId = 2,
+                    StartDate = DateTime.UtcNow.AddDays(-5),
+                    EndDate = DateTime.UtcNow,
+                }
+                ,new ContestPhase()
                 {
                     ContestId = 5, // No participants
                     PhaseId = 3,

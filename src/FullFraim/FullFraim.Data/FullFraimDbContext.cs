@@ -1,10 +1,9 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using FullFraim.Data.Models;
+using FullFraim.Data.Seed;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using FullFraim.Data.Models;
 using System.Reflection;
-using FullFraim.Data.Seed;
-using System.Threading.Tasks;
 
 namespace FullFraim.Data
 {

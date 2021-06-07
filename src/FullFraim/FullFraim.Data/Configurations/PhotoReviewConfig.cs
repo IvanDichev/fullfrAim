@@ -1,6 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using FullFraim.Data.Models;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using FullFraim.Data.Models;
 
 namespace FullFraim.Data.Configurations
 {

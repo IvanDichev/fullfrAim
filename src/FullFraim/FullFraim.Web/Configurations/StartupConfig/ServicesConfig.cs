@@ -10,8 +10,8 @@ namespace FullFraim.Web.Configurations.StartupConfig
         public static void ConfigureCloudinary(IServiceCollection services,
             IConfiguration configuration)
         {
-            services.AddScoped<ICloudinaryService>
-                (serviceProvider => new CloudinaryService(
+            services.AddScoped<ICloudinaryUtils>
+                (serviceProvider => new CloudinaryUtils(
                     configuration["Cloudinary:CloudName"],
                     configuration["Cloudinary:ApiKey"],
                     configuration["Cloudinary:ApiSecret"]));

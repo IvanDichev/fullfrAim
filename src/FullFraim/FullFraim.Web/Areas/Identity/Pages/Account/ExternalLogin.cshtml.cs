@@ -74,7 +74,7 @@ namespace Web.Areas.Identity.Pages.Account
             if (remoteError != null)
             {
                 ErrorMessage = $"Error from external provider: {remoteError}";
-                return RedirectToPage("./Login", new {ReturnUrl = returnUrl });
+                return RedirectToPage("./Login", new { ReturnUrl = returnUrl });
             }
             var info = await _signInManager.GetExternalLoginInfoAsync();
             if (info == null)
@@ -84,7 +84,7 @@ namespace Web.Areas.Identity.Pages.Account
             }
 
             // Sign in the user with this external login provider if the user already has a login.
-            var result = await _signInManager.ExternalLoginSignInAsync(info.LoginProvider, info.ProviderKey, isPersistent: false, bypassTwoFactor : true);
+            var result = await _signInManager.ExternalLoginSignInAsync(info.LoginProvider, info.ProviderKey, isPersistent: false, bypassTwoFactor: true);
             if (result.Succeeded)
             {
                 _logger.LogInformation("{Name} logged in with {LoginProvider} provider.", info.Principal.Identity.Name, info.LoginProvider);
@@ -142,20 +142,8 @@ namespace Web.Areas.Identity.Pages.Account
                             values: new { area = "Identity", userId = userId, code = code },
                             protocol: Request.Scheme);
 
-                        await this._emailSender.SendEmailAsync(this._config["SendGrid:SenderEmail"], "FullFraim", user.Email, 
+                        await this._emailSender.SendEmailAsync(this._config["SendGrid:SenderEmail"], "FullFraim", user.Email,
                             "Email Activation", HtmlEncoder.Default.Encode(callbackUrl));
-
-                        //var emailSender = new SendGridEmailSender(this._config["SendGrid:Key"]);
-                        //await emailSender.SendEmailAsync(_config["SendGrid:Email"], EmailConstants.FromMailingName, Input.Email,
-                        //EmailConstants.ConfirmationEmailSubject,
-                        //string.Format(EmailConstants.ExternalLogin, HtmlEncoder.Default.Encode(callbackUrl)));
-
-                        //var emailToSend = new Email(_config["EmailSenderInformation:Email"], Input.Email,
-                        //$"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.",
-                        //EmailConstants.ConfirmationEmailSubject);
-
-                        //await _emailSender.SendAsync(emailToSend, _config["EmailSenderInformation:Password"],
-                        //    _config["EmailSenderOptions:SmtpServer"], int.Parse(_config["EmailSenderOptions:Port"]));
 
                         // If account confirmation is required, we need to show the link if we don't have a real email sender
                         if (_userManager.Options.SignIn.RequireConfirmedAccount)

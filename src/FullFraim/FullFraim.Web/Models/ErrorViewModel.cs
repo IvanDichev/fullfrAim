@@ -1,5 +1,3 @@
-using System;
-
 namespace FullFraim.Web.Models
 {
     public class ErrorViewModel

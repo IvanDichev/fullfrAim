@@ -1,5 +1,4 @@
-﻿using FullFraim.Models.Dto_s.User;
-using FullFraim.Models.ViewModels.Contest;
+﻿using FullFraim.Models.ViewModels.Contest;
 using Microsoft.AspNetCore.Http;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -9,7 +8,7 @@ namespace FullFraim.Models.Contest.ViewModels
     public class CreateContestViewModel
     {
         [Required(ErrorMessage = "*Required")]
-        [StringLength(50, MinimumLength = 5)]
+        [StringLength(20, MinimumLength = 5)]
         [Display(Name = "Name")]
         public string Name { get; set; }
 
@@ -34,7 +33,7 @@ namespace FullFraim.Models.Contest.ViewModels
         [Display(Name = "Contest Type")]
         public int ContestTypeId { get; set; }
 
-        public ICollection<int> Jury { get; set; } = new HashSet<int>();
+        public ICollection<int> Juries { get; set; } = new HashSet<int>();
         public ICollection<int> Participants { get; set; } = new HashSet<int>();
     }
 }

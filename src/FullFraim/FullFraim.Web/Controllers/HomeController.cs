@@ -1,17 +1,14 @@
-﻿using FullFraim.Models.Dto_s.Photos;
-using FullFraim.Models.ViewModels.ContactUs;
+﻿using FullFraim.Models.ViewModels.ContactUs;
 using FullFraim.Models.ViewModels.Home;
 using FullFraim.Services.PhotoService;
-using FullFraim.Web.Models;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Shared;
+using Shared.AllConstants;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Utilities.Mailing;
@@ -27,7 +24,7 @@ namespace FullFraim.Web.Controllers
         private readonly IEmailSender emailSender;
         private readonly IConfiguration configuration;
 
-        public HomeController(ILogger<HomeController> logger, 
+        public HomeController(ILogger<HomeController> logger,
             IPhotoService photoService,
             IMemoryCache cache,
             IEmailSender emailSender,
@@ -42,16 +39,29 @@ namespace FullFraim.Web.Controllers
 
         public async Task<IActionResult> Index()
         {
-            if(!cache.TryGetValue<ICollection<HomeIndexViewModel>>("photos", out var photos))
+            if (!cache.TryGetValue<ICollection<HomeIndexViewModel>>("photos", out var photos))
             {
                 photos = (await this.photoService.GetTopRecentPhotosAsync())
                     .Select(p => p.MapToHomeViewModel()).ToList();
+                // If no photos are submitted yet
+                if (photos.Count == 0)
+                {
+                    for (int i = 0; i < TopPhotos.AuthorNames.Count; i++)
+                    {
+                        photos.Add(new HomeIndexViewModel
+                        {
+                            PhotoUrl = TopPhotos.Photos[i],
+                            SubmitterName = TopPhotos.AuthorNames[i],
+                            Title = TopPhotos.Titles[i],
+                        });
+                    }
+                }
                 cache.Set("photos", photos, TimeSpan.FromDays(1));
             }
 
             return View(photos);
         }
-        
+
         public IActionResult ContactUs()
         {
             return new PartialViewResult()
@@ -59,11 +69,11 @@ namespace FullFraim.Web.Controllers
                 ViewName = "~/Views/Shared/Partials/_ContactFormPartial.cshtml",
             };
         }
-        
+
         [HttpPost]
         public async Task<IActionResult> ContactUs(ContactUsInputModel inputModel)
         {
-            if(!ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
                 return new PartialViewResult()
                 {

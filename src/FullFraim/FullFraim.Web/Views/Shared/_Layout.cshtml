@@ -12,7 +12,6 @@
     <link rel="stylesheet" href="~/css/responsive.css" asp-append-version="true">
 
     <title>@ViewData["Title"] - FullFraim.Web</title>
-
 </head>
 <body>
     <partial name="~/Views/Shared/Partials/_PreloaderPartial.cshtml" />
@@ -20,8 +19,8 @@
 
     @if (@Url.ActionContext.HttpContext.Request.Path.Value.Contains("Identity"))
     {
-        <div style="margin: 15vh 0rem 0rem 0rem">
-            @RenderBody();
+        <div style="margin: 15vh 15rem 0rem 15rem">
+            @RenderBody()
         </div>
     }
     else
@@ -43,7 +42,6 @@
                             </div>
                         </div>
                     </div>
-                    <!-- Contact Form Area -->
                     <div class="modal-body">
 
                     </div>

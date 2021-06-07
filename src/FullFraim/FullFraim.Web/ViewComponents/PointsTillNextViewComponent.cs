@@ -23,7 +23,7 @@ namespace FullFraim.Web.ViewComponents
 
         public PointsTillNextViewComponent
             (IPhotoJunkieService photoJunkieService,
-            UserManager<User> userManager, 
+            UserManager<User> userManager,
             IConfiguration configuration,
             FullFraimDbContext context)
         {
@@ -35,12 +35,6 @@ namespace FullFraim.Web.ViewComponents
 
         public async Task<IViewComponentResult> InvokeAsync()
         {
-            if(int.Parse(HttpContext.User
-                .FindFirst(ClaimTypes.NameIdentifier).Value) != 1)
-            {
-                return Content(string.Empty);
-            }
-
             var junkies = await userManager.Users
                 .Where(x => x.FirstName != configuration["AccountAdminInfo:UserName"])
                 .Take(5)
@@ -74,7 +68,7 @@ namespace FullFraim.Web.ViewComponents
 
             var user = await this.context.Users
                 .Where(x => x.Id == id)
-                .Select(x => new { x.FirstName, x.LastName, x.Points})
+                .Select(x => new { x.FirstName, x.LastName, x.Points })
                 .FirstOrDefaultAsync();
 
             var pointsTillNext = await photoJunkieService

@@ -22,7 +22,7 @@ namespace FullFraim.Data.Seed
             new Phase()
             {
                Name = Constants.Phases.PhaseI
-            },            
+            },
         };
 
         public async Task SeedAsync(FullFraimDbContext dbContext, IServiceProvider serviceProvider)

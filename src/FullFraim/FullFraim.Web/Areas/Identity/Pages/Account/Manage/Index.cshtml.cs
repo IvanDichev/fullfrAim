@@ -37,7 +37,7 @@ namespace Web.Areas.Identity.Pages.Account.Manage
             [Phone]
             [Display(Name = "Phone number")]
             public string PhoneNumber { get; set; }
-            
+
             [Required]
             [Display(Name = "Is account public")]
             public bool IsPublic { get; set; }

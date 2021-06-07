@@ -24,7 +24,11 @@ namespace FullFraim.Web.Controllers.ApiControllers
             this.juryService = juryService;
         }
 
-
+        /// <summary>
+        /// used to get all reviews of one jury
+        /// </summary>
+        /// <param name="inputModel"></param>
+        /// <returns></returns>
         [HttpPost("review")]
         [IgnoreAntiforgeryToken]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(OutputGiveReviewDto))]

@@ -50,9 +50,6 @@ namespace Web.Areas.Identity.Pages.Account
             TempData["Error"] = "Error confirming your email.";
 
             return RedirectToPage("./Login");
-
-            //StatusMessage = result.Succeeded ? "" : "";
-            //return Page();
         }
     }
 }

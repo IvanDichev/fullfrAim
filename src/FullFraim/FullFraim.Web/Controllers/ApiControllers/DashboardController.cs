@@ -21,19 +21,26 @@ namespace FullFraim.Web.Controllers.ApiControllers
         {
             this.contestService = contestService;
         }
-        
+
+        /// <summary>
+        /// used to get contest without additional information
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <param name="categoryId"></param>
+        /// <param name="paginationFilter"></param>
+        /// <returns></returns>
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ICollection<OutputContestDto>))]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-        public async Task<IActionResult> GetAll([FromQuery] int userId, int categoryId, [FromQuery] PaginationFilter paginationFilter)
+        public async Task<IActionResult> GetAll([FromQuery] int userId, string phase, int categoryId, [FromQuery] PaginationFilter paginationFilter)
         {
             if (userId <= 0)
             {
                 return BadRequest();
             }
 
-            var allForUser = await this.contestService.GetAllForUserAsync(userId, paginationFilter, categoryId);
+            var allForUser = await this.contestService.GetAllForUserByPhaseAsync(userId, paginationFilter, categoryId, phase);
 
             return Ok(allForUser);
         }
