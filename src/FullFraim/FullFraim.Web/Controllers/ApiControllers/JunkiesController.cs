@@ -32,6 +32,12 @@ namespace FullFraim.Web.Controllers.ApiControllers
             this.cloudinaryService = cloudinaryService;
         }
 
+        /// <summary>
+        /// used to get all junkies
+        /// </summary>
+        /// <param name="sortingModel"></param>
+        /// <param name="paginationFilter"></param>
+        /// <returns></returns>
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ICollection<PhotoJunkyDto>))]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
@@ -43,7 +49,7 @@ namespace FullFraim.Web.Controllers.ApiControllers
         }
 
         /// <summary>
-        /// Any data cannot be changed after submission.
+        /// used to enroll onto a given contest (Any data cannot be changed after submission.)
         /// </summary>
         /// <param name="inputModel"></param>
         /// <returns></returns>
@@ -69,6 +75,11 @@ namespace FullFraim.Web.Controllers.ApiControllers
             return Ok();
         }
 
+        /// <summary>
+        /// used to get the points till next rank of the junkie
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <returns></returns>
         [HttpGet("nextrank")]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(PhotoJunkyDto))]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]

@@ -25,7 +25,15 @@ namespace FullFraim.Web.Controllers.ApiControllers
             this.contestService = contestService;
         }
 
-
+        /// <summary>
+        /// used to get all contests (implements query filters and pagination)
+        /// </summary>
+        /// <param name="paginationFilter"></param>
+        /// <param name="participantId"></param>
+        /// <param name="juryId"></param>
+        /// <param name="phase"></param>
+        /// <param name="contestType"></param>
+        /// <returns></returns>
         [HttpGet]
         [APIExceptionFilter]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(PaginatedModel<OutputContestDto>))]
@@ -39,6 +47,11 @@ namespace FullFraim.Web.Controllers.ApiControllers
             return this.Ok(contests);
         }
 
+        /// <summary>
+        /// used to get a contest by id
+        /// </summary>
+        /// <param name="contestId"></param>
+        /// <returns></returns>
         [HttpGet("{contestId}")]
         [APIExceptionFilter]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(OutputContestDto))]
@@ -57,6 +70,11 @@ namespace FullFraim.Web.Controllers.ApiControllers
             return this.Ok(contest);
         }
 
+        /// <summary>
+        /// used to create a contest
+        /// </summary>
+        /// <param name="inputModel"></param>
+        /// <returns></returns>
         [HttpPost]
         [Authorize(Roles = Roles.Organizer)]
         [APIExceptionFilter]
@@ -75,6 +93,12 @@ namespace FullFraim.Web.Controllers.ApiControllers
             return this.Created(nameof(GetById), createdModel);
         }
 
+        /// <summary>
+        /// used to update a contest
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="inputModel"></param>
+        /// <returns></returns>
         [HttpPut("{id}")]
         [APIExceptionFilter]
         [ProducesResponseType(StatusCodes.Status200OK)]
@@ -92,6 +116,11 @@ namespace FullFraim.Web.Controllers.ApiControllers
             return this.Ok();
         }
 
+        /// <summary>
+        /// used to delete a contests
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         [HttpDelete("{id}")]
         [APIExceptionFilter]
         [ProducesResponseType(StatusCodes.Status200OK)]
@@ -108,6 +137,11 @@ namespace FullFraim.Web.Controllers.ApiControllers
             return this.NoContent();
         }
 
+        /// <summary>
+        /// used to get all available covers
+        /// </summary>
+        /// <param name="paginationFilter"></param>
+        /// <returns></returns>
         [HttpGet("/Covers")]
         [Authorize(Roles = Roles.Organizer)]
         [APIExceptionFilter]

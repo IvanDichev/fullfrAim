@@ -21,7 +21,14 @@ namespace FullFraim.Web.Controllers.ApiControllers
         {
             this.contestService = contestService;
         }
-        
+
+        /// <summary>
+        /// used to get contest without additional information
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <param name="categoryId"></param>
+        /// <param name="paginationFilter"></param>
+        /// <returns></returns>
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ICollection<OutputContestDto>))]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
