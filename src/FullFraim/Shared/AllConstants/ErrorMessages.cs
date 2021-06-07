@@ -23,5 +23,7 @@
         public static string NotFound = "Page was not found! Please contact Administration or check the url for mistakes!";
         public static string Unauthorized = "You are not authorized to enter this page! Please re-sign with additional permissions";
         public static string ServerError = "Something went wrong on our side! We are deeply sorry!";
+        public static string ServiceUnavailable = "Service Unavailable!";
+        public static string InvalidInput = "Bad Request!";
     }
 }

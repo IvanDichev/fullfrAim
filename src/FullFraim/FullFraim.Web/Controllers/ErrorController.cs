@@ -13,7 +13,7 @@ namespace FullFraim.Web.Controllers
 
         }
 
-        [HttpGet]
+        [ApiExplorerSettings(IgnoreApi = true)]
         [Route("/Error/{statusCode}")]
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error(int statusCode)
