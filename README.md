@@ -1,9 +1,7 @@
-# **FullFraim**
+# **FullFraim** 
 ## _A site full of photo-contests in which you can participate and earn the title of "Photo Dictator"_
 ## _Cool Right!_
-[![N|Solid](https://cldup.com/dTxpPi9lDf.thumb.png)](https://nodesource.com/products/nsolid)
-
-[![Build Status](https://travis-ci.org/joemccann/dillinger.svg?branch=master)](https://travis-ci.org/joemccann/dillinger)
+![N|Solid](https://res.cloudinary.com/fullfraim/image/upload/v1623086529/For%20Documentation/logo_gptfjh.png)
 
 ## Description
 > FullFraim is a project written in ASP.NET. It Includes a public API and a MVC.
@@ -104,14 +102,8 @@ only 2nd place will get the full 35 points, and the four 3rd finishers will get 
 
 ## Installation
 
-Dillinger requires [Node.js](https://nodejs.org/) v10+ to run.
-
-Install the dependencies and devDependencies and start the server.
-
 ```sh
-cd dillinger
-npm i
-node app
+> Download the app
 ```
 
 For production environments...
@@ -120,6 +112,10 @@ For production environments...
 npm install --production
 NODE_ENV=production node app
 ```
+### Database Diagram
+---
+![N|Solid](https://res.cloudinary.com/fullfraim/image/upload/v1623086127/For%20Documentation/fullfraimDiagran_itmphl.jpg)
+
 ## Technologies used
 
 FullFraim uses a number of open source projects to work properly:
@@ -137,6 +133,8 @@ FullFraim uses a number of open source projects to work properly:
  - JWT Bearer
  - ASP.NET Identity
  - Azure Deployment
+
+
 ## Contacts
 
 Contact us for further information
