@@ -588,3 +588,4 @@ Swashbuckle.AspNetCore.SwaggerGen.SwaggerGeneratorException: Ambiguous HTTP meth
 2021-06-07 21:29:35.126 +03:00 [FTL] Unable to resolve service for type 'FullFraim.Services.SecurityServices.ISecurityService' while attempting to activate 'FullFraim.Web.Controllers.ApiControllers.ContestsController'.
 2021-06-07 21:29:35.128 +03:00 [ERR] Unable to resolve service for type 'FullFraim.Services.SecurityServices.ISecurityService' while attempting to activate 'FullFraim.Web.Controllers.ApiControllers.ContestsController'.
 2021-06-07 21:31:50.717 +03:00 [WRN] Sensitive data logging is enabled. Log entries and exception messages may include sensitive application data, this mode should only be enabled during development.
+2021-06-07 21:57:28.837 +03:00 [WRN] Sensitive data logging is enabled. Log entries and exception messages may include sensitive application data, this mode should only be enabled during development.

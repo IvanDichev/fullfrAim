@@ -661,12 +661,12 @@ namespace FullFraim.Tests.PhotoJunkieServices
         }
 
         [TestMethod]
-        public async Task CanJunkyEnroll_ShouldReturnTrue_IfJunkieCant()
+        public async Task IsUserParticipant_ShouldReturnTrue_IfUserHasAlreadyEnrolled()
         {
             //Arrange
             var options = TestUtils
                 .GetInMemoryDatabaseOptions<FullFraimDbContext>
-                (nameof(CanJunkyEnroll_ShouldReturnTrue_IfJunkieCant));
+                (nameof(IsUserParticipant_ShouldReturnTrue_IfUserHasAlreadyEnrolled));
 
             using (var dbContext = new FullFraimDbContext(options))
             {
@@ -685,7 +685,41 @@ namespace FullFraim.Tests.PhotoJunkieServices
 
                 //Act
                 var result = await photoJunkieService
-                    .CanJunkyEnroll(1, 2);
+                    .IsUserParticipant(3, 2);
+
+                //Assert
+                Assert.IsTrue(result);
+
+                context.Database.EnsureDeleted();
+            }
+        }
+
+        [TestMethod]
+        public async Task IsUserParticipant_ShouldReturnFalse_IfUserHasAlreadyEnrolled()
+        {
+            //Arrange
+            var options = TestUtils
+                .GetInMemoryDatabaseOptions<FullFraimDbContext>
+                (nameof(IsUserParticipant_ShouldReturnFalse_IfUserHasAlreadyEnrolled));
+
+            using (var dbContext = new FullFraimDbContext(options))
+            {
+                await TestUtils.DatabaseFullSeed(dbContext);
+
+                await dbContext.SaveChangesAsync();
+            }
+
+            using (var context = new FullFraimDbContext(options))
+            {
+                var userStoreMock = new Mock<IUserStore<User>>();
+                var userMocked = new Mock<UserManager<User>>(
+                    userStoreMock.Object, null, null, null, null, null, null, null, null);
+
+                var photoJunkieService = new PhotoJunkieService(context, userMocked.Object);
+
+                //Act
+                var result = await photoJunkieService
+                    .IsUserParticipant(10, 5);
 
                 //Assert
                 Assert.IsTrue(result == false);
@@ -695,12 +729,84 @@ namespace FullFraim.Tests.PhotoJunkieServices
         }
 
         [TestMethod]
-        public async Task CanJunkyEnroll_ShouldReturnTrue_IfJunkieCan()
+        [DataRow(0)]
+        [DataRow(-1)]
+        [DataRow(-5)]
+        public async Task IsUserParticipant_ShouldThrowException_IfContestIdIsZeroOrNegative(int id)
         {
             //Arrange
             var options = TestUtils
                 .GetInMemoryDatabaseOptions<FullFraimDbContext>
-                (nameof(CanJunkyEnroll_ShouldReturnTrue_IfJunkieCan));
+                (nameof(IsUserParticipant_ShouldThrowException_IfContestIdIsZeroOrNegative));
+
+            using (var dbContext = new FullFraimDbContext(options))
+            {
+                await TestUtils.DatabaseFullSeed(dbContext);
+
+                await dbContext.SaveChangesAsync();
+            }
+
+            using (var context = new FullFraimDbContext(options))
+            {
+                var userStoreMock = new Mock<IUserStore<User>>();
+                var userMocked = new Mock<UserManager<User>>(
+                    userStoreMock.Object, null, null, null, null, null, null, null, null);
+
+                var photoJunkieService = new PhotoJunkieService(context, userMocked.Object);
+
+                //Act
+                //Assert
+                await Assert.ThrowsExceptionAsync<InvalidIdException>
+                    (async () => await photoJunkieService
+                    .IsUserParticipant(id, 4));
+
+                context.Database.EnsureDeleted();
+            }
+        }
+
+        [TestMethod]
+        [DataRow(0)]
+        [DataRow(-1)]
+        [DataRow(-5)]
+        public async Task IsUserParticipant_ShouldThrowException_IfUserIdIsZeroOrNegative(int id)
+        {
+            //Arrange
+            var options = TestUtils
+                .GetInMemoryDatabaseOptions<FullFraimDbContext>
+                (nameof(IsUserParticipant_ShouldThrowException_IfUserIdIsZeroOrNegative));
+
+            using (var dbContext = new FullFraimDbContext(options))
+            {
+                await TestUtils.DatabaseFullSeed(dbContext);
+
+                await dbContext.SaveChangesAsync();
+            }
+
+            using (var context = new FullFraimDbContext(options))
+            {
+                var userStoreMock = new Mock<IUserStore<User>>();
+                var userMocked = new Mock<UserManager<User>>(
+                    userStoreMock.Object, null, null, null, null, null, null, null, null);
+
+                var photoJunkieService = new PhotoJunkieService(context, userMocked.Object);
+
+                //Act
+                //Assert
+                await Assert.ThrowsExceptionAsync<InvalidIdException>
+                    (async () => await photoJunkieService
+                    .IsUserParticipant(4, id));
+
+                context.Database.EnsureDeleted();
+            }
+        }
+
+        [TestMethod]
+        public async Task IsUserJury_ShouldReturnTrue_IfUserIsJuryForTheCurrentContest()
+        {
+            //Arrange
+            var options = TestUtils
+                .GetInMemoryDatabaseOptions<FullFraimDbContext>
+                (nameof(IsUserJury_ShouldReturnTrue_IfUserIsJuryForTheCurrentContest));
 
             using (var dbContext = new FullFraimDbContext(options))
             {
@@ -719,10 +825,44 @@ namespace FullFraim.Tests.PhotoJunkieServices
 
                 //Act
                 var result = await photoJunkieService
-                    .CanJunkyEnroll(5, 4);
+                    .IsUserJury(3, 1);
 
                 //Assert
-                Assert.IsTrue(result == true);
+                Assert.IsTrue(result);
+
+                context.Database.EnsureDeleted();
+            }
+        }
+
+        [TestMethod]
+        public async Task IsUserJury_ShouldReturnFalse_IfUserIsJuryForTheCurrentContest()
+        {
+            //Arrange
+            var options = TestUtils
+                .GetInMemoryDatabaseOptions<FullFraimDbContext>
+                (nameof(IsUserJury_ShouldReturnFalse_IfUserIsJuryForTheCurrentContest));
+
+            using (var dbContext = new FullFraimDbContext(options))
+            {
+                await TestUtils.DatabaseFullSeed(dbContext);
+
+                await dbContext.SaveChangesAsync();
+            }
+
+            using (var context = new FullFraimDbContext(options))
+            {
+                var userStoreMock = new Mock<IUserStore<User>>();
+                var userMocked = new Mock<UserManager<User>>(
+                    userStoreMock.Object, null, null, null, null, null, null, null, null);
+
+                var photoJunkieService = new PhotoJunkieService(context, userMocked.Object);
+
+                //Act
+                var result = await photoJunkieService
+                    .IsUserJury(3, 5);
+
+                //Assert
+                Assert.IsTrue(result == false);
 
                 context.Database.EnsureDeleted();
             }
@@ -732,12 +872,12 @@ namespace FullFraim.Tests.PhotoJunkieServices
         [DataRow(0)]
         [DataRow(-1)]
         [DataRow(-5)]
-        public async Task CanJunkyEnroll_ShouldThrowException_IfCategoryIdIsZeroOrNegative(int id)
+        public async Task IsUserJury_ShouldThrowException_IfContestIdIsZeroOrNegative(int id)
         {
             //Arrange
             var options = TestUtils
                 .GetInMemoryDatabaseOptions<FullFraimDbContext>
-                (nameof(CanJunkyEnroll_ShouldThrowException_IfCategoryIdIsZeroOrNegative));
+                (nameof(IsUserJury_ShouldThrowException_IfContestIdIsZeroOrNegative));
 
             using (var dbContext = new FullFraimDbContext(options))
             {
@@ -758,7 +898,7 @@ namespace FullFraim.Tests.PhotoJunkieServices
                 //Assert
                 await Assert.ThrowsExceptionAsync<InvalidIdException>
                     (async () => await photoJunkieService
-                    .CanJunkyEnroll(id, 4));
+                    .IsUserJury(id, 4));
 
                 context.Database.EnsureDeleted();
             }
@@ -768,12 +908,12 @@ namespace FullFraim.Tests.PhotoJunkieServices
         [DataRow(0)]
         [DataRow(-1)]
         [DataRow(-5)]
-        public async Task CanJunkyEnroll_ShouldThrowException_IfUserIdIsZeroOrNegative(int id)
+        public async Task IsUserJury_ShouldThrowException_IfUserIdIsZeroOrNegative(int id)
         {
             //Arrange
             var options = TestUtils
                 .GetInMemoryDatabaseOptions<FullFraimDbContext>
-                (nameof(CanJunkyEnroll_ShouldThrowException_IfUserIdIsZeroOrNegative));
+                (nameof(IsUserJury_ShouldThrowException_IfUserIdIsZeroOrNegative));
 
             using (var dbContext = new FullFraimDbContext(options))
             {
@@ -794,7 +934,7 @@ namespace FullFraim.Tests.PhotoJunkieServices
                 //Assert
                 await Assert.ThrowsExceptionAsync<InvalidIdException>
                     (async () => await photoJunkieService
-                    .CanJunkyEnroll(4, id));
+                    .IsUserJury(4, id));
 
                 context.Database.EnsureDeleted();
             }
