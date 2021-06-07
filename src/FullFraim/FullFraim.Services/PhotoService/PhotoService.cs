@@ -158,7 +158,7 @@ namespace FullFraim.Services.PhotoService
                 throw new InvalidIdException
                     (string.Format(LogMessages.InvalidId, "PhotoService", "GetDetailedSubmissionsFromContestAsync", contestId, "contest"));
             }
-            
+
             if (photoId <= 0)
             {
                 throw new InvalidIdException

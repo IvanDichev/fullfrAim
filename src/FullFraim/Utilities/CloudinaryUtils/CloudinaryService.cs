@@ -32,7 +32,7 @@ namespace Utilities.CloudinaryUtils
                 File = new FileDescription(filePath + extention, file.OpenReadStream()),
                 Overwrite = true,
             };
-            
+
             var uploadResult = this.cloudinary.Upload(uploadParams);
 
             if (uploadResult.Error != null)
@@ -42,7 +42,7 @@ namespace Utilities.CloudinaryUtils
 
             return uploadResult.SecureUrl.AbsoluteUri;
         }
-        
+
         public string UploadImage(MemoryStream file, string extention = ".png")
         {
             string filePath = Guid.NewGuid().ToString();
@@ -57,7 +57,7 @@ namespace Utilities.CloudinaryUtils
                 File = new FileDescription(filePath + extention, file),
                 Overwrite = true,
             };
-            
+
             var uploadResult = this.cloudinary.Upload(uploadParams);
 
             if (uploadResult.Error != null)

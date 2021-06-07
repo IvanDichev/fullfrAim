@@ -1,9 +1,7 @@
 ﻿using FullFraim.Data;
 using FullFraim.Data.Models;
 using FullFraim.Models.Dto_s.Pagination;
-using FullFraim.Models.Dto_s.Phases;
 using FullFraim.Models.Dto_s.PhotoJunkies;
-using FullFraim.Models.Dto_s.User;
 using FullFraim.Models.Dto_s.Users;
 using FullFraim.Services.Exceptions;
 using FullFraim.Services.PhotoJunkieServices;
@@ -673,7 +671,7 @@ namespace FullFraim.Tests.PhotoJunkieServices
             using (var dbContext = new FullFraimDbContext(options))
             {
                 await TestUtils.DatabaseFullSeed(dbContext);
-                
+
                 await dbContext.SaveChangesAsync();
             }
 

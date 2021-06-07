@@ -30,7 +30,8 @@ namespace FullFraim.Web.Controllers
             {
                 RequestId = Activity.Current?.Id ??
                 HttpContext.TraceIdentifier,
-                Message = ClientErrorMessages.ServerError});
+                Message = ClientErrorMessages.ServerError
+            });
         }
     }
 }

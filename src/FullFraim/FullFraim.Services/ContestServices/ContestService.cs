@@ -3,7 +3,6 @@ using FullFraim.Data.Models;
 using FullFraim.Models.Dto_s.Contests;
 using FullFraim.Models.Dto_s.Pagination;
 using FullFraim.Models.Dto_s.User;
-using FullFraim.Models.ViewModels.Dashboard;
 using FullFraim.Services.Exceptions;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -31,7 +30,7 @@ namespace FullFraim.Services.ContestServices
 
         public async Task<bool> IsNameUniqueAsync(string name)
         {
-            var isUnique =  (await this.context.Contests.FirstOrDefaultAsync(c => c.Name == name) == null);
+            var isUnique = (await this.context.Contests.FirstOrDefaultAsync(c => c.Name == name) == null);
 
             return isUnique;
         }
@@ -55,7 +54,7 @@ namespace FullFraim.Services.ContestServices
             await AddOrganizersToJuryContest(contest.Entity.Id);
 
             // If contest is invitational - invite users to join
-            if (model.ContestTypeId == 
+            if (model.ContestTypeId ==
                 (await this.context.ContestTypes.FirstOrDefaultAsync(ct => ct.Name == Constants.ContestType.Invitational)).Id)
             {
                 await this.AddInvitedForTheContestAsync(model.Jury, model.Participants, contest.Entity.Id);
@@ -133,7 +132,7 @@ namespace FullFraim.Services.ContestServices
 
             contests = contests.Where(c => c.ParticipantContests.Any(pc => pc.UserId == userId) ||
                 c.JuryContests.Any(jc => jc.UserId == userId) ||
-                    (c.ContestPhases.Any(cp => cp.Phase.Name == Constants.Phases.PhaseI && 
+                    (c.ContestPhases.Any(cp => cp.Phase.Name == Constants.Phases.PhaseI &&
                     cp.EndDate > DateTime.UtcNow && cp.StartDate < DateTime.UtcNow) &&
                 c.ContestType.Name == Constants.ContestType.Open));
 
@@ -164,7 +163,7 @@ namespace FullFraim.Services.ContestServices
 
             contests = contests.Where(c => c.ParticipantContests.Any(pc => pc.UserId == userId) ||
                 c.JuryContests.Any(jc => jc.UserId == userId) ||
-                    (c.ContestPhases.Any(cp => cp.Phase.Name == Constants.Phases.PhaseI && 
+                    (c.ContestPhases.Any(cp => cp.Phase.Name == Constants.Phases.PhaseI &&
                     cp.EndDate > DateTime.UtcNow && cp.StartDate < DateTime.UtcNow) &&
                 c.ContestType.Name == Constants.ContestType.Open));
 

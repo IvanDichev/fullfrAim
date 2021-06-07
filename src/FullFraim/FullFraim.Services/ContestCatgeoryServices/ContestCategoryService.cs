@@ -21,7 +21,7 @@ namespace FullFraim.Services.ContestCatgeoryServices
 
         public async Task<ContestCategoryDto> CreateAsync(ContestCategoryDto model)
         {
-            if(model == null)
+            if (model == null)
             {
                 throw new NullModelException(string.Format(LogMessages.NullModel, "ContestCategoryService", "CreateAsync"));
             }
@@ -62,7 +62,7 @@ namespace FullFraim.Services.ContestCatgeoryServices
 
         public async Task<ContestCategoryDto> GetByIdAsync(int id)
         {
-            if(id <= 0)
+            if (id <= 0)
             {
                 throw new InvalidIdException(string.Format(LogMessages.InvalidId, "ContestCategoryService", "GetByIdAsync()", id, "ContestCategory"));
             }
@@ -71,7 +71,7 @@ namespace FullFraim.Services.ContestCatgeoryServices
                 .MapToDto()
                 .FirstOrDefaultAsync(CC => CC.Id == id);
 
-            if(result == null)
+            if (result == null)
             {
                 throw new NotFoundException(string.Format(LogMessages.NotFound, "ContestCategoryService", "GetByIdAsync()", id));
             }
@@ -81,7 +81,7 @@ namespace FullFraim.Services.ContestCatgeoryServices
 
         public async Task<ContestCategoryDto> UpdateAsync(int id, ContestCategoryDto model)
         {
-            if(model == null)
+            if (model == null)
             {
                 throw new NullModelException(string.Format(LogMessages.NullModel, "ContestCategoryService", "UpdateAsync()"));
             }
@@ -94,7 +94,7 @@ namespace FullFraim.Services.ContestCatgeoryServices
             var dbModelToUpdate = await this.context.ContestCategories
                 .FirstOrDefaultAsync(cc => cc.Id == id);
 
-            if(dbModelToUpdate == null)
+            if (dbModelToUpdate == null)
             {
                 throw new NotFoundException(string.Format(LogMessages.NotFound, "ContestCategoryService", "UpdateAsync()", id));
             }

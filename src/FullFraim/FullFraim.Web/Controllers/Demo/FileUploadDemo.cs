@@ -1,6 +1,5 @@
 ﻿using FullFraim.Models.ViewModels;
 using Microsoft.AspNetCore.Mvc;
-using System.Threading.Tasks;
 using Utilities.CloudinaryUtils;
 
 namespace FullFraim.Web.Controllers.Demo
@@ -18,13 +17,13 @@ namespace FullFraim.Web.Controllers.Demo
         {
             return View();
         }
-        
+
         [HttpPost]
         public IActionResult Index(ImageInputUploadDemo input)
         {
             var imageUrl = this.cloudinaryService.UploadImage(input.Image);
 
-            var resp = new ImageInputUploadDemo() 
+            var resp = new ImageInputUploadDemo()
             {
                 ImageUrl = imageUrl,
             };

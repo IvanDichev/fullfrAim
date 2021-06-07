@@ -57,7 +57,7 @@ namespace FullFraim.Web.Controllers.ApiControllers
             if (!(await this.photoJunkieService.IsUserParticipant(inputModel.ContestId, inputModel.UserId) &&
              await this.photoJunkieService.IsUserJury(inputModel.ContestId, inputModel.UserId)))
             {
-                return BadRequest(error:string.Format(ErrorMessages.AlreadyInContest, inputModel.UserId, inputModel.ContestId));
+                return BadRequest(error: string.Format(ErrorMessages.AlreadyInContest, inputModel.UserId, inputModel.ContestId));
             }
 
             var inputDto = inputModel.MapToDto();

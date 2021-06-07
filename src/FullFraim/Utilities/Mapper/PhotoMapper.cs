@@ -90,11 +90,11 @@ namespace Utilities.Mapper
         public static PhotoReview MapToRaw(ReviewDto model)
         {
             return new PhotoReview()
-            { 
-               Checkbox = model.IsDisqualified,
-               Comment = model.Comment,
-               PhotoId = model.PhotoId,
-               Score = model.Score
+            {
+                Checkbox = model.IsDisqualified,
+                Comment = model.Comment,
+                PhotoId = model.PhotoId,
+                Score = model.Score
             };
         }
 
@@ -107,8 +107,8 @@ namespace Utilities.Mapper
                 SubmitterName = model.SubmitterName,
                 Title = model.Title,
             };
-        } 
-        
+        }
+
         public static UserSubmissionViewModel MapToUserSubmissionViewModel(this PhotoDto model)
         {
             return new UserSubmissionViewModel()

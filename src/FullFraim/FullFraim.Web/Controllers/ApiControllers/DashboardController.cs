@@ -21,7 +21,7 @@ namespace FullFraim.Web.Controllers.ApiControllers
         {
             this.contestService = contestService;
         }
-        
+
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ICollection<OutputContestDto>))]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]

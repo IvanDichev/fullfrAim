@@ -159,7 +159,7 @@ namespace FullFraim.Services.ScoringServices
 
             int userReviewsCount = userReviews.Count();
 
-            double userFinalScore; 
+            double userFinalScore;
 
             if (userReviewsCount > 0)
             {

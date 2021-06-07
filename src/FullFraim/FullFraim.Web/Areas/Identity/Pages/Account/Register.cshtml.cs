@@ -58,7 +58,7 @@ namespace Web.Areas.Identity.Pages.Account
             [Required]
             [Display(Name = "First name")]
             public string FirstName { get; set; }
-            
+
             [Required]
             [Display(Name = "Last name")]
             public string LastName { get; set; }
@@ -87,11 +87,11 @@ namespace Web.Areas.Identity.Pages.Account
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
             if (ModelState.IsValid)
             {
-                var user = new User 
-                { 
-                    UserName = Input.Email, 
-                    Email = Input.Email, 
-                    FirstName = Input.FirstName, 
+                var user = new User
+                {
+                    UserName = Input.Email,
+                    Email = Input.Email,
+                    FirstName = Input.FirstName,
                     LastName = Input.LastName,
                 };
 
@@ -111,13 +111,13 @@ namespace Web.Areas.Identity.Pages.Account
                         protocol: Request.Scheme);
 
                     await this._emailSender.SendEmailAsync(
-                        Sender: this._config["SendGrid:SenderEmail"], 
-                        SenderName: Constants.Email.SenderName, 
+                        Sender: this._config["SendGrid:SenderEmail"],
+                        SenderName: Constants.Email.SenderName,
                         To: user.Email,
-                        Subject: Constants.Email.ConfirmEmailSubject, 
-                        HtmlContent: string.Format(Constants.EmailContents.ConfirmEmail, 
+                        Subject: Constants.Email.ConfirmEmailSubject,
+                        HtmlContent: string.Format(Constants.EmailContents.ConfirmEmail,
                             user.Email, HtmlEncoder.Default.Encode(callbackUrl),
-                            "https://FullFrAim.com/ConfirmEmail", string.Format(Constants.Email.NHours, "24"), 
+                            "https://FullFrAim.com/ConfirmEmail", string.Format(Constants.Email.NHours, "24"),
                             Constants.EmailContents.ConfirmEmailStyles));
 
 

@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace FullFraim.Models
+﻿namespace FullFraim.Models
 {
     public class PaginationPartialModel
     {

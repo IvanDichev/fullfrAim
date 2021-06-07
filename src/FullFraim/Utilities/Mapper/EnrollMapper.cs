@@ -16,7 +16,7 @@ namespace Utilities.Mapper
             };
         }
 
-        public static InputEnrollForContestDto MapToDto(this EnrollViewModel model, 
+        public static InputEnrollForContestDto MapToDto(this EnrollViewModel model,
             string photoUrl)
         {
             return new InputEnrollForContestDto()

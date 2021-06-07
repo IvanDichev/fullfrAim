@@ -40,7 +40,7 @@ namespace FullFraim.Web.Controllers
         public async Task<IActionResult> Create()
         {
             await SeedDropdownsForContest();
-           
+
             return View();
         }
 

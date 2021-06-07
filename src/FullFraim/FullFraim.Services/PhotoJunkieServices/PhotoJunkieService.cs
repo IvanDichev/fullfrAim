@@ -9,7 +9,6 @@ using Microsoft.EntityFrameworkCore;
 using Shared;
 using Shared.AllConstants;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Utilities.Mapper;
@@ -51,7 +50,7 @@ namespace FullFraim.Services.PhotoJunkieServices
                 };
 
                 var addedPhoto = await this.context.Photos.AddAsync(photo);
-                
+
                 await this.context.SaveChangesAsync();
 
                 participant.PhotoId = addedPhoto.Entity.Id;

@@ -37,7 +37,7 @@ namespace FullFraim.Web.Controllers.ApiControllers
 
             return await this.securityService.IsUserParticipantInContestAsync(userId, contestId);
         }
-        
+
         protected internal async Task<bool> IsUserAdmin()
         {
             var userId = int.Parse(HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value);

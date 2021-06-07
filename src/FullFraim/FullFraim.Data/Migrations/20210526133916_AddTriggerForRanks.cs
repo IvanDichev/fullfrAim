@@ -7,13 +7,13 @@ namespace FullFraim.Data.Migrations
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-			migrationBuilder.Sql(Constants.DatabaseQueries.RankTrigger);
+            migrationBuilder.Sql(Constants.DatabaseQueries.RankTrigger);
 
-		}
+        }
 
-		protected override void Down(MigrationBuilder migrationBuilder)
+        protected override void Down(MigrationBuilder migrationBuilder)
         {
-			migrationBuilder.Sql(Constants.DatabaseQueries.DropRankTrigger);
-		}
+            migrationBuilder.Sql(Constants.DatabaseQueries.DropRankTrigger);
+        }
     }
 }

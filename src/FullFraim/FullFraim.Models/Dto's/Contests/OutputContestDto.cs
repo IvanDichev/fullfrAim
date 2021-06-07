@@ -17,7 +17,7 @@ namespace FullFraim.Models.Dto_s.Contests
             {
                 foreach (var phase in PhasesInfo)
                 {
-                    if(phase.IsActive)
+                    if (phase.IsActive)
                     {
                         return phase;
                     }

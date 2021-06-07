@@ -16,7 +16,7 @@ namespace FullFraim.Services.SecurityServices
         {
             this.context = context;
         }
-        
+
         public SecurityService(FullFraimDbContext context,
             UserManager<User> userManager)
         {
@@ -24,7 +24,7 @@ namespace FullFraim.Services.SecurityServices
             this.userManager = userManager;
         }
 
-      
+
         public async Task<bool> IsUserJuryInContestAsync(int userId, int contestId)
         {
             return await this.context.JuryContests

@@ -10,7 +10,7 @@ namespace FullFraim.Data.Seed
     public class PhotosSeed : ISeeder
     {
         public static readonly List<Photo> SeedData = new List<Photo>()
-        { 
+        {
             new Photo()
             {
                 ContestId = 1,
@@ -100,7 +100,7 @@ namespace FullFraim.Data.Seed
                 Story = "Got it!",
                 Url = Constants.Images.WildlifeImg6Url,
             },
-            
+
             new Photo()
             {
                 ContestId = 3,

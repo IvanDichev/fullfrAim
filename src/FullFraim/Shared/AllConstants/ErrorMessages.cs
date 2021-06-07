@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Shared.AllConstants
+﻿namespace Shared.AllConstants
 {
     public static class ErrorMessages
     {

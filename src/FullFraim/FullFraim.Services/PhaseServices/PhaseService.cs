@@ -86,7 +86,7 @@ namespace FullFraim.Services.PhaseServices
                 throw new NullModelException(string.Format(LogMessages.NullModel, "PhaseService", "UpdateAsync"));
             }
 
-            if(id <= 0)
+            if (id <= 0)
             {
                 throw new InvalidIdException(string.Format(LogMessages.InvalidId, "PhaseService", "UpdateAsync", id, "phase"));
             }

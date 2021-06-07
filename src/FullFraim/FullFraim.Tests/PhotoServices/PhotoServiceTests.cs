@@ -532,13 +532,13 @@ namespace FullFraim.Tests.PhotoServices
 
                 //Act
                 var result = await photoService.GetUserSubmissionForContestAsync(2, 1);
-                
+
 
                 //Assert
                 Assert.AreEqual(1, result.Id);
-                
+
                 Assert.AreEqual(Constants.Images.WildlifeImgUrl, result.Url);
-               
+
                 context.Database.EnsureDeleted();
             }
         }

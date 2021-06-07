@@ -27,7 +27,7 @@ namespace FullFraim.Models.Attributes
                     var phaseII = (DateTime)field.GetValue(validationContext.ObjectInstance, null);
                     if (phaseII > phase)
                     {
-                        if(DependantPropDisplayName == null)
+                        if (DependantPropDisplayName == null)
                         {
                             throw new Exception();
                         }

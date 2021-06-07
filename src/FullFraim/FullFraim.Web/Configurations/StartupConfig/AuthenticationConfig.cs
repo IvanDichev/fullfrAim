@@ -11,7 +11,7 @@ namespace FullFraim.Web.Configurations.StartupConfig
 {
     public static class AuthenticationConfig
     {
-        public static void ConfigureWith_JwtAndMVC(IServiceCollection services, 
+        public static void ConfigureWith_JwtAndMVC(IServiceCollection services,
             IConfiguration configuration)
         {
             var jwtSettingsSection = configuration

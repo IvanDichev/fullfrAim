@@ -1,9 +1,8 @@
 ﻿using FullFraim.Models.Dto_s.Contests;
+using FullFraim.Models.Dto_s.Pagination;
 using FullFraim.Models.Dto_s.User;
 using System.Collections.Generic;
-using FullFraim.Models.Dto_s.Pagination;
 using System.Threading.Tasks;
-using FullFraim.Models.ViewModels.Dashboard;
 
 namespace FullFraim.Services.ContestServices
 {

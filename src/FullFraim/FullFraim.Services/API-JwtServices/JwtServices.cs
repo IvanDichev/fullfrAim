@@ -34,13 +34,13 @@ namespace FullFraim.Services.API_JwtServices
             //ToDO: Implement through another service
             User user = await userManager.FindByNameAsync(userName);
 
-            if( user == null || 
+            if (user == null ||
                 !await userManager.CheckPasswordAsync(user, password))
             {
                 return null;
             }
             ////
-            
+
             var secret = this.options.Value.Secret;
             var key = Encoding.UTF8.GetBytes(secret);
 
@@ -53,7 +53,7 @@ namespace FullFraim.Services.API_JwtServices
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
                 new Claim(ClaimTypes.NameIdentifier, user.Id.ToString())
             };
-            
+
             var tokenHandler = new JwtSecurityTokenHandler();
             var token = new JwtSecurityToken(
                     expires: DateTime.Now.AddHours(24),
