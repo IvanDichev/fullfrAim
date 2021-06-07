@@ -8,7 +8,7 @@ variables:
     test: "FullFraim.Tests"
 
 before_script:
-    - "cd src"
+    - "cd src/FullFraim"
     - "dotnet restore"
 
 build_stage:
