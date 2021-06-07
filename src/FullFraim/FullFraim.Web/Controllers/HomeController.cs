@@ -9,6 +9,7 @@ using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Shared;
+using Shared.AllConstants;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -46,6 +47,19 @@ namespace FullFraim.Web.Controllers
             {
                 photos = (await this.photoService.GetTopRecentPhotosAsync())
                     .Select(p => p.MapToHomeViewModel()).ToList();
+                // If no photos are submitted yet
+                if (photos.Count == 0)
+                {
+                    for (int i = 0; i < TopPhotos.AuthorNames.Count; i++)
+                    {
+                        photos.Add(new HomeIndexViewModel 
+                        {
+                            PhotoUrl = TopPhotos.Photos[i],
+                            SubmitterName = TopPhotos.AuthorNames[i],
+                            Title = TopPhotos.Titles[i],
+                        });
+                    }
+                }
                 cache.Set("photos", photos, TimeSpan.FromDays(1));
             }
 

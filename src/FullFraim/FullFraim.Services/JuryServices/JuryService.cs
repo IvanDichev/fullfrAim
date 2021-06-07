@@ -28,13 +28,23 @@ namespace FullFraim.Services.JuryServices
                 throw new NullModelException(string.Format(LogMessages.NullModel, "JuryService", "GiveReviewAsync"));
             }
 
+            var contestIdToGive = (await this.context.Photos.Where(p => p.Id == inputModel.PhotoId)
+                .Select(p => p.ContestId)
+                .FirstOrDefaultAsync());
+
+            var juryContestId = await this.context.JuryContests
+                .Where(jc => jc.ContestId == contestIdToGive && jc.UserId == inputModel.JuryId)
+                .Select(jc => jc.Id)
+                .FirstOrDefaultAsync();
+
             var toAddReview = new PhotoReview()
             {
+                CreatedOn = DateTime.UtcNow,
                 Comment = inputModel.Comment,
                 Score = inputModel.Score,
                 Checkbox = inputModel.Checkbox,
                 PhotoId = inputModel.PhotoId,
-                JuryContestId = inputModel.JuryId
+                JuryContestId = juryContestId,
             };
 
             if (toAddReview.Checkbox == true)

@@ -18,5 +18,8 @@ namespace FullFraim.Models.Dto_s.Reviews
 
         [Required]
         public int JuryId { get; set; }
+
+        [Required]
+        public int ContestId { get; set; }
     }
 }

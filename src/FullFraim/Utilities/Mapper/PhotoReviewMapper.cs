@@ -27,6 +27,7 @@ namespace Utilities.Mapper
                 Checkbox = model.Review.Checkbox,
                 Comment = model.Review.Comment,
                 JuryId = model.Review.JuryId,
+                ContestId = model.ContestId,
                 PhotoId = model.Review.PhotoId,
                 Score = model.Review.Score
             };

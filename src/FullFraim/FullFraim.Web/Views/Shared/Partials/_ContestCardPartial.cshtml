@@ -17,14 +17,15 @@
 
 <script src="~/lib/jquery/jquery.js"></script>
 
-<div class="row portfolio-column">
+<div class="row portfolio-column" style="margin-left:6rem;">
     @foreach (var contest in Model.Model)
     {
-        <div class="card" style="margin-inline:1rem; margin-bottom:1rem;">
+        <div class="card" style="margin-inline:1rem; margin-bottom:1rem; 
+            margin-right:3rem;">
 
             <img class="card-img-top" src="@contest.Cover_Url" alt="Card image cap" style="width: 300px; height:200px">
 
-            <div class="card-body" style="text-align: center;display: flex;flex-direction: column;justify-content: space-between;align-items: center;flex-wrap: wrap;">
+            <div class="card-body" style="text-align: center;display: flex;flex-direction: column;justify-content: space-between;align-items: center;flex-wrap: wrap; max-width: 300px;">
                 <div>
                     <h5 class="card-title">@contest.Name</h5>
                     <p class="card-text">@contest.Description</p>

@@ -154,7 +154,7 @@ namespace FullFraim.Web.Controllers
 
             var submission = await this.photoService.GetUserSubmissionForContestAsync(submitterId, contestId);
 
-            var giveReviewViewModel = new GiveReviewViewModel
+            var giveReviewViewModel = new GiveReviewViewModel 
             {
                 PhotoUrl = submission.Url,
                 Author = submission.SubmitterName,

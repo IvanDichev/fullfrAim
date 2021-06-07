@@ -3,14 +3,22 @@
 @inject SignInManager<User> SignInManager
 @inject UserManager<User> UserManager
 
+    <style>
+        .outlineText {
+            color: #1ed3bc !important;
+            font-size: 1.1rem !important;
+            font-weight: bold;
+        }
+    </style>
+
     @if (SignInManager.IsSignedIn(User))
     {
         <li class="nav-item">
-            <a class="nav-link" asp-area="Identity" asp-page="/Account/Manage/ChangePassword" title="Manage">Hello  @User.Identity.Name!</a>
+            <a class="nav-link outlineText" asp-area="Identity" asp-page="/Account/Manage/ChangePassword" title="Manage">Hello  @User.Identity.Name!</a>
         </li>
         <li class="nav-item">
             <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">
-                <button type="submit" class="nav-link btn btn-link">
+                <button type="submit" class="nav-link btn btn-link outlineText">
                     Logout
                 </button>
             </form>
@@ -19,12 +27,12 @@
     else
     {
         <li class="nav-item">
-            <a class="nav-link" asp-area="Identity" asp-page="/Account/Register">
+            <a class="nav-link outlineText" asp-area="Identity" asp-page="/Account/Register">
                 Register
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" asp-area="Identity" asp-page="/Account/Login">
+            <a class="nav-link outlineText" asp-area="Identity" asp-page="/Account/Login">
                 Login
             </a>
         </li>
