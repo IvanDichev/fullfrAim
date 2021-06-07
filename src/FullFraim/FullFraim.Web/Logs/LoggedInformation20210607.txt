@@ -558,3 +558,33 @@ Error Number:547,State:0,Class:16
 2021-06-07 21:06:39.838 +03:00 [WRN] Sensitive data logging is enabled. Log entries and exception messages may include sensitive application data, this mode should only be enabled during development.
 2021-06-07 21:07:29.292 +03:00 [WRN] Sensitive data logging is enabled. Log entries and exception messages may include sensitive application data, this mode should only be enabled during development.
 2021-06-07 21:07:43.716 +03:00 [WRN] Sensitive data logging is enabled. Log entries and exception messages may include sensitive application data, this mode should only be enabled during development.
+2021-06-07 21:08:35.241 +03:00 [WRN] Sensitive data logging is enabled. Log entries and exception messages may include sensitive application data, this mode should only be enabled during development.
+2021-06-07 21:10:53.616 +03:00 [WRN] Sensitive data logging is enabled. Log entries and exception messages may include sensitive application data, this mode should only be enabled during development.
+2021-06-07 21:11:44.000 +03:00 [WRN] Sensitive data logging is enabled. Log entries and exception messages may include sensitive application data, this mode should only be enabled during development.
+2021-06-07 21:13:39.622 +03:00 [WRN] Sensitive data logging is enabled. Log entries and exception messages may include sensitive application data, this mode should only be enabled during development.
+2021-06-07 21:15:20.569 +03:00 [WRN] Sensitive data logging is enabled. Log entries and exception messages may include sensitive application data, this mode should only be enabled during development.
+2021-06-07 21:18:26.336 +03:00 [WRN] Sensitive data logging is enabled. Log entries and exception messages may include sensitive application data, this mode should only be enabled during development.
+2021-06-07 21:20:41.554 +03:00 [WRN] Sensitive data logging is enabled. Log entries and exception messages may include sensitive application data, this mode should only be enabled during development.
+2021-06-07 21:24:14.360 +03:00 [WRN] Sensitive data logging is enabled. Log entries and exception messages may include sensitive application data, this mode should only be enabled during development.
+2021-06-07 21:24:36.490 +03:00 [ERR] An unhandled exception has occurred while executing the request.
+Swashbuckle.AspNetCore.SwaggerGen.SwaggerGeneratorException: Ambiguous HTTP method for action - FullFraim.Web.Controllers.ErrorController.Error (FullFraim.Web). Actions require an explicit HttpMethod binding for Swagger/OpenAPI 3.0
+   at Swashbuckle.AspNetCore.SwaggerGen.SwaggerGenerator.GenerateOperations(IEnumerable`1 apiDescriptions, SchemaRepository schemaRepository)
+   at Swashbuckle.AspNetCore.SwaggerGen.SwaggerGenerator.GeneratePaths(IEnumerable`1 apiDescriptions, SchemaRepository schemaRepository)
+   at Swashbuckle.AspNetCore.SwaggerGen.SwaggerGenerator.GetSwagger(String documentName, String host, String basePath)
+   at Swashbuckle.AspNetCore.Swagger.SwaggerMiddleware.Invoke(HttpContext httpContext, ISwaggerProvider swaggerProvider)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Authentication.AuthenticationMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Diagnostics.StatusCodePagesMiddleware.Invoke(HttpContext context)
+   at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware.Invoke(HttpContext context)
+2021-06-07 21:25:34.436 +03:00 [WRN] Sensitive data logging is enabled. Log entries and exception messages may include sensitive application data, this mode should only be enabled during development.
+2021-06-07 21:28:21.485 +03:00 [FTL] Unable to resolve service for type 'FullFraim.Services.SecurityServices.ISecurityService' while attempting to activate 'FullFraim.Web.Controllers.ApiControllers.ContestsController'.
+2021-06-07 21:28:21.486 +03:00 [ERR] Unable to resolve service for type 'FullFraim.Services.SecurityServices.ISecurityService' while attempting to activate 'FullFraim.Web.Controllers.ApiControllers.ContestsController'.
+2021-06-07 21:28:32.966 +03:00 [FTL] Unable to resolve service for type 'FullFraim.Services.SecurityServices.ISecurityService' while attempting to activate 'FullFraim.Web.Controllers.ApiControllers.ContestsController'.
+2021-06-07 21:28:32.967 +03:00 [ERR] Unable to resolve service for type 'FullFraim.Services.SecurityServices.ISecurityService' while attempting to activate 'FullFraim.Web.Controllers.ApiControllers.ContestsController'.
+2021-06-07 21:29:03.698 +03:00 [FTL] Unable to resolve service for type 'FullFraim.Services.SecurityServices.ISecurityService' while attempting to activate 'FullFraim.Web.Controllers.ApiControllers.ContestsController'.
+2021-06-07 21:29:03.700 +03:00 [ERR] Unable to resolve service for type 'FullFraim.Services.SecurityServices.ISecurityService' while attempting to activate 'FullFraim.Web.Controllers.ApiControllers.ContestsController'.
+2021-06-07 21:29:33.419 +03:00 [FTL] Unable to resolve service for type 'FullFraim.Services.SecurityServices.ISecurityService' while attempting to activate 'FullFraim.Web.Controllers.ApiControllers.ContestsController'.
+2021-06-07 21:29:33.420 +03:00 [ERR] Unable to resolve service for type 'FullFraim.Services.SecurityServices.ISecurityService' while attempting to activate 'FullFraim.Web.Controllers.ApiControllers.ContestsController'.
+2021-06-07 21:29:35.126 +03:00 [FTL] Unable to resolve service for type 'FullFraim.Services.SecurityServices.ISecurityService' while attempting to activate 'FullFraim.Web.Controllers.ApiControllers.ContestsController'.
+2021-06-07 21:29:35.128 +03:00 [ERR] Unable to resolve service for type 'FullFraim.Services.SecurityServices.ISecurityService' while attempting to activate 'FullFraim.Web.Controllers.ApiControllers.ContestsController'.
+2021-06-07 21:31:50.717 +03:00 [WRN] Sensitive data logging is enabled. Log entries and exception messages may include sensitive application data, this mode should only be enabled during development.

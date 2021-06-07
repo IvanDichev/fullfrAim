@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Shared;
+using Shared.AllConstants;
 using System;
 
 namespace FullFraim.Web.Filters
@@ -23,7 +24,7 @@ namespace FullFraim.Web.Filters
             {
                 context.Result = new ContentResult()
                 {
-                    Content = nullEx.Message,
+                    Content = ClientErrorMessages.ServiceUnavailable,
                     StatusCode = StatusCodes.Status400BadRequest,
                 };
             }
@@ -31,7 +32,7 @@ namespace FullFraim.Web.Filters
             {
                 context.Result = new ContentResult()
                 {
-                    Content = notFoundEx.Message,
+                    Content = ClientErrorMessages.NotFound,
                     StatusCode = StatusCodes.Status404NotFound,
                 };
             }
@@ -39,7 +40,7 @@ namespace FullFraim.Web.Filters
             {
                 context.Result = new ContentResult()
                 {
-                    Content = invalidIdEx.Message,
+                    Content = ClientErrorMessages.InvalidInput,
                     StatusCode = StatusCodes.Status400BadRequest,
                 };
             }
@@ -47,7 +48,7 @@ namespace FullFraim.Web.Filters
             {
                 context.Result = new ContentResult()
                 {
-                    Content = "Server unavailable",
+                    Content = ClientErrorMessages.ServerError,
                     StatusCode = StatusCodes.Status500InternalServerError,
                 };
 
