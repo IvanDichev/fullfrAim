@@ -145,18 +145,6 @@ namespace Web.Areas.Identity.Pages.Account
                         await this._emailSender.SendEmailAsync(this._config["SendGrid:SenderEmail"], "FullFraim", user.Email,
                             "Email Activation", HtmlEncoder.Default.Encode(callbackUrl));
 
-                        //var emailSender = new SendGridEmailSender(this._config["SendGrid:Key"]);
-                        //await emailSender.SendEmailAsync(_config["SendGrid:Email"], EmailConstants.FromMailingName, Input.Email,
-                        //EmailConstants.ConfirmationEmailSubject,
-                        //string.Format(EmailConstants.ExternalLogin, HtmlEncoder.Default.Encode(callbackUrl)));
-
-                        //var emailToSend = new Email(_config["EmailSenderInformation:Email"], Input.Email,
-                        //$"Please confirm your account by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.",
-                        //EmailConstants.ConfirmationEmailSubject);
-
-                        //await _emailSender.SendAsync(emailToSend, _config["EmailSenderInformation:Password"],
-                        //    _config["EmailSenderOptions:SmtpServer"], int.Parse(_config["EmailSenderOptions:Port"]));
-
                         // If account confirmation is required, we need to show the link if we don't have a real email sender
                         if (_userManager.Options.SignIn.RequireConfirmedAccount)
                         {

@@ -98,7 +98,6 @@ namespace Web.Areas.Identity.Pages.Account
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)
                 {
-                    //TODO Add to role
                     await _userManager.AddToRoleAsync(user, Constants.Roles.User);
                     _logger.LogInformation("User created a new account with password.");
 
@@ -119,7 +118,6 @@ namespace Web.Areas.Identity.Pages.Account
                             user.Email, HtmlEncoder.Default.Encode(callbackUrl),
                             "https://FullFrAim.com/ConfirmEmail", string.Format(Constants.Email.NHours, "24"),
                             Constants.EmailContents.ConfirmEmailStyles));
-
 
                     if (_userManager.Options.SignIn.RequireConfirmedAccount)
                     {

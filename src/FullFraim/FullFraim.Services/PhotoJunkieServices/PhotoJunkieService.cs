@@ -150,27 +150,6 @@ namespace FullFraim.Services.PhotoJunkieServices
             return isJury;
         }
 
-        //public async Task<bool> CanJunkyEnroll(int contestId, int userId)
-        //{
-        //    if (contestId <= 0)
-        //    {
-        //        throw new InvalidIdException(string.Format(LogMessages.InvalidId, "PhotoJunkieService", "CanJunkyEnroll", contestId, "contest"));
-        //    }
-
-        //    if (userId <= 0)
-        //    {
-        //        throw new InvalidIdException(string.Format(LogMessages.InvalidId, "PhotoJunkieService", "CanJunkyEnroll", userId, "user"));
-        //    }
-
-        //    var isParticipant = !await this.context.ParticipantContests
-        //        .AnyAsync(p => p.UserId == userId && p.ContestId == contestId);
-
-        //    var isJury = !await this.context.JuryContests
-        //        .AnyAsync(p => p.UserId == userId && p.ContestId == contestId);
-
-        //    return isParticipant && isJury;
-        //}
-
         public async Task<PhotoJunkieRankDto> GetPointsTillNextRankAsync(int userId)
         {
             var user = await this.userManager.FindByIdAsync(userId.ToString());

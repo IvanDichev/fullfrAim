@@ -39,39 +39,6 @@ namespace FullFraim.Data.Seed
                 Story = "Not a long way, we can climb it",
                 Url = Constants.Images.WildlifeImg4Url,
             },
-            //new Photo()
-            //{
-            //    Id = 5,
-            //    ContestId = 1,
-            //    Title = "Can I have some?",
-            //    Story = "Hungry birds",
-            //    Url = Constants.ImagesSeed.WildlifeImg5Url,
-            //},
-            //new Photo()
-            //{
-            //    Id = 6,
-            //    ContestId = 1,
-            //    Title = "Got it!",
-            //    Story = "Got it!",
-            //    Url = Constants.ImagesSeed.WildlifeImg6Url,
-            //},
-            
-            //new Photo()
-            //{
-            //    Id = 7,
-            //    ContestId = 2,
-            //    Title = "Squirrel",
-            //    Story = "Looking down",
-            //    Url = Constants.ImagesSeed.WildlifeImgUrl,
-            //},
-            //new Photo()
-            //{
-            //    Id = 8,
-            //    ContestId = 2,
-            //    Title = "Bath time",
-            //    Story = "On my way",
-            //    Url = Constants.ImagesSeed.WildlifeImg2Url,
-            //},
             new Photo()
             {
                 ContestId = 2,
@@ -129,23 +96,6 @@ namespace FullFraim.Data.Seed
                 Story = "Not a long way, we can climb it",
                 Url = Constants.Images.WildlifeImg4Url,
             },
-            //new Photo()
-            //{
-            //    Id = 17,
-            //    ContestId = 3,
-            //    Title = "Can I have some?",
-            //    Story = "Hungry birds",
-            //    Url = Constants.ImagesSeed.WildlifeImg5Url,
-            //},
-            //new Photo()
-            //{
-            //    Id = 18,
-            //    ContestId = 3,
-            //    Title = "Got it!",
-            //    Story = "Got it!",
-            //    Url = Constants.ImagesSeed.WildlifeImg6Url,
-            //},
-
             new Photo()
             {
                 ContestId = 4,

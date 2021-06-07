@@ -11,39 +11,6 @@ namespace FullFraim.Data.Seed
         public static readonly List<PhotoReview> SeedData = new List<PhotoReview>()
         {
             // Phase One - Cannot be given to the photos
-            //new PhotoReview()
-            //{
-            //    Id = 9,
-            //    JuryContestId = 1,
-            //    PhotoId = 1,
-            //    Score = 5,
-            //    Comment = "nice",
-            //},
-            //new PhotoReview()
-            //{
-            //    Id = 10,
-            //    JuryContestId = 1,
-            //    PhotoId = 2,
-            //    Score = 7,
-            //    Comment = "good",
-            //},
-            //new PhotoReview()
-            //{
-            //    Id = 11,
-            //    JuryContestId = 1,
-            //    PhotoId = 3,
-            //    Score = 9,
-            //    Comment = "WOW",
-            //},
-            //new PhotoReview()
-            //{
-            //    Id = 12,
-            //    JuryContestId = 1,
-            //    PhotoId = 4,
-            //    Score = 4,
-            //    Comment = "nice",
-            //},
-            
             new PhotoReview()
             {
                 JuryContestId = 1,
