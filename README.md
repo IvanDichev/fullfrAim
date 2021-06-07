@@ -195,6 +195,8 @@ FullFraim uses a number of open source projects to work properly:
  - Azure Deployment
  - Razor Pages
  - ViewComponents
+ - Html 5
+ - CSS 3
 
 ## Contacts
 
@@ -202,6 +204,6 @@ Contact us for further information
 
 | Contacts | Emails |
 | ------ | ------ |
-| Ivan Dichev | [plugins/dropbox/README.md][PlDb] |
-| Boryana Mihaylova | [plugins/github/README.md][PlGh] |
-| Valentin Shikov | [plugins/googledrive/README.md][PlGd] |
+| Ivan Dichev | i.dichev0@gmail.com |
+| Boryana Mihaylova | boryana.gm@gmail.com |
+| Valentin Shikov | valentinshikov@abv.bg |
