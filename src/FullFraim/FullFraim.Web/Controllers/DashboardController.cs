@@ -8,6 +8,7 @@ using FullFraim.Services.ContestServices;
 using FullFraim.Services.JuryServices;
 using FullFraim.Services.PhotoJunkieServices;
 using FullFraim.Services.PhotoService;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Shared;
 using Shared.AllConstants;
@@ -18,6 +19,7 @@ using Utilities.Mapper;
 
 namespace FullFraim.Web.Controllers
 {
+    [Authorize]
     public class DashboardController : BaseMvcController
     {
         private readonly IContestService contestService;

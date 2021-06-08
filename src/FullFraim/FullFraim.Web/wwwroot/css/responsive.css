@@ -96,8 +96,8 @@
     }
     .gallery_area {
         height: calc(100% - 380px);
-        width: calc(100% - 130px);
-        left: 100px;
+        width: calc(100% - 5px);
+        left: 5px;
         right: 30px;
         padding-right: 30px;
     }
@@ -237,12 +237,12 @@
     }
     .gallery_area {
         height: auto;
-        width: calc(100% - 90px);
+        width: calc(100% - 0px);
         overflow-y: auto;
         position: relative;
         z-index: 1;
         top: 100px;
-        left: 60px;
+        left: -5px;
         right: 15px;
         padding-right: 15px;
     }

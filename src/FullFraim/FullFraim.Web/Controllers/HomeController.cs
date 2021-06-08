@@ -1,6 +1,7 @@
 ﻿using FullFraim.Models.ViewModels.ContactUs;
 using FullFraim.Models.ViewModels.Home;
 using FullFraim.Services.PhotoService;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Configuration;
@@ -16,6 +17,7 @@ using Utilities.Mapper;
 
 namespace FullFraim.Web.Controllers
 {
+    [AllowAnonymous]
     public class HomeController : BaseMvcController
     {
         private readonly ILogger<HomeController> logger;

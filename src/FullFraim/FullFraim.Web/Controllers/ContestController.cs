@@ -4,6 +4,7 @@ using FullFraim.Services.ContestCatgeoryServices;
 using FullFraim.Services.ContestServices;
 using FullFraim.Services.ContestTypeServices;
 using FullFraim.Services.PhaseServices;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Shared;
 using Shared.AllConstants;
@@ -15,6 +16,7 @@ using Utilities.Mapper;
 
 namespace FullFraim.Web.Controllers
 {
+    [Authorize]
     [Controller]
     public class ContestController : BaseMvcController
     {
