@@ -17,6 +17,11 @@ namespace FullFraim.Web.Controllers.ApiControllers
             this.jwtServices = jwtServices;
         }
 
+        /// <summary>
+        /// used to login and receive the JWT Token
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
         [HttpGet("[Action]")]
         public async Task<IActionResult> Login([FromQuery] InputLoginModel_API model)
         {
@@ -30,6 +35,11 @@ namespace FullFraim.Web.Controllers.ApiControllers
             return Unauthorized();
         }
 
+        /// <summary>
+        /// used to register in our system
+        /// </summary>
+        /// <param name="model"></param>
+        /// <returns></returns>
         [HttpPost("[action]")]
         [ServiceFilter(typeof(APIExceptionFilter))]
         public async Task<IActionResult> Register([FromBody] RegisterInputModel_API model)

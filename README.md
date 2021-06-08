@@ -1,4 +1,4 @@
-# **FullFraim** 
+#  [**FullFraim**](https://fullfraim.azurewebsites.net/)
 ## _A site full of photo-contests in which you can participate and earn the title of "Photo Dictator"_
 ## _Cool Right!_
 ![N|Solid](https://res.cloudinary.com/fullfraim/image/upload/v1623086529/For%20Documentation/logo_gptfjh.png)
@@ -8,6 +8,25 @@
 > The site features photo-contests in which a newly registered user can participate, starting from the beginning with rank "Photo Junkie"
 > Once a thresholed of points is surpassed the user can advance in rank until he or she can become a jury and participate as such
 > For more information on functionality, [down in the document]()
+
+---
+
+#### Dashboard Page
+![N|Solid](https://res.cloudinary.com/fullfraim/image/upload/v1623093475/For%20Documentation/LandingPage_rmesdh.png)
+### Register Page
+![N|Solid](https://res.cloudinary.com/fullfraim/image/upload/v1623093475/For%20Documentation/RegisterPage_dr3hru.png)
+### Login Page
+![N|Solid](https://res.cloudinary.com/fullfraim/image/upload/v1623093474/For%20Documentation/LoginPage_bo2rgo.png)
+### Logged user sees
+![N|Solid](https://res.cloudinary.com/fullfraim/image/upload/v1623093475/For%20Documentation/LoggedUserSees_z1et0q.png)
+### Dashboard Page
+![N|Solid](https://res.cloudinary.com/fullfraim/image/upload/v1623093475/For%20Documentation/DashBoardPage_dacz65.png)
+### Create Contest Form
+![N|Solid](https://res.cloudinary.com/fullfraim/image/upload/v1623093474/For%20Documentation/CreateContest_grqlvh.png)
+### Users Page
+![N|Solid](https://res.cloudinary.com/fullfraim/image/upload/v1623093475/For%20Documentation/UsersPage_vnp5wy.png)
+
+---
 
 ## Features - MVC
 
@@ -100,18 +119,58 @@ only 2nd place will get the full 35 points, and the four 3rd finishers will get 
 
 ---
 
+## Features - API
+
+> API IMPLEMENTED USING SWAGGER!
+
+![N|Solid](https://res.cloudinary.com/fullfraim/image/upload/v1623091505/For%20Documentation/swaggerPresentation_z1qwgy.png)
+
+> ### Account (used for registration and login)
+```sh
+> GET: "/api/Account/Login" => used to login and receive the JWT Token
+> POST: "/api/Account/Register" => used to register in our system
+```
+> ### Contests (used to CRUD contests)
+```sh
+> GET: "/api/Contests" => used to get all contests (implements query filters and pagination)
+> POST: "/api/Contests" => used to create a contest
+> GET: "/api/Contests/{contestId}" => used to get a contest by id
+> PUT: "/api/Contests/{id}" => used to update a contest
+> DELETE: "/api/Contests/{id}" => used to delete a contests
+> GET: "Covers" => used to get all available covers
+```
+> ### Dashboard
+```sh
+> GET: "/api/Dashboard" => used to get contest without additional information
+```
+> ### Junkies
+```sh
+> GET: "/api/Junkies" => used to get all junkies
+> POST: "/api/Junkies/enroll" => used to enroll onto a given contest
+> GET: "/api/Junkies/nextrank" => used to get the points till next rank of the junkie
+```
+> ### Juries
+```sh
+> GET: "/api/Juries/review" => used to get all reviews of one jury
+```
+> ### Photos
+```sh
+> GET: "/api//Photos" => used to get all photos for a given contest
+> POST: "/api/Photos/submissions" => used to get all submissions for the given contest
+> GET: "/api/Photos/{id}" => used to get a photo by id
+> GET: "/api/Photos/TopRecent" => used to get the top recent photos out of all
+```
+---
 ## Installation
-
+> If you wish to download the app follow the steps below
+> If you find some improvements, feel free to contact us at fullfraim@gmail.com
+> HAVE FUN!
 ```sh
-> Download the app
+> Download the app from the repository
+> Add the connection string to your database
+> Run the application. The database will be automatically created
 ```
 
-For production environments...
-
-```sh
-npm install --production
-NODE_ENV=production node app
-```
 ### Database Diagram
 ---
 ![N|Solid](https://res.cloudinary.com/fullfraim/image/upload/v1623086127/For%20Documentation/fullfraimDiagran_itmphl.jpg)
@@ -124,6 +183,7 @@ FullFraim uses a number of open source projects to work properly:
  - Microsoft Entity Framework Core 3.1
  - MSSQL
  - Moq
+ - Swagger
  - EF Core InMemory
  - Serilog
  - JavaScript
@@ -133,7 +193,10 @@ FullFraim uses a number of open source projects to work properly:
  - JWT Bearer
  - ASP.NET Identity
  - Azure Deployment
-
+ - Razor Pages
+ - ViewComponents
+ - Html 5
+ - CSS 3
 
 ## Contacts
 
@@ -141,6 +204,6 @@ Contact us for further information
 
 | Contacts | Emails |
 | ------ | ------ |
-| Ivan Dichev | [plugins/dropbox/README.md][PlDb] |
-| Boryana Mihaylova | [plugins/github/README.md][PlGh] |
-| Valentin Shikov | [plugins/googledrive/README.md][PlGd] |
+| Ivan Dichev | i.dichev0@gmail.com |
+| Boryana Mihaylova | boryana.gm@gmail.com |
+| Valentin Shikov | valentinshikov@abv.bg |

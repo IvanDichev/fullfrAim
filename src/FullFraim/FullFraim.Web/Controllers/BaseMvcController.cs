@@ -1,10 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Utilities.Security;
 
 namespace FullFraim.Web.Controllers
 {
+    [Authorize]
     public abstract class BaseMvcController : Controller
     {
         private readonly ISecurityUtils securityUtils;

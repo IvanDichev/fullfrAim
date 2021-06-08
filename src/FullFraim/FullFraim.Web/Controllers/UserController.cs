@@ -4,6 +4,7 @@ using FullFraim.Models.ViewModels.Dashboard;
 using FullFraim.Models.ViewModels.Sorting;
 using FullFraim.Models.ViewModels.User;
 using FullFraim.Services.PhotoJunkieServices;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
@@ -14,6 +15,7 @@ using static Shared.Constants;
 
 namespace FullFraim.Web.Controllers
 {
+    [Authorize]
     public class UserController : Controller
     {
         private readonly IConfiguration configuration;
