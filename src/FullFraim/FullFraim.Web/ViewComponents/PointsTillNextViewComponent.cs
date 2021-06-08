@@ -37,6 +37,7 @@ namespace FullFraim.Web.ViewComponents
         {
             var junkies = await userManager.Users
                 .Where(x => x.FirstName != configuration["AccountAdminInfo:UserName"])
+                .OrderByDescending(r => r.Points)
                 .Take(5)
                 .ToListAsync();
 
@@ -53,9 +54,7 @@ namespace FullFraim.Web.ViewComponents
                     ($"{junkie.FirstName} {junkie.LastName}"));
             }
 
-            result = result
-                .OrderBy(r => r.PointsTillNextRank)
-                .ToList();
+            result = result.ToList();
 
             ViewBag.CurrentUser = await GetCurrentUserPointsAsync();
 
