@@ -197,6 +197,7 @@ FullFraim uses a number of open source projects to work properly:
  - ViewComponents
  - Html 5
  - CSS 3
+ - SendGrid
 
 ## Contacts
 
